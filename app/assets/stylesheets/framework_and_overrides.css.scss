@@ -80,3 +80,27 @@ section {
   @extend .btn-primary;
   @extend .btn-xs;
 }
+
+.navbar-inverse {
+  background-color: #FFF;
+  border-color: #FFF;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #777777;
+  &:hover {
+    // color: #178C32;
+    background-color: #178C32;
+  }
+}
+
+.navbar-inverse .navbar-toggle {
+  border: none;
+  background-color: #178C32;
+}
+
+div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
+  border: none;
+}
+
+
