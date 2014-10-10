@@ -32,8 +32,8 @@ Rails.application.configure do
   # Generate digests for assets URLs.
   config.assets.digest = true
 
-  config.action_controller.asset_host =  "//#{ENV['S3_STAGING_BUCKET']}.s3.amazonaws.com"
-  config.action_mailer.asset_host = "http://#{ENV['S3_STAGING_BUCKET']}.s3.amazonaws.com"
+  # config.action_controller.asset_host =  "//#{ENV['S3_STAGING_BUCKET']}.s3.amazonaws.com"
+  # config.action_mailer.asset_host = "http://#{ENV['S3_STAGING_BUCKET']}.s3.amazonaws.com"
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
