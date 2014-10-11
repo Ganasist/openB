@@ -121,14 +121,17 @@ body {
   }
 }
 
+div#footer_links {
+  padding-top: 7px;
+}
+
 #social_buttons a {
   padding-left: 15px;
   padding-right: 15px;
 }
 
 a#footer_logo img {
-  padding-top:  7px;
-  padding-bottom: 7px;
+  padding-top:  10px;
 }
 
 a#google_plus:hover {
@@ -180,7 +183,6 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
 }
 
 .bg {
-  // background: image-url('jumbotron.jpg');
   background: asset_url('jumbotron.jpg') no-repeat center center;
   position: absolute;
   width: 100%;
@@ -218,6 +220,17 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
     border-color: #f1f1f1;
     background-color: rgba(0,0,0,0);
   }
+}
+
+div.marketing {
+  background-color: #ececec;
+  padding-top: 20px;
+  margin-bottom: -20px;
+  text-align: center;
+}
+
+div.col-md-3, div.col-sm-6 {
+  padding-bottom: 20px;
 }
 
 .green_text {

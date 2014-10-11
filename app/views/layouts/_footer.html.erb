@@ -1,11 +1,10 @@
-<div id="footer" class="text-center">
-	<div class="container">
-		<div class="row">
+	<div class="row">
+		<div id="footer" class="text-center">
 			<div class="col-md-4 col-sm-6 hidden-xs">
 				<%= link_to image_tag("logo_footer.png"), root_path, id: 'footer_logo'  %>
 			</div>
 
-			<div class="col-md-4 hidden-sm hidden-xs">
+			<div class="col-md-4 hidden-sm hidden-xs" id="footer_links">
 				<small>
 					<%= link_to "©#{ Time.now.year }", root_path %>
 				  -	<%= link_to 'FAQ ', page_path('faq') %>
@@ -32,7 +31,5 @@
 					<%= fa_icon 'linkedin-square 2x', title: "LinkedIn" %>
         <% end %>
 			</div>
-		</div>
-		
+		</div>		
 	</div>  
-</div>
