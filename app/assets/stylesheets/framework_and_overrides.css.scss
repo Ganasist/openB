@@ -81,6 +81,53 @@ section {
   @extend .btn-xs;
 }
 
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 60px;
+
+  font-size: 1.2em;
+  background-color: #3c3c3c;
+  color: #FFF;
+  // position: absolute;
+  // bottom: 0;
+  // left: 0;
+  // right: 0;
+  // height: 60px;
+  // width: 100%;
+  padding: 15px;
+  a {
+    color: #FFF;
+    &:visited {
+      color: #FFF;
+    }
+    &:hover {
+      color: #178C32;
+      background: none;
+      text-decoration: none;
+    }
+  }
+}
+
 .navbar-inverse {
   background-color: #FFF;
   border-color: #FFF;
@@ -104,7 +151,7 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
   text-align: center;
 }
 .container {
-  width: 99%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -139,28 +186,24 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
     color: #3db952;
   }
 
-  .footer {
-  font-size: 1.2em;
-  background-color: #3c3c3c;
-  color: #FFF;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  width: 100%;
-  padding: 15px;
-  a {
-    color: #FFF;
-    &:visited {
-      color: #FFF;
-    }
-    &:hover {
-      color: #178C32;
-      background: none;
-      text-decoration: none;
-    }
+.btn-success#get_started {
+  color: #f1f1f1;
+  background-color: #3db952;
+  border-color: #3db952;
+  &:hover {
+    border-color: #f1f1f1;
+    background-color: rgba(0,0,0,0);
   }
 }
 
+.btn-default#learn_more {
+  margin-left: 10px;
+  color: #f1f1f1;
+  background-color: rgba(0,0,0,0);
+  border-color: #f1f1f1;
+  &:hover {
+    border-color: #3db952;
+    background-color: #3db952;
+  }
+}
 

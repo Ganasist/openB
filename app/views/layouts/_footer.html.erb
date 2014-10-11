@@ -1,12 +1,15 @@
 <br><br><br>
-<footer class="footer text-center">
-  <small><%= link_to "©#{ Time.now.year }", root_path %>
-  -	<%= link_to 'FAQ ', page_path('faq') %>
-	-	<%= link_to 'TERMS', page_path('terms') %>
-  -	<%= link_to 'PRIVACY', page_path('privacy') %>
-  <% if user_signed_in? %>
-	  -	<%= link_to 'FEEDBACK', new_feedback_path %>
-	  -	<%= link_to 'INVITATIONS', new_user_invitation_path %>
-	<% end %>
-	</small>
-</footer>
+<div id="footer" class="text-center">
+	<div class="container">
+		<small>
+			<%= link_to "©#{ Time.now.year }", root_path %>
+		  -	<%= link_to 'FAQ ', page_path('faq') %>
+			-	<%= link_to 'TERMS', page_path('terms') %>
+		  -	<%= link_to 'PRIVACY', page_path('privacy') %>
+		  <% if user_signed_in? %>
+			  -	<%= link_to 'FEEDBACK', new_feedback_path %>
+			  -	<%= link_to 'INVITATIONS', new_user_invitation_path %>
+			<% end %>
+		</small>
+	</div>  
+</div>

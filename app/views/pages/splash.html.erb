@@ -1,5 +1,8 @@
 <div class="bg"></div>
 <div class="jumbotron">
     <h2>FIND CONTRACTORS FOR YOUR <br> <u><strong>TOUGHEST</strong></u> <span class="green">PROJECTS</span></h2>
-    <p class="lead"><%= link_to "Sign-up", new_user_registration_path, class: "btn-large btn-warning btn-custom" %></p>
+    <ul class="list-inline">
+    	<li><%= link_to "GET STARTED", new_user_registration_path, class: "btn btn-success btn-lg", id: "get_started" %></li>
+		  <li><%= link_to "LEARN MORE", new_user_registration_path, class: "btn btn-default btn-lg", id: "learn_more" %></li>
+    </ul>
 </div>
