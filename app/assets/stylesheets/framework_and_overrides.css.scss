@@ -96,9 +96,9 @@ body {
   min-height: 100%;
   height: auto;
   /* Negative indent footer by its height */
-  margin: 0 auto -60px;
+  margin: 0 auto -60;
   /* Pad bottom by footer height */
-  padding: 0 0 60px;
+  padding: 0 0 20px;
 }
 
 /* Set the fixed height of the footer here */
@@ -107,12 +107,6 @@ body {
   font-size: 1.2em;
   background-color: #3c3c3c;
   color: #FFF;
-  // position: absolute;
-  // bottom: 0;
-  // left: 0;
-  // right: 0;
-  // height: 60px;
-  // width: 100%;
   padding: 15px 0px;
   a {
     color: #FFF;
@@ -158,6 +152,10 @@ a#linked_in:hover {
   border-color: #FFF;
 }
 
+nav.navbar {
+  border-bottom: 1px solid #178C32;
+}
+
 .navbar-inverse .navbar-nav > li > strong > a {
   color: #777777;
   &:hover {
@@ -171,9 +169,11 @@ a#linked_in:hover {
 }
 
 div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
+  width: 100%;
   border: none;
   text-align: center;
 }
+
 .container {
   width: 100%;
   margin: 0 auto;
@@ -196,7 +196,7 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
   height: 510px;
   background:transparent;
   // color: @navbarBackground + #222;
-  margin-top: 150px;
+  margin-top: 100px;
   h2 {
     line-height: 1.5em;
     color: #f1f1f1;
@@ -218,6 +218,20 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
     border-color: #f1f1f1;
     background-color: rgba(0,0,0,0);
   }
+}
+
+.green_text {
+  color: #3db952;
+  text-transform: uppercase;
+}
+
+hr.green_blur {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 1px 1px #3db952;
+}
+hr.green_blur:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
 }
 
 .btn-default#learn_more {

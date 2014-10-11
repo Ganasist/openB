@@ -2,9 +2,7 @@
 
 <% else %>
   <nav class="navbar navbar-inverse">
-    <div class="container fluid">
-
-        <%= link_to image_tag("logo.png"), root_path, class: 'navbar-brand' %>
+      <%= link_to image_tag("logo.png"), root_path, class: 'navbar-brand' %>
       <div class="navbar-header pull-right">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
           
@@ -15,12 +13,11 @@
         </button>
       </div>
 
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav pull-right">
+      <div class="collapse navbar-collapse pull-right">
+        <ul class="nav navbar-nav">
           <%= render 'layouts/navigation_links' %>
         </ul>
       </div><!-- /.container-collapse -->
 
-    </div> <!-- /.container-fluid -->
   </nav>
 <% end %>
