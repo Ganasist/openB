@@ -114,7 +114,7 @@ body {
   // right: 0;
   // height: 60px;
   // width: 100%;
-  padding: 15px;
+  padding: 20px;
   a {
     color: #FFF;
     &:visited {
@@ -126,6 +126,26 @@ body {
       text-decoration: none;
     }
   }
+}
+
+#social_buttons a {
+  padding: 0px 10px;
+}
+
+a#google_plus:hover {
+  color: #dd4b39;
+}
+
+a#facebook:hover {
+  color: #3B5998;
+}
+
+a#twitter:hover {
+  color: #55ACEE;
+}
+
+a#linked_in:hover {
+  color: #007bb6;
 }
 
 .navbar-inverse {

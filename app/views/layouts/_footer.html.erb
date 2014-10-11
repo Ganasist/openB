@@ -1,15 +1,39 @@
 <br><br><br>
 <div id="footer" class="text-center">
 	<div class="container">
-		<small>
-			<%= link_to "©#{ Time.now.year }", root_path %>
-		  -	<%= link_to 'FAQ ', page_path('faq') %>
-			-	<%= link_to 'TERMS', page_path('terms') %>
-		  -	<%= link_to 'PRIVACY', page_path('privacy') %>
-		  <% if user_signed_in? %>
-			  -	<%= link_to 'FEEDBACK', new_feedback_path %>
-			  -	<%= link_to 'INVITATIONS', new_user_invitation_path %>
-			<% end %>
-		</small>
+		<div class="row">
+			<div class="col-md-4 col-sm-6 hidden-xs">
+				<%= link_to image_tag("logo_footer.png"), root_path, id: 'footer_logo'  %>
+			</div>
+
+			<div class="col-md-4 hidden-sm hidden-xs">
+				<small>
+					<%= link_to "©#{ Time.now.year }", root_path %>
+				  -	<%= link_to 'FAQ ', page_path('faq') %>
+					-	<%= link_to 'TERMS', page_path('terms') %>
+				  -	<%= link_to 'PRIVACY', page_path('privacy') %>
+				  <% if user_signed_in? %>
+					  -	<%= link_to 'FEEDBACK', new_feedback_path %>
+					  -	<%= link_to 'INVITATIONS', new_user_invitation_path %>
+					<% end %>
+				</small>
+			</div>
+			
+			<div class="col-md-4  col-sm-6 col-xs-12" id="social_buttons">
+				<%= link_to "#", target: "_blank", id: "google_plus"  do %>
+					<%= fa_icon 'google-plus-square 2x', title: "Google+" %>
+        <% end %>
+        <%= link_to "#", target: "_blank", id: "facebook"  do %>
+					<%= fa_icon 'facebook-square 2x', title: "Facebook" %>
+        <% end %>
+        <%= link_to "#", target: "_blank", id: "twitter"  do %>
+					<%= fa_icon 'twitter-square 2x', title: "Twitter" %>
+        <% end %>
+        <%= link_to "#", target: "_blank", id: "linked_in"  do %>
+					<%= fa_icon 'linkedin-square 2x', title: "LinkedIn" %>
+        <% end %>
+			</div>
+		</div>
+		
 	</div>  
 </div>
