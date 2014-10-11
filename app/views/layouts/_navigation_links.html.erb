@@ -1,12 +1,16 @@
 <%# add navigation links to this file %>
-<li><%= link_to 'ABOUT', page_path('about') %></li>
+<li><%= link_to 'How it works', page_path('about'), 
+																class: 'btn btn-success btn-lg', 
+																	 id: 'learn_more_nav' %></li>
 <% if user_signed_in? %>
   <li><%= link_to 'EDIT ACCOUNT', edit_user_registration_path %></li>
   <li><%= link_to 'SIGN OUT', destroy_user_session_path, :method=>'delete' %></li>
 <% else %>
-  <li><%= link_to 'SIGN IN', new_user_session_path %></li>
-  <li><%= link_to 'SIGN UP', new_user_registration_path %></li>
+  <li><%= link_to 'Log in', new_user_session_path, 
+  													class: 'btn btn-success btn-lg', 
+  														 id: 'login_nav' %></li>
 <% end %>
+
 <% if user_signed_in? %>
   <% if current_user.admin? %>
     <li><%= link_to 'ADMIN', '/admin' %></li>

@@ -158,11 +158,10 @@ a#linked_in:hover {
   border-color: #FFF;
 }
 
-.navbar-inverse .navbar-nav > li > a {
+.navbar-inverse .navbar-nav > li > strong > a {
   color: #777777;
   &:hover {
-    // color: #178C32;
-    background-color: #178C32;
+    color: #178C32;
   }
 }
 
@@ -232,3 +231,12 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
   }
 }
 
+#login_nav, #learn_more_nav {
+  color: #3db952;
+  background-color: rgba(0,0,0,0);
+  border-color: rgba(0,0,0,0);
+  &:hover {
+    color: #f1f1f1;
+    background-color: #3db952;
+  }
+}
