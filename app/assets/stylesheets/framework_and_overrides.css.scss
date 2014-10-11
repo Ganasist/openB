@@ -104,7 +104,6 @@ body {
 /* Set the fixed height of the footer here */
 #footer {
   height: 60px;
-
   font-size: 1.2em;
   background-color: #3c3c3c;
   color: #FFF;
@@ -114,7 +113,7 @@ body {
   // right: 0;
   // height: 60px;
   // width: 100%;
-  padding: 20px;
+  padding: 15px 0px;
   a {
     color: #FFF;
     &:visited {
@@ -129,7 +128,13 @@ body {
 }
 
 #social_buttons a {
-  padding: 0px 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+a#footer_logo img {
+  padding-top:  7px;
+  padding-bottom: 7px;
 }
 
 a#google_plus:hover {
