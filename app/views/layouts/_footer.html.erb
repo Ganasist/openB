@@ -1,7 +1,8 @@
-	<div class="row">
-		<div id="footer" class="text-center">
+<div id="footer" class="text-center">
+	<div class="container">
+		<div class="row">
 			<div class="col-md-4 col-sm-6 hidden-xs">
-				<%= link_to image_tag("logo_footer.png"), root_path, id: 'footer_logo'  %>
+				<%= link_to image_tag('logo_footer.png'), root_path, id: 'footer_logo'  %>
 			</div>
 
 			<div class="col-md-4 hidden-sm hidden-xs" id="footer_links">
@@ -20,16 +21,17 @@
 			<div class="col-md-4  col-sm-6 col-xs-12" id="social_buttons">
 				<%= link_to "#", target: "_blank", id: "google_plus"  do %>
 					<%= fa_icon 'google-plus-square 2x', title: "Google+" %>
-        <% end %>
-        <%= link_to "#", target: "_blank", id: "facebook"  do %>
+	      <% end %>
+	      <%= link_to "#", target: "_blank", id: "facebook"  do %>
 					<%= fa_icon 'facebook-square 2x', title: "Facebook" %>
-        <% end %>
-        <%= link_to "#", target: "_blank", id: "twitter"  do %>
+	      <% end %>
+	      <%= link_to "#", target: "_blank", id: "twitter"  do %>
 					<%= fa_icon 'twitter-square 2x', title: "Twitter" %>
-        <% end %>
-        <%= link_to "#", target: "_blank", id: "linked_in"  do %>
+	      <% end %>
+	      <%= link_to "#", target: "_blank", id: "linked_in"  do %>
 					<%= fa_icon 'linkedin-square 2x', title: "LinkedIn" %>
-        <% end %>
+	      <% end %>
 			</div>
-		</div>		
-	</div>  
+		</div>
+	</div>		
+</div>

@@ -9,12 +9,16 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div id="wrap">      
-      <header>
-        <%= render 'layouts/navigation' %>
-      </header>
-      <%= render 'layouts/messages' %>    
-      <%= render 'layouts/main' %>
+    <div id="wrap">
+        <header>
+          <%= render 'layouts/navigation' %>
+        </header>
+        
+      <div class="container">
+        <%= render 'layouts/messages' %>
+        <%#= bootstrap_flash %>
+        <%= yield %>
+      </div>
     </div>
     <%= render 'layouts/footer' %>
     <!-- Javascripts -->
