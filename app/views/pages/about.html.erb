@@ -1,34 +1,21 @@
 <% content_for :title do %>About<% end %>
 
 <div class="row">
-	<div class="col-lg-12">
-		<h1 class="green_text">How it works</h1>
-		<!-- <hr class="green_blur"> -->
-		<br>
-		<p>OPENBID is a free site for finding contractors for your toughest projects. OPENBID automates the traditional quote writing process. Users  can post a job or project with details of what needs to be completed and when it needs to be finished. Users can add photos, select a category, and add more details of the job. The price is typically left open for bid. All contact information is hidden until the user decides to share it with a potential contractor.
-		</p>
-		<p>Contractors can search the posted jobs by category and filter by distance. Contractors can view the post and examine the requirements of the project. If interested they can submit a bid or quote for the work.  Contractors can also specify email notifications for jobs posted in categories of interest.
-		</p>
-		<p>OPENBID organizes all submitted quotes in your personal dashboard. The poster can view the quotes, click on the profiles of the applicants, and communicate directly with contractors.
-		</p>
-		<p>The Process is Easy:</p>
-		<ol>
-			<li>Create an account for free.</li>
-			<li>Post a description of your project with specifications for work to be completed.</li>
-			<li>Use OPENBID to manage your project by communicating with contractors.</li>
-			<li>Award a winning bid.</li>
-		</ol>
 
-		<p>Bid on jobs:</p>
-		<ol>
-			<li>Create an account for free.</li>
-			<li>Search jobs open for bid.</li>
-			<li>Submit your bid.</li>
-		</ol>
+		<h1 class="green_text col-md-12">About Us</h1>
 		<br>
-	</div>
-		<div class="text-center">
-			<%= link_to	'Register Here', new_user_registration_path, 
-																	 class: 'btn btn-success' %>
+		<div class="col-md-8">
+			<p>OPENBID was created by professionals in the technology and food industries.  We’re dedicated to customer service and stand behind our product.  Your privacy is our utmost concern and we do everything possible to earn your trust.  OPENBID is based in Bakersfield, CA. We greatly appreciate your feedback. Please contact us with questions or to set up a meeting.
+			</p>
+			<p>A message from the founder Lance Schwarzkopf, ” I’ve worked for large companies in the food industry for the better part of a decade.  I understand the difficulty of managing requests from ingredient and equipment suppliers.   I  have also worked as an independent research and development consultant.   I’m very familiar with the amount of time it takes to find new customers and write quotes.  OPENBID is our way of making business between customers and contractors more efficient for all parties involved.  It would be great to hear from you contact us.
+			</p>
+			<br>
+			<div class="text-center">
+				<%= link_to	'Register Here', new_user_registration_path, 
+																	 	 class: 'btn btn-success' %>
+			</div>
 		</div>
+		<br>
+		<%= image_tag 'about.jpg', class: 'img-rounded col-md-4' %>
+	</div>	
 </div>
