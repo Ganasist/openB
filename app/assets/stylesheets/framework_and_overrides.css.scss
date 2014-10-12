@@ -107,7 +107,7 @@ body {
   font-size: 1.2em;
   background-color: #3c3c3c;
   color: #FFF;
-  padding:18px 0px;
+  padding: 18px 0px;
   a {
     color: #FFF;
     &:visited {
@@ -189,7 +189,7 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
   height: 510px; /*same height as jumbotron */
   top:0;
   left:0;
-  margin-top: 55px;
+  margin-top: 45px;
   z-index: -1;
 }
 
@@ -197,14 +197,12 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
   margin-bottom: 35px;
   height: 510px;
   background:transparent;
-  // color: @navbarBackground + #222;
-  margin-top: 100px;
+  margin-top: 80px;
   h2 {
     line-height: 1.5em;
     color: #f1f1f1;
     padding-left: 0px;
     padding-right: 0px;
-    // text-shadow: 1px 1px 1px @navbarBackground - #222;
     }
   }
 
@@ -225,7 +223,7 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
 div.marketing {
   background-color: #ececec;
   padding-top: 20px;
-  margin-bottom: -20px;
+  // margin-bottom: -20px;
   text-align: center;
 }
 
