@@ -1,0 +1,9 @@
+<td>
+  <%= link_to contractor.email, contractor %>
+</td>
+
+<td>
+  <%= link_to('Delete contractor', contractor_path(contractor), 
+  							method: :delete, 
+  							 class: 'button-xs') unless contractor == current_contractor %>
+</td>
