@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :contractors
   mount Upmin::Engine => '/admin'
   
   devise_for :users
