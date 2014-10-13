@@ -96,14 +96,14 @@ body {
   min-height: 100%;
   height: auto;
   /* Negative indent footer by its height */
-  margin: 0 auto -73;
+  margin: 0 auto -72px;
   /* Pad bottom by footer height */
-  padding: 0 0 73;
+  padding: 0 0 72px;
 }
 
 /* Set the fixed height of the footer here */
 #footer {
-  height: 73;
+  height: 72px;
   margin-top: 10px;
   font-size: 1.2em;
   background-color: #3c3c3c;
@@ -152,6 +152,10 @@ a#twitter:hover {
 
 a#linked_in:hover {
   color: #007bb6;
+}
+
+div#static h3 {
+  color: #3db952;
 }
 
 .navbar-inverse {
@@ -233,11 +237,6 @@ div.marketing {
 
 div.col-md-3, div.col-sm-6 {
   padding-bottom: 20px;
-}
-
-.green_text {
-  color: #3db952;
-  text-transform: uppercase;
 }
 
 hr.green_blur {
