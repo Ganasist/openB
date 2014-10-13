@@ -17,10 +17,9 @@ Rails.application.routes.draw do
 											 					 sessions: 'contractors/sessions',
 											 					  unlocks: 'contractors/unlocks' }
 
-  # devise_for :contractors
-  # devise_for :users
-  
-  resources :users
+
+  resources :users, only: [:show, :index]
+  resources :contractors, only: [:show, :index]
 
   resource :contact, only: [:new, :create]
 
