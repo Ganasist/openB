@@ -12,7 +12,6 @@
 					-	<%= link_to 'About Us', page_path('about') %>
 				  -	<%= link_to 'Privacy', page_path('privacy') %>
 				  <% if user_signed_in? %>
-					  -	<%= link_to 'FEEDBACK', new_feedback_path %>
 					  -	<%= link_to 'INVITATIONS', new_user_invitation_path %>
 					<% end %>
 				</small>
