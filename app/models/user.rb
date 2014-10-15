@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
 
+	has_many :jobs
+	has_many :contractors, through: :jobs
+
 	has_many :posts
 
   devise :confirmable, :lockable, :timeoutable, :invitable, :database_authenticatable, 

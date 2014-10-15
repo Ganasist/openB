@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141015135915) do
+ActiveRecord::Schema.define(version: 20141015143542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,19 @@ ActiveRecord::Schema.define(version: 20141015135915) do
   add_index "contractors", ["reset_password_token"], name: "index_contractors_on_reset_password_token", unique: true, using: :btree
   add_index "contractors", ["unlock_token"], name: "index_contractors_on_unlock_token", unique: true, using: :btree
   add_index "contractors", ["zip_code"], name: "index_contractors_on_zip_code", using: :btree
+
+  create_table "jobs", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "zip_code"
+    t.integer  "user_id"
+    t.integer  "contractor_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "jobs", ["contractor_id"], name: "index_jobs_on_contractor_id", using: :btree
+  add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
 
   create_table "posts", force: true do |t|
     t.integer  "zip_code"

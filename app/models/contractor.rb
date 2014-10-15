@@ -1,5 +1,8 @@
 class Contractor < ActiveRecord::Base
 	
+	has_many :jobs
+	has_many :users, through: :jobs
+	
 	has_many :posts
 
   devise :confirmable, :lockable, :timeoutable, :database_authenticatable, 

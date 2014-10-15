@@ -3,6 +3,8 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
+  resources :jobs
+
   resources :posts
 
 	devise_for :users, controllers: { 
