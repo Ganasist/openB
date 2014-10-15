@@ -1,5 +1,8 @@
 class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
+  before_filter :user_check, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_contractor!, only: :index
+  before_action :authenticate_user!, only: [:new, :create]
 
   def index
     @jobs = Job.all
@@ -35,6 +38,13 @@ class JobsController < ApplicationController
   end
 
   private
+
+    def user_check
+      unless current_user == @job.user
+        redirect_to :back, alert: 'Access denied.'
+      end
+    end
+
     def set_job
       @job = Job.find(params[:id])
     end

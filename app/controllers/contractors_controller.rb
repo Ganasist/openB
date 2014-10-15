@@ -1,6 +1,7 @@
 class ContractorsController < ApplicationController
-  before_filter :authenticate_contractor!
+  before_filter :authenticate_contractor!, except: [:index, :show]
   # before_filter :admin_only, except: :show
+  before_filter :authenticate_user!, only: [:index, :show]
 
   def index
     @contractors = Contractor.all
@@ -41,5 +42,4 @@ class ContractorsController < ApplicationController
   def secure_params
     params.require(:contractor).permit(:role)
   end
-
 end
