@@ -72,7 +72,7 @@ Rails.application.configure do
 
   config.action_mailer.smtp_settings = {
     address: 'smtp.sendgrid.net',
-    port: 25,
+    port: '587',
     domain: 'heroku.com',
     authentication: 'plain',
     enable_starttls_auto: true,
@@ -80,11 +80,10 @@ Rails.application.configure do
     password: ENV['SENDGRID_PASSWORD']
   }
   # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => 'staging.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'staging.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
-
 
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false
