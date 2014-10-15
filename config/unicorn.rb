@@ -1,10 +1,6 @@
+worker_processes (ENV['WEB_CONCURRENCY'] || 3).to_i
 timeout 15
 preload_app true
-if Rails.env.development?
-  worker_processes 3
-else
-  worker_processes 3
-end
 
 before_fork do |server, worker|
   Signal.trap 'TERM' do
