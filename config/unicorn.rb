@@ -1,4 +1,8 @@
-worker_processes Integer(ENV['WEB_CONCURRENCY'] || 1)
+if Rails.env.development?
+  worker_processes 3
+else
+  worker_processes 3
+end
 timeout 15
 preload_app true
 
@@ -7,11 +11,10 @@ before_fork do |server, worker|
     puts 'Unicorn master intercepting TERM and sending myself QUIT instead'
     Process.kill 'QUIT', Process.pid
   end
-
   if defined?(ActiveRecord::Base)
     ActiveRecord::Base.connection.disconnect!
   end
-  # @sidekiq_pid ||= spawn("bundle exec sidekiq")
+  @sidekiq_pid ||= spawn("bundle exec sidekiq")
 end
 
 after_fork do |server, worker|
@@ -27,15 +30,15 @@ after_fork do |server, worker|
   end
 
   # Sidekiq.configure_server do |config|
-  #   config.redis = { url: ENV['LIVE_REDISTOGO_URL'],
+  #   config.redis = { url: ENV['REDISTOGO_URL'],
   #                   size: 5,
-  #              namespace: "infinitory_#{Rails.env}" }
+  #              namespace: "openbid_#{ Rails.env }" }
   #   config.poll_interval = 5
   # end
 
   # Sidekiq.configure_client do |config|
-  #   config.redis = { url: ENV['LIVE_REDISTOGO_URL'],
+  #   config.redis = { url: ENV['REDISTOGO_URL'],
   #                   size: 1,
-  #              namespace: "infinitory_#{Rails.env}" }
+  #              namespace: "openbid_#{ Rails.env }" }
   # end
 end

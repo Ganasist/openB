@@ -8,12 +8,12 @@ gem 'jquery-rails'
 # gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
-gem 'spring',        group: :development
+# gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'devise_invitable'
 gem 'devise-async'
-gem 'responders'
+gem 'responders', '~> 2.0'
 gem 'figaro', '>= 1.0.0.rc1'
 # gem 'fog', '~>1.20'
 # gem 'asset_sync'
@@ -23,6 +23,7 @@ gem 'high_voltage'
 gem 'pg'
 gem 'active_attr'
 gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'sendgrid'
 gem 'simple_form', '~> 3.1.0.rc1', github: 'plataformatec/simple_form', branch: 'master'
 gem 'unicorn'

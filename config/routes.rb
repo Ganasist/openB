@@ -1,3 +1,6 @@
+require 'sidekiq/web'
+# require 'sidetiq/web'
+
 Rails.application.routes.draw do
 
 	devise_for :users, controllers: { 
@@ -32,6 +35,8 @@ Rails.application.routes.draw do
 
   resource :contact, only: [:new, :create]
 
+  
+	mount Sidekiq::Web => '/sidekiq'
   mount Upmin::Engine => '/admin'
   root :to => 'high_voltage/pages#show', id: 'splash'
 end

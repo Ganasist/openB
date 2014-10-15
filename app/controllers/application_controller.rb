@@ -7,7 +7,4 @@ class ApplicationController < ActionController::Base
 	  current_user || current_contractor
 	end
 
-	def self.mimes_for_respond_to
-	  [1]
-	end
 end
