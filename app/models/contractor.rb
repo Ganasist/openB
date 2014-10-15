@@ -13,7 +13,7 @@ class Contractor < ActiveRecord::Base
     	'Stone and Gravel']
   end
 
-  def self.splash_categories
+  def self.splash_page_categories
     ['Driveways', 'Electrical', 'Landscaping', 'New Construction',
 	  	'Painting','Plumbing', 'Remodel', 'Roofing' ]
   end
