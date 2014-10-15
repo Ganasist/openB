@@ -1,10 +1,10 @@
+timeout 15
+preload_app true
 if Rails.env.development?
   worker_processes 3
 else
   worker_processes 3
 end
-timeout 15
-preload_app true
 
 before_fork do |server, worker|
   Signal.trap 'TERM' do
