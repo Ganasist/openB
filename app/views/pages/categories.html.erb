@@ -1,10 +1,8 @@
-<% content_for :title do %>About<% end %>
+<% content_for :title do %>Categories<% end %>
 
-<div class="row" id="static">
+<div class="row">
 	<div class="col-md-3">
-		<h1 class="text-capitalize text-center">About Us</h1>
-		<br>
-		<%= image_tag 'about.jpg', class: 'img-rounded' %>
+		<h1 class="text-capitlize">Categories</h1>
 	</div>
 	<div class="col-md-9">
 		<br>
@@ -14,8 +12,8 @@
 		</p>
 		<br>
 		<div class="text-center">
-			<%= link_to	'Register Here', new_user_registration_path, 
-																 	 class: 'btn btn-success text-center' %>
+			<%= link_to	'User Registeration', new_user_registration_path, 
+																 	 			class: 'btn btn-success text-center pull-left' %>
 		</div>
 		<br>
 	</div>

@@ -1,23 +1,27 @@
 <% content_for :title do %>FAQ<% end %>
 <div class="row" id="static">
 	<div class="col-lg-12">
-		<h1 class="text-uppercase">FAQ</h1>
-		<h3>How much does it cost?</h3>
-		<h4>It's free.</h4>
+		<div class="col-md-3">
+			<h1 class="text-uppercase text-center">FAQ</h1>
+		</div>
+		<div class="col-md-9">
+			<h3>How much does it cost?</h3>
+			<h4>It's free.</h4>
 
-		<h3>Who sees my contact information?</h3>
-		<h4>
-			OPENBID never displays your contact information in the public domain of the site. You 			choose which vendors see it.  OPENBID is not a lead generation site.  We do not sell your 		contact information.
-		</h4>
+			<h3>Who sees my contact information?</h3>
+			<h4>
+				OPENBID never displays your contact information in the public domain of the site. You 			choose which vendors see it.  OPENBID is not a lead generation site.  We do not sell your 		contact information.
+			</h4>
 
-		<h3>Who do I contact if I have problem with the site?</h3>
-		<h4><%= link_to 'contact us', new_contact_path, class: 'text-uppercase' %></h4>
+			<h3>Who do I contact if I have problem with the site?</h3>
+			<h4><%= link_to 'contact us', new_contact_path, class: 'text-uppercase' %></h4>
 
-		<h3>Why is it free?</h3>
-		<h4>We’re a start up.  We’re trying to figure out what services people want.</h4>
+			<h3>Why is it free?</h3>
+			<h4>We’re a start up.  We’re trying to figure out what services people want.</h4>
 
-		<h3>How do I register?</h3>
-		<h4><%= link_to	'Register Here', new_user_registration_path, 
-																	 class: 'btn btn-success' %></h4>
+			<h3>How do I register?</h3>
+			<h4><%= link_to	'Register Here', new_user_registration_path, 
+																		 class: 'btn btn-success' %></h4>
+		</div>
 	</div>
 </div>

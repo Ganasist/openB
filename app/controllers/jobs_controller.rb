@@ -3,16 +3,16 @@ class JobsController < ApplicationController
 
   def index
     @jobs = Job.all
-    respond_with(@jobs)
+    # respond_with(@jobs)
   end
 
   def show
-    respond_with(@job)
+    # respond_with(@job)
   end
 
   def new
     @job = Job.new
-    respond_with(@job)
+    # respond_with(@job)
   end
 
   def edit
@@ -21,17 +21,17 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
     flash[:notice] = 'Job was successfully created.' if @job.save
-    respond_with(@job)
+    # respond_with(@job)
   end
 
   def update
     flash[:notice] = 'Job was successfully updated.' if @job.update(job_params)
-    respond_with(@job)
+    # respond_with(@job)
   end
 
   def destroy
     @job.destroy
-    respond_with(@job)
+    # respond_with(@job)
   end
 
   private

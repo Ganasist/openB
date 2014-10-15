@@ -42,5 +42,5 @@ Rails.application.routes.draw do
   
 	mount Sidekiq::Web => '/sidekiq'
   mount Upmin::Engine => '/admin'
-  root :to => 'high_voltage/pages#show', id: 'splash'
+  root to: 'high_voltage/pages#show', id: 'splash'
 end
