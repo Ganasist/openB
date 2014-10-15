@@ -3,28 +3,24 @@
 	<div class="jumbotron">
 	    <h2>FIND <br class="visible-xs hidden-sm"> CONTRACTORS FOR YOUR <u>TOUGHEST</u> <span class="green">PROJECTS</span></h2>
 	    <ul class="list-inline">
-	    	<li><%= link_to "GET STARTED", new_user_registration_path, class: "btn btn-success btn-lg", id: "get_started" %></li>
-			  <li><%= link_to "LEARN MORE", new_user_registration_path, class: "btn btn-default btn-lg", id: "learn_more" %></li>
+	    	<li><%= link_to "GET STARTED", new_user_registration_path, class: 'btn btn-success btn-lg', id: "get_started" %></li>
+			  <li><%= link_to "LEARN MORE", new_user_registration_path, class: 'btn btn-default btn-lg', id: "learn_more" %></li>
 	    </ul>
 	</div>
 </div>
 
 <div class="marketing row">
-    <table class="table table-striped table-hover table-bordered">
-    <thead class="lead">
-      <td>Category</td>
-      <td>Contractors</td>
-      <td>Open Bids</td>
-    </thead>
-    <tbody class="">
-      <% Contractor.splash_page_categories.each do |category| %>
-      <tr>
-        <td><%= category %></td>
-        <td><%= rand(1000) %></td>
-        <td><%= rand(1000) %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%#= link_to 'View all categories',  %>
+    <table class="table table-striped table-hover table-bordered text-center">
+      <thead class="lead">
+        <td>Category</td>
+        <td>Contractors</td>
+        <td>Open Jobs</td>
+      </thead>
+        <tbody>
+          <%= render partial: 'pages/_categories', 
+                  collection: Contractor.splash_page_categories, 
+                          as: :category %>
+        <tbody>
+     </table>
+  <%= link_to 'View all categories', page_path('categories'), class: 'btn btn-success btn-lg'  %>
 </div>
