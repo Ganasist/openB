@@ -8,5 +8,5 @@ class User < ActiveRecord::Base
 
   devise :confirmable, :lockable, :timeoutable, :invitable, :database_authenticatable, 
   			 :registerable, :confirmable, :recoverable, :rememberable, :trackable, 
-  			 :validatable
+  			 :validatable, :async
 end
