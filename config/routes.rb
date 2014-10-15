@@ -3,6 +3,8 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
+  resources :posts
+
 	devise_for :users, controllers: { 
 									 					# confirmations: 'users/confirmations',
 										 	 # omniauth_callbacks: 'users/omniauth_callbacks',
