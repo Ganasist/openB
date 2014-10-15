@@ -10753,1891 +10753,2182 @@ return jQuery;
   }
 
 })( jQuery );
-/*!
- * ClockPicker v0.0.7 (http://weareoutman.github.io/clockpicker/)
- * Copyright 2014 Wang Shenwei.
- * Licensed under MIT (https://github.com/weareoutman/clockpicker/blob/gh-pages/LICENSE)
- */
+/* ========================================================================
+ * Bootstrap: affix.js v3.2.0
+ * http://getbootstrap.com/javascript/#affix
+ * ========================================================================
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
 
 
-;(function(){
-	var $ = window.jQuery,
-		$win = $(window),
-		$doc = $(document),
-		$body;
 
-	// Can I use inline svg ?
-	var svgNS = 'http://www.w3.org/2000/svg',
-		svgSupported = 'SVGAngle' in window && (function(){
-			var supported,
-				el = document.createElement('div');
-			el.innerHTML = '<svg/>';
-			supported = (el.firstChild && el.firstChild.namespaceURI) == svgNS;
-			el.innerHTML = '';
-			return supported;
-		})();
++function ($) {
+  'use strict';
 
-	// Can I use transition ?
-	var transitionSupported = (function(){
-		var style = document.createElement('div').style;
-		return 'transition' in style ||
-			'WebkitTransition' in style ||
-			'MozTransition' in style ||
-			'msTransition' in style ||
-			'OTransition' in style;
-	})();
+  // AFFIX CLASS DEFINITION
+  // ======================
 
-	// Listen touch events in touch screen device, instead of mouse events in desktop.
-	var touchSupported = 'ontouchstart' in window,
-		mousedownEvent = 'mousedown' + ( touchSupported ? ' touchstart' : ''),
-		mousemoveEvent = 'mousemove.clockpicker' + ( touchSupported ? ' touchmove.clockpicker' : ''),
-		mouseupEvent = 'mouseup.clockpicker' + ( touchSupported ? ' touchend.clockpicker' : '');
+  var Affix = function (element, options) {
+    this.options = $.extend({}, Affix.DEFAULTS, options)
 
-	// Vibrate the device if supported
-	var vibrate = navigator.vibrate ? 'vibrate' : navigator.webkitVibrate ? 'webkitVibrate' : null;
+    this.$target = $(this.options.target)
+      .on('scroll.bs.affix.data-api', $.proxy(this.checkPosition, this))
+      .on('click.bs.affix.data-api',  $.proxy(this.checkPositionWithEventLoop, this))
 
-	function createSvgElement(name) {
-		return document.createElementNS(svgNS, name);
-	}
+    this.$element     = $(element)
+    this.affixed      =
+    this.unpin        =
+    this.pinnedOffset = null
 
-	function leadingZero(num) {
-		return (num < 10 ? '0' : '') + num;
-	}
+    this.checkPosition()
+  }
 
-	// Get a unique id
-	var idCounter = 0;
-	function uniqueId(prefix) {
-		var id = ++idCounter + '';
-		return prefix ? prefix + id : id;
-	}
+  Affix.VERSION  = '3.2.0'
 
-	// Clock size
-	var dialRadius = 100,
-		outerRadius = 80,
-		// innerRadius = 80 on 12 hour clock
-		innerRadius = 54,
-		tickRadius = 13,
-		diameter = dialRadius * 2,
-		duration = transitionSupported ? 350 : 1;
+  Affix.RESET    = 'affix affix-top affix-bottom'
 
-	// Popover template
-	var tpl = [
-		'<div class="popover clockpicker-popover">',
-			'<div class="arrow"></div>',
-			'<div class="popover-title">',
-				'<span class="clockpicker-span-hours text-primary"></span>',
-				' : ',
-				'<span class="clockpicker-span-minutes"></span>',
-				'<span class="clockpicker-span-am-pm"></span>',
-			'</div>',
-			'<div class="popover-content">',
-				'<div class="clockpicker-plate">',
-					'<div class="clockpicker-canvas"></div>',
-					'<div class="clockpicker-dial clockpicker-hours"></div>',
-					'<div class="clockpicker-dial clockpicker-minutes clockpicker-dial-out"></div>',
-				'</div>',
-				'<span class="clockpicker-am-pm-block">',
-				'</span>',
-			'</div>',
-		'</div>'
-	].join('');
+  Affix.DEFAULTS = {
+    offset: 0,
+    target: window
+  }
 
-	// ClockPicker
-	function ClockPicker(element, options) {
-		var popover = $(tpl),
-			plate = popover.find('.clockpicker-plate'),
-			hoursView = popover.find('.clockpicker-hours'),
-			minutesView = popover.find('.clockpicker-minutes'),
-			amPmBlock = popover.find('.clockpicker-am-pm-block'),
-			isInput = element.prop('tagName') === 'INPUT',
-			input = isInput ? element : element.find('input'),
-			addon = element.find('.input-group-addon'),
-			self = this,
-			timer;
+  Affix.prototype.getPinnedOffset = function () {
+    if (this.pinnedOffset) return this.pinnedOffset
+    this.$element.removeClass(Affix.RESET).addClass('affix')
+    var scrollTop = this.$target.scrollTop()
+    var position  = this.$element.offset()
+    return (this.pinnedOffset = position.top - scrollTop)
+  }
 
-		this.id = uniqueId('cp');
-		this.element = element;
-		this.options = options;
-		this.isAppended = false;
-		this.isShown = false;
-		this.currentView = 'hours';
-		this.isInput = isInput;
-		this.input = input;
-		this.addon = addon;
-		this.popover = popover;
-		this.plate = plate;
-		this.hoursView = hoursView;
-		this.minutesView = minutesView;
-		this.amPmBlock = amPmBlock;
-		this.spanHours = popover.find('.clockpicker-span-hours');
-		this.spanMinutes = popover.find('.clockpicker-span-minutes');
-		this.spanAmPm = popover.find('.clockpicker-span-am-pm');
-		this.amOrPm = "PM";
+  Affix.prototype.checkPositionWithEventLoop = function () {
+    setTimeout($.proxy(this.checkPosition, this), 1)
+  }
 
-		// Setup for for 12 hour clock if option is selected
-		if (options.twelvehour) {
+  Affix.prototype.checkPosition = function () {
+    if (!this.$element.is(':visible')) return
 
-			var  amPmButtonsTemplate = ['<div class="clockpicker-am-pm-block">',
-				'<button type="button" class="btn btn-sm btn-default clockpicker-button clockpicker-am-button">',
-				'AM</button>',
-				'<button type="button" class="btn btn-sm btn-default clockpicker-button clockpicker-pm-button">',
-				'PM</button>',
-				'</div>'].join('');
+    var scrollHeight = $(document).height()
+    var scrollTop    = this.$target.scrollTop()
+    var position     = this.$element.offset()
+    var offset       = this.options.offset
+    var offsetTop    = offset.top
+    var offsetBottom = offset.bottom
 
-			var amPmButtons = $(amPmButtonsTemplate);
-			//amPmButtons.appendTo(plate);
+    if (typeof offset != 'object')         offsetBottom = offsetTop = offset
+    if (typeof offsetTop == 'function')    offsetTop    = offset.top(this.$element)
+    if (typeof offsetBottom == 'function') offsetBottom = offset.bottom(this.$element)
 
-			////Not working b/c they are not shown when this runs
-			//$('clockpicker-am-button')
-			//    .on("click", function() {
-			//        self.amOrPm = "AM";
-			//        $('.clockpicker-span-am-pm').empty().append('AM');
-			//    });
-			//
-			//$('clockpicker-pm-button')
-			//    .on("click", function() {
-			//         self.amOrPm = "PM";
-			//        $('.clockpicker-span-am-pm').empty().append('PM');
-			//    });
+    var affix = this.unpin   != null && (scrollTop + this.unpin <= position.top) ? false :
+                offsetBottom != null && (position.top + this.$element.height() >= scrollHeight - offsetBottom) ? 'bottom' :
+                offsetTop    != null && (scrollTop <= offsetTop) ? 'top' : false
 
-			$('<button type="button" class="btn btn-sm btn-default clockpicker-button am-button">' + "AM" + '</button>')
-				.on("click", function() {
-					self.amOrPm = "AM";
-					$('.clockpicker-span-am-pm').empty().append('AM');
-				}).appendTo(this.amPmBlock);
+    if (this.affixed === affix) return
+    if (this.unpin != null) this.$element.css('top', '')
 
+    var affixType = 'affix' + (affix ? '-' + affix : '')
+    var e         = $.Event(affixType + '.bs.affix')
 
-			$('<button type="button" class="btn btn-sm btn-default clockpicker-button pm-button">' + "PM" + '</button>')
-				.on("click", function() {
-					self.amOrPm = 'PM';
-					$('.clockpicker-span-am-pm').empty().append('PM');
-				}).appendTo(this.amPmBlock);
+    this.$element.trigger(e)
 
-		}
+    if (e.isDefaultPrevented()) return
 
-		if (! options.autoclose) {
-			// If autoclose is not setted, append a button
-			$('<button type="button" class="btn btn-sm btn-default btn-block clockpicker-button">' + options.donetext + '</button>')
-				.click($.proxy(this.done, this))
-				.appendTo(popover);
-		}
+    this.affixed = affix
+    this.unpin = affix == 'bottom' ? this.getPinnedOffset() : null
 
-		// Placement and arrow align - make sure they make sense.
-		if ((options.placement === 'top' || options.placement === 'bottom') && (options.align === 'top' || options.align === 'bottom')) options.align = 'left';
-		if ((options.placement === 'left' || options.placement === 'right') && (options.align === 'left' || options.align === 'right')) options.align = 'top';
+    this.$element
+      .removeClass(Affix.RESET)
+      .addClass(affixType)
+      .trigger($.Event(affixType.replace('affix', 'affixed')))
 
-		popover.addClass(options.placement);
-		popover.addClass('clockpicker-align-' + options.align);
-
-		this.spanHours.click($.proxy(this.toggleView, this, 'hours'));
-		this.spanMinutes.click($.proxy(this.toggleView, this, 'minutes'));
-
-		// Show or toggle
-		input.on('focus.clockpicker click.clockpicker', $.proxy(this.show, this));
-		addon.on('click.clockpicker', $.proxy(this.toggle, this));
-
-		// Build ticks
-		var tickTpl = $('<div class="clockpicker-tick"></div>'),
-			i, tick, radian, radius;
-
-		// Hours view
-		if (options.twelvehour) {
-			for (i = 1; i < 13; i += 1) {
-				tick = tickTpl.clone();
-				radian = i / 6 * Math.PI;
-				radius = outerRadius;
-				tick.css('font-size', '120%');
-				tick.css({
-					left: dialRadius + Math.sin(radian) * radius - tickRadius,
-					top: dialRadius - Math.cos(radian) * radius - tickRadius
-				});
-				tick.html(i === 0 ? '00' : i);
-				hoursView.append(tick);
-				tick.on(mousedownEvent, mousedown);
-			}
-		} else {
-			for (i = 0; i < 24; i += 1) {
-				tick = tickTpl.clone();
-				radian = i / 6 * Math.PI;
-				var inner = i > 0 && i < 13;
-				radius = inner ? innerRadius : outerRadius;
-				tick.css({
-					left: dialRadius + Math.sin(radian) * radius - tickRadius,
-					top: dialRadius - Math.cos(radian) * radius - tickRadius
-				});
-				if (inner) {
-					tick.css('font-size', '120%');
-				}
-				tick.html(i === 0 ? '00' : i);
-				hoursView.append(tick);
-				tick.on(mousedownEvent, mousedown);
-			}
-		}
-
-		// Minutes view
-		for (i = 0; i < 60; i += 5) {
-			tick = tickTpl.clone();
-			radian = i / 30 * Math.PI;
-			tick.css({
-				left: dialRadius + Math.sin(radian) * outerRadius - tickRadius,
-				top: dialRadius - Math.cos(radian) * outerRadius - tickRadius
-			});
-			tick.css('font-size', '120%');
-			tick.html(leadingZero(i));
-			minutesView.append(tick);
-			tick.on(mousedownEvent, mousedown);
-		}
-
-		// Clicking on minutes view space
-		plate.on(mousedownEvent, function(e){
-			if ($(e.target).closest('.clockpicker-tick').length === 0) {
-				mousedown(e, true);
-			}
-		});
-
-		// Mousedown or touchstart
-		function mousedown(e, space) {
-			var offset = plate.offset(),
-				isTouch = /^touch/.test(e.type),
-				x0 = offset.left + dialRadius,
-				y0 = offset.top + dialRadius,
-				dx = (isTouch ? e.originalEvent.touches[0] : e).pageX - x0,
-				dy = (isTouch ? e.originalEvent.touches[0] : e).pageY - y0,
-				z = Math.sqrt(dx * dx + dy * dy),
-				moved = false;
-
-			// When clicking on minutes view space, check the mouse position
-			if (space && (z < outerRadius - tickRadius || z > outerRadius + tickRadius)) {
-				return;
-			}
-			e.preventDefault();
-
-			// Set cursor style of body after 200ms
-			var movingTimer = setTimeout(function(){
-				$body.addClass('clockpicker-moving');
-			}, 200);
-
-			// Place the canvas to top
-			if (svgSupported) {
-				plate.append(self.canvas);
-			}
-
-			// Clock
-			self.setHand(dx, dy, ! space, true);
-
-			// Mousemove on document
-			$doc.off(mousemoveEvent).on(mousemoveEvent, function(e){
-				e.preventDefault();
-				var isTouch = /^touch/.test(e.type),
-					x = (isTouch ? e.originalEvent.touches[0] : e).pageX - x0,
-					y = (isTouch ? e.originalEvent.touches[0] : e).pageY - y0;
-				if (! moved && x === dx && y === dy) {
-					// Clicking in chrome on windows will trigger a mousemove event
-					return;
-				}
-				moved = true;
-				self.setHand(x, y, false, true);
-			});
-
-			// Mouseup on document
-			$doc.off(mouseupEvent).on(mouseupEvent, function(e){
-				$doc.off(mouseupEvent);
-				e.preventDefault();
-				var isTouch = /^touch/.test(e.type),
-					x = (isTouch ? e.originalEvent.changedTouches[0] : e).pageX - x0,
-					y = (isTouch ? e.originalEvent.changedTouches[0] : e).pageY - y0;
-				if ((space || moved) && x === dx && y === dy) {
-					self.setHand(x, y);
-				}
-				if (self.currentView === 'hours') {
-					self.toggleView('minutes', duration / 2);
-				} else {
-					if (options.autoclose) {
-						self.minutesView.addClass('clockpicker-dial-out');
-						setTimeout(function(){
-							self.done();
-						}, duration / 2);
-					}
-				}
-				plate.prepend(canvas);
-
-				// Reset cursor style of body
-				clearTimeout(movingTimer);
-				$body.removeClass('clockpicker-moving');
-
-				// Unbind mousemove event
-				$doc.off(mousemoveEvent);
-			});
-		}
-
-		if (svgSupported) {
-			// Draw clock hands and others
-			var canvas = popover.find('.clockpicker-canvas'),
-				svg = createSvgElement('svg');
-			svg.setAttribute('class', 'clockpicker-svg');
-			svg.setAttribute('width', diameter);
-			svg.setAttribute('height', diameter);
-			var g = createSvgElement('g');
-			g.setAttribute('transform', 'translate(' + dialRadius + ',' + dialRadius + ')');
-			var bearing = createSvgElement('circle');
-			bearing.setAttribute('class', 'clockpicker-canvas-bearing');
-			bearing.setAttribute('cx', 0);
-			bearing.setAttribute('cy', 0);
-			bearing.setAttribute('r', 2);
-			var hand = createSvgElement('line');
-			hand.setAttribute('x1', 0);
-			hand.setAttribute('y1', 0);
-			var bg = createSvgElement('circle');
-			bg.setAttribute('class', 'clockpicker-canvas-bg');
-			bg.setAttribute('r', tickRadius);
-			var fg = createSvgElement('circle');
-			fg.setAttribute('class', 'clockpicker-canvas-fg');
-			fg.setAttribute('r', 3.5);
-			g.appendChild(hand);
-			g.appendChild(bg);
-			g.appendChild(fg);
-			g.appendChild(bearing);
-			svg.appendChild(g);
-			canvas.append(svg);
-
-			this.hand = hand;
-			this.bg = bg;
-			this.fg = fg;
-			this.bearing = bearing;
-			this.g = g;
-			this.canvas = canvas;
-		}
-
-		raiseCallback(this.options.init);
-	}
-
-	function raiseCallback(callbackFunction) {
-		if (callbackFunction && typeof callbackFunction === "function") {
-			callbackFunction();
-		}
-	}
-
-	// Default options
-	ClockPicker.DEFAULTS = {
-		'default': '',       // default time, 'now' or '13:14' e.g.
-		fromnow: 0,          // set default time to * milliseconds from now (using with default = 'now')
-		placement: 'bottom', // clock popover placement
-		align: 'left',       // popover arrow align
-		donetext: '完成',    // done button text
-		autoclose: false,    // auto close when minute is selected
-		twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
-		vibrate: true        // vibrate the device when dragging clock hand
-	};
-
-	// Show or hide popover
-	ClockPicker.prototype.toggle = function(){
-		this[this.isShown ? 'hide' : 'show']();
-	};
-
-	// Set popover position
-	ClockPicker.prototype.locate = function(){
-		var element = this.element,
-			popover = this.popover,
-			offset = element.offset(),
-			width = element.outerWidth(),
-			height = element.outerHeight(),
-			placement = this.options.placement,
-			align = this.options.align,
-			styles = {},
-			self = this;
-
-		popover.show();
-
-		// Place the popover
-		switch (placement) {
-			case 'bottom':
-				styles.top = offset.top + height;
-				break;
-			case 'right':
-				styles.left = offset.left + width;
-				break;
-			case 'top':
-				styles.top = offset.top - popover.outerHeight();
-				break;
-			case 'left':
-				styles.left = offset.left - popover.outerWidth();
-				break;
-		}
-
-		// Align the popover arrow
-		switch (align) {
-			case 'left':
-				styles.left = offset.left;
-				break;
-			case 'right':
-				styles.left = offset.left + width - popover.outerWidth();
-				break;
-			case 'top':
-				styles.top = offset.top;
-				break;
-			case 'bottom':
-				styles.top = offset.top + height - popover.outerHeight();
-				break;
-		}
-
-		popover.css(styles);
-	};
-
-	// Show popover
-	ClockPicker.prototype.show = function(e){
-		// Not show again
-		if (this.isShown) {
-			return;
-		}
-
-		raiseCallback(this.options.beforeShow);
-
-		var self = this;
-
-		// Initialize
-		if (! this.isAppended) {
-			// Append popover to body
-			$body = $(document.body).append(this.popover);
-
-			// Reset position when resize
-			$win.on('resize.clockpicker' + this.id, function(){
-				if (self.isShown) {
-					self.locate();
-				}
-			});
-
-			this.isAppended = true;
-		}
-
-		// Get the time
-		var value = ((this.input.prop('value') || this.options['default'] || '') + '').split(':');
-		if (value[0] === 'now') {
-			var now = new Date(+ new Date() + this.options.fromnow);
-			value = [
-				now.getHours(),
-				now.getMinutes()
-			];
-		}
-		this.hours = + value[0] || 0;
-		this.minutes = + value[1] || 0;
-		this.spanHours.html(leadingZero(this.hours));
-		this.spanMinutes.html(leadingZero(this.minutes));
-
-		// Toggle to hours view
-		this.toggleView('hours');
-
-		// Set position
-		this.locate();
-
-		this.isShown = true;
-
-		// Hide when clicking or tabbing on any element except the clock, input and addon
-		$doc.on('click.clockpicker.' + this.id + ' focusin.clockpicker.' + this.id, function(e){
-			var target = $(e.target);
-			if (target.closest(self.popover).length === 0 &&
-					target.closest(self.addon).length === 0 &&
-					target.closest(self.input).length === 0) {
-				self.hide();
-			}
-		});
-
-		// Hide when ESC is pressed
-		$doc.on('keyup.clockpicker.' + this.id, function(e){
-			if (e.keyCode === 27) {
-				self.hide();
-			}
-		});
-
-		raiseCallback(this.options.afterShow);
-	};
-
-	// Hide popover
-	ClockPicker.prototype.hide = function(){
-		raiseCallback(this.options.beforeHide);
-
-		this.isShown = false;
-
-		// Unbinding events on document
-		$doc.off('click.clockpicker.' + this.id + ' focusin.clockpicker.' + this.id);
-		$doc.off('keyup.clockpicker.' + this.id);
-
-		this.popover.hide();
-
-		raiseCallback(this.options.afterHide);
-	};
-
-	// Toggle to hours or minutes view
-	ClockPicker.prototype.toggleView = function(view, delay){
-		var raiseAfterHourSelect = false;
-		if (view === 'minutes' && $(this.hoursView).css("visibility") === "visible") {
-			raiseCallback(this.options.beforeHourSelect);
-			raiseAfterHourSelect = true;
-		}
-		var isHours = view === 'hours',
-			nextView = isHours ? this.hoursView : this.minutesView,
-			hideView = isHours ? this.minutesView : this.hoursView;
-
-		this.currentView = view;
-
-		this.spanHours.toggleClass('text-primary', isHours);
-		this.spanMinutes.toggleClass('text-primary', ! isHours);
-
-		// Let's make transitions
-		hideView.addClass('clockpicker-dial-out');
-		nextView.css('visibility', 'visible').removeClass('clockpicker-dial-out');
-
-		// Reset clock hand
-		this.resetClock(delay);
-
-		// After transitions ended
-		clearTimeout(this.toggleViewTimer);
-		this.toggleViewTimer = setTimeout(function(){
-			hideView.css('visibility', 'hidden');
-		}, duration);
-
-		if (raiseAfterHourSelect) {
-			raiseCallback(this.options.afterHourSelect);
-		}
-	};
-
-	// Reset clock hand
-	ClockPicker.prototype.resetClock = function(delay){
-		var view = this.currentView,
-			value = this[view],
-			isHours = view === 'hours',
-			unit = Math.PI / (isHours ? 6 : 30),
-			radian = value * unit,
-			radius = isHours && value > 0 && value < 13 ? innerRadius : outerRadius,
-			x = Math.sin(radian) * radius,
-			y = - Math.cos(radian) * radius,
-			self = this;
-		if (svgSupported && delay) {
-			self.canvas.addClass('clockpicker-canvas-out');
-			setTimeout(function(){
-				self.canvas.removeClass('clockpicker-canvas-out');
-				self.setHand(x, y);
-			}, delay);
-		} else {
-			this.setHand(x, y);
-		}
-	};
-
-	// Set clock hand to (x, y)
-	ClockPicker.prototype.setHand = function(x, y, roundBy5, dragging){
-		var radian = Math.atan2(x, - y),
-			isHours = this.currentView === 'hours',
-			unit = Math.PI / (isHours || roundBy5 ? 6 : 30),
-			z = Math.sqrt(x * x + y * y),
-			options = this.options,
-			inner = isHours && z < (outerRadius + innerRadius) / 2,
-			radius = inner ? innerRadius : outerRadius,
-			value;
-
-			if (options.twelvehour) {
-				radius = outerRadius;
-			}
-
-		// Radian should in range [0, 2PI]
-		if (radian < 0) {
-			radian = Math.PI * 2 + radian;
-		}
-
-		// Get the round value
-		value = Math.round(radian / unit);
-
-		// Get the round radian
-		radian = value * unit;
-
-		// Correct the hours or minutes
-		if (options.twelvehour) {
-			if (isHours) {
-				if (value === 0) {
-					value = 12;
-				}
-			} else {
-				if (roundBy5) {
-					value *= 5;
-				}
-				if (value === 60) {
-					value = 0;
-				}
-			}
-		} else {
-			if (isHours) {
-				if (value === 12) {
-					value = 0;
-				}
-				value = inner ? (value === 0 ? 12 : value) : value === 0 ? 0 : value + 12;
-			} else {
-				if (roundBy5) {
-					value *= 5;
-				}
-				if (value === 60) {
-					value = 0;
-				}
-			}
-		}
-
-		// Once hours or minutes changed, vibrate the device
-		if (this[this.currentView] !== value) {
-			if (vibrate && this.options.vibrate) {
-				// Do not vibrate too frequently
-				if (! this.vibrateTimer) {
-					navigator[vibrate](10);
-					this.vibrateTimer = setTimeout($.proxy(function(){
-						this.vibrateTimer = null;
-					}, this), 100);
-				}
-			}
-		}
-
-		this[this.currentView] = value;
-		this[isHours ? 'spanHours' : 'spanMinutes'].html(leadingZero(value));
-
-		// If svg is not supported, just add an active class to the tick
-		if (! svgSupported) {
-			this[isHours ? 'hoursView' : 'minutesView'].find('.clockpicker-tick').each(function(){
-				var tick = $(this);
-				tick.toggleClass('active', value === + tick.html());
-			});
-			return;
-		}
-
-		// Place clock hand at the top when dragging
-		if (dragging || (! isHours && value % 5)) {
-			this.g.insertBefore(this.hand, this.bearing);
-			this.g.insertBefore(this.bg, this.fg);
-			this.bg.setAttribute('class', 'clockpicker-canvas-bg clockpicker-canvas-bg-trans');
-		} else {
-			// Or place it at the bottom
-			this.g.insertBefore(this.hand, this.bg);
-			this.g.insertBefore(this.fg, this.bg);
-			this.bg.setAttribute('class', 'clockpicker-canvas-bg');
-		}
-
-		// Set clock hand and others' position
-		var cx = Math.sin(radian) * radius,
-			cy = - Math.cos(radian) * radius;
-		this.hand.setAttribute('x2', cx);
-		this.hand.setAttribute('y2', cy);
-		this.bg.setAttribute('cx', cx);
-		this.bg.setAttribute('cy', cy);
-		this.fg.setAttribute('cx', cx);
-		this.fg.setAttribute('cy', cy);
-	};
-
-	// Hours and minutes are selected
-	ClockPicker.prototype.done = function() {
-		raiseCallback(this.options.beforeDone);
-		this.hide();
-		var last = this.input.prop('value'),
-			value = leadingZero(this.hours) + ':' + leadingZero(this.minutes);
-		if  (this.options.twelvehour) {
-			value = value + this.amOrPm;
-		}
-
-		this.input.prop('value', value);
-		if (value !== last) {
-			this.input.triggerHandler('change');
-			if (! this.isInput) {
-				this.element.trigger('change');
-			}
-		}
-
-		if (this.options.autoclose) {
-			this.input.trigger('blur');
-		}
-
-		raiseCallback(this.options.afterDone);
-	};
-
-	// Remove clockpicker from input
-	ClockPicker.prototype.remove = function() {
-		this.element.removeData('clockpicker');
-		this.input.off('focus.clockpicker click.clockpicker');
-		this.addon.off('click.clockpicker');
-		if (this.isShown) {
-			this.hide();
-		}
-		if (this.isAppended) {
-			$win.off('resize.clockpicker' + this.id);
-			this.popover.remove();
-		}
-	};
-
-	// Extends $.fn.clockpicker
-	$.fn.clockpicker = function(option){
-		var args = Array.prototype.slice.call(arguments, 1);
-		return this.each(function(){
-			var $this = $(this),
-				data = $this.data('clockpicker');
-			if (! data) {
-				var options = $.extend({}, ClockPicker.DEFAULTS, $this.data(), typeof option == 'object' && option);
-				$this.data('clockpicker', new ClockPicker($this, options));
-			} else {
-				// Manual operatsions. show, hide, remove, e.g.
-				if (typeof data[option] === 'function') {
-					data[option].apply(data, args);
-				}
-			}
-		});
-	};
-}());
-/*!
- * Pikaday
- *
- * Copyright © 2014 David Bushell | BSD & MIT license | https://github.com/dbushell/Pikaday
- */
-
-
-(function (root, factory)
-{
-    'use strict';
-
-    var moment;
-    if (typeof exports === 'object') {
-        // CommonJS module
-        // Load moment.js as an optional dependency
-        try { moment = require('moment'); } catch (e) {}
-        module.exports = factory(moment);
-    } else if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(function (req)
-        {
-            // Load moment.js as an optional dependency
-            var id = 'moment';
-            moment = req.defined && req.defined(id) ? req(id) : undefined;
-            return factory(moment);
-        });
-    } else {
-        root.Pikaday = factory(root.moment);
+    if (affix == 'bottom') {
+      this.$element.offset({
+        top: scrollHeight - this.$element.height() - offsetBottom
+      })
     }
-}(this, function (moment)
-{
-    'use strict';
+  }
 
-    /**
-     * feature detection and helper functions
-     */
-    var hasMoment = typeof moment === 'function',
 
-    hasEventListeners = !!window.addEventListener,
+  // AFFIX PLUGIN DEFINITION
+  // =======================
 
-    document = window.document,
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.affix')
+      var options = typeof option == 'object' && option
 
-    sto = window.setTimeout,
+      if (!data) $this.data('bs.affix', (data = new Affix(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
 
-    addEvent = function(el, e, callback, capture)
-    {
-        if (hasEventListeners) {
-            el.addEventListener(e, callback, !!capture);
-        } else {
-            el.attachEvent('on' + e, callback);
+  var old = $.fn.affix
+
+  $.fn.affix             = Plugin
+  $.fn.affix.Constructor = Affix
+
+
+  // AFFIX NO CONFLICT
+  // =================
+
+  $.fn.affix.noConflict = function () {
+    $.fn.affix = old
+    return this
+  }
+
+
+  // AFFIX DATA-API
+  // ==============
+
+  $(window).on('load', function () {
+    $('[data-spy="affix"]').each(function () {
+      var $spy = $(this)
+      var data = $spy.data()
+
+      data.offset = data.offset || {}
+
+      if (data.offsetBottom) data.offset.bottom = data.offsetBottom
+      if (data.offsetTop)    data.offset.top    = data.offsetTop
+
+      Plugin.call($spy, data)
+    })
+  })
+
+}(jQuery);
+/* ========================================================================
+ * Bootstrap: alert.js v3.2.0
+ * http://getbootstrap.com/javascript/#alerts
+ * ========================================================================
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
+
++function ($) {
+  'use strict';
+
+  // ALERT CLASS DEFINITION
+  // ======================
+
+  var dismiss = '[data-dismiss="alert"]'
+  var Alert   = function (el) {
+    $(el).on('click', dismiss, this.close)
+  }
+
+  Alert.VERSION = '3.2.0'
+
+  Alert.prototype.close = function (e) {
+    var $this    = $(this)
+    var selector = $this.attr('data-target')
+
+    if (!selector) {
+      selector = $this.attr('href')
+      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+    }
+
+    var $parent = $(selector)
+
+    if (e) e.preventDefault()
+
+    if (!$parent.length) {
+      $parent = $this.hasClass('alert') ? $this : $this.parent()
+    }
+
+    $parent.trigger(e = $.Event('close.bs.alert'))
+
+    if (e.isDefaultPrevented()) return
+
+    $parent.removeClass('in')
+
+    function removeElement() {
+      // detach from parent, fire event then clean up data
+      $parent.detach().trigger('closed.bs.alert').remove()
+    }
+
+    $.support.transition && $parent.hasClass('fade') ?
+      $parent
+        .one('bsTransitionEnd', removeElement)
+        .emulateTransitionEnd(150) :
+      removeElement()
+  }
+
+
+  // ALERT PLUGIN DEFINITION
+  // =======================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this = $(this)
+      var data  = $this.data('bs.alert')
+
+      if (!data) $this.data('bs.alert', (data = new Alert(this)))
+      if (typeof option == 'string') data[option].call($this)
+    })
+  }
+
+  var old = $.fn.alert
+
+  $.fn.alert             = Plugin
+  $.fn.alert.Constructor = Alert
+
+
+  // ALERT NO CONFLICT
+  // =================
+
+  $.fn.alert.noConflict = function () {
+    $.fn.alert = old
+    return this
+  }
+
+
+  // ALERT DATA-API
+  // ==============
+
+  $(document).on('click.bs.alert.data-api', dismiss, Alert.prototype.close)
+
+}(jQuery);
+/* ========================================================================
+ * Bootstrap: button.js v3.2.0
+ * http://getbootstrap.com/javascript/#buttons
+ * ========================================================================
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
+
++function ($) {
+  'use strict';
+
+  // BUTTON PUBLIC CLASS DEFINITION
+  // ==============================
+
+  var Button = function (element, options) {
+    this.$element  = $(element)
+    this.options   = $.extend({}, Button.DEFAULTS, options)
+    this.isLoading = false
+  }
+
+  Button.VERSION  = '3.2.0'
+
+  Button.DEFAULTS = {
+    loadingText: 'loading...'
+  }
+
+  Button.prototype.setState = function (state) {
+    var d    = 'disabled'
+    var $el  = this.$element
+    var val  = $el.is('input') ? 'val' : 'html'
+    var data = $el.data()
+
+    state = state + 'Text'
+
+    if (data.resetText == null) $el.data('resetText', $el[val]())
+
+    $el[val](data[state] == null ? this.options[state] : data[state])
+
+    // push to event loop to allow forms to submit
+    setTimeout($.proxy(function () {
+      if (state == 'loadingText') {
+        this.isLoading = true
+        $el.addClass(d).attr(d, d)
+      } else if (this.isLoading) {
+        this.isLoading = false
+        $el.removeClass(d).removeAttr(d)
+      }
+    }, this), 0)
+  }
+
+  Button.prototype.toggle = function () {
+    var changed = true
+    var $parent = this.$element.closest('[data-toggle="buttons"]')
+
+    if ($parent.length) {
+      var $input = this.$element.find('input')
+      if ($input.prop('type') == 'radio') {
+        if ($input.prop('checked') && this.$element.hasClass('active')) changed = false
+        else $parent.find('.active').removeClass('active')
+      }
+      if (changed) $input.prop('checked', !this.$element.hasClass('active')).trigger('change')
+    }
+
+    if (changed) this.$element.toggleClass('active')
+  }
+
+
+  // BUTTON PLUGIN DEFINITION
+  // ========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.button')
+      var options = typeof option == 'object' && option
+
+      if (!data) $this.data('bs.button', (data = new Button(this, options)))
+
+      if (option == 'toggle') data.toggle()
+      else if (option) data.setState(option)
+    })
+  }
+
+  var old = $.fn.button
+
+  $.fn.button             = Plugin
+  $.fn.button.Constructor = Button
+
+
+  // BUTTON NO CONFLICT
+  // ==================
+
+  $.fn.button.noConflict = function () {
+    $.fn.button = old
+    return this
+  }
+
+
+  // BUTTON DATA-API
+  // ===============
+
+  $(document).on('click.bs.button.data-api', '[data-toggle^="button"]', function (e) {
+    var $btn = $(e.target)
+    if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
+    Plugin.call($btn, 'toggle')
+    e.preventDefault()
+  })
+
+}(jQuery);
+/* ========================================================================
+ * Bootstrap: carousel.js v3.2.0
+ * http://getbootstrap.com/javascript/#carousel
+ * ========================================================================
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
+
++function ($) {
+  'use strict';
+
+  // CAROUSEL CLASS DEFINITION
+  // =========================
+
+  var Carousel = function (element, options) {
+    this.$element    = $(element).on('keydown.bs.carousel', $.proxy(this.keydown, this))
+    this.$indicators = this.$element.find('.carousel-indicators')
+    this.options     = options
+    this.paused      =
+    this.sliding     =
+    this.interval    =
+    this.$active     =
+    this.$items      = null
+
+    this.options.pause == 'hover' && this.$element
+      .on('mouseenter.bs.carousel', $.proxy(this.pause, this))
+      .on('mouseleave.bs.carousel', $.proxy(this.cycle, this))
+  }
+
+  Carousel.VERSION  = '3.2.0'
+
+  Carousel.DEFAULTS = {
+    interval: 5000,
+    pause: 'hover',
+    wrap: true
+  }
+
+  Carousel.prototype.keydown = function (e) {
+    switch (e.which) {
+      case 37: this.prev(); break
+      case 39: this.next(); break
+      default: return
+    }
+
+    e.preventDefault()
+  }
+
+  Carousel.prototype.cycle = function (e) {
+    e || (this.paused = false)
+
+    this.interval && clearInterval(this.interval)
+
+    this.options.interval
+      && !this.paused
+      && (this.interval = setInterval($.proxy(this.next, this), this.options.interval))
+
+    return this
+  }
+
+  Carousel.prototype.getItemIndex = function (item) {
+    this.$items = item.parent().children('.item')
+    return this.$items.index(item || this.$active)
+  }
+
+  Carousel.prototype.to = function (pos) {
+    var that        = this
+    var activeIndex = this.getItemIndex(this.$active = this.$element.find('.item.active'))
+
+    if (pos > (this.$items.length - 1) || pos < 0) return
+
+    if (this.sliding)       return this.$element.one('slid.bs.carousel', function () { that.to(pos) }) // yes, "slid"
+    if (activeIndex == pos) return this.pause().cycle()
+
+    return this.slide(pos > activeIndex ? 'next' : 'prev', $(this.$items[pos]))
+  }
+
+  Carousel.prototype.pause = function (e) {
+    e || (this.paused = true)
+
+    if (this.$element.find('.next, .prev').length && $.support.transition) {
+      this.$element.trigger($.support.transition.end)
+      this.cycle(true)
+    }
+
+    this.interval = clearInterval(this.interval)
+
+    return this
+  }
+
+  Carousel.prototype.next = function () {
+    if (this.sliding) return
+    return this.slide('next')
+  }
+
+  Carousel.prototype.prev = function () {
+    if (this.sliding) return
+    return this.slide('prev')
+  }
+
+  Carousel.prototype.slide = function (type, next) {
+    var $active   = this.$element.find('.item.active')
+    var $next     = next || $active[type]()
+    var isCycling = this.interval
+    var direction = type == 'next' ? 'left' : 'right'
+    var fallback  = type == 'next' ? 'first' : 'last'
+    var that      = this
+
+    if (!$next.length) {
+      if (!this.options.wrap) return
+      $next = this.$element.find('.item')[fallback]()
+    }
+
+    if ($next.hasClass('active')) return (this.sliding = false)
+
+    var relatedTarget = $next[0]
+    var slideEvent = $.Event('slide.bs.carousel', {
+      relatedTarget: relatedTarget,
+      direction: direction
+    })
+    this.$element.trigger(slideEvent)
+    if (slideEvent.isDefaultPrevented()) return
+
+    this.sliding = true
+
+    isCycling && this.pause()
+
+    if (this.$indicators.length) {
+      this.$indicators.find('.active').removeClass('active')
+      var $nextIndicator = $(this.$indicators.children()[this.getItemIndex($next)])
+      $nextIndicator && $nextIndicator.addClass('active')
+    }
+
+    var slidEvent = $.Event('slid.bs.carousel', { relatedTarget: relatedTarget, direction: direction }) // yes, "slid"
+    if ($.support.transition && this.$element.hasClass('slide')) {
+      $next.addClass(type)
+      $next[0].offsetWidth // force reflow
+      $active.addClass(direction)
+      $next.addClass(direction)
+      $active
+        .one('bsTransitionEnd', function () {
+          $next.removeClass([type, direction].join(' ')).addClass('active')
+          $active.removeClass(['active', direction].join(' '))
+          that.sliding = false
+          setTimeout(function () {
+            that.$element.trigger(slidEvent)
+          }, 0)
+        })
+        .emulateTransitionEnd($active.css('transition-duration').slice(0, -1) * 1000)
+    } else {
+      $active.removeClass('active')
+      $next.addClass('active')
+      this.sliding = false
+      this.$element.trigger(slidEvent)
+    }
+
+    isCycling && this.cycle()
+
+    return this
+  }
+
+
+  // CAROUSEL PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.carousel')
+      var options = $.extend({}, Carousel.DEFAULTS, $this.data(), typeof option == 'object' && option)
+      var action  = typeof option == 'string' ? option : options.slide
+
+      if (!data) $this.data('bs.carousel', (data = new Carousel(this, options)))
+      if (typeof option == 'number') data.to(option)
+      else if (action) data[action]()
+      else if (options.interval) data.pause().cycle()
+    })
+  }
+
+  var old = $.fn.carousel
+
+  $.fn.carousel             = Plugin
+  $.fn.carousel.Constructor = Carousel
+
+
+  // CAROUSEL NO CONFLICT
+  // ====================
+
+  $.fn.carousel.noConflict = function () {
+    $.fn.carousel = old
+    return this
+  }
+
+
+  // CAROUSEL DATA-API
+  // =================
+
+  $(document).on('click.bs.carousel.data-api', '[data-slide], [data-slide-to]', function (e) {
+    var href
+    var $this   = $(this)
+    var $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) // strip for ie7
+    if (!$target.hasClass('carousel')) return
+    var options = $.extend({}, $target.data(), $this.data())
+    var slideIndex = $this.attr('data-slide-to')
+    if (slideIndex) options.interval = false
+
+    Plugin.call($target, options)
+
+    if (slideIndex) {
+      $target.data('bs.carousel').to(slideIndex)
+    }
+
+    e.preventDefault()
+  })
+
+  $(window).on('load', function () {
+    $('[data-ride="carousel"]').each(function () {
+      var $carousel = $(this)
+      Plugin.call($carousel, $carousel.data())
+    })
+  })
+
+}(jQuery);
+/* ========================================================================
+ * Bootstrap: collapse.js v3.2.0
+ * http://getbootstrap.com/javascript/#collapse
+ * ========================================================================
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
+
++function ($) {
+  'use strict';
+
+  // COLLAPSE PUBLIC CLASS DEFINITION
+  // ================================
+
+  var Collapse = function (element, options) {
+    this.$element      = $(element)
+    this.options       = $.extend({}, Collapse.DEFAULTS, options)
+    this.transitioning = null
+
+    if (this.options.parent) this.$parent = $(this.options.parent)
+    if (this.options.toggle) this.toggle()
+  }
+
+  Collapse.VERSION  = '3.2.0'
+
+  Collapse.DEFAULTS = {
+    toggle: true
+  }
+
+  Collapse.prototype.dimension = function () {
+    var hasWidth = this.$element.hasClass('width')
+    return hasWidth ? 'width' : 'height'
+  }
+
+  Collapse.prototype.show = function () {
+    if (this.transitioning || this.$element.hasClass('in')) return
+
+    var startEvent = $.Event('show.bs.collapse')
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    var actives = this.$parent && this.$parent.find('> .panel > .in')
+
+    if (actives && actives.length) {
+      var hasData = actives.data('bs.collapse')
+      if (hasData && hasData.transitioning) return
+      Plugin.call(actives, 'hide')
+      hasData || actives.data('bs.collapse', null)
+    }
+
+    var dimension = this.dimension()
+
+    this.$element
+      .removeClass('collapse')
+      .addClass('collapsing')[dimension](0)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.$element
+        .removeClass('collapsing')
+        .addClass('collapse in')[dimension]('')
+      this.transitioning = 0
+      this.$element
+        .trigger('shown.bs.collapse')
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    var scrollSize = $.camelCase(['scroll', dimension].join('-'))
+
+    this.$element
+      .one('bsTransitionEnd', $.proxy(complete, this))
+      .emulateTransitionEnd(350)[dimension](this.$element[0][scrollSize])
+  }
+
+  Collapse.prototype.hide = function () {
+    if (this.transitioning || !this.$element.hasClass('in')) return
+
+    var startEvent = $.Event('hide.bs.collapse')
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    var dimension = this.dimension()
+
+    this.$element[dimension](this.$element[dimension]())[0].offsetHeight
+
+    this.$element
+      .addClass('collapsing')
+      .removeClass('collapse')
+      .removeClass('in')
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.transitioning = 0
+      this.$element
+        .trigger('hidden.bs.collapse')
+        .removeClass('collapsing')
+        .addClass('collapse')
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    this.$element
+      [dimension](0)
+      .one('bsTransitionEnd', $.proxy(complete, this))
+      .emulateTransitionEnd(350)
+  }
+
+  Collapse.prototype.toggle = function () {
+    this[this.$element.hasClass('in') ? 'hide' : 'show']()
+  }
+
+
+  // COLLAPSE PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.collapse')
+      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option)
+
+      if (!data && options.toggle && option == 'show') option = !option
+      if (!data) $this.data('bs.collapse', (data = new Collapse(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.collapse
+
+  $.fn.collapse             = Plugin
+  $.fn.collapse.Constructor = Collapse
+
+
+  // COLLAPSE NO CONFLICT
+  // ====================
+
+  $.fn.collapse.noConflict = function () {
+    $.fn.collapse = old
+    return this
+  }
+
+
+  // COLLAPSE DATA-API
+  // =================
+
+  $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
+    var href
+    var $this   = $(this)
+    var target  = $this.attr('data-target')
+        || e.preventDefault()
+        || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') // strip for ie7
+    var $target = $(target)
+    var data    = $target.data('bs.collapse')
+    var option  = data ? 'toggle' : $this.data()
+    var parent  = $this.attr('data-parent')
+    var $parent = parent && $(parent)
+
+    if (!data || !data.transitioning) {
+      if ($parent) $parent.find('[data-toggle="collapse"][data-parent="' + parent + '"]').not($this).addClass('collapsed')
+      $this[$target.hasClass('in') ? 'addClass' : 'removeClass']('collapsed')
+    }
+
+    Plugin.call($target, option)
+  })
+
+}(jQuery);
+/* ========================================================================
+ * Bootstrap: dropdown.js v3.2.0
+ * http://getbootstrap.com/javascript/#dropdowns
+ * ========================================================================
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
+
++function ($) {
+  'use strict';
+
+  // DROPDOWN CLASS DEFINITION
+  // =========================
+
+  var backdrop = '.dropdown-backdrop'
+  var toggle   = '[data-toggle="dropdown"]'
+  var Dropdown = function (element) {
+    $(element).on('click.bs.dropdown', this.toggle)
+  }
+
+  Dropdown.VERSION = '3.2.0'
+
+  Dropdown.prototype.toggle = function (e) {
+    var $this = $(this)
+
+    if ($this.is('.disabled, :disabled')) return
+
+    var $parent  = getParent($this)
+    var isActive = $parent.hasClass('open')
+
+    clearMenus()
+
+    if (!isActive) {
+      if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
+        // if mobile we use a backdrop because click events don't delegate
+        $('<div class="dropdown-backdrop"/>').insertAfter($(this)).on('click', clearMenus)
+      }
+
+      var relatedTarget = { relatedTarget: this }
+      $parent.trigger(e = $.Event('show.bs.dropdown', relatedTarget))
+
+      if (e.isDefaultPrevented()) return
+
+      $this.trigger('focus')
+
+      $parent
+        .toggleClass('open')
+        .trigger('shown.bs.dropdown', relatedTarget)
+    }
+
+    return false
+  }
+
+  Dropdown.prototype.keydown = function (e) {
+    if (!/(38|40|27)/.test(e.keyCode)) return
+
+    var $this = $(this)
+
+    e.preventDefault()
+    e.stopPropagation()
+
+    if ($this.is('.disabled, :disabled')) return
+
+    var $parent  = getParent($this)
+    var isActive = $parent.hasClass('open')
+
+    if (!isActive || (isActive && e.keyCode == 27)) {
+      if (e.which == 27) $parent.find(toggle).trigger('focus')
+      return $this.trigger('click')
+    }
+
+    var desc = ' li:not(.divider):visible a'
+    var $items = $parent.find('[role="menu"]' + desc + ', [role="listbox"]' + desc)
+
+    if (!$items.length) return
+
+    var index = $items.index($items.filter(':focus'))
+
+    if (e.keyCode == 38 && index > 0)                 index--                        // up
+    if (e.keyCode == 40 && index < $items.length - 1) index++                        // down
+    if (!~index)                                      index = 0
+
+    $items.eq(index).trigger('focus')
+  }
+
+  function clearMenus(e) {
+    if (e && e.which === 3) return
+    $(backdrop).remove()
+    $(toggle).each(function () {
+      var $parent = getParent($(this))
+      var relatedTarget = { relatedTarget: this }
+      if (!$parent.hasClass('open')) return
+      $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget))
+      if (e.isDefaultPrevented()) return
+      $parent.removeClass('open').trigger('hidden.bs.dropdown', relatedTarget)
+    })
+  }
+
+  function getParent($this) {
+    var selector = $this.attr('data-target')
+
+    if (!selector) {
+      selector = $this.attr('href')
+      selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+    }
+
+    var $parent = selector && $(selector)
+
+    return $parent && $parent.length ? $parent : $this.parent()
+  }
+
+
+  // DROPDOWN PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this = $(this)
+      var data  = $this.data('bs.dropdown')
+
+      if (!data) $this.data('bs.dropdown', (data = new Dropdown(this)))
+      if (typeof option == 'string') data[option].call($this)
+    })
+  }
+
+  var old = $.fn.dropdown
+
+  $.fn.dropdown             = Plugin
+  $.fn.dropdown.Constructor = Dropdown
+
+
+  // DROPDOWN NO CONFLICT
+  // ====================
+
+  $.fn.dropdown.noConflict = function () {
+    $.fn.dropdown = old
+    return this
+  }
+
+
+  // APPLY TO STANDARD DROPDOWN ELEMENTS
+  // ===================================
+
+  $(document)
+    .on('click.bs.dropdown.data-api', clearMenus)
+    .on('click.bs.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
+    .on('click.bs.dropdown.data-api', toggle, Dropdown.prototype.toggle)
+    .on('keydown.bs.dropdown.data-api', toggle + ', [role="menu"], [role="listbox"]', Dropdown.prototype.keydown)
+
+}(jQuery);
+/* ========================================================================
+ * Bootstrap: tab.js v3.2.0
+ * http://getbootstrap.com/javascript/#tabs
+ * ========================================================================
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
+
++function ($) {
+  'use strict';
+
+  // TAB CLASS DEFINITION
+  // ====================
+
+  var Tab = function (element) {
+    this.element = $(element)
+  }
+
+  Tab.VERSION = '3.2.0'
+
+  Tab.prototype.show = function () {
+    var $this    = this.element
+    var $ul      = $this.closest('ul:not(.dropdown-menu)')
+    var selector = $this.data('target')
+
+    if (!selector) {
+      selector = $this.attr('href')
+      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+    }
+
+    if ($this.parent('li').hasClass('active')) return
+
+    var previous = $ul.find('.active:last a')[0]
+    var e        = $.Event('show.bs.tab', {
+      relatedTarget: previous
+    })
+
+    $this.trigger(e)
+
+    if (e.isDefaultPrevented()) return
+
+    var $target = $(selector)
+
+    this.activate($this.closest('li'), $ul)
+    this.activate($target, $target.parent(), function () {
+      $this.trigger({
+        type: 'shown.bs.tab',
+        relatedTarget: previous
+      })
+    })
+  }
+
+  Tab.prototype.activate = function (element, container, callback) {
+    var $active    = container.find('> .active')
+    var transition = callback
+      && $.support.transition
+      && $active.hasClass('fade')
+
+    function next() {
+      $active
+        .removeClass('active')
+        .find('> .dropdown-menu > .active')
+        .removeClass('active')
+
+      element.addClass('active')
+
+      if (transition) {
+        element[0].offsetWidth // reflow for transition
+        element.addClass('in')
+      } else {
+        element.removeClass('fade')
+      }
+
+      if (element.parent('.dropdown-menu')) {
+        element.closest('li.dropdown').addClass('active')
+      }
+
+      callback && callback()
+    }
+
+    transition ?
+      $active
+        .one('bsTransitionEnd', next)
+        .emulateTransitionEnd(150) :
+      next()
+
+    $active.removeClass('in')
+  }
+
+
+  // TAB PLUGIN DEFINITION
+  // =====================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this = $(this)
+      var data  = $this.data('bs.tab')
+
+      if (!data) $this.data('bs.tab', (data = new Tab(this)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.tab
+
+  $.fn.tab             = Plugin
+  $.fn.tab.Constructor = Tab
+
+
+  // TAB NO CONFLICT
+  // ===============
+
+  $.fn.tab.noConflict = function () {
+    $.fn.tab = old
+    return this
+  }
+
+
+  // TAB DATA-API
+  // ============
+
+  $(document).on('click.bs.tab.data-api', '[data-toggle="tab"], [data-toggle="pill"]', function (e) {
+    e.preventDefault()
+    Plugin.call($(this), 'show')
+  })
+
+}(jQuery);
+/* ========================================================================
+ * Bootstrap: transition.js v3.2.0
+ * http://getbootstrap.com/javascript/#transitions
+ * ========================================================================
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
+
++function ($) {
+  'use strict';
+
+  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
+  // ============================================================
+
+  function transitionEnd() {
+    var el = document.createElement('bootstrap')
+
+    var transEndEventNames = {
+      WebkitTransition : 'webkitTransitionEnd',
+      MozTransition    : 'transitionend',
+      OTransition      : 'oTransitionEnd otransitionend',
+      transition       : 'transitionend'
+    }
+
+    for (var name in transEndEventNames) {
+      if (el.style[name] !== undefined) {
+        return { end: transEndEventNames[name] }
+      }
+    }
+
+    return false // explicit for ie8 (  ._.)
+  }
+
+  // http://blog.alexmaccaw.com/css-transitions
+  $.fn.emulateTransitionEnd = function (duration) {
+    var called = false
+    var $el = this
+    $(this).one('bsTransitionEnd', function () { called = true })
+    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
+    setTimeout(callback, duration)
+    return this
+  }
+
+  $(function () {
+    $.support.transition = transitionEnd()
+
+    if (!$.support.transition) return
+
+    $.event.special.bsTransitionEnd = {
+      bindType: $.support.transition.end,
+      delegateType: $.support.transition.end,
+      handle: function (e) {
+        if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments)
+      }
+    }
+  })
+
+}(jQuery);
+/* ========================================================================
+ * Bootstrap: scrollspy.js v3.2.0
+ * http://getbootstrap.com/javascript/#scrollspy
+ * ========================================================================
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
+
++function ($) {
+  'use strict';
+
+  // SCROLLSPY CLASS DEFINITION
+  // ==========================
+
+  function ScrollSpy(element, options) {
+    var process  = $.proxy(this.process, this)
+
+    this.$body          = $('body')
+    this.$scrollElement = $(element).is('body') ? $(window) : $(element)
+    this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+    this.selector       = (this.options.target || '') + ' .nav li > a'
+    this.offsets        = []
+    this.targets        = []
+    this.activeTarget   = null
+    this.scrollHeight   = 0
+
+    this.$scrollElement.on('scroll.bs.scrollspy', process)
+    this.refresh()
+    this.process()
+  }
+
+  ScrollSpy.VERSION  = '3.2.0'
+
+  ScrollSpy.DEFAULTS = {
+    offset: 10
+  }
+
+  ScrollSpy.prototype.getScrollHeight = function () {
+    return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+  }
+
+  ScrollSpy.prototype.refresh = function () {
+    var offsetMethod = 'offset'
+    var offsetBase   = 0
+
+    if (!$.isWindow(this.$scrollElement[0])) {
+      offsetMethod = 'position'
+      offsetBase   = this.$scrollElement.scrollTop()
+    }
+
+    this.offsets = []
+    this.targets = []
+    this.scrollHeight = this.getScrollHeight()
+
+    var self     = this
+
+    this.$body
+      .find(this.selector)
+      .map(function () {
+        var $el   = $(this)
+        var href  = $el.data('target') || $el.attr('href')
+        var $href = /^#./.test(href) && $(href)
+
+        return ($href
+          && $href.length
+          && $href.is(':visible')
+          && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+      })
+      .sort(function (a, b) { return a[0] - b[0] })
+      .each(function () {
+        self.offsets.push(this[0])
+        self.targets.push(this[1])
+      })
+  }
+
+  ScrollSpy.prototype.process = function () {
+    var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+    var scrollHeight = this.getScrollHeight()
+    var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+    var offsets      = this.offsets
+    var targets      = this.targets
+    var activeTarget = this.activeTarget
+    var i
+
+    if (this.scrollHeight != scrollHeight) {
+      this.refresh()
+    }
+
+    if (scrollTop >= maxScroll) {
+      return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+    }
+
+    if (activeTarget && scrollTop <= offsets[0]) {
+      return activeTarget != (i = targets[0]) && this.activate(i)
+    }
+
+    for (i = offsets.length; i--;) {
+      activeTarget != targets[i]
+        && scrollTop >= offsets[i]
+        && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+        && this.activate(targets[i])
+    }
+  }
+
+  ScrollSpy.prototype.activate = function (target) {
+    this.activeTarget = target
+
+    $(this.selector)
+      .parentsUntil(this.options.target, '.active')
+      .removeClass('active')
+
+    var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+    var active = $(selector)
+      .parents('li')
+      .addClass('active')
+
+    if (active.parent('.dropdown-menu').length) {
+      active = active
+        .closest('li.dropdown')
+        .addClass('active')
+    }
+
+    active.trigger('activate.bs.scrollspy')
+  }
+
+
+  // SCROLLSPY PLUGIN DEFINITION
+  // ===========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.scrollspy')
+      var options = typeof option == 'object' && option
+
+      if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.scrollspy
+
+  $.fn.scrollspy             = Plugin
+  $.fn.scrollspy.Constructor = ScrollSpy
+
+
+  // SCROLLSPY NO CONFLICT
+  // =====================
+
+  $.fn.scrollspy.noConflict = function () {
+    $.fn.scrollspy = old
+    return this
+  }
+
+
+  // SCROLLSPY DATA-API
+  // ==================
+
+  $(window).on('load.bs.scrollspy.data-api', function () {
+    $('[data-spy="scroll"]').each(function () {
+      var $spy = $(this)
+      Plugin.call($spy, $spy.data())
+    })
+  })
+
+}(jQuery);
+/* ========================================================================
+ * Bootstrap: modal.js v3.2.0
+ * http://getbootstrap.com/javascript/#modals
+ * ========================================================================
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
+
++function ($) {
+  'use strict';
+
+  // MODAL CLASS DEFINITION
+  // ======================
+
+  var Modal = function (element, options) {
+    this.options        = options
+    this.$body          = $(document.body)
+    this.$element       = $(element)
+    this.$backdrop      =
+    this.isShown        = null
+    this.scrollbarWidth = 0
+
+    if (this.options.remote) {
+      this.$element
+        .find('.modal-content')
+        .load(this.options.remote, $.proxy(function () {
+          this.$element.trigger('loaded.bs.modal')
+        }, this))
+    }
+  }
+
+  Modal.VERSION  = '3.2.0'
+
+  Modal.DEFAULTS = {
+    backdrop: true,
+    keyboard: true,
+    show: true
+  }
+
+  Modal.prototype.toggle = function (_relatedTarget) {
+    return this.isShown ? this.hide() : this.show(_relatedTarget)
+  }
+
+  Modal.prototype.show = function (_relatedTarget) {
+    var that = this
+    var e    = $.Event('show.bs.modal', { relatedTarget: _relatedTarget })
+
+    this.$element.trigger(e)
+
+    if (this.isShown || e.isDefaultPrevented()) return
+
+    this.isShown = true
+
+    this.checkScrollbar()
+    this.$body.addClass('modal-open')
+
+    this.setScrollbar()
+    this.escape()
+
+    this.$element.on('click.dismiss.bs.modal', '[data-dismiss="modal"]', $.proxy(this.hide, this))
+
+    this.backdrop(function () {
+      var transition = $.support.transition && that.$element.hasClass('fade')
+
+      if (!that.$element.parent().length) {
+        that.$element.appendTo(that.$body) // don't move modals dom position
+      }
+
+      that.$element
+        .show()
+        .scrollTop(0)
+
+      if (transition) {
+        that.$element[0].offsetWidth // force reflow
+      }
+
+      that.$element
+        .addClass('in')
+        .attr('aria-hidden', false)
+
+      that.enforceFocus()
+
+      var e = $.Event('shown.bs.modal', { relatedTarget: _relatedTarget })
+
+      transition ?
+        that.$element.find('.modal-dialog') // wait for modal to slide in
+          .one('bsTransitionEnd', function () {
+            that.$element.trigger('focus').trigger(e)
+          })
+          .emulateTransitionEnd(300) :
+        that.$element.trigger('focus').trigger(e)
+    })
+  }
+
+  Modal.prototype.hide = function (e) {
+    if (e) e.preventDefault()
+
+    e = $.Event('hide.bs.modal')
+
+    this.$element.trigger(e)
+
+    if (!this.isShown || e.isDefaultPrevented()) return
+
+    this.isShown = false
+
+    this.$body.removeClass('modal-open')
+
+    this.resetScrollbar()
+    this.escape()
+
+    $(document).off('focusin.bs.modal')
+
+    this.$element
+      .removeClass('in')
+      .attr('aria-hidden', true)
+      .off('click.dismiss.bs.modal')
+
+    $.support.transition && this.$element.hasClass('fade') ?
+      this.$element
+        .one('bsTransitionEnd', $.proxy(this.hideModal, this))
+        .emulateTransitionEnd(300) :
+      this.hideModal()
+  }
+
+  Modal.prototype.enforceFocus = function () {
+    $(document)
+      .off('focusin.bs.modal') // guard against infinite focus loop
+      .on('focusin.bs.modal', $.proxy(function (e) {
+        if (this.$element[0] !== e.target && !this.$element.has(e.target).length) {
+          this.$element.trigger('focus')
         }
-    },
-
-    removeEvent = function(el, e, callback, capture)
-    {
-        if (hasEventListeners) {
-            el.removeEventListener(e, callback, !!capture);
-        } else {
-            el.detachEvent('on' + e, callback);
-        }
-    },
-
-    fireEvent = function(el, eventName, data)
-    {
-        var ev;
-
-        if (document.createEvent) {
-            ev = document.createEvent('HTMLEvents');
-            ev.initEvent(eventName, true, false);
-            ev = extend(ev, data);
-            el.dispatchEvent(ev);
-        } else if (document.createEventObject) {
-            ev = document.createEventObject();
-            ev = extend(ev, data);
-            el.fireEvent('on' + eventName, ev);
-        }
-    },
-
-    trim = function(str)
-    {
-        return str.trim ? str.trim() : str.replace(/^\s+|\s+$/g,'');
-    },
-
-    hasClass = function(el, cn)
-    {
-        return (' ' + el.className + ' ').indexOf(' ' + cn + ' ') !== -1;
-    },
-
-    addClass = function(el, cn)
-    {
-        if (!hasClass(el, cn)) {
-            el.className = (el.className === '') ? cn : el.className + ' ' + cn;
-        }
-    },
-
-    removeClass = function(el, cn)
-    {
-        el.className = trim((' ' + el.className + ' ').replace(' ' + cn + ' ', ' '));
-    },
-
-    isArray = function(obj)
-    {
-        return (/Array/).test(Object.prototype.toString.call(obj));
-    },
-
-    isDate = function(obj)
-    {
-        return (/Date/).test(Object.prototype.toString.call(obj)) && !isNaN(obj.getTime());
-    },
-
-    isLeapYear = function(year)
-    {
-        // solution by Matti Virkkunen: http://stackoverflow.com/a/4881951
-        return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
-    },
-
-    getDaysInMonth = function(year, month)
-    {
-        return [31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
-    },
-
-    setToStartOfDay = function(date)
-    {
-        if (isDate(date)) date.setHours(0,0,0,0);
-    },
-
-    compareDates = function(a,b)
-    {
-        // weak date comparison (use setToStartOfDay(date) to ensure correct result)
-        return a.getTime() === b.getTime();
-    },
-
-    extend = function(to, from, overwrite)
-    {
-        var prop, hasProp;
-        for (prop in from) {
-            hasProp = to[prop] !== undefined;
-            if (hasProp && typeof from[prop] === 'object' && from[prop].nodeName === undefined) {
-                if (isDate(from[prop])) {
-                    if (overwrite) {
-                        to[prop] = new Date(from[prop].getTime());
-                    }
-                }
-                else if (isArray(from[prop])) {
-                    if (overwrite) {
-                        to[prop] = from[prop].slice(0);
-                    }
-                } else {
-                    to[prop] = extend({}, from[prop], overwrite);
-                }
-            } else if (overwrite || !hasProp) {
-                to[prop] = from[prop];
-            }
-        }
-        return to;
-    },
-
-    adjustCalendar = function(calendar) {
-        if (calendar.month < 0) {
-            calendar.year -= Math.ceil(Math.abs(calendar.month)/12);
-            calendar.month += 12;
-        }
-        if (calendar.month > 11) {
-            calendar.year += Math.floor(Math.abs(calendar.month)/12);
-            calendar.month -= 12;
-        }
-        return calendar;
-    },
-
-    /**
-     * defaults and localisation
-     */
-    defaults = {
-
-        // bind the picker to a form field
-        field: null,
-
-        // automatically show/hide the picker on `field` focus (default `true` if `field` is set)
-        bound: undefined,
-
-        // position of the datepicker, relative to the field (default to bottom & left)
-        // ('bottom' & 'left' keywords are not used, 'top' & 'right' are modifier on the bottom/left position)
-        position: 'bottom left',
-
-        // the default output format for `.toString()` and `field` value
-        format: 'YYYY-MM-DD',
-
-        // the initial date to view when first opened
-        defaultDate: null,
-
-        // make the `defaultDate` the initial selected value
-        setDefaultDate: false,
-
-        // first day of week (0: Sunday, 1: Monday etc)
-        firstDay: 0,
-
-        // the minimum/earliest date that can be selected
-        minDate: null,
-        // the maximum/latest date that can be selected
-        maxDate: null,
-
-        // number of years either side, or array of upper/lower range
-        yearRange: 10,
-
-        // show week numbers at head of row
-        showWeekNumber: false,
-
-        // used internally (don't config outside)
-        minYear: 0,
-        maxYear: 9999,
-        minMonth: undefined,
-        maxMonth: undefined,
-
-        isRTL: false,
-
-        // Additional text to append to the year in the calendar title
-        yearSuffix: '',
-
-        // Render the month after year in the calendar title
-        showMonthAfterYear: false,
-
-        // how many months are visible
-        numberOfMonths: 1,
-
-        // when numberOfMonths is used, this will help you to choose where the main calendar will be (default `left`, can be set to `right`)
-        // only used for the first display or when a selected date is not visible
-        mainCalendar: 'left',
-
-        // Specify a DOM element to render the calendar in
-        container: undefined,
-
-        // internationalization
-        i18n: {
-            previousMonth : 'Previous Month',
-            nextMonth     : 'Next Month',
-            months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
-            weekdays      : ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-            weekdaysShort : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
-        },
-
-        // callback function
-        onSelect: null,
-        onOpen: null,
-        onClose: null,
-        onDraw: null
-    },
-
-
-    /**
-     * templating functions to abstract HTML rendering
-     */
-    renderDayName = function(opts, day, abbr)
-    {
-        day += opts.firstDay;
-        while (day >= 7) {
-            day -= 7;
-        }
-        return abbr ? opts.i18n.weekdaysShort[day] : opts.i18n.weekdays[day];
-    },
-
-    renderDay = function(d, m, y, isSelected, isToday, isDisabled, isEmpty)
-    {
-        if (isEmpty) {
-            return '<td class="is-empty"></td>';
-        }
-        var arr = [];
-        if (isDisabled) {
-            arr.push('is-disabled');
-        }
-        if (isToday) {
-            arr.push('is-today');
-        }
-        if (isSelected) {
-            arr.push('is-selected');
-        }
-        return '<td data-day="' + d + '" class="' + arr.join(' ') + '">' +
-                 '<button class="pika-button pika-day" type="button" ' +
-                    'data-pika-year="' + y + '" data-pika-month="' + m + '" data-pika-day="' + d + '">' +
-                        d +
-                 '</button>' +
-               '</td>';
-    },
-
-    renderWeek = function (d, m, y) {
-        // Lifted from http://javascript.about.com/library/blweekyear.htm, lightly modified.
-        var onejan = new Date(y, 0, 1),
-            weekNum = Math.ceil((((new Date(y, m, d) - onejan) / 86400000) + onejan.getDay()+1)/7);
-        return '<td class="pika-week">' + weekNum + '</td>';
-    },
-
-    renderRow = function(days, isRTL)
-    {
-        return '<tr>' + (isRTL ? days.reverse() : days).join('') + '</tr>';
-    },
-
-    renderBody = function(rows)
-    {
-        return '<tbody>' + rows.join('') + '</tbody>';
-    },
-
-    renderHead = function(opts)
-    {
-        var i, arr = [];
-        if (opts.showWeekNumber) {
-            arr.push('<th></th>');
-        }
-        for (i = 0; i < 7; i++) {
-            arr.push('<th scope="col"><abbr title="' + renderDayName(opts, i) + '">' + renderDayName(opts, i, true) + '</abbr></th>');
-        }
-        return '<thead>' + (opts.isRTL ? arr.reverse() : arr).join('') + '</thead>';
-    },
-
-    renderTitle = function(instance, c, year, month, refYear)
-    {
-        var i, j, arr,
-            opts = instance._o,
-            isMinYear = year === opts.minYear,
-            isMaxYear = year === opts.maxYear,
-            html = '<div class="pika-title">',
-            monthHtml,
-            yearHtml,
-            prev = true,
-            next = true;
-
-        for (arr = [], i = 0; i < 12; i++) {
-            arr.push('<option value="' + (year === refYear ? i - c : 12 + i - c) + '"' +
-                (i === month ? ' selected': '') +
-                ((isMinYear && i < opts.minMonth) || (isMaxYear && i > opts.maxMonth) ? 'disabled' : '') + '>' +
-                opts.i18n.months[i] + '</option>');
-        }
-        monthHtml = '<div class="pika-label">' + opts.i18n.months[month] + '<select class="pika-select pika-select-month">' + arr.join('') + '</select></div>';
-
-        if (isArray(opts.yearRange)) {
-            i = opts.yearRange[0];
-            j = opts.yearRange[1] + 1;
-        } else {
-            i = year - opts.yearRange;
-            j = 1 + year + opts.yearRange;
-        }
-
-        for (arr = []; i < j && i <= opts.maxYear; i++) {
-            if (i >= opts.minYear) {
-                arr.push('<option value="' + i + '"' + (i === year ? ' selected': '') + '>' + (i) + '</option>');
-            }
-        }
-        yearHtml = '<div class="pika-label">' + year + opts.yearSuffix + '<select class="pika-select pika-select-year">' + arr.join('') + '</select></div>';
-
-        if (opts.showMonthAfterYear) {
-            html += yearHtml + monthHtml;
-        } else {
-            html += monthHtml + yearHtml;
-        }
-
-        if (isMinYear && (month === 0 || opts.minMonth >= month)) {
-            prev = false;
-        }
-
-        if (isMaxYear && (month === 11 || opts.maxMonth <= month)) {
-            next = false;
-        }
-
-        if (c === 0) {
-            html += '<button class="pika-prev' + (prev ? '' : ' is-disabled') + '" type="button">' + opts.i18n.previousMonth + '</button>';
-        }
-        if (c === (instance._o.numberOfMonths - 1) ) {
-            html += '<button class="pika-next' + (next ? '' : ' is-disabled') + '" type="button">' + opts.i18n.nextMonth + '</button>';
-        }
-
-        return html += '</div>';
-    },
-
-    renderTable = function(opts, data)
-    {
-        return '<table cellpadding="0" cellspacing="0" class="pika-table">' + renderHead(opts) + renderBody(data) + '</table>';
-    },
-
-
-    /**
-     * Pikaday constructor
-     */
-    Pikaday = function(options)
-    {
-        var self = this,
-            opts = self.config(options);
-
-        self._onMouseDown = function(e)
-        {
-            if (!self._v) {
-                return;
-            }
-            e = e || window.event;
-            var target = e.target || e.srcElement;
-            if (!target) {
-                return;
-            }
-
-            if (!hasClass(target, 'is-disabled')) {
-                if (hasClass(target, 'pika-button') && !hasClass(target, 'is-empty')) {
-                    self.setDate(new Date(target.getAttribute('data-pika-year'), target.getAttribute('data-pika-month'), target.getAttribute('data-pika-day')));
-                    if (opts.bound) {
-                        sto(function() {
-                            self.hide();
-                            if (opts.field) {
-                                opts.field.blur();
-                            }
-                        }, 100);
-                    }
-                    return;
-                }
-                else if (hasClass(target, 'pika-prev')) {
-                    self.prevMonth();
-                }
-                else if (hasClass(target, 'pika-next')) {
-                    self.nextMonth();
-                }
-            }
-            if (!hasClass(target, 'pika-select')) {
-                if (e.preventDefault) {
-                    e.preventDefault();
-                } else {
-                    e.returnValue = false;
-                    return false;
-                }
-            } else {
-                self._c = true;
-            }
-        };
-
-        self._onChange = function(e)
-        {
-            e = e || window.event;
-            var target = e.target || e.srcElement;
-            if (!target) {
-                return;
-            }
-            if (hasClass(target, 'pika-select-month')) {
-                self.gotoMonth(target.value);
-            }
-            else if (hasClass(target, 'pika-select-year')) {
-                self.gotoYear(target.value);
-            }
-        };
-
-        self._onInputChange = function(e)
-        {
-            var date;
-
-            if (e.firedBy === self) {
-                return;
-            }
-            if (hasMoment) {
-                date = moment(opts.field.value, opts.format);
-                date = (date && date.isValid()) ? date.toDate() : null;
-            }
-            else {
-                date = new Date(Date.parse(opts.field.value));
-            }
-            self.setDate(isDate(date) ? date : null);
-            if (!self._v) {
-                self.show();
-            }
-        };
-
-        self._onInputFocus = function()
-        {
-            self.show();
-        };
-
-        self._onInputClick = function()
-        {
-            self.show();
-        };
-
-        self._onInputBlur = function()
-        {
-            if (!self._c) {
-                self._b = sto(function() {
-                    self.hide();
-                }, 50);
-            }
-            self._c = false;
-        };
-
-        self._onClick = function(e)
-        {
-            e = e || window.event;
-            var target = e.target || e.srcElement,
-                pEl = target;
-            if (!target) {
-                return;
-            }
-            if (!hasEventListeners && hasClass(target, 'pika-select')) {
-                if (!target.onchange) {
-                    target.setAttribute('onchange', 'return;');
-                    addEvent(target, 'change', self._onChange);
-                }
-            }
-            do {
-                if (hasClass(pEl, 'pika-single')) {
-                    return;
-                }
-            }
-            while ((pEl = pEl.parentNode));
-            if (self._v && target !== opts.trigger) {
-                self.hide();
-            }
-        };
-
-        self.el = document.createElement('div');
-        self.el.className = 'pika-single' + (opts.isRTL ? ' is-rtl' : '');
-
-        addEvent(self.el, 'mousedown', self._onMouseDown, true);
-        addEvent(self.el, 'change', self._onChange);
-
-        if (opts.field) {
-            if (opts.container) {
-                opts.container.appendChild(self.el);
-            } else if (opts.bound) {
-                document.body.appendChild(self.el);
-            } else {
-                opts.field.parentNode.insertBefore(self.el, opts.field.nextSibling);
-            }
-            addEvent(opts.field, 'change', self._onInputChange);
-
-            if (!opts.defaultDate) {
-                if (hasMoment && opts.field.value) {
-                    opts.defaultDate = moment(opts.field.value, opts.format).toDate();
-                } else {
-                    opts.defaultDate = new Date(Date.parse(opts.field.value));
-                }
-                opts.setDefaultDate = true;
-            }
-        }
-
-        var defDate = opts.defaultDate;
-
-        if (isDate(defDate)) {
-            if (opts.setDefaultDate) {
-                self.setDate(defDate, true);
-            } else {
-                self.gotoDate(defDate);
-            }
-        } else {
-            self.gotoDate(new Date());
-        }
-
-        if (opts.bound) {
-            this.hide();
-            self.el.className += ' is-bound';
-            addEvent(opts.trigger, 'click', self._onInputClick);
-            addEvent(opts.trigger, 'focus', self._onInputFocus);
-            addEvent(opts.trigger, 'blur', self._onInputBlur);
-        } else {
-            this.show();
-        }
+      }, this))
+  }
+
+  Modal.prototype.escape = function () {
+    if (this.isShown && this.options.keyboard) {
+      this.$element.on('keyup.dismiss.bs.modal', $.proxy(function (e) {
+        e.which == 27 && this.hide()
+      }, this))
+    } else if (!this.isShown) {
+      this.$element.off('keyup.dismiss.bs.modal')
+    }
+  }
+
+  Modal.prototype.hideModal = function () {
+    var that = this
+    this.$element.hide()
+    this.backdrop(function () {
+      that.$element.trigger('hidden.bs.modal')
+    })
+  }
+
+  Modal.prototype.removeBackdrop = function () {
+    this.$backdrop && this.$backdrop.remove()
+    this.$backdrop = null
+  }
+
+  Modal.prototype.backdrop = function (callback) {
+    var that = this
+    var animate = this.$element.hasClass('fade') ? 'fade' : ''
+
+    if (this.isShown && this.options.backdrop) {
+      var doAnimate = $.support.transition && animate
+
+      this.$backdrop = $('<div class="modal-backdrop ' + animate + '" />')
+        .appendTo(this.$body)
+
+      this.$element.on('click.dismiss.bs.modal', $.proxy(function (e) {
+        if (e.target !== e.currentTarget) return
+        this.options.backdrop == 'static'
+          ? this.$element[0].focus.call(this.$element[0])
+          : this.hide.call(this)
+      }, this))
+
+      if (doAnimate) this.$backdrop[0].offsetWidth // force reflow
+
+      this.$backdrop.addClass('in')
+
+      if (!callback) return
+
+      doAnimate ?
+        this.$backdrop
+          .one('bsTransitionEnd', callback)
+          .emulateTransitionEnd(150) :
+        callback()
+
+    } else if (!this.isShown && this.$backdrop) {
+      this.$backdrop.removeClass('in')
+
+      var callbackRemove = function () {
+        that.removeBackdrop()
+        callback && callback()
+      }
+      $.support.transition && this.$element.hasClass('fade') ?
+        this.$backdrop
+          .one('bsTransitionEnd', callbackRemove)
+          .emulateTransitionEnd(150) :
+        callbackRemove()
+
+    } else if (callback) {
+      callback()
+    }
+  }
+
+  Modal.prototype.checkScrollbar = function () {
+    if (document.body.clientWidth >= window.innerWidth) return
+    this.scrollbarWidth = this.scrollbarWidth || this.measureScrollbar()
+  }
+
+  Modal.prototype.setScrollbar = function () {
+    var bodyPad = parseInt((this.$body.css('padding-right') || 0), 10)
+    if (this.scrollbarWidth) this.$body.css('padding-right', bodyPad + this.scrollbarWidth)
+  }
+
+  Modal.prototype.resetScrollbar = function () {
+    this.$body.css('padding-right', '')
+  }
+
+  Modal.prototype.measureScrollbar = function () { // thx walsh
+    var scrollDiv = document.createElement('div')
+    scrollDiv.className = 'modal-scrollbar-measure'
+    this.$body.append(scrollDiv)
+    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth
+    this.$body[0].removeChild(scrollDiv)
+    return scrollbarWidth
+  }
+
+
+  // MODAL PLUGIN DEFINITION
+  // =======================
+
+  function Plugin(option, _relatedTarget) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.modal')
+      var options = $.extend({}, Modal.DEFAULTS, $this.data(), typeof option == 'object' && option)
+
+      if (!data) $this.data('bs.modal', (data = new Modal(this, options)))
+      if (typeof option == 'string') data[option](_relatedTarget)
+      else if (options.show) data.show(_relatedTarget)
+    })
+  }
+
+  var old = $.fn.modal
+
+  $.fn.modal             = Plugin
+  $.fn.modal.Constructor = Modal
+
+
+  // MODAL NO CONFLICT
+  // =================
+
+  $.fn.modal.noConflict = function () {
+    $.fn.modal = old
+    return this
+  }
+
+
+  // MODAL DATA-API
+  // ==============
+
+  $(document).on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
+    var $this   = $(this)
+    var href    = $this.attr('href')
+    var $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))) // strip for ie7
+    var option  = $target.data('bs.modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data())
+
+    if ($this.is('a')) e.preventDefault()
+
+    $target.one('show.bs.modal', function (showEvent) {
+      if (showEvent.isDefaultPrevented()) return // only register focus restorer if modal will actually get shown
+      $target.one('hidden.bs.modal', function () {
+        $this.is(':visible') && $this.trigger('focus')
+      })
+    })
+    Plugin.call($target, option, this)
+  })
+
+}(jQuery);
+/* ========================================================================
+ * Bootstrap: tooltip.js v3.2.0
+ * http://getbootstrap.com/javascript/#tooltip
+ * Inspired by the original jQuery.tipsy by Jason Frame
+ * ========================================================================
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
+
++function ($) {
+  'use strict';
+
+  // TOOLTIP PUBLIC CLASS DEFINITION
+  // ===============================
+
+  var Tooltip = function (element, options) {
+    this.type       =
+    this.options    =
+    this.enabled    =
+    this.timeout    =
+    this.hoverState =
+    this.$element   = null
+
+    this.init('tooltip', element, options)
+  }
+
+  Tooltip.VERSION  = '3.2.0'
+
+  Tooltip.DEFAULTS = {
+    animation: true,
+    placement: 'top',
+    selector: false,
+    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+    trigger: 'hover focus',
+    title: '',
+    delay: 0,
+    html: false,
+    container: false,
+    viewport: {
+      selector: 'body',
+      padding: 0
+    }
+  }
+
+  Tooltip.prototype.init = function (type, element, options) {
+    this.enabled   = true
+    this.type      = type
+    this.$element  = $(element)
+    this.options   = this.getOptions(options)
+    this.$viewport = this.options.viewport && $(this.options.viewport.selector || this.options.viewport)
+
+    var triggers = this.options.trigger.split(' ')
+
+    for (var i = triggers.length; i--;) {
+      var trigger = triggers[i]
+
+      if (trigger == 'click') {
+        this.$element.on('click.' + this.type, this.options.selector, $.proxy(this.toggle, this))
+      } else if (trigger != 'manual') {
+        var eventIn  = trigger == 'hover' ? 'mouseenter' : 'focusin'
+        var eventOut = trigger == 'hover' ? 'mouseleave' : 'focusout'
+
+        this.$element.on(eventIn  + '.' + this.type, this.options.selector, $.proxy(this.enter, this))
+        this.$element.on(eventOut + '.' + this.type, this.options.selector, $.proxy(this.leave, this))
+      }
+    }
+
+    this.options.selector ?
+      (this._options = $.extend({}, this.options, { trigger: 'manual', selector: '' })) :
+      this.fixTitle()
+  }
+
+  Tooltip.prototype.getDefaults = function () {
+    return Tooltip.DEFAULTS
+  }
+
+  Tooltip.prototype.getOptions = function (options) {
+    options = $.extend({}, this.getDefaults(), this.$element.data(), options)
+
+    if (options.delay && typeof options.delay == 'number') {
+      options.delay = {
+        show: options.delay,
+        hide: options.delay
+      }
+    }
+
+    return options
+  }
+
+  Tooltip.prototype.getDelegateOptions = function () {
+    var options  = {}
+    var defaults = this.getDefaults()
+
+    this._options && $.each(this._options, function (key, value) {
+      if (defaults[key] != value) options[key] = value
+    })
+
+    return options
+  }
+
+  Tooltip.prototype.enter = function (obj) {
+    var self = obj instanceof this.constructor ?
+      obj : $(obj.currentTarget).data('bs.' + this.type)
+
+    if (!self) {
+      self = new this.constructor(obj.currentTarget, this.getDelegateOptions())
+      $(obj.currentTarget).data('bs.' + this.type, self)
+    }
+
+    clearTimeout(self.timeout)
+
+    self.hoverState = 'in'
+
+    if (!self.options.delay || !self.options.delay.show) return self.show()
+
+    self.timeout = setTimeout(function () {
+      if (self.hoverState == 'in') self.show()
+    }, self.options.delay.show)
+  }
+
+  Tooltip.prototype.leave = function (obj) {
+    var self = obj instanceof this.constructor ?
+      obj : $(obj.currentTarget).data('bs.' + this.type)
+
+    if (!self) {
+      self = new this.constructor(obj.currentTarget, this.getDelegateOptions())
+      $(obj.currentTarget).data('bs.' + this.type, self)
+    }
+
+    clearTimeout(self.timeout)
+
+    self.hoverState = 'out'
+
+    if (!self.options.delay || !self.options.delay.hide) return self.hide()
+
+    self.timeout = setTimeout(function () {
+      if (self.hoverState == 'out') self.hide()
+    }, self.options.delay.hide)
+  }
+
+  Tooltip.prototype.show = function () {
+    var e = $.Event('show.bs.' + this.type)
+
+    if (this.hasContent() && this.enabled) {
+      this.$element.trigger(e)
+
+      var inDom = $.contains(document.documentElement, this.$element[0])
+      if (e.isDefaultPrevented() || !inDom) return
+      var that = this
+
+      var $tip = this.tip()
+
+      var tipId = this.getUID(this.type)
+
+      this.setContent()
+      $tip.attr('id', tipId)
+      this.$element.attr('aria-describedby', tipId)
+
+      if (this.options.animation) $tip.addClass('fade')
+
+      var placement = typeof this.options.placement == 'function' ?
+        this.options.placement.call(this, $tip[0], this.$element[0]) :
+        this.options.placement
+
+      var autoToken = /\s?auto?\s?/i
+      var autoPlace = autoToken.test(placement)
+      if (autoPlace) placement = placement.replace(autoToken, '') || 'top'
+
+      $tip
+        .detach()
+        .css({ top: 0, left: 0, display: 'block' })
+        .addClass(placement)
+        .data('bs.' + this.type, this)
+
+      this.options.container ? $tip.appendTo(this.options.container) : $tip.insertAfter(this.$element)
+
+      var pos          = this.getPosition()
+      var actualWidth  = $tip[0].offsetWidth
+      var actualHeight = $tip[0].offsetHeight
+
+      if (autoPlace) {
+        var orgPlacement = placement
+        var $parent      = this.$element.parent()
+        var parentDim    = this.getPosition($parent)
+
+        placement = placement == 'bottom' && pos.top   + pos.height       + actualHeight - parentDim.scroll > parentDim.height ? 'top'    :
+                    placement == 'top'    && pos.top   - parentDim.scroll - actualHeight < 0                                   ? 'bottom' :
+                    placement == 'right'  && pos.right + actualWidth      > parentDim.width                                    ? 'left'   :
+                    placement == 'left'   && pos.left  - actualWidth      < parentDim.left                                     ? 'right'  :
+                    placement
+
+        $tip
+          .removeClass(orgPlacement)
+          .addClass(placement)
+      }
+
+      var calculatedOffset = this.getCalculatedOffset(placement, pos, actualWidth, actualHeight)
+
+      this.applyPlacement(calculatedOffset, placement)
+
+      var complete = function () {
+        that.$element.trigger('shown.bs.' + that.type)
+        that.hoverState = null
+      }
+
+      $.support.transition && this.$tip.hasClass('fade') ?
+        $tip
+          .one('bsTransitionEnd', complete)
+          .emulateTransitionEnd(150) :
+        complete()
+    }
+  }
+
+  Tooltip.prototype.applyPlacement = function (offset, placement) {
+    var $tip   = this.tip()
+    var width  = $tip[0].offsetWidth
+    var height = $tip[0].offsetHeight
+
+    // manually read margins because getBoundingClientRect includes difference
+    var marginTop = parseInt($tip.css('margin-top'), 10)
+    var marginLeft = parseInt($tip.css('margin-left'), 10)
+
+    // we must check for NaN for ie 8/9
+    if (isNaN(marginTop))  marginTop  = 0
+    if (isNaN(marginLeft)) marginLeft = 0
+
+    offset.top  = offset.top  + marginTop
+    offset.left = offset.left + marginLeft
+
+    // $.fn.offset doesn't round pixel values
+    // so we use setOffset directly with our own function B-0
+    $.offset.setOffset($tip[0], $.extend({
+      using: function (props) {
+        $tip.css({
+          top: Math.round(props.top),
+          left: Math.round(props.left)
+        })
+      }
+    }, offset), 0)
+
+    $tip.addClass('in')
+
+    // check to see if placing tip in new offset caused the tip to resize itself
+    var actualWidth  = $tip[0].offsetWidth
+    var actualHeight = $tip[0].offsetHeight
+
+    if (placement == 'top' && actualHeight != height) {
+      offset.top = offset.top + height - actualHeight
+    }
+
+    var delta = this.getViewportAdjustedDelta(placement, offset, actualWidth, actualHeight)
+
+    if (delta.left) offset.left += delta.left
+    else offset.top += delta.top
+
+    var arrowDelta          = delta.left ? delta.left * 2 - width + actualWidth : delta.top * 2 - height + actualHeight
+    var arrowPosition       = delta.left ? 'left'        : 'top'
+    var arrowOffsetPosition = delta.left ? 'offsetWidth' : 'offsetHeight'
+
+    $tip.offset(offset)
+    this.replaceArrow(arrowDelta, $tip[0][arrowOffsetPosition], arrowPosition)
+  }
+
+  Tooltip.prototype.replaceArrow = function (delta, dimension, position) {
+    this.arrow().css(position, delta ? (50 * (1 - delta / dimension) + '%') : '')
+  }
+
+  Tooltip.prototype.setContent = function () {
+    var $tip  = this.tip()
+    var title = this.getTitle()
+
+    $tip.find('.tooltip-inner')[this.options.html ? 'html' : 'text'](title)
+    $tip.removeClass('fade in top bottom left right')
+  }
+
+  Tooltip.prototype.hide = function () {
+    var that = this
+    var $tip = this.tip()
+    var e    = $.Event('hide.bs.' + this.type)
+
+    this.$element.removeAttr('aria-describedby')
+
+    function complete() {
+      if (that.hoverState != 'in') $tip.detach()
+      that.$element.trigger('hidden.bs.' + that.type)
+    }
+
+    this.$element.trigger(e)
+
+    if (e.isDefaultPrevented()) return
+
+    $tip.removeClass('in')
+
+    $.support.transition && this.$tip.hasClass('fade') ?
+      $tip
+        .one('bsTransitionEnd', complete)
+        .emulateTransitionEnd(150) :
+      complete()
+
+    this.hoverState = null
+
+    return this
+  }
+
+  Tooltip.prototype.fixTitle = function () {
+    var $e = this.$element
+    if ($e.attr('title') || typeof ($e.attr('data-original-title')) != 'string') {
+      $e.attr('data-original-title', $e.attr('title') || '').attr('title', '')
+    }
+  }
+
+  Tooltip.prototype.hasContent = function () {
+    return this.getTitle()
+  }
+
+  Tooltip.prototype.getPosition = function ($element) {
+    $element   = $element || this.$element
+    var el     = $element[0]
+    var isBody = el.tagName == 'BODY'
+    return $.extend({}, (typeof el.getBoundingClientRect == 'function') ? el.getBoundingClientRect() : null, {
+      scroll: isBody ? document.documentElement.scrollTop || document.body.scrollTop : $element.scrollTop(),
+      width:  isBody ? $(window).width()  : $element.outerWidth(),
+      height: isBody ? $(window).height() : $element.outerHeight()
+    }, isBody ? { top: 0, left: 0 } : $element.offset())
+  }
+
+  Tooltip.prototype.getCalculatedOffset = function (placement, pos, actualWidth, actualHeight) {
+    return placement == 'bottom' ? { top: pos.top + pos.height,   left: pos.left + pos.width / 2 - actualWidth / 2  } :
+           placement == 'top'    ? { top: pos.top - actualHeight, left: pos.left + pos.width / 2 - actualWidth / 2  } :
+           placement == 'left'   ? { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth } :
+        /* placement == 'right' */ { top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width   }
+
+  }
+
+  Tooltip.prototype.getViewportAdjustedDelta = function (placement, pos, actualWidth, actualHeight) {
+    var delta = { top: 0, left: 0 }
+    if (!this.$viewport) return delta
+
+    var viewportPadding = this.options.viewport && this.options.viewport.padding || 0
+    var viewportDimensions = this.getPosition(this.$viewport)
+
+    if (/right|left/.test(placement)) {
+      var topEdgeOffset    = pos.top - viewportPadding - viewportDimensions.scroll
+      var bottomEdgeOffset = pos.top + viewportPadding - viewportDimensions.scroll + actualHeight
+      if (topEdgeOffset < viewportDimensions.top) { // top overflow
+        delta.top = viewportDimensions.top - topEdgeOffset
+      } else if (bottomEdgeOffset > viewportDimensions.top + viewportDimensions.height) { // bottom overflow
+        delta.top = viewportDimensions.top + viewportDimensions.height - bottomEdgeOffset
+      }
+    } else {
+      var leftEdgeOffset  = pos.left - viewportPadding
+      var rightEdgeOffset = pos.left + viewportPadding + actualWidth
+      if (leftEdgeOffset < viewportDimensions.left) { // left overflow
+        delta.left = viewportDimensions.left - leftEdgeOffset
+      } else if (rightEdgeOffset > viewportDimensions.width) { // right overflow
+        delta.left = viewportDimensions.left + viewportDimensions.width - rightEdgeOffset
+      }
+    }
+
+    return delta
+  }
+
+  Tooltip.prototype.getTitle = function () {
+    var title
+    var $e = this.$element
+    var o  = this.options
+
+    title = $e.attr('data-original-title')
+      || (typeof o.title == 'function' ? o.title.call($e[0]) :  o.title)
+
+    return title
+  }
+
+  Tooltip.prototype.getUID = function (prefix) {
+    do prefix += ~~(Math.random() * 1000000)
+    while (document.getElementById(prefix))
+    return prefix
+  }
+
+  Tooltip.prototype.tip = function () {
+    return (this.$tip = this.$tip || $(this.options.template))
+  }
+
+  Tooltip.prototype.arrow = function () {
+    return (this.$arrow = this.$arrow || this.tip().find('.tooltip-arrow'))
+  }
+
+  Tooltip.prototype.validate = function () {
+    if (!this.$element[0].parentNode) {
+      this.hide()
+      this.$element = null
+      this.options  = null
+    }
+  }
+
+  Tooltip.prototype.enable = function () {
+    this.enabled = true
+  }
+
+  Tooltip.prototype.disable = function () {
+    this.enabled = false
+  }
+
+  Tooltip.prototype.toggleEnabled = function () {
+    this.enabled = !this.enabled
+  }
+
+  Tooltip.prototype.toggle = function (e) {
+    var self = this
+    if (e) {
+      self = $(e.currentTarget).data('bs.' + this.type)
+      if (!self) {
+        self = new this.constructor(e.currentTarget, this.getDelegateOptions())
+        $(e.currentTarget).data('bs.' + this.type, self)
+      }
+    }
+
+    self.tip().hasClass('in') ? self.leave(self) : self.enter(self)
+  }
+
+  Tooltip.prototype.destroy = function () {
+    clearTimeout(this.timeout)
+    this.hide().$element.off('.' + this.type).removeData('bs.' + this.type)
+  }
+
+
+  // TOOLTIP PLUGIN DEFINITION
+  // =========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.tooltip')
+      var options = typeof option == 'object' && option
+
+      if (!data && option == 'destroy') return
+      if (!data) $this.data('bs.tooltip', (data = new Tooltip(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.tooltip
+
+  $.fn.tooltip             = Plugin
+  $.fn.tooltip.Constructor = Tooltip
+
+
+  // TOOLTIP NO CONFLICT
+  // ===================
+
+  $.fn.tooltip.noConflict = function () {
+    $.fn.tooltip = old
+    return this
+  }
+
+}(jQuery);
+/* ========================================================================
+ * Bootstrap: popover.js v3.2.0
+ * http://getbootstrap.com/javascript/#popovers
+ * ========================================================================
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
+
++function ($) {
+  'use strict';
+
+  // POPOVER PUBLIC CLASS DEFINITION
+  // ===============================
+
+  var Popover = function (element, options) {
+    this.init('popover', element, options)
+  }
+
+  if (!$.fn.tooltip) throw new Error('Popover requires tooltip.js')
+
+  Popover.VERSION  = '3.2.0'
+
+  Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
+    placement: 'right',
+    trigger: 'click',
+    content: '',
+    template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+  })
+
+
+  // NOTE: POPOVER EXTENDS tooltip.js
+  // ================================
+
+  Popover.prototype = $.extend({}, $.fn.tooltip.Constructor.prototype)
+
+  Popover.prototype.constructor = Popover
+
+  Popover.prototype.getDefaults = function () {
+    return Popover.DEFAULTS
+  }
+
+  Popover.prototype.setContent = function () {
+    var $tip    = this.tip()
+    var title   = this.getTitle()
+    var content = this.getContent()
+
+    $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title)
+    $tip.find('.popover-content').empty()[ // we use append for html objects to maintain js events
+      this.options.html ? (typeof content == 'string' ? 'html' : 'append') : 'text'
+    ](content)
+
+    $tip.removeClass('fade top bottom left right in')
+
+    // IE8 doesn't accept hiding via the `:empty` pseudo selector, we have to do
+    // this manually by checking the contents.
+    if (!$tip.find('.popover-title').html()) $tip.find('.popover-title').hide()
+  }
+
+  Popover.prototype.hasContent = function () {
+    return this.getTitle() || this.getContent()
+  }
+
+  Popover.prototype.getContent = function () {
+    var $e = this.$element
+    var o  = this.options
+
+    return $e.attr('data-content')
+      || (typeof o.content == 'function' ?
+            o.content.call($e[0]) :
+            o.content)
+  }
+
+  Popover.prototype.arrow = function () {
+    return (this.$arrow = this.$arrow || this.tip().find('.arrow'))
+  }
+
+  Popover.prototype.tip = function () {
+    if (!this.$tip) this.$tip = $(this.options.template)
+    return this.$tip
+  }
+
+
+  // POPOVER PLUGIN DEFINITION
+  // =========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.popover')
+      var options = typeof option == 'object' && option
+
+      if (!data && option == 'destroy') return
+      if (!data) $this.data('bs.popover', (data = new Popover(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.popover
+
+  $.fn.popover             = Plugin
+  $.fn.popover.Constructor = Popover
+
+
+  // POPOVER NO CONFLICT
+  // ===================
+
+  $.fn.popover.noConflict = function () {
+    $.fn.popover = old
+    return this
+  }
+
+}(jQuery);
+
+
+
+
+
+
+
+
+
+
+
+
+(function() {
+  this.GoogleAnalytics = (function() {
+    function GoogleAnalytics() {}
+
+    GoogleAnalytics.load = function() {
+      var firstScript, ga;
+      window._gaq = [];
+      window._gaq.push(["_setAccount", GoogleAnalytics.analyticsId()]);
+      ga = document.createElement("script");
+      ga.type = "text/javascript";
+      ga.async = true;
+      ga.src = ("https:" === document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";
+      firstScript = document.getElementsByTagName("script")[0];
+      firstScript.parentNode.insertBefore(ga, firstScript);
+      if (typeof Turbolinks !== 'undefined' && Turbolinks.supported) {
+        return document.addEventListener("page:change", (function() {
+          return GoogleAnalytics.trackPageview();
+        }), true);
+      } else {
+        return GoogleAnalytics.trackPageview();
+      }
     };
 
-
-    /**
-     * public Pikaday API
-     */
-    Pikaday.prototype = {
-
-
-        /**
-         * configure functionality
-         */
-        config: function(options)
-        {
-            if (!this._o) {
-                this._o = extend({}, defaults, true);
-            }
-
-            var opts = extend(this._o, options, true);
-
-            opts.isRTL = !!opts.isRTL;
-
-            opts.field = (opts.field && opts.field.nodeName) ? opts.field : null;
-
-            opts.bound = !!(opts.bound !== undefined ? opts.field && opts.bound : opts.field);
-
-            opts.trigger = (opts.trigger && opts.trigger.nodeName) ? opts.trigger : opts.field;
-
-            var nom = parseInt(opts.numberOfMonths, 10) || 1;
-            opts.numberOfMonths = nom > 4 ? 4 : nom;
-
-            if (!isDate(opts.minDate)) {
-                opts.minDate = false;
-            }
-            if (!isDate(opts.maxDate)) {
-                opts.maxDate = false;
-            }
-            if ((opts.minDate && opts.maxDate) && opts.maxDate < opts.minDate) {
-                opts.maxDate = opts.minDate = false;
-            }
-            if (opts.minDate) {
-                setToStartOfDay(opts.minDate);
-                opts.minYear  = opts.minDate.getFullYear();
-                opts.minMonth = opts.minDate.getMonth();
-            }
-            if (opts.maxDate) {
-                setToStartOfDay(opts.maxDate);
-                opts.maxYear  = opts.maxDate.getFullYear();
-                opts.maxMonth = opts.maxDate.getMonth();
-            }
-
-            if (isArray(opts.yearRange)) {
-                var fallback = new Date().getFullYear() - 10;
-                opts.yearRange[0] = parseInt(opts.yearRange[0], 10) || fallback;
-                opts.yearRange[1] = parseInt(opts.yearRange[1], 10) || fallback;
-            } else {
-                opts.yearRange = Math.abs(parseInt(opts.yearRange, 10)) || defaults.yearRange;
-                if (opts.yearRange > 100) {
-                    opts.yearRange = 100;
-                }
-            }
-
-            return opts;
-        },
-
-        /**
-         * return a formatted string of the current selection (using Moment.js if available)
-         */
-        toString: function(format)
-        {
-            return !isDate(this._d) ? '' : hasMoment ? moment(this._d).format(format || this._o.format) : this._d.toDateString();
-        },
-
-        /**
-         * return a Moment.js object of the current selection (if available)
-         */
-        getMoment: function()
-        {
-            return hasMoment ? moment(this._d) : null;
-        },
-
-        /**
-         * set the current selection from a Moment.js object (if available)
-         */
-        setMoment: function(date, preventOnSelect)
-        {
-            if (hasMoment && moment.isMoment(date)) {
-                this.setDate(date.toDate(), preventOnSelect);
-            }
-        },
-
-        /**
-         * return a Date object of the current selection
-         */
-        getDate: function()
-        {
-            return isDate(this._d) ? new Date(this._d.getTime()) : null;
-        },
-
-        /**
-         * set the current selection
-         */
-        setDate: function(date, preventOnSelect)
-        {
-            if (!date) {
-                this._d = null;
-                return this.draw();
-            }
-            if (typeof date === 'string') {
-                date = new Date(Date.parse(date));
-            }
-            if (!isDate(date)) {
-                return;
-            }
-
-            var min = this._o.minDate,
-                max = this._o.maxDate;
-
-            if (isDate(min) && date < min) {
-                date = min;
-            } else if (isDate(max) && date > max) {
-                date = max;
-            }
-
-            this._d = new Date(date.getTime());
-            setToStartOfDay(this._d);
-            this.gotoDate(this._d);
-
-            if (this._o.field) {
-                this._o.field.value = this.toString();
-                fireEvent(this._o.field, 'change', { firedBy: this });
-            }
-            if (!preventOnSelect && typeof this._o.onSelect === 'function') {
-                this._o.onSelect.call(this, this.getDate());
-            }
-        },
-
-        /**
-         * change view to a specific date
-         */
-        gotoDate: function(date)
-        {
-            var newCalendar = true;
-
-            if (!isDate(date)) {
-                return;
-            }
-
-            if (this.calendars) {
-                var firstVisibleDate = new Date(this.calendars[0].year, this.calendars[0].month, 1),
-                    lastVisibleDate = new Date(this.calendars[this.calendars.length-1].year, this.calendars[this.calendars.length-1].month, 1),
-                    visibleDate = date.getTime();
-                // get the end of the month
-                lastVisibleDate.setMonth(lastVisibleDate.getMonth()+1);
-                lastVisibleDate.setDate(lastVisibleDate.getDate()-1);
-                newCalendar = (visibleDate < firstVisibleDate.getTime() || lastVisibleDate.getTime() < visibleDate);
-            }
-
-            if (newCalendar) {
-                this.calendars = [{
-                    month: date.getMonth(),
-                    year: date.getFullYear()
-                }];
-                if (this._o.mainCalendar === 'right') {
-                    this.calendars[0].month += 1 - this._o.numberOfMonths;
-                }
-            }
-
-            this.adjustCalendars();
-        },
-
-        adjustCalendars: function() {
-            this.calendars[0] = adjustCalendar(this.calendars[0]);
-            for (var c = 1; c < this._o.numberOfMonths; c++) {
-                this.calendars[c] = adjustCalendar({
-                    month: this.calendars[0].month + c,
-                    year: this.calendars[0].year
-                });
-            }
-            this.draw();
-        },
-
-        gotoToday: function()
-        {
-            this.gotoDate(new Date());
-        },
-
-        /**
-         * change view to a specific month (zero-index, e.g. 0: January)
-         */
-        gotoMonth: function(month)
-        {
-            if (!isNaN(month)) {
-                this.calendars[0].month = parseInt(month, 10);
-                this.adjustCalendars();
-            }
-        },
-
-        nextMonth: function()
-        {
-            this.calendars[0].month++;
-            this.adjustCalendars();
-        },
-
-        prevMonth: function()
-        {
-            this.calendars[0].month--;
-            this.adjustCalendars();
-        },
-
-        /**
-         * change view to a specific full year (e.g. "2012")
-         */
-        gotoYear: function(year)
-        {
-            if (!isNaN(year)) {
-                this.calendars[0].year = parseInt(year, 10);
-                this.adjustCalendars();
-            }
-        },
-
-        /**
-         * change the minDate
-         */
-        setMinDate: function(value)
-        {
-            this._o.minDate = value;
-        },
-
-        /**
-         * change the maxDate
-         */
-        setMaxDate: function(value)
-        {
-            this._o.maxDate = value;
-        },
-
-        /**
-         * refresh the HTML
-         */
-        draw: function(force)
-        {
-            if (!this._v && !force) {
-                return;
-            }
-            var opts = this._o,
-                minYear = opts.minYear,
-                maxYear = opts.maxYear,
-                minMonth = opts.minMonth,
-                maxMonth = opts.maxMonth,
-                html = '';
-
-            if (this._y <= minYear) {
-                this._y = minYear;
-                if (!isNaN(minMonth) && this._m < minMonth) {
-                    this._m = minMonth;
-                }
-            }
-            if (this._y >= maxYear) {
-                this._y = maxYear;
-                if (!isNaN(maxMonth) && this._m > maxMonth) {
-                    this._m = maxMonth;
-                }
-            }
-
-            for (var c = 0; c < opts.numberOfMonths; c++) {
-                html += '<div class="pika-lendar">' + renderTitle(this, c, this.calendars[c].year, this.calendars[c].month, this.calendars[0].year) + this.render(this.calendars[c].year, this.calendars[c].month) + '</div>';
-            }
-
-            this.el.innerHTML = html;
-
-            if (opts.bound) {
-                if(opts.field.type !== 'hidden') {
-                    sto(function() {
-                        opts.trigger.focus();
-                    }, 1);
-                }
-            }
-
-            if (typeof this._o.onDraw === 'function') {
-                var self = this;
-                sto(function() {
-                    self._o.onDraw.call(self);
-                }, 0);
-            }
-        },
-
-        adjustPosition: function()
-        {
-            if (this._o.container) return;
-            var field = this._o.trigger, pEl = field,
-            width = this.el.offsetWidth, height = this.el.offsetHeight,
-            viewportWidth = window.innerWidth || document.documentElement.clientWidth,
-            viewportHeight = window.innerHeight || document.documentElement.clientHeight,
-            scrollTop = window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop,
-            left, top, clientRect;
-
-            if (typeof field.getBoundingClientRect === 'function') {
-                clientRect = field.getBoundingClientRect();
-                left = clientRect.left + window.pageXOffset;
-                top = clientRect.bottom + window.pageYOffset;
-            } else {
-                left = pEl.offsetLeft;
-                top  = pEl.offsetTop + pEl.offsetHeight;
-                while((pEl = pEl.offsetParent)) {
-                    left += pEl.offsetLeft;
-                    top  += pEl.offsetTop;
-                }
-            }
-
-            // default position is bottom & left
-            if (left + width > viewportWidth ||
-                (
-                    this._o.position.indexOf('right') > -1 &&
-                    left - width + field.offsetWidth > 0
-                )
-            ) {
-                left = left - width + field.offsetWidth;
-            }
-            if (top + height > viewportHeight + scrollTop ||
-                (
-                    this._o.position.indexOf('top') > -1 &&
-                    top - height - field.offsetHeight > 0
-                )
-            ) {
-                top = top - height - field.offsetHeight;
-            }
-            this.el.style.cssText = [
-                'position: absolute',
-                'left: ' + left + 'px',
-                'top: ' + top + 'px'
-            ].join(';');
-        },
-
-        /**
-         * render HTML for a particular month
-         */
-        render: function(year, month)
-        {
-            var opts   = this._o,
-                now    = new Date(),
-                days   = getDaysInMonth(year, month),
-                before = new Date(year, month, 1).getDay(),
-                data   = [],
-                row    = [];
-            setToStartOfDay(now);
-            if (opts.firstDay > 0) {
-                before -= opts.firstDay;
-                if (before < 0) {
-                    before += 7;
-                }
-            }
-            var cells = days + before,
-                after = cells;
-            while(after > 7) {
-                after -= 7;
-            }
-            cells += 7 - after;
-            for (var i = 0, r = 0; i < cells; i++)
-            {
-                var day = new Date(year, month, 1 + (i - before)),
-                    isDisabled = (opts.minDate && day < opts.minDate) || (opts.maxDate && day > opts.maxDate),
-                    isSelected = isDate(this._d) ? compareDates(day, this._d) : false,
-                    isToday = compareDates(day, now),
-                    isEmpty = i < before || i >= (days + before);
-
-                row.push(renderDay(1 + (i - before), month, year, isSelected, isToday, isDisabled, isEmpty));
-
-                if (++r === 7) {
-                    if (opts.showWeekNumber) {
-                        row.unshift(renderWeek(i - before, month, year));
-                    }
-                    data.push(renderRow(row, opts.isRTL));
-                    row = [];
-                    r = 0;
-                }
-            }
-            return renderTable(opts, data);
-        },
-
-        isVisible: function()
-        {
-            return this._v;
-        },
-
-        show: function()
-        {
-            if (!this._v) {
-                removeClass(this.el, 'is-hidden');
-                this._v = true;
-                this.draw();
-                if (this._o.bound) {
-                    addEvent(document, 'click', this._onClick);
-                    this.adjustPosition();
-                }
-                if (typeof this._o.onOpen === 'function') {
-                    this._o.onOpen.call(this);
-                }
-            }
-        },
-
-        hide: function()
-        {
-            var v = this._v;
-            if (v !== false) {
-                if (this._o.bound) {
-                    removeEvent(document, 'click', this._onClick);
-                }
-                this.el.style.cssText = '';
-                addClass(this.el, 'is-hidden');
-                this._v = false;
-                if (v !== undefined && typeof this._o.onClose === 'function') {
-                    this._o.onClose.call(this);
-                }
-            }
-        },
-
-        /**
-         * GAME OVER
-         */
-        destroy: function()
-        {
-            this.hide();
-            removeEvent(this.el, 'mousedown', this._onMouseDown, true);
-            removeEvent(this.el, 'change', this._onChange);
-            if (this._o.field) {
-                removeEvent(this._o.field, 'change', this._onInputChange);
-                if (this._o.bound) {
-                    removeEvent(this._o.trigger, 'click', this._onInputClick);
-                    removeEvent(this._o.trigger, 'focus', this._onInputFocus);
-                    removeEvent(this._o.trigger, 'blur', this._onInputBlur);
-                }
-            }
-            if (this.el.parentNode) {
-                this.el.parentNode.removeChild(this.el);
-            }
+    GoogleAnalytics.trackPageview = function(url) {
+      if (!GoogleAnalytics.isLocalRequest()) {
+        if (url) {
+          window._gaq.push(["_trackPageview", url]);
+        } else {
+          window._gaq.push(["_trackPageview"]);
         }
-
+        return window._gaq.push(["_trackPageLoadTime"]);
+      }
     };
 
-    return Pikaday;
+    GoogleAnalytics.isLocalRequest = function() {
+      return GoogleAnalytics.documentDomainIncludes("local");
+    };
 
-}));
+    GoogleAnalytics.documentDomainIncludes = function(str) {
+      return document.domain.indexOf(str) !== -1;
+    };
+
+    GoogleAnalytics.analyticsId = function() {
+      return '';
+    };
+
+    return GoogleAnalytics;
+
+  })();
+
+  GoogleAnalytics.load();
+
+}).call(this);
 (function() {
 
-  // Methods used in datetime parsing and setting.
-  function parseDate(dateString) {
-    var matches = dateString.match(/(\d+).(\d+).(\d+)/i);
-    if (matches == null || matches.length < 4) {
-      return null;
-    } else {
-      var m = moment();
-      m.utc().year(matches[1]);
-      m.utc().month(matches[2]);
-      m.utc().date(matches[3]);
-      return m;
-    }
-  }
 
-  function setInputDate(newMoment, hiddenInput) {
-    if (newMoment == null || !newMoment.isValid()) {
-      hiddenInput.val("");
-      return null;
-    }
-
-    var curMoment = moment(hiddenInput.val());
-    if (!curMoment.isValid()) {
-      curMoment = newMoment;
-    } else {
-      curMoment.utc().year(newMoment.utc().year());
-      curMoment.utc().month(newMoment.utc().month());
-      curMoment.utc().date(newMoment.utc().date());
-    }
-    hiddenInput.val(curMoment.utc().format());
-    return curMoment;
-  }
-
-  function parseTime(timeString) {
-    var matches = timeString.match(/(\d+)(?::(\d\d))?\s*(p?)/i);
-    if (matches == null || matches.length < 4) {
-      return null;
-    } else {
-      var m = moment();
-
-      var h = parseInt(matches[1]);
-      if (h == 12 && !matches[3]) {
-        h = 0
-      } else if (matches[3]) {
-        h += (h < 12) ? 12 : 0;
-      }
-      m.utc().hour(h);
-      m.utc().minute(matches[2]);
-      return m;
-    }
-  }
-
-  function setInputTime(newMoment, hiddenInput) {
-    if (newMoment == null || !newMoment.isValid()) {
-      hiddenInput.val("");
-      return null;
-    }
-
-    var curMoment = moment(hiddenInput.val());
-    if (!curMoment.isValid()) {
-      curMoment = newMoment;
-    } else {
-      curMoment.utc().hour(newMoment.utc().hour());
-      curMoment.utc().minute(newMoment.utc().minute());
-    }
-    hiddenInput.val(curMoment.utc().format());
-    return curMoment;
-  }
-
-
-
-
-
-
-  // Initializing the attribute view.
-  var init = function(formId) {
-    var dtSection = $("." + formId + ".datetime-attribute");
-    var hiddenInput = dtSection.find("input#" + formId + "[type=hidden]");
-    var dateInput = dtSection.find("#" + formId + "-date");
-    var timeInput = dtSection.find("#" + formId + "-time");
-
-    var dtMoment = moment(hiddenInput.val());
-    if (hiddenInput.val() == "") {
-      dtMoment = null;
-    }
-
-    var handleDateSelect = function() {
-      var newDateMoment = parseDate(dateInput.val());
-      setInputDate(newDateMoment, hiddenInput);
-      return newDateMoment;
-    }
-
-    var handleTimeSelect = function() {
-      var newTimeMoment = parseTime(timeInput.val());
-      setInputTime(newTimeMoment, hiddenInput);
-      return newTimeMoment;
-    }
-
-    // Create Date Picker
-    var datePicker = new Pikaday({ field: $("#" + formId + "-date")[0], onSelect: handleDateSelect });
-
-    // Create Time Picker
-    $("#" + formId + "-time").clockpicker({
-      autoclose: true,
-      donetext: "Done",
-      twelvehour: true,
-      afterDone: handleTimeSelect,
-    });
-
-    if (dtMoment != null) {
-      timeInput.val(dtMoment.utc().format("hh:mmA"));
-    }
-
-    dtSection.closest("form").submit(function(event) {
-      event.preventDefault();
-
-      // Only date is *required* so the order here is important.
-      handleTimeSelect();
-      handleDateSelect();
-
-      event.target.submit();
-    });
-  }
-
-
-  if (window.Upmin == null) {
-    window.Upmin = {};
-  }
-  if (window.Upmin.Attributes == null) {
-    window.Upmin.Attributes = {};
-  }
-  window.Upmin.Attributes.DateTime = init;
-})();
-var Models = {
-  init: function() {
-    return console.log("Init Models JS...");
-  },
-
-
-  Search: {
-    init: function() {
-      console.log("Init Models.Search JS...");
-    }, // end of Search.init()
-
-  } // end of Search
-
-
-
-
-};
-
-if (window.Upmin == null) {
-  window.Upmin = {};
-}
-
-window.Upmin.Models = Models;
+}).call(this);
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -12654,27 +12945,4 @@ window.Upmin.Models = Models;
 
 
 
-
-
-
-function runUpmin() {
-  var Upmin = window.Upmin;
-  var controller = $("body").data("controller");
-  var action = $("body").data("action");
-
-  if ("object" === typeof Upmin) {
-
-    // Check if a controller specific initializer exists.
-    var Controller = Upmin[controller];
-    if ("object" === typeof Controller) {
-      Controller.init();
-
-      // Check if an action specific initializer exists.
-      var Action = Controller[action];
-      if ("object" === typeof Action) {
-        Action.init();
-      }
-    }
-  }
-};
-$(document).ready(runUpmin);
+;
