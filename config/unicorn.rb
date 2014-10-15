@@ -24,17 +24,4 @@ after_fork do |server, worker|
     config['pool']            =   ENV['DB_POOL'] || 10
     ActiveRecord::Base.establish_connection(config)
   end
-
-  # Sidekiq.configure_server do |config|
-  #   config.redis = { url: ENV['REDISTOGO_URL'],
-  #                   size: 5,
-  #              namespace: "openbid_#{ Rails.env }" }
-  #   config.poll_interval = 5
-  # end
-
-  # Sidekiq.configure_client do |config|
-  #   config.redis = { url: ENV['REDISTOGO_URL'],
-  #                   size: 1,
-  #              namespace: "openbid_#{ Rails.env }" }
-  # end
 end
