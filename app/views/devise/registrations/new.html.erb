@@ -26,7 +26,8 @@
     </div>
 
     <div class="form-actions">
-      <%= render 'submit_button' %>
+      <%= render partial: 'devise/sessions/sign_up_in_button', 
+                  locals: { text: 'sign-up'} %>
     </div>
   <% end %>
 

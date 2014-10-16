@@ -1,9 +1,9 @@
 <% if request.fullpath.split('/')[1] == 'users' %>
 	<%= button_tag(type: 'submit', class: 'user_submit') do %>
-		<%= fa_icon 'user', title: 'User' %> User sign-in
+		<%= fa_icon 'user', title: 'User' %> User <%= text %>
 	<% end %>
 <% else %>
 	<%= button_tag(type: 'submit', class: 'contractor_submit') do %>
-	  <%= fa_icon 'wrench', title: 'Contractor' %> Contractor sign-in
+	  <%= fa_icon 'wrench', title: 'Contractor' %> Contractor <%= text %>
 	<% end %>
 <% end %>
