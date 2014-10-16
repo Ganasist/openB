@@ -5,6 +5,6 @@
   - [mailer]
   - [paperclip]
 staging:
-  :concurrency: 1
+  :concurrency: 2
 production:
-  :concurrency: 1
+  :concurrency: 2
