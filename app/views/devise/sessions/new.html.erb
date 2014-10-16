@@ -1,12 +1,12 @@
 <% if request.fullpath.split('/')[1] == 'users' %>
   <div class="text-center">
-    <%= link_to new_contractor_session_path, class: 'btn btn-warning' do %>
+    <%= link_to new_contractor_session_path, class: 'btn btn-sm btn-warning' do %>
       <%= fa_icon 'wrench', title: 'Contractor' %> Contractor sign-in   
     <% end %>
   </div>
 <% else %>
   <div class="text-center">
-    <%= link_to new_user_session_path, class: 'btn btn-warning' do %>
+    <%= link_to new_user_session_path, class: 'btn btn-sm btn-success' do %>
       <%= fa_icon 'user', title: 'User' %> User sign-in
     <% end %>
   </div>
@@ -15,21 +15,19 @@
 <div class="authform">
 	<%= simple_form_for resource, as: resource_name, 
 															 url: session_path(resource_name) do |f| %>
-
-		<h3><%= resource_name.capitalize %> sign-in</h3>
 		
 		<%= f.error_notification %>
 	  <div class="form-inputs">
 	    <%= f.input :email, required: false, autofocus: true %>
 	    <%= f.input :password, required: false %>
-	    <%= f.input :remember_me,
-	    wrapper: :horizontal_boolean, as: :boolean if devise_mapping.rememberable? %>
+	    <%= f.input :remember_me, wrapper: :horizontal_boolean,
+	     															 as: :boolean if devise_mapping.rememberable? %>
 	  </div>
 
 	  <div class="form-actions">
-	    <%= f.button :submit, 'Log in', class: 'submit' %>
-	  </div>
-	<% end %>
+	  	<%= render 'submit_button' %>
+		</div>
+		<% end %>
 
 	<%= render 'devise/shared/links' %>
 </div>							

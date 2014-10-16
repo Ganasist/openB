@@ -28,7 +28,19 @@ img {
   }
 .submit {
   @extend .btn;
+  @extend .btn-primary;
+  @extend .btn-lg;
+  @extend .btn-block;
+  }
+.user_submit {
+  @extend .btn;
   @extend .btn-success;
+  @extend .btn-lg;
+  @extend .btn-block;
+  }
+.contractor_submit {
+  @extend .btn;
+  @extend .btn-warning;
   @extend .btn-lg;
   @extend .btn-block;
   }
