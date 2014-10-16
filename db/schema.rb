@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141015143542) do
+ActiveRecord::Schema.define(version: 20141016125955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20141015143542) do
     t.integer  "invitations_count",                  default: 0
     t.string   "categories",                         default: [],              array: true
     t.integer  "zip_code",                           default: [],              array: true
+    t.string   "name"
   end
 
   add_index "contractors", ["confirmation_token"], name: "index_contractors_on_confirmation_token", unique: true, using: :btree
