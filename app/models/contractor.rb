@@ -1,5 +1,7 @@
 class Contractor < ActiveRecord::Base
 	
+  include Attachments
+  
 	has_many :jobs
 	has_many :users, through: :jobs
 	

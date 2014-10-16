@@ -10,9 +10,9 @@ class ApplicationController < ActionController::Base
 	    devise_parameter_sanitizer.for(:sign_up) do |u|
 	      u.permit(:email, :password, :password_confirmation)
 	    end
-	    devise_parameter_sanitizer.for(:account_update) do |u|
-	      u.permit(:name, :email, :password, :password_confirmation)
-	    end
+	    devise_parameter_sanitizer.for(:account_update) { |a| a.permit(:name, :email, :password, 
+	    																															 :password_confirmation, :image, 
+	    																															 :delete_image, :image_remote_url)}
 	  end
 
 	  def after_sign_in_path_for(resource)

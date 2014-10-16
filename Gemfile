@@ -24,6 +24,8 @@ gem 'pg'
 gem 'active_attr'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'paperclip', '~> 4.1'
+gem 'delayed_paperclip'
 gem 'sendgrid'
 gem 'simple_form', '~> 3.1.0.rc1', github: 'plataformatec/simple_form', branch: 'master'
 gem 'unicorn'

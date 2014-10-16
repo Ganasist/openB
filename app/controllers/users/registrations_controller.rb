@@ -86,6 +86,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def after_update_path_for(resource)
-      session[:previous_url] || current_user
+      current_user
     end
 end

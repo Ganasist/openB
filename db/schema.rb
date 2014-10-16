@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141016125955) do
+ActiveRecord::Schema.define(version: 20141016134718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,11 @@ ActiveRecord::Schema.define(version: 20141016125955) do
     t.string   "categories",                         default: [],              array: true
     t.integer  "zip_code",                           default: [],              array: true
     t.string   "name"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.boolean  "image_processing"
   end
 
   add_index "contractors", ["confirmation_token"], name: "index_contractors_on_confirmation_token", unique: true, using: :btree
@@ -64,8 +69,13 @@ ActiveRecord::Schema.define(version: 20141016125955) do
     t.integer  "zip_code"
     t.integer  "user_id"
     t.integer  "contractor_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.boolean  "image_processing"
   end
 
   add_index "jobs", ["contractor_id"], name: "index_jobs_on_contractor_id", using: :btree
@@ -117,6 +127,11 @@ ActiveRecord::Schema.define(version: 20141016125955) do
     t.string   "unlock_token",           limit: 255
     t.datetime "locked_at"
     t.integer  "zip_code"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.boolean  "image_processing"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

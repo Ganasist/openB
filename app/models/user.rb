@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  include Attachments
+
 	has_many :jobs
 	has_many :contractors, through: :jobs
 
