@@ -1,10 +1,9 @@
-:logfile: ./log/sidekiq.log
 :verbose: true
 :concurrency: 3
 :queues:
-  - [default, 4]
-  - [mailer, 5]
-  - [paperclip, 6]
+  - [default]
+  - [mailer]
+  - [paperclip]
 staging:
   :concurrency: 3
 production:
