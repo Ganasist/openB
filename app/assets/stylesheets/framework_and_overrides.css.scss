@@ -221,10 +221,12 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
 .jumbotron {
   height: 510px;
   background:transparent;
-  margin-top: 80px;
+  padding-top: 0px;
+  // margin-top: 80px;
   h2 {
     line-height: 1.5em;
     color: #f1f1f1;
+    margin-top: 85px;
     padding-left: 0px;
     padding-right: 0px;
     }
