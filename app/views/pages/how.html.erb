@@ -29,8 +29,20 @@
 			</ol>
 			<br>
 			<div class="text-center">
-				<%= link_to	'Register Here', new_user_registration_path, 
-																		 class: 'btn btn-success' %>
+				<ul class="list-inline">
+		    	<li>
+	          <%= link_to new_user_registration_path, class: 'btn btn-success btn-lg', 
+	                                                     id: 'user_sign_up' do %>
+	            <%= fa_icon 'user', title: 'User' %> User Sign-up
+	          <% end %>
+	        </li>
+	        <li>
+	          <%= link_to new_contractor_registration_path, class: 'btn btn-success btn-lg', 
+	                                                           id: 'contractor_sign_up' do %>
+	            <%= fa_icon 'wrench', title: 'Contractor' %> Contractor Sign-up
+	          <% end %>
+	        </li>
+		    </ul>
 			</div>
 		</div>
 	</div>

@@ -13,9 +13,21 @@
 		<p>A message from the founder Lance Schwarzkopf, ” I’ve worked for large companies in the food industry for the better part of a decade.  I understand the difficulty of managing requests from ingredient and equipment suppliers.   I  have also worked as an independent research and development consultant.   I’m very familiar with the amount of time it takes to find new customers and write quotes.  OPENBID is our way of making business between customers and contractors more efficient for all parties involved.  It would be great to hear from you <%= link_to 'contact us', new_contact_path, class: 'text-uppercase' %>.
 		</p>
 		<br>
-		<div class="text-center">
-			<%= link_to	'Register Here', new_user_registration_path, 
-																 	 class: 'btn btn-success text-center' %>
+		<div class="text-center">			
+			<ul class="list-inline">
+		    	<li>
+	          <%= link_to new_user_registration_path, class: 'btn btn-success btn-lg', 
+	                                                     id: 'user_sign_up' do %>
+	            <%= fa_icon 'user', title: 'User' %> User Sign-up
+	          <% end %>
+	        </li>
+	        <li>
+	          <%= link_to new_contractor_registration_path, class: 'btn btn-success btn-lg', 
+	                                                           id: 'contractor_sign_up' do %>
+	            <%= fa_icon 'wrench', title: 'Contractor' %> Contractor Sign-up
+	          <% end %>
+	        </li>
+		    </ul>
 		</div>
 		<br>
 	</div>
