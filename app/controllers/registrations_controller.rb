@@ -3,9 +3,14 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :configure_account_create_params, only: :create
 
 	protected
+
+    def after_sign_out_path_for(resource)
+      root_path
+    end
+
 		def after_sign_up_path_for(resource)
 			if resource.sign_in_count == 1
-				flash[:notice] = 'Welcome to OpenBid! Please complete your profile.'
+				flash[:notice] = 'Welcome to OpenBid! Please finish your profile below.'
 				edit_registration_path(resource) 
 			else
 				after_sign_in_path(resource)

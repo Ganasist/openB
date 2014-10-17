@@ -1,16 +1,14 @@
-<% if request.fullpath.split('/')[1] == 'users' %>
-  <div class="text-center">
-    <%= link_to new_contractor_session_path, class: 'btn btn-sm btn-warning' do %>
-      <%= fa_icon 'wrench', title: 'Contractor' %> Contractor sign-in   
-    <% end %>
-  </div>
-<% else %>
-  <div class="text-center">
-    <%= link_to new_user_session_path, class: 'btn btn-sm btn-success' do %>
-      <%= fa_icon 'user', title: 'User' %> User sign-in
-    <% end %>
-  </div>
-<% end %>
+<div class="text-center">
+	<% if request.fullpath.split('/')[1] == 'users' %>
+	  <%= link_to new_contractor_session_path, class: 'btn btn-sm btn-warning' do %>
+	    <%= fa_icon 'wrench', title: 'Contractor' %> Contractor sign-in   
+	  <% end %>
+	<% else %>
+	  <%= link_to new_user_session_path, class: 'btn btn-sm btn-success' do %>
+	    <%= fa_icon 'user', title: 'User' %> User sign-in
+	  <% end %>
+	<% end %>
+</div>
 
 <div class="authform">
 	<%= simple_form_for resource, as: resource_name, 
@@ -18,8 +16,8 @@
 		
 		<%= f.error_notification %>
 	  <div class="form-inputs">
-	    <%= f.input :email, required: false, autofocus: true %>
-	    <%= f.input :password, required: false %>
+	    <%= f.input :email, required: true, autofocus: true %>
+	    <%= f.input :password, required: true %>
 	    <%= f.input :remember_me, wrapper: :horizontal_boolean,
 	     															 as: :boolean if devise_mapping.rememberable? %>
 	  </div>
