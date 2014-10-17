@@ -1,15 +1,4 @@
 class Contractors::RegistrationsController < RegistrationsController
-  def new
-    super
-  end
-
-  def create
-    super
-  end
-
-  def edit
-    super
-  end
 
   def update
     @contractor = Contractor.find(current_contractor.id)
@@ -31,20 +20,6 @@ class Contractors::RegistrationsController < RegistrationsController
     else
       render "edit"
     end
-  end
-
-  # DELETE /resource
-  def destroy
-    super
-  end
-
-  # GET /resource/cancel
-  # Forces the session data which is usually expired after sign
-  # in to be expired now. This is useful if the user wants to
-  # cancel oauth signing in/up in the middle of the process,
-  # removing all OAuth session data.
-  def cancel
-    super
   end
 
   protected

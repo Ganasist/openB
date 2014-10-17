@@ -1,21 +1,11 @@
 class SessionsController < Devise::SessionsController
-
-  # GET /resource/sign_in
-  def new
-    super
-  end
-
-  # POST /resource/sign_in
-  def create
-    super
-  end
-
-  # DELETE /resource/sign_out
-  def destroy
-    super
-  end
+  # before_filter :configure_permitted_parameters, only: :new
 
   protected
+
+    # def configure_permitted_parameters
+    #   devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email) }
+    # end
 
     def after_sign_in_path_for(resource)
       current_user || current_contractor

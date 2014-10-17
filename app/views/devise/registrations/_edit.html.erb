@@ -22,7 +22,7 @@
         <%= f.input :image_remote_url, label: 'Enter an image URL' %>
       </div>
 
-    <%= f.input :name, required: true, autofocus: true %>
+    <%= f.input :name, required: true %>
     <%= f.input :email, required: true, input_html: { id: 'current_email' } %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -39,5 +39,5 @@
     <%= f.button :submit, 'Update', class: 'user_submit' %>
   </div>    
   <% end %>
-  <%= link_to 'Back', :back, class: 'btn-sm submit' %>
+  <%= link_to 'Back', resource, class: 'btn-sm submit' %>
 </div>
