@@ -1,15 +1,12 @@
 class Contractor < ActiveRecord::Base
 	
   include Attachments
+  include Devisable
   
 	has_many :jobs
 	has_many :users, through: :jobs
 	
 	has_many :posts
-
-  devise :confirmable, :lockable, :timeoutable, :database_authenticatable, 
-  			 :registerable, :confirmable, :recoverable, :rememberable, :trackable, 
-  			 :validatable, :async
 
   def self.categories
     ['Bathrooms', 'Driveways', 'Decks/patios', 'Electrical', 'Fencing', 'Flooring', 'Home', 

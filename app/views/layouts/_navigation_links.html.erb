@@ -1,8 +1,8 @@
 <% if user_signed_in? %>
-  <li><%= link_to 'EDIT ACCOUNT', edit_user_registration_path,
+  <li><%= link_to 'Edit Profile', edit_user_registration_path,
                                   class: 'user_submit',
                                      id: 'learn_more_nav' %></li>
-  <li><%= link_to 'SIGN OUT', destroy_user_session_path, 
+  <li><%= link_to 'Sign-out', destroy_user_session_path, 
                               method: 'delete',
                                class: 'user_submit',
                                   id: 'learn_more_nav' %></li>
@@ -11,10 +11,10 @@
     <li><%= link_to 'USERS', users_path %></li>
   <% end %>
 <% elsif contractor_signed_in? %>
-  <li><%= link_to 'EDIT ACCOUNT', edit_contractor_registration_path,
+  <li><%= link_to 'Edit Profile', edit_contractor_registration_path,
                                   class: 'user_submit',
                                      id: 'learn_more_nav' %></li>
-  <li><%= link_to 'SIGN OUT', destroy_contractor_session_path, 
+  <li><%= link_to 'Sign-out', destroy_contractor_session_path, 
                               method: 'delete',
                                class: 'user_submit',
                                   id: 'learn_more_nav' %></li>
