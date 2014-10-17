@@ -1,4 +1,11 @@
-<%= image_tag @user.image(:original), class: 'img-rounded pull-left' if @user.image.exists? %>
+<%= image_tag @user.image(:original), class: 'img-rounded pull-left' %>
+<% if @user.image.processing? %>
+	<h4 class="text-center text-success">
+		Image is processing.<br> Refresh page in a few seconds.
+	</h4>
+<% end %>
+
+
 <h3>Whatever</h3>
 <p>Name: <%= @user.name if @user.name %></p>
 <p>Email: <%= @user.email if @user.email %></p>

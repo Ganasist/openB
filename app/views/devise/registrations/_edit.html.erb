@@ -7,13 +7,13 @@
 
     <div class="form-inputs">
       <div class="text-center">
-        <p>Image (.jpeg, .png, .gif < 2 megabytes)</p>
-        <% if resource.image? %>
+        <p>Upload profile image under 2 megabytes</p>
           <%= image_tag(resource.image.url(:original)).html_safe %>
           <br><br>
+        <% if resource.image? %>
           <%= f.input :delete_image, as: :boolean, 
                                   label: false, 
-                           inline_label: 'Delete this photo', 
+                           inline_label: 'Delete image', 
                            wrapper_html: { class: 'form-inline text-center' } %><br>
         <% end %>
         

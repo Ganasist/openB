@@ -22,7 +22,10 @@
   <li><%= link_to 'How it works', page_path('how'), 
                                   class: 'btn btn-success btn-lg', 
                                      id: 'learn_more_nav' %></li>
-  <li><%= link_to 'Sign-in', new_user_session_path, 
+  <li><%= link_to 'User sign-in', new_user_session_path, 
   													 class: 'btn btn-success btn-lg', 
   														  id: 'login_nav' %></li>
+  <li><%= link_to 'Contractor sign-in', new_contractor_session_path, 
+                             class: 'btn btn-success btn-lg', 
+                                id: 'login_nav' %></li>
 <% end %>
