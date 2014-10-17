@@ -237,37 +237,28 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
     color: #3db952;
   }
 
-.btn-success#user_sign_up {
+.btn-success#user_sign_up, .btn-success#contractor_sign_up, .btn-info#learn_more  {
   color: #f1f1f1;
-  background-color: #3db952;
-  border-color: #3db952;
   margin-bottom: 10px;
   &:hover {
     border-color: #f1f1f1;
     background-color: rgba(0,0,0,0);
   }
+}
+
+.btn-success#user_sign_up {
+  background-color: #3db952;
+  border-color: #3db952;
 }
 
 .btn-success#contractor_sign_up {
-  color: #f1f1f1;
   background-color: #f0ad4e;
   border-color: #eea236;
-  margin-bottom: 10px;
-  &:hover {
-    border-color: #f1f1f1;
-    background-color: rgba(0,0,0,0);
-  }
 }
 
-.btn-info#learn_more {
-  margin-bottom: 10px;
-  color: #f1f1f1;
+.btn-success#learn_more {
   background-color: #5bc0de;
   border-color: #46b8da;
-  &:hover {
-    border-color: #f1f1f1;
-    background-color: rgba(0,0,0,0);
-  }
 }
 
 div.marketing {

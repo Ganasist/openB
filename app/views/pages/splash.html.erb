@@ -4,15 +4,24 @@
       <span class="text-center">
 	    <h2>FIND CONTRACTORS FOR YOUR <u>TOUGHEST</u> <span class="green">PROJECTS</span></h2>
 	    <ul class="list-inline">
-	    	<li><%= link_to 'User sign-up', new_user_registration_path, 
-                                       class: 'btn btn-success btn-lg', 
-                                          id: "user_sign_up" %></li>
-        <li><%= link_to 'Contractor sign-up', new_contractor_registration_path, 
-                                       class: 'btn btn-success btn-lg', 
-                                          id: "contractor_sign_up" %></li>
-			  <li><%= link_to 'Learn more', page_path('how'), 
-                                      class: 'btn btn-info btn-lg', 
-                                         id: 'learn_more' %></li>
+	    	<li>
+          <%= link_to new_user_registration_path, class: 'btn btn-success btn-lg', 
+                                                     id: 'user_sign_up' do %>
+            <%= fa_icon 'user', title: 'User' %> User Sign-up
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_contractor_registration_path, class: 'btn btn-success btn-lg', 
+                                                           id: 'contractor_sign_up' do %>
+            <%= fa_icon 'wrench', title: 'Contractor' %> Contractor Sign-up
+          <% end %>
+        </li>
+			  <li>
+          <%= link_to page_path('how'), class: 'btn btn-info btn-lg', 
+                                                         id: 'learn_more' do %>
+           <%= fa_icon 'info', title: 'Info' %> Learn More                            
+          <% end %>
+        </li>
 	    </ul>
       </span>
 	</div>
