@@ -70,6 +70,8 @@ section {
   @extend .well;
   @extend .well-lg;
   padding-bottom: 40px;
+  background-color: transparent;
+  border: none;
 }
 .authform h3 {
   margin-top: 0px;
