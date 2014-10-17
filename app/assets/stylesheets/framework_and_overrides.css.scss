@@ -237,10 +237,33 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
     color: #3db952;
   }
 
-.btn-success#get_started {
+.btn-success#user_sign_up {
   color: #f1f1f1;
   background-color: #3db952;
   border-color: #3db952;
+  margin-bottom: 10px;
+  &:hover {
+    border-color: #f1f1f1;
+    background-color: rgba(0,0,0,0);
+  }
+}
+
+.btn-success#contractor_sign_up {
+  color: #f1f1f1;
+  background-color: #f0ad4e;
+  border-color: #eea236;
+  margin-bottom: 10px;
+  &:hover {
+    border-color: #f1f1f1;
+    background-color: rgba(0,0,0,0);
+  }
+}
+
+.btn-info#learn_more {
+  margin-bottom: 10px;
+  color: #f1f1f1;
+  background-color: #5bc0de;
+  border-color: #46b8da;
   &:hover {
     border-color: #f1f1f1;
     background-color: rgba(0,0,0,0);
@@ -263,17 +286,6 @@ hr.green_blur {
 }
 hr.green_blur:after {  /* Not really supposed to work, but does */
     content: "\00a0";  /* Prevent margin collapse */
-}
-
-.btn-default#learn_more {
-  margin-left: 10px;
-  color: #f1f1f1;
-  background-color: rgba(0,0,0,0);
-  border-color: #f1f1f1;
-  &:hover {
-    border-color: #3db952;
-    background-color: #3db952;
-  }
 }
 
 #login_nav, #learn_more_nav {

@@ -1,15 +1,20 @@
 <div class="row">
 	<div class="bg"></div>
 	<div class="jumbotron">
-	    <h2>FIND <br class="visible-xs hidden-sm"> CONTRACTORS FOR YOUR <u>TOUGHEST</u> <span class="green">PROJECTS</span></h2>
+      <span class="text-center">
+	    <h2>FIND CONTRACTORS FOR YOUR <u>TOUGHEST</u> <span class="green">PROJECTS</span></h2>
 	    <ul class="list-inline">
-	    	<li><%= link_to 'GET STARTED', new_user_registration_path, 
+	    	<li><%= link_to 'User sign-up', new_user_registration_path, 
                                        class: 'btn btn-success btn-lg', 
-                                          id: "get_started" %></li>
-			  <li><%= link_to 'LEARN MORE', page_path('how'), 
-                                      class: 'btn btn-default btn-lg', 
+                                          id: "user_sign_up" %></li>
+        <li><%= link_to 'Contractor sign-up', new_contractor_registration_path, 
+                                       class: 'btn btn-success btn-lg', 
+                                          id: "contractor_sign_up" %></li>
+			  <li><%= link_to 'Learn more', page_path('how'), 
+                                      class: 'btn btn-info btn-lg', 
                                          id: 'learn_more' %></li>
 	    </ul>
+      </span>
 	</div>
 </div>
 
