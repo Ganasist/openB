@@ -237,32 +237,31 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
     color: #3db952;
   }
 
-#learn_more_nav {
-  color: #5bc0de;
+#learn_more_nav, #user_login_nav, #contractor_login_nav {
   background-color: rgba(0,0,0,0);
   border-color: rgba(0,0,0,0);
   &:hover {
     color: #f1f1f1;
+  }
+}
+
+#learn_more_nav {
+  color: #5bc0de;
+  &:hover {
     background-color: #5bc0de;
   }
 }
 
 #user_login_nav {
   color: #3db952;
-  background-color: rgba(0,0,0,0);
-  border-color: rgba(0,0,0,0);
   &:hover {
-    color: #f1f1f1;
     background-color: #3db952;
   }
 }
 
 #contractor_login_nav {
   color: #f0ad4e;
-  background-color: rgba(0,0,0,0);
-  border-color: rgba(0,0,0,0);
   &:hover {
-    color: #f1f1f1;
     background-color: #f0ad4e;
   }
 }
