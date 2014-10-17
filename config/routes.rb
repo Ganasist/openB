@@ -3,17 +3,9 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-	# authenticated :user do
- #    root to: 'users#show', as: :authenticated_user_root
- #  end
+	devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'sessions' }
 
- #  authenticated :contractor do
- #    root to: 'contractors#show', as: :authenticated_contractor_root
- #  end
-
-	devise_for :users, controllers: { registrations: 'users/registrations' }
-
-	devise_for :contractors, controllers: { registrations: 'contractors/registrations' }							 
+	devise_for :contractors, controllers: { registrations: 'contractors/registrations', sessions: 'sessions' }							 
 
   resources :users, only: [:show, :index, :destroy]
   resources :contractors, only: [:show, :index, :destroy]

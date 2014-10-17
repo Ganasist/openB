@@ -1,24 +1,16 @@
-class Contractors::RegistrationsController < Devise::RegistrationsController
-  # before_filter :configure_sign_up_params, only: [:create]
-  before_filter :configure_account_update_params, only: [:update]
-  # before_filter :configure_permitted_parameters, if: :devise_controller?
-
-  # GET /resource/sign_up
+class Contractors::RegistrationsController < RegistrationsController
   def new
     super
   end
 
-  # POST /resource
   def create
     super
   end
 
-  # GET /resource/edit
   def edit
     super
   end
 
-  # PUT /resource
   def update
     @contractor = Contractor.find(current_contractor.id)
 
@@ -64,28 +56,5 @@ class Contractors::RegistrationsController < Devise::RegistrationsController
       contractor.email != params[:contractor][:email] ||
         params[:contractor][:password].present? ||
         params[:contractor][:password_confirmation].present?
-    end
-
-    # def configure_sign_up_params
-    #   devise_parameter_sanitizer.for(:sign_up) { |a| a.permit(:email, :password, 
-    #                                                           :password_confirmation)}
-    # end
-
-    def configure_account_update_params
-      devise_parameter_sanitizer.for(:account_update) { |a| a.permit(:name, :email, :password, 
-                                                                     :password_confirmation, :image, 
-                                                                     :delete_image, :image_remote_url) }
-    end
-
-    def after_sign_up_path_for(resource)
-      super(resource)
-    end
-
-    def after_inactive_sign_up_path_for(resource)
-      super(resource)
-    end
-
-    def after_update_path_for(resource)
-      current_contractor
     end
 end

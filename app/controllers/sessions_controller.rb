@@ -1,5 +1,4 @@
 class SessionsController < Devise::SessionsController
-	before_filter :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
   def new
@@ -18,8 +17,7 @@ class SessionsController < Devise::SessionsController
 
   protected
 
-  # You can put the params you want to permit in the empty array.
-  def configure_sign_in_params
-    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password) }
-  end
+    def after_sign_in_path_for(resource)
+      current_user || current_contractor
+    end
 end

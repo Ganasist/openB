@@ -1,6 +1,6 @@
-class Users::RegistrationsController < Devise::RegistrationsController
+class Users::RegistrationsController < RegistrationsController
   # before_filter :configure_sign_up_params, only: [:create]
-  before_filter :configure_account_update_params, only: [:update]
+  # before_filter :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   def new
@@ -63,31 +63,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
       user.email != params[:user][:email] ||
         params[:user][:password].present? ||
         params[:user][:password_confirmation].present?
-    end
-
-    # # You can put the params you want to permit in the empty array.
-    # def configure_sign_up_params
-    #   devise_parameter_sanitizer.for(:sign_up) << :attribute
-    # end
-
-    # You can put the params you want to permit in the empty array.
-    def configure_account_update_params
-      devise_parameter_sanitizer.for(:account_update) { |a| a.permit(:name, :email, :password, 
-                                                                     :password_confirmation, :image, 
-                                                                     :delete_image, :image_remote_url) }
-    end
-
-    # The path used after sign up.
-    def after_sign_up_path_for(resource)
-      super(resource)
-    end
-
-    # The path used after sign up for inactive accounts.
-    def after_inactive_sign_up_path_for(resource)
-      super(resource)
-    end
-
-    def after_update_path_for(resource)
-      current_user
     end
 end
