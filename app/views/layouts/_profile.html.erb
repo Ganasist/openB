@@ -1,0 +1,15 @@
+<%= image_tag member.image(:original), class: 'img-rounded pull-left' %>
+
+<% if member.image.processing? %>
+	<h4 class="text-center text-success">
+		Image is processing.<br> Refresh page in a few seconds.
+	</h4>
+<% end %>
+
+<h3><%= member.model_name %></h3>
+<p>Name: <%= member.name if member.name %></p>
+<p>Email: <%= member.email if member.email %></p>
+
+<% if member.contractor? && member.bio %>
+	<p>Bio: <%= member.bio %></p>
+<% end %>

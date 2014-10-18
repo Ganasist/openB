@@ -1,4 +1,5 @@
 class Contractors::RegistrationsController < RegistrationsController
+  before_filter :configure_account_update_params, only: :update
 
   def update
     @contractor = Contractor.find(current_contractor.id)
@@ -18,7 +19,7 @@ class Contractors::RegistrationsController < RegistrationsController
       sign_in @contractor, bypass: true
       redirect_to after_update_path_for(@contractor)
     else
-      render "edit"
+      render 'edit'
     end
   end
 
@@ -31,5 +32,16 @@ class Contractors::RegistrationsController < RegistrationsController
       contractor.email != params[:contractor][:email] ||
         params[:contractor][:password].present? ||
         params[:contractor][:password_confirmation].present?
+    end
+
+    def configure_account_update_params
+      devise_parameter_sanitizer.for(:account_update) { |a| a.permit(:name, :email,
+                                                                     :password, 
+                                                                     :current_password, 
+                                                                     :password_confirmation,
+                                                                     :zip_code,
+                                                                     :bio,
+                                                                     :image, :delete_image, 
+                                                                     :image_remote_url) }
     end
 end

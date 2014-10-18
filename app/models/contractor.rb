@@ -20,4 +20,12 @@ class Contractor < ActiveRecord::Base
     ['Driveways', 'Electrical', 'Landscaping', 'New Construction',
 	  	'Painting','Plumbing', 'Remodel', 'Roofing' ]
   end
+
+  def user?
+    false
+  end
+
+  def contractor?
+    true
+  end
 end

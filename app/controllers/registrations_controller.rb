@@ -1,5 +1,4 @@
 class RegistrationsController < Devise::RegistrationsController
-  before_filter :configure_account_update_params, only: :update
   before_filter :configure_account_create_params, only: :create
 
 	protected
@@ -21,19 +20,9 @@ class RegistrationsController < Devise::RegistrationsController
       current_user || current_contractor
     end
 
-    def configure_account_update_params
-      devise_parameter_sanitizer.for(:account_update) { |a| a.permit(:name, :email,
-      																															 :password, 
-      																															 :current_password, 
-      																															 :password_confirmation, 
-      																															 :image, :delete_image, 
-      																															 :image_remote_url) }
-    end
-
     def configure_account_create_params
-    	devise_parameter_sanitizer.for(:sign_up) { |a| a.permit(:email,
-																														  :password, 
-																														  :password_confirmation) }
+      devise_parameter_sanitizer.for(:sign_up) { |a| a.permit(:email,
+                                                              :password, 
+                                                              :password_confirmation) }
     end
-
 end

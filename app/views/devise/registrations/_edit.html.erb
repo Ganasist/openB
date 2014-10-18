@@ -1,6 +1,13 @@
+<% puts resource_name %>
+
 <div class="authform_large">
   <%= simple_form_for resource, as: resource_name, 
-                               url: registration_path(resource) do |f| %>
+                               url: registration_path(resource),
+  wrapper: :vertical_form,
+  wrapper_mappings: {
+    check_boxes: :vertical_radio_and_checkboxes,
+    file: :horizontal_file_input
+  } do |f| %>
     
     <h3>Profile</h3>
     <%= f.error_notification %>
@@ -23,8 +30,18 @@
         
         <%= f.file_field :image, input_html: { class: 'text-center' } %>
         <h4>or</h4>
-        <%= f.input :image_remote_url, label: 'Enter an image URL' %>
-      </div>    
+        <%= f.input :image_remote_url, label: 'Paste an image URL' %>
+      </div>
+        <%  if contractor_signed_in? %>
+          <%= f.input :company_name, placeholder: 'Enter your company name' %>
+          <%= f.input :zip_code, placeholder: 'Enter a valid zip code for your company' %>
+          <%= f.input :address, placeholder: 'Enter your company address' %>
+          <%= f.input :city, placeholder: 'Enter your company city' %>
+        <%= f.input :bio, as: :text, 
+                       label: 'Biography',
+                 placeholder: 'Enter brief description about your services',
+                  input_html: { rows: '7' } %>
+        <% end %>
     </div>
     <div class="form-inputs col-md-6 col-sm-6">
 
@@ -33,9 +50,11 @@
       <%= f.input :email, required: true, 
                        placeholder: 'Required', 
                         input_html: { id: 'current_email' } %>
-      <%= f.input :zip_code, placeholder: 'Enter a valid zip code' %>
+      <%= f.input :zip_code, placeholder: 'Enter a valid zip code' if user_signed_in? %>
+      <%= f.input :categories, as: :check_boxes, 
+                            label: 'Company Services',
+                       collection: Contractor.categories if contractor_signed_in? %>
 
-      <%= f.input :bio, as: :text %>
 
       <%= f.input :password, label: 'New Password (optional)', 
                       autocomplete: 'off', 

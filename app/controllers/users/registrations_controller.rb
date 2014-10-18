@@ -1,6 +1,6 @@
 class Users::RegistrationsController < RegistrationsController
+  before_filter :configure_account_update_params, only: :update
 
-  # PUT /resource
   def update
     @user = User.find(current_user.id)
 
@@ -33,5 +33,16 @@ class Users::RegistrationsController < RegistrationsController
       user.email != params[:user][:email] ||
         params[:user][:password].present? ||
         params[:user][:password_confirmation].present?
+    end
+
+    def configure_account_update_params
+      devise_parameter_sanitizer.for(:account_update) { |a| a.permit(:name, :email,
+                                                                     :password, 
+                                                                     :current_password, 
+                                                                     :password_confirmation,
+                                                                     :zip_code,
+                                                                     :bio,
+                                                                     :image, :delete_image, 
+                                                                     :image_remote_url) }
     end
 end
