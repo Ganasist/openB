@@ -8,6 +8,7 @@ class ContractorsController < ApplicationController
   end
 
   def show
+    @cats = @contractor.categories
   end
 
   # def update

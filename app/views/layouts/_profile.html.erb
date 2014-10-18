@@ -1,15 +1,36 @@
-<%= image_tag member.image(:original), class: 'img-rounded pull-left' %>
+<div class="row">
+	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+		<span class="text-center">
+		<%= image_tag member.image(:original), class: 'img-rounded' %>
+		</span>
 
-<% if member.image.processing? %>
-	<h4 class="text-center text-success">
-		Image is processing.<br> Refresh page in a few seconds.
-	</h4>
-<% end %>
+		<% if member.image.processing? %>
+			<h4 class="text-success">
+				Image is processing.<br> Refresh page in a few seconds.
+			</h4>
+		<% end %>
 
-<h3><%= member.model_name %></h3>
-<p>Name: <%= member.name if member.name %></p>
-<p>Email: <%= member.email if member.email %></p>
+		<h3 class="lead text-center"><%= member.company_name if member.company_name? %></h3>
+		<p>Contractor: <%= member.name if member.name %></p>
+		<p>Email: <%= member.email if member.email %></p>
 
-<% if member.contractor? && member.bio %>
-	<p>Bio: <%= member.bio %></p>
-<% end %>
+		<hr>
+		<% if member.contractor? %>
+			<% if member.categories.size > 0 %>
+				<h4 class="text-center">Services Offered</h4><br>
+				<% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
+						<% cats.each do |cat| %>
+		          <ul class="list-unstyled lead col-xs-6">
+		          	<li class="text-center"><%= cat %></li>
+		          </ul>
+		        <% end %>
+				<% end %>
+			
+			<% end %>
+		<% end %>
+	</div>
+	<div>
+
+			<h3 class="lead"><%= member.bio if member.bio? %></h3>
+	</div>
+</div>

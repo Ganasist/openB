@@ -36,10 +36,15 @@ class Contractors::RegistrationsController < RegistrationsController
 
     def configure_account_update_params
       devise_parameter_sanitizer.for(:account_update) { |a| a.permit(:name, :email,
+                                                                     :phone,
+                                                                     :address, 
+                                                                     {categories: []},
+                                                                     :city,
+                                                                     :company_name,
                                                                      :password, 
                                                                      :current_password, 
                                                                      :password_confirmation,
-                                                                     :zip_code,
+                                                                     {zip_code: []},
                                                                      :bio,
                                                                      :image, :delete_image, 
                                                                      :image_remote_url) }

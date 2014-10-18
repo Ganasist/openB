@@ -9,6 +9,8 @@ class Contractor < ActiveRecord::Base
 	
 	has_many :posts
 
+  before_save :remove_blank_categories
+
   def self.categories
     ['Bathrooms', 'Driveways', 'Decks/patios', 'Electrical', 'Fencing', 'Flooring', 'Home', 
     	'Security', 'Interior Design', 'Kitchens', 'Landscaping', 'Moving', 'New Construction',
@@ -19,6 +21,10 @@ class Contractor < ActiveRecord::Base
   def self.splash_page_categories
     ['Driveways', 'Electrical', 'Landscaping', 'New Construction',
 	  	'Painting','Plumbing', 'Remodel', 'Roofing' ]
+  end
+
+  def remove_blank_categories
+    self.categories.reject! { |c| c.empty? }
   end
 
   def user?
