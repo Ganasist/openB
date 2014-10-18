@@ -1,1 +1,4 @@
-<%= render partial: 'layouts/profile', locals: { member: @contractor } %>
+<div class="row">
+	<%= render partial: 'layouts/profile_sidebar', locals: { member: @contractor } %>
+	<%= render partial: 'layouts/profile_main', locals: { member: @contractor } %>
+</div>

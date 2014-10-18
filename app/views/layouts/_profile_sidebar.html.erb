@@ -1,0 +1,33 @@
+<% @cats = member.categories %>
+<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+	<span class="text-center">
+	<%= image_tag member.image(:original), class: 'img-rounded' %>
+	</span>
+
+	<% if member.image.processing? %>
+		<h4 class="text-success">
+			Image is processing.<br> Refresh page in a few seconds.
+		</h4>
+	<% end %>	
+
+	<hr>
+	<% if member.contractor? %>
+		<h3 class="lead text-center"><%= member.company_name if member.company_name? %></h3>
+	<% end %>
+	<h4><%= member.name if member.name %></h4>
+	<h4><%= member.email if member.email %></h4>
+	<h4>ZIP code: <%= member.zip_code if member.zip_code %></h4>
+	<hr>
+	<% if member.categories.size > 0 %>
+		<h4 class="text-center">
+			<%= member.contractor? ? 'Services Offered' : 'Services Needed' %>
+		</h4><br>
+		<% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
+				<% cats.each do |cat| %>
+          <ul class="list-unstyled lead col-xs-6">
+          	<li class="text-center"><%= cat %></li>
+          </ul>
+        <% end %>
+		<% end %>				
+	<% end %>
+</div>

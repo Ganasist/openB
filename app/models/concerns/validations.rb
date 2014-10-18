@@ -1,7 +1,8 @@
-# Included in User, Contractor
+# Included in User, Contractor, Jobs
 module Validations
 	extend ActiveSupport::Concern
 	included do
+		# validates_inclusion_of :categories, in: Contractor.categories, message: 'Invalid Category'
 		before_save :remove_blank_categories
   end
 

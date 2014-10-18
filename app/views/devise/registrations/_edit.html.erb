@@ -1,5 +1,4 @@
 <% @cats = Contractor.categories %>
-
 <div class="authform_large">
   <%= simple_form_for resource, as: resource_name, 
                                url: registration_path(resource),
@@ -25,7 +24,7 @@
         <%= f.input :phone, placeholder: 'Enter a valid full phone number' %>
         <% if user_signed_in? %> 
           <%= f.input :zip_code, placeholder: 'Enter a valid zip code' %> 
-          <p class="text-center lead">Select categories of interest to you</p> 
+          <p class="text-center lead">Select categories of interest</p>
           <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
             <ul class="list-unstyled col-xs-6">
               <li>
@@ -36,7 +35,7 @@
             </ul> 
           <% end %>
         <% end %>
-
+          
 
         <%  if contractor_signed_in? %>
           <%= f.input :company_name, placeholder: 'Enter your company name' %>
@@ -49,6 +48,7 @@
                   input_html: { rows: '7' } %>
         <% end %>
     </div>
+
     <div class="form-inputs col-md-6 col-sm-6">
       <%  if contractor_signed_in? %>   
         <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
