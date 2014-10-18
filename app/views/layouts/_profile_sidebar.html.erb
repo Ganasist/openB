@@ -1,22 +1,35 @@
 <% @cats = member.categories %>
 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 	<span class="text-center">
-	<%= image_tag member.image(:original), class: 'img-rounded' %>
+		<%= image_tag member.image(:original), class: 'img-rounded' %>
 	</span>
 
 	<% if member.image.processing? %>
-		<h4 class="text-success">
+		<h4 class="text-center lead">
 			Image is processing.<br> Refresh page in a few seconds.
 		</h4>
 	<% end %>	
-
 	<hr>
-	<% if member.contractor? %>
-		<h3 class="lead text-center"><%= member.company_name if member.company_name? %></h3>
-	<% end %>
-	<h4><%= member.name if member.name %></h4>
-	<h4><%= member.email if member.email %></h4>
-	<h4>ZIP code: <%= member.zip_code if member.zip_code %></h4>
+	<address class="lead">
+		<% if member.try(:company_name) %>
+		  <div class="text-center"><strong><%= member.company_name %></strong></div><br>
+	  <% end %>
+	  <% if member.try(:name) %>
+		  <%= member.name %><br>
+	  <% end %>
+	  <% if member.try(:address) %>
+		  <%= member.address %><br>
+	  <% end %>
+	  <% if member.try(:zip_code) %>
+		  San Francisco, CA <%= member.try(:zip_code) %><br>
+	  <% end %>
+	  <% if member.try(:phone) %>
+		  <%= member.try(:phone) %><br>
+	  <% end %>
+	  <% if member.try(:email)  %>
+		  <%= member.try(:email) %>
+	  <% end %>
+	</address>
 	<hr>
 	<% if member.categories.size > 0 %>
 		<h4 class="text-center">

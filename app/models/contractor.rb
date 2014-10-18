@@ -15,7 +15,7 @@ class Contractor < ActiveRecord::Base
     ['Bathrooms', 'Driveways', 'Decks/patios', 'Electrical', 'Fencing', 'Flooring', 'Home', 
     	'Security', 'Interior Design', 'Kitchens', 'Landscaping', 'Moving', 'New Construction',
     	'Painting', 'Pest Control', 'Pools', 'Plumbing', 'Remodel', 'Roofing', 'Siding',
-    	'Stone and Gravel']
+    	'Stone and Gravel', 'Windows and Doors']
   end
 
   def self.splash_page_categories
