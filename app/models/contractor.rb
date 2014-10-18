@@ -1,5 +1,6 @@
 class Contractor < ActiveRecord::Base
 	
+  include Validations
   include Attachments
   include Devisable
   

@@ -22,6 +22,7 @@ gem 'newrelic_rpm'
 gem 'high_voltage'
 gem 'pg'
 gem 'active_attr'
+gem 'going_postal'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'paperclip', '~> 4.1'
