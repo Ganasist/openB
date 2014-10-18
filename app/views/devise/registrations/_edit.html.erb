@@ -1,11 +1,12 @@
-<div class="authform">
+<div class="authform_large">
   <%= simple_form_for resource, as: resource_name, 
                                url: registration_path(resource) do |f| %>
     
     <h3>Profile</h3>
     <%= f.error_notification %>
 
-    <div class="form-inputs">
+  <div class="row">
+    <div class="form-inputs col-md-6 col-sm-6">
       <div class="text-center">
         <p>Upload profile image under 2 megabytes</p>
           <%= image_tag(resource.image.url(:original)).html_safe %>
@@ -22,22 +23,29 @@
         <%= f.input :image_remote_url, label: 'Enter an image URL' %>
       </div>
 
-    <%= f.input :name, required: true %>
-    <%= f.input :email, required: true, input_html: { id: 'current_email' } %>
+        <%= f.input :name, required: true %>
+        <%= f.input :email, required: true, input_html: { id: 'current_email' } %>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
-
-    <%= f.input :password, label: 'New Password', autocomplete: 'off', hint: "Leave blank if you don't need to change it", required: false, input_html: { id: 'new_password' } %>
-    <span></span>
-    <%= f.input :password_confirmation, label: 'New password confirmation', required: false, wrapper_html: { style: 'display: none', id: 'new_password_confirmation'}  %>
-    <%= f.input :current_password, hint: 'Enter current password to confirm updates', wrapper_html: { style: 'display: none', id: 'current_password'} %>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+        <% end %>
+    </div>
+    <div class="form-inputs col-md-6 col-sm-6">
+      <%= f.input :password, label: 'New Password', autocomplete: 'off', hint: "Leave blank if you don't need to change it", required: false, input_html: { id: 'new_password' } %>
+      <span></span>
+      <%= f.input :password_confirmation, label: 'New password confirmation', required: false, wrapper_html: { style: 'display: none', id: 'new_password_confirmation'}  %>
+      <%= f.input :current_password, hint: 'Enter current password to confirm updates', wrapper_html: { style: 'display: none', id: 'current_password'} %>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, 'Update', class: 'user_submit' %>
-  </div>    
+  <div class="row center-block">
+    <div class="form-actions-submit">
+      <%= f.button :submit, 'Update Profile', class: 'user_submit' %>
+    </div>
+  </div>   
   <% end %>
-  <%= link_to 'Back', resource, class: 'btn-sm submit' %>
+  <div class="row">
+    <div class="form-actions-submit">
+      <%= link_to 'Back', resource, class: 'btn-sm submit' %>
+    </div>
+  </div>
 </div>

@@ -44,6 +44,16 @@ img {
   @extend .btn-lg;
   @extend .btn-block;
   }
+.form-actions-submit {
+  @extend .col-lg-4;
+  @extend .col-lg-offset-4;
+  @extend .col-md-6;
+  @extend .col-md-offset-3;
+  @extend .col-sm-6;
+  @extend .col-sm-offset-3;
+  @extend .col-xs-8;
+  @extend .col-xs-offset-2;
+}
 // apply styles to HTML elements
 // to make views framework-neutral
 main {
@@ -66,25 +76,32 @@ section {
   max-width: 340px;
   margin: 0 auto;
 }
-.authform form {
+
+.authform_large {
+  @extend .authform;
+  max-width: 900px;
+}
+
+.authform form, .authform_large form {
   @extend .well;
   @extend .well-lg;
   padding-bottom: 40px;
   background-color: transparent;
   border: none;
 }
-.authform h3 {
+
+.authform h3, .authform_large h3 {
   margin-top: 0px;
   text-align: center;
 }
-.authform .right {
+.authform .right, .authform_large .right {
   float: right !important;
 }
-.authform .button {
+.authform .button, .authform_large .button {
   @extend .btn;
   @extend .btn-primary;
 }
-.authform fieldset {
+.authform fieldset, .authform_large .well {
   @extend .well;
 }
 #error_explanation {
