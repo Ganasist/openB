@@ -23,10 +23,6 @@ class Contractor < ActiveRecord::Base
 	  	'Painting','Plumbing', 'Remodel', 'Roofing' ]
   end
 
-  def remove_blank_categories
-    self.categories.reject! { |c| c.empty? }
-  end
-
   def user?
     false
   end

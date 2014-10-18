@@ -19,7 +19,7 @@ class Users::RegistrationsController < RegistrationsController
       sign_in @user, :bypass => true
       redirect_to after_update_path_for(@user)
     else
-      render "edit"
+      render 'edit'
     end
   end
 
@@ -37,6 +37,7 @@ class Users::RegistrationsController < RegistrationsController
 
     def configure_account_update_params
       devise_parameter_sanitizer.for(:account_update) { |a| a.permit(:name, :email,
+                                                                     {categories: []},
                                                                      :password, 
                                                                      :current_password, 
                                                                      :password_confirmation,

@@ -23,7 +23,20 @@
                          placeholder: 'Required', 
                           input_html: { id: 'current_email' } %>
         <%= f.input :phone, placeholder: 'Enter a valid full phone number' %>
-        <%= f.input :zip_code, placeholder: 'Enter a valid zip code' if user_signed_in? %>
+        <% if user_signed_in? %> 
+          <%= f.input :zip_code, placeholder: 'Enter a valid zip code' %> 
+          <p class="text-center lead">Select categories of interest to you</p> 
+          <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
+            <ul class="list-unstyled col-xs-6">
+              <li>
+                <%= f.input :categories, as: :check_boxes, 
+                                  label: false,
+                             collection: cats %>
+              </li>
+            </ul> 
+          <% end %>
+        <% end %>
+
 
         <%  if contractor_signed_in? %>
           <%= f.input :company_name, placeholder: 'Enter your company name' %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141018103239) do
+ActiveRecord::Schema.define(version: 20141018125812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20141018103239) do
     t.string   "company_name"
   end
 
+  add_index "contractors", ["categories"], name: "index_contractors_on_categories", using: :gin
   add_index "contractors", ["confirmation_token"], name: "index_contractors_on_confirmation_token", unique: true, using: :btree
   add_index "contractors", ["email"], name: "index_contractors_on_email", unique: true, using: :btree
   add_index "contractors", ["invitation_token"], name: "index_contractors_on_invitation_token", unique: true, using: :btree
@@ -97,6 +98,7 @@ ActiveRecord::Schema.define(version: 20141018103239) do
     t.string   "categories",    default: [],              array: true
   end
 
+  add_index "posts", ["categories"], name: "index_posts_on_categories", using: :gin
   add_index "posts", ["contractor_id"], name: "index_posts_on_contractor_id", using: :btree
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
   add_index "posts", ["zip_code"], name: "index_posts_on_zip_code", using: :btree
@@ -138,8 +140,10 @@ ActiveRecord::Schema.define(version: 20141018103239) do
     t.datetime "image_updated_at"
     t.boolean  "image_processing"
     t.string   "phone"
+    t.string   "categories",                         default: [],              array: true
   end
 
+  add_index "users", ["categories"], name: "index_users_on_categories", using: :gin
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
