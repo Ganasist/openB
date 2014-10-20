@@ -30,7 +30,13 @@
                     input_html: { rows: '7' } %>
           <% end %>
 
-        <%= f.input :phone, placeholder: 'Enter a valid full phone number' %>
+        <%= f.input :phone, as: :string, 
+                   placeholder: 'Enter a valid full phone number',
+                    input_html: { value: resource.try(:phone) ? 
+                                          resource.phone.phony_formatted(normalize: :US, 
+                                                                            format: :international,
+                                                                            spaces: '-') 
+                                                              : '' } %>
         <%= f.input :address, placeholder: 'Enter your address' %>
 
         <%= f.input :city, placeholder: 'Enter your city' %>

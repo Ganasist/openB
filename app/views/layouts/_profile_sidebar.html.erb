@@ -28,7 +28,7 @@
 	  	<%= member.zip_code %><br>
 	  <% end %>
 	  <% if member.phone.present? %>
-		  <%= member.phone %><br>
+		  <%= member.phone.phony_formatted(normalize: :US, format: :international, spaces: '-') %><br>
 	  <% end %>
 	  <%= member.email if member.email.present? %>
 	</address>

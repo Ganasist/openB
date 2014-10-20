@@ -5,6 +5,9 @@ module Validations
 
 		before_save :remove_blank_categories
 
+		phony_normalize :phone, default_country_code: 'US'
+		validates :phone, phony_plausible: true
+
 		validates :zip_code, presence: true, 
 										 numericality: true, 
 										 			 length: { is: 5 }, 
