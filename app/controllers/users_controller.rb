@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @jobs = @user.jobs.order(created_at: :desc)
   end
 
   def destroy

@@ -5,4 +5,7 @@ class Job < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :contractor
+
+  validates :title, presence: true, allow_blank: false, length: { in: 5..50 }
+  validates :description, presence: true, allow_blank: false, length: { in: 10..500 }
 end

@@ -22,12 +22,12 @@
 
         </li>
       </ul>
-      <%= f.input :title, label: 'Job Title', required: true %>
+      <%= f.input :title, label: 'Job Title', required: true, input_html: { maxlength: 50 } %>
       <%= f.input :description, as: :text, 
                           required: true,
                              label: 'Job Description',
                        placeholder: 'Enter brief description of this job',
-                        input_html: { rows: '7' } %>
+                        input_html: { rows: '7', maxlength: 500 } %>
 
     </div>
 

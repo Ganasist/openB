@@ -6,8 +6,8 @@
 		<%= render partial: 'layouts/profile_main', locals: { member: @user } %>
 
 
-		<% @user.jobs.each do |j| %>
-			<div class="panel panel-default" id="<%= j.id %>">
+		<% @jobs.each do |j| %>
+			<div class="panel panel-info" id="<%= j.id %>">
 			  <div class="panel-heading">
 			    <h3 class="panel-title">
 			    	<%= j.title %> 
