@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
   respond_to :html
   before_action :set_job, only: [:show, :edit, :update, :destroy]
-  # before_filter :user_check, only: [:show, :edit, :update, :destroy]
+  before_filter :user_check, only: :destroy
   before_action :authenticate_contractor!, only: :index
   before_action :authenticate_user!, only: [:new, :create]
 

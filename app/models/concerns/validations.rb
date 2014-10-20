@@ -8,6 +8,8 @@ module Validations
 		phony_normalize :phone, default_country_code: 'US'
 		validates :phone, phony_plausible: true
 
+		validates :name, presence: true, if: Proc.new { |m| !m.new_record? && !m.is_a?(Job) }
+
 		validates :zip_code, presence: true,
 										 numericality: true,
 									postcode_format: { country_code: :us,

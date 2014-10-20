@@ -1,4 +1,13 @@
 <div class="row">
-	<%= render partial: 'layouts/profile_sidebar', locals: { member: @contractor } %>
-	<%= render partial: 'layouts/profile_main', locals: { member: @contractor } %>
+	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+		<%= render partial: 'layouts/profile_sidebar', locals: { member: @contractor } %>
+	</div>
+	<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+		
+		
+		<hr>
+		<h3 class="lead text-center">
+			<%= @contractor.try(:bio) %>
+		</h3>
+	</div>
 </div>
