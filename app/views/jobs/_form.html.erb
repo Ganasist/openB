@@ -1,15 +1,13 @@
-<%= simple_form_for(@job) do |f| %>
-  <%= f.error_notification %>
+<div class="authform">
+  <%= simple_form_for(@job) do |f| %>
+    <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :title %>
-    <%= f.input :description %>
-    <%= f.input :zip_code %>
-    <%= f.association :user %>
-    <%= f.association :contractor %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
+    <div class="form-inputs col-sm-12">
+      <%= f.input :title %>
+      <%= f.input :description %>
+      <%= f.input :zip_code, as: :string, 
+                     input_html: { value: @job.zip_code || current_user.zip_code } %>
+      <%= f.button :submit, class: 'user_submit' %>
+    </div>      
+  <% end %>
+</div>
