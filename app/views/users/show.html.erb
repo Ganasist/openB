@@ -11,9 +11,10 @@
 			  <div class="panel-heading">
 			    <h3 class="panel-title">
 			    	<%= j.title %> 
-			    	<%= link_to j, method: :delete, confirm: 'Are you sure?' do %>
+			    	<%= link_to j, method: :delete, 
+			    									 data: { confirm: "Are you sure you want to delete this post?" } do %>
 					  	<%= fa_icon 'minus-square lg', title: 'Delete',
-					  																class: 'pull-right delete-job' %>
+					  																 class: 'pull-right delete-job' %>
 				  	<% end %>	
 	  			</h3>
 			  </div>

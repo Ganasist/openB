@@ -44,7 +44,7 @@ class JobsController < ApplicationController
 
   def destroy
     @job.destroy
-    # respond_with(@job)
+    redirect_to current_user, notice: "'#{ @job.title }' was successfully deleted"
   end
 
   private
