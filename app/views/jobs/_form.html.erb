@@ -1,13 +1,56 @@
-<div class="authform">
-  <%= simple_form_for(@job) do |f| %>
+<% @cats = Contractor.categories %>
+<div class="authform_large">
+  <%= simple_form_for @job, wrapper: :vertical_form, 
+                               html: { multipart: true, 
+                                    autocomplete: 'off' },
+                   wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
+                                              file: :horizontal_file_input } do |f| %>
     <%= f.error_notification %>
 
-    <div class="form-inputs col-sm-12">
-      <%= f.input :title %>
-      <%= f.input :description %>
-      <%= f.input :zip_code, as: :string, 
-                     input_html: { value: @job.zip_code || current_user.zip_code } %>
-      <%= f.button :submit, class: 'user_submit' %>
+    <div class="form-inputs col-md-6 col-sm-6">
+      <ul class="list-inline">
+        <li>
+          <%= f.input :zip_code, as: :string,
+                           required: true,
+                         input_html: { min_max: 5, 
+                                            id: 'form_zip_code', 
+                                         value: @job.zip_code || current_user.zip_code } %>
+        </li>
+        <li>
+          <%= f.input :phone, as: :string,
+                        required: false,
+
+                     placeholder: 'Enter a valid full phone number',
+                      input_html: { value: current_user.try(:phone) ? 
+                                            current_user.phone.phony_formatted(normalize: :US, 
+                                                                                format: :international,
+                                                                                spaces: '-') : '' } %>
+
+        </li>
+      </ul>
+      <%= f.input :title, label: 'Job Title', required: true %>
+      <%= f.input :description, as: :text, 
+                          required: true,
+                             label: 'Job Description',
+                       placeholder: 'Enter brief description of this job',
+                        input_html: { rows: '7' } %>
+
+    </div>
+
+    <div class="form-inputs col-md-6 col-sm-6">
+      <p class="text-center lead">Select at least one category</p>
+        <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
+          <ul class="list-unstyled col-xs-6">
+            <li>
+              <%= f.input :categories, as: :check_boxes, 
+                                label: false,
+                             required: true,
+                           collection: cats %>
+            </li>
+          </ul> 
+        <% end %>
+      
+      <%= f.button :submit, 'Post this job', class: 'user_submit' %>
     </div>      
   <% end %>
 </div>
