@@ -7,8 +7,6 @@ class Contractor < ActiveRecord::Base
 	has_many :jobs
 	has_many :users, through: :jobs
 	
-	has_many :posts
-
   validates :company_name, presence: true, if: Proc.new { |m| !m.new_record? }
   validates :phone, :address, :city, presence: true, if: Proc.new { |m| !m.new_record? }
 

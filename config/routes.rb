@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :index, :destroy]
   resources :contractors, only: [:show, :index, :destroy]
   resources :jobs
-  resources :posts
   resource :contact, only: [:new, :create]
   
 	mount Sidekiq::Web => '/sidekiq'

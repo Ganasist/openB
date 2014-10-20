@@ -3,7 +3,6 @@ class Users::RegistrationsController < RegistrationsController
 
   def show
     @user = User.find(params[:id]).includes(:jobs)
-    @jobs = @user.jobs
   end
 
   def update
