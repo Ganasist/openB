@@ -40,7 +40,7 @@ class Users::RegistrationsController < RegistrationsController
                                                                      :address, 
                                                                      :city,
                                                                      :state,
-                                                                     {categories: []},
+                                                                     { categories: [] },
                                                                      :password, 
                                                                      :current_password, 
                                                                      :password_confirmation,

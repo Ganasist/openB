@@ -1,7 +1,7 @@
 class Job < ActiveRecord::Base
 
   include Attachments
-  include Validations
+  # include Validations
   
   belongs_to :user
   belongs_to :contractor

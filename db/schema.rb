@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141020101451) do
+ActiveRecord::Schema.define(version: 20141020144503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20141020101451) do
     t.datetime "image_updated_at"
     t.boolean  "image_processing"
     t.string   "categories",         default: [],              array: true
+    t.string   "phone"
   end
 
   add_index "jobs", ["categories"], name: "index_jobs_on_categories", using: :gin

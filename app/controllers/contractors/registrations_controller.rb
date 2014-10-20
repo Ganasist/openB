@@ -38,7 +38,7 @@ class Contractors::RegistrationsController < RegistrationsController
       devise_parameter_sanitizer.for(:account_update) { |a| a.permit(:name, :email,
                                                                      :phone,
                                                                      :address, 
-                                                                     {:categories => []},
+                                                                     { categories: [] },
                                                                      :city,
                                                                      :state,
                                                                      :company_name,

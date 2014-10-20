@@ -5,12 +5,13 @@ module Attachments
 		attr_accessor :delete_image
 	  attr_reader :image_remote_url  
 	  before_validation { image.clear if delete_image == '1' }
-	  has_attached_file :image, styles: { thumb: '50x50>', original: '300x300>' },
+	  has_attached_file :image, styles: { thumb: '50x50>',
+	  																 original: '300x300>' },
 												 default_url: 'user-default-:style.jpeg'                 
-	  validates_attachment :image, size: { :in => 0..2.megabytes, message: 'Picture must be less than 2 megabytes' }
-	  validates_attachment_content_type :image,
-	                                    :content_type => /^image\/(png|gif|jpeg|jpg)/,
-	                                    :message => 'only (png/gif/jpeg) images'
+	  validates_attachment :image, size: { in: 0..3.megabytes, 
+	  																message: 'Picture must be less than 3 megabytes' }
+	  validates_attachment_content_type :image, content_type: /^image\/(png|gif|jpeg|jpg)/,
+			                                     				 message: 'only (png/gif/jpeg) images'
   
 		process_in_background :image, processing_image_url: 'ajax_spinner.gif'
   end

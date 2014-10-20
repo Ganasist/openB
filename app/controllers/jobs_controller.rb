@@ -1,21 +1,22 @@
 class JobsController < ApplicationController
+  respond_to :html
   before_action :set_job, only: [:show, :edit, :update, :destroy]
-  before_filter :user_check, only: [:show, :edit, :update, :destroy]
+  # before_filter :user_check, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_contractor!, only: :index
   before_action :authenticate_user!, only: [:new, :create]
 
   def index
     @jobs = Job.all
-    # respond_with(@jobs)
+    respond_with(@jobs)
   end
 
   def show
-    # respond_with(@job)
+    respond_with(@job)
   end
 
   def new
     @job = Job.new
-    # respond_with(@job)
+    respond_with(@job)
   end
 
   def edit
@@ -23,8 +24,9 @@ class JobsController < ApplicationController
 
   def create
     @job = Job.new(job_params)
+    @job.user = current_user
     flash[:notice] = 'Job was successfully created.' if @job.save
-    # respond_with(@job)
+    respond_with(@job)
   end
 
   def update
@@ -50,6 +52,8 @@ class JobsController < ApplicationController
     end
 
     def job_params
-      params.require(:job).permit(:title, :description, :zip_code, :user_id, :contractor_id)
+      params.require(:job).permit(:zip_code, :phone, :title, 
+                                  :description, :image, :delete_image,
+                                  :image_remote_url, { categories: [] })
     end
 end
