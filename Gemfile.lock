@@ -124,7 +124,6 @@ GEM
     formatador (0.2.5)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
-    going_postal (0.1.4)
     guard (2.6.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -192,6 +191,7 @@ GEM
       phony (~> 2.4.3)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
+    postoffice (0.0.9)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -363,7 +363,6 @@ DEPENDENCIES
   faker
   figaro (>= 1.0.0.rc1)
   font-awesome-rails
-  going_postal
   guard-bundler
   guard-rails
   guard-rspec
@@ -376,6 +375,7 @@ DEPENDENCIES
   paperclip-aws
   pg
   phony_rails
+  postoffice
   quiet_assets
   rails (~> 4.2.0.beta2)
   rails_12factor

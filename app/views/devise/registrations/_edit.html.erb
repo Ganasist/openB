@@ -35,8 +35,7 @@
                     input_html: { value: resource.try(:phone) ? 
                                           resource.phone.phony_formatted(normalize: :US, 
                                                                             format: :international,
-                                                                            spaces: '-') 
-                                                              : '' } %>
+                                                                            spaces: '-') : '' } %>
         <%= f.input :address, placeholder: 'Enter your address' %>
 
         <%= f.input :city, placeholder: 'Enter your city' %>
