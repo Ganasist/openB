@@ -25,13 +25,21 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
     @job.user = current_user
-    flash[:notice] = 'Job was successfully created.' if @job.save
-    respond_with(@job)
+    if @job.save
+      flash[:notice] = 'Job was successfully created.'
+      redirect_to current_user
+    else
+      render 'new'
+    end
   end
 
   def update
-    flash[:notice] = 'Job was successfully updated.' if @job.update(job_params)
-    # respond_with(@job)
+    if @job.update(job_params)
+      flash[:notice] = 'Job was successfully updated.'
+      respond_with(@job)
+    else
+      render 'edit'
+    end
   end
 
   def destroy

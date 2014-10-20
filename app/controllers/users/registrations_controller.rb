@@ -1,6 +1,11 @@
 class Users::RegistrationsController < RegistrationsController
   before_filter :configure_account_update_params, only: :update
 
+  def show
+    @user = User.find(params[:id]).includes(:jobs)
+    @jobs = @user.jobs
+  end
+
   def update
     @user = User.find(current_user.id)
 

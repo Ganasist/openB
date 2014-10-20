@@ -1,6 +1,6 @@
 <div>
 	<h3 class="lead"><%= member.try(:bio) %></h3>
 	<div class="text-center">
-		<%= link_to 'Post a Job', new_job_path, class: 'btn btn-lg btn-success' %>
+		<%= link_to 'Post a Job', new_job_path, class: 'btn btn-lg btn-success' if current_user == member %>
 	</div>
 </div>

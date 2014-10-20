@@ -12,19 +12,13 @@
         <li>
           <%= f.input :zip_code, as: :string,
                            required: true,
-                         input_html: { min_max: 5, 
-                                            id: 'form_zip_code', 
-                                         value: @job.zip_code || current_user.zip_code } %>
+                         input_html: { maxlength: 5, id: 'form_zip_code' } %>
         </li>
         <li>
           <%= f.input :phone, as: :string,
                            label: 'Phone (optional)',
                         required: false,
-                     placeholder: 'Enter a valid number',
-                      input_html: { value: @job.phone.present? ? 
-                                            @job.phone.phony_formatted(normalize: :US, 
-                                                                                format: :international,
-                                                                                spaces: '-') : '' } %>
+                     placeholder: 'Enter a valid number' %>
 
         </li>
       </ul>
@@ -54,7 +48,7 @@
       
         <div class="text-center">
             <%= image_tag(@job.image.url(:original)).html_safe %>
-            <p>Upload an optional image</p>
+            <p>Upload an optional image for this job</p>
             <br><br>
           <% if @job.image? %>
             <%= f.input :delete_image, as: :boolean, 

@@ -10,9 +10,7 @@ class Contractor < ActiveRecord::Base
 	has_many :posts
 
   validates :company_name, presence: true, if: Proc.new { |m| !m.new_record? }
-  validates :phone, presence: true, if: Proc.new { |m| !m.new_record? }
-  validates :address, presence: true, if: Proc.new { |m| !m.new_record? }
-  validates :city, presence: true, if: Proc.new { |m| !m.new_record? }
+  validates :phone, :address, :city, presence: true, if: Proc.new { |m| !m.new_record? }
 
   def self.categories
     ['Bathrooms', 'Driveways', 'Decks/patios', 'Electrical', 'Fencing', 'Flooring', 'Home', 

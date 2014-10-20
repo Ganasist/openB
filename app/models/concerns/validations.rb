@@ -9,11 +9,10 @@ module Validations
 		validates :phone, phony_plausible: true
 
 		validates :zip_code, presence: true,
-										 numericality: true, 
-										 			 length: { is: 5 }, 
+										 numericality: true,
 									postcode_format: { country_code: :us,
 																					message: 'Not a valid postcode for the US.'},
-											allow_blank: false, if: Proc.new { |m| !m.new_record? }
+											allow_blank: false, if: Proc.new { |m| !m.new_record? || m.is_a?(Job) }
   end
 
   def remove_blank_categories
