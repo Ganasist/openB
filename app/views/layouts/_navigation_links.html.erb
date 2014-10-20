@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <li><%= link_to 'Post a Job', new_job_path,
-                                class: 'user_submit',
+                                class: 'user_submit visible-xs visible-sm',
                                    id: 'learn_more_nav' %></li>
   <li><%= link_to 'Edit Profile', edit_user_registration_path,
                                   class: 'user_submit',

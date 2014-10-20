@@ -44,7 +44,10 @@ class JobsController < ApplicationController
 
   def destroy
     @job.destroy
-    redirect_to current_user, notice: "'#{ @job.title }' was successfully deleted"
+    respond_to do |format|
+      format.html { redirect_to current_user, notice: "'#{ @job.title }' was successfully deleted" }
+      format.js
+    end
   end
 
   private

@@ -7,11 +7,12 @@
 
 
 		<% @user.jobs.each do |j| %>
-			<div class="panel panel-default">
+			<div class="panel panel-default" id="<%= j.id %>">
 			  <div class="panel-heading">
 			    <h3 class="panel-title">
 			    	<%= j.title %> 
-			    	<%= link_to j, method: :delete, 
+			    	<%= link_to j, method: :delete,
+		    									 remote: true, 
 			    									 data: { confirm: "Are you sure you want to delete this post?" } do %>
 					  	<%= fa_icon 'minus-square lg', title: 'Delete',
 					  																 class: 'pull-right delete-job' %>
