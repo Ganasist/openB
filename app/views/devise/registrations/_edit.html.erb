@@ -37,19 +37,16 @@
 
         <ul class="list-inline text-center">
           <li>
-            <%= f.select :state, options_for_select(us_states) %>
+            <%= f.select :state, options_for_select(us_states, resource.try(:state)) %>
           </li>
           <li>
             <%= f.input :zip_code, as: :string, placeholder: 'Enter a valid zip code',
-                                    input_html: { maxlength: 5, id: 'form_zip_code' }, 
+                                    input_html: { min_max: 5, 
+                                                         id: 'form_zip_code' }, 
                                   wrapper_html: { id: 'label_zip_code' } %>
           </li>
-        </ul>
-            
-            
-            
-
-        <% if user_signed_in? %>  
+        </ul>            
+             
         <hr>  
           <p class="text-center lead">Select categories of interest</p>
           <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
@@ -61,22 +58,10 @@
               </li>
             </ul> 
           <% end %>
-        <% end %>
     </div>
 
     <div class="form-inputs col-md-6 col-sm-6">
-      <%  if contractor_signed_in? %>   
-        <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
-          <ul class="list-unstyled col-xs-6">
-            <li>
-              <%= f.input :categories, as: :check_boxes, 
-                                label: false,
-                             required: true,
-                           collection: cats if contractor_signed_in? %>
-            </li>
-          </ul> 
-        <% end %>
-      <% end %>
+      
 
       <div class="text-center">
           <%= image_tag(resource.image.url(:original)).html_safe %>
