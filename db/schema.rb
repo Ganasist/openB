@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141018140128) do
+ActiveRecord::Schema.define(version: 20141020101451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20141018140128) do
     t.string   "city"
     t.string   "company_name"
     t.integer  "zip_code"
+    t.string   "state"
   end
 
   add_index "contractors", ["categories"], name: "index_contractors_on_categories", using: :gin
@@ -141,9 +142,14 @@ ActiveRecord::Schema.define(version: 20141018140128) do
     t.boolean  "image_processing"
     t.string   "phone"
     t.string   "categories",                         default: [],              array: true
+    t.string   "city"
+    t.string   "address"
+    t.string   "state"
   end
 
+  add_index "users", ["address"], name: "index_users_on_address", using: :btree
   add_index "users", ["categories"], name: "index_users_on_categories", using: :gin
+  add_index "users", ["city"], name: "index_users_on_city", using: :btree
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree

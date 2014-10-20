@@ -37,6 +37,9 @@ class Users::RegistrationsController < RegistrationsController
 
     def configure_account_update_params
       devise_parameter_sanitizer.for(:account_update) { |a| a.permit(:name, :email,
+                                                                     :address, 
+                                                                     :city,
+                                                                     :state,
                                                                      {categories: []},
                                                                      :password, 
                                                                      :current_password, 

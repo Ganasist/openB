@@ -40,6 +40,7 @@ class Contractors::RegistrationsController < RegistrationsController
                                                                      :address, 
                                                                      {:categories => []},
                                                                      :city,
+                                                                     :state,
                                                                      :company_name,
                                                                      :password, 
                                                                      :current_password, 

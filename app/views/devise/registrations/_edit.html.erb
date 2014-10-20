@@ -21,10 +21,36 @@
         <%= f.input :email, required: true, 
                          placeholder: 'Required', 
                           input_html: { id: 'current_email' } %>
+
+        <%  if contractor_signed_in? %>
+          <%= f.input :company_name, placeholder: 'Enter your company name' %>         
+          <%= f.input :bio, as: :text, 
+                         label: 'Biography',
+                   placeholder: 'Enter brief description about your services',
+                    input_html: { rows: '7' } %>
+          <% end %>
+
         <%= f.input :phone, placeholder: 'Enter a valid full phone number' %>
-        
-        <% if user_signed_in? %> 
-          <%= f.input :zip_code, placeholder: 'Enter a valid zip code' %> 
+        <%= f.input :address, placeholder: 'Enter your address' %>
+
+        <%= f.input :city, placeholder: 'Enter your city' %>
+
+        <ul class="list-inline text-center">
+          <li>
+            <%= f.select :state, options_for_select(us_states) %>
+          </li>
+          <li>
+            <%= f.input :zip_code, as: :string, placeholder: 'Enter a valid zip code',
+                                    input_html: { maxlength: 5, id: 'form_zip_code' }, 
+                                  wrapper_html: { id: 'label_zip_code' } %>
+          </li>
+        </ul>
+            
+            
+            
+
+        <% if user_signed_in? %>  
+        <hr>  
           <p class="text-center lead">Select categories of interest</p>
           <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
             <ul class="list-unstyled col-xs-6">
@@ -36,17 +62,6 @@
             </ul> 
           <% end %>
         <% end %>
-
-        <%  if contractor_signed_in? %>
-          <%= f.input :company_name, placeholder: 'Enter your company name' %>
-          <%= f.input :zip_code, placeholder: 'Enter a valid zip code for your company' %>
-          <%= f.input :address, placeholder: 'Enter your company address' %>
-          <%= f.input :city, placeholder: 'Enter your company city' %>
-          <%= f.input :bio, as: :text, 
-                         label: 'Biography',
-                   placeholder: 'Enter brief description about your services',
-                    input_html: { rows: '7' } %>
-        <% end %>
     </div>
 
     <div class="form-inputs col-md-6 col-sm-6">
@@ -56,6 +71,7 @@
             <li>
               <%= f.input :categories, as: :check_boxes, 
                                 label: false,
+                             required: true,
                            collection: cats if contractor_signed_in? %>
             </li>
           </ul> 
@@ -76,7 +92,7 @@
         <h4>or</h4>
         <%= f.input :image_remote_url, label: 'Paste an image URL' %>
       </div>
-
+      <hr>
       <%= f.input :password, label: 'New Password (optional)', 
                       autocomplete: 'off', 
                        placeholder: 'Enter new password', 

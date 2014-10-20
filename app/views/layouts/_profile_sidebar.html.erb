@@ -14,21 +14,23 @@
 		<% if member.try(:company_name) %>
 		  <div class="text-center"><strong><%= member.company_name %></strong></div><br>
 	  <% end %>
-	  <% if member.try(:name) %>
+	  <% if member.name.present? %>
 		  <%= member.name %><br>
 	  <% end %>
-	  <% if member.try(:address) %>
+	  <% if member.address.present? %>
 		  <%= member.address %><br>
 	  <% end %>
-	  <% if member.try(:zip_code) %>
-		  San Francisco, CA <%= member.try(:zip_code) %><br>
+	  <% if member.city.present? && member.state.present? %>
+		  <%= "#{ member.city }, #{ member.state } #{ member.zip_code }" %><br>
+	  <% elsif member.city.present? %>
+	  	<%= "#{ member.city } #{ member.zip_code }" %><br>
+	  <% else %>
+	  	<%= member.zip_code %><br>
 	  <% end %>
-	  <% if member.try(:phone) %>
-		  <%= member.try(:phone) %><br>
+	  <% if member.phone.present? %>
+		  <%= member.phone %><br>
 	  <% end %>
-	  <% if member.try(:email)  %>
-		  <%= member.try(:email) %>
-	  <% end %>
+	  <%= member.email if member.email.present? %>
 	</address>
 	<hr>
 	<% if member.categories.size > 0 %>

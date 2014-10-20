@@ -322,3 +322,11 @@ hr.green_blur {
 hr.green_blur:after {  /* Not really supposed to work, but does */
     content: "\00a0";  /* Prevent margin collapse */
 }
+
+div#label_zip_code {
+  margin-left: 40px;
+}
+
+input#form_zip_code {
+  width: 70px;
+}
