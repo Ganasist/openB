@@ -1,6 +1,9 @@
-<h1>Editing Job</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @job %> |
-<%= link_to 'Back', jobs_path %>
+<div class="row">
+	<%= render 'form' %>
+</div>
+<hr>
+<div class="row">
+	<div class="form-actions-submit">
+    <%= link_to 'Back', current_user, class: 'submit' %>
+	</div>
+</div>
