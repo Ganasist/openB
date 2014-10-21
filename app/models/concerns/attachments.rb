@@ -7,7 +7,7 @@ module Attachments
 	  before_validation { image.clear if delete_image == '1' }
 	  has_attached_file :image, styles: { thumb: '100x100>',
 	  																 original: '300x300>' },
-												 default_url: 'user-default-:style.jpeg'                 
+												 default_url: ':class-default-:style.png'                 
 	  validates_attachment :image, size: { in: 0..3.megabytes, 
 	  																message: 'Picture must be less than 3 megabytes' }
 	  validates_attachment_content_type :image, content_type: /^image\/(png|gif|jpeg|jpg)/,
