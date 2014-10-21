@@ -12,6 +12,7 @@
         <li>
           <%= f.input :zip_code, as: :string,
                            required: true,
+                        placeholder: "#{ current_user.zip_code }",
                          input_html: { maxlength: 5, id: 'form_zip_code' } %>
         </li>
         <li>
