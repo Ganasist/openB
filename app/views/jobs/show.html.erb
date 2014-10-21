@@ -29,8 +29,17 @@
       <strong>Posted by:</strong> <%= link_to @job.user.name, @job.user %> <%= time_ago_in_words(@job.created_at) %> ago
     </h4>
     <h4>
-      <strong>Categories:</strong>
-      <%= @job.categories.to_sentence %>
+      
+      <ul class="list-inline">
+        <strong>Categories:</strong>
+        <% @job.categories.each do |c| %>
+          <li>
+            <span class="label label-<%= %w(default primary success info warning danger).sample %>">
+              <%= c %>
+            </span>
+          </li>
+        <% end %>
+      </ul>
     </h4>
     <h4>
       <strong>Description:</strong>
