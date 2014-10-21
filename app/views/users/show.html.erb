@@ -44,9 +44,11 @@
 				  	</p>
 	  			</h3>
 			  </div>
-			  <div class="panel-body">
-			    <%= j.description %>
-			  </div>
+			  <%= link_to j, class: 'unstyled-description' do %>
+				  <div class="panel-body">			  	
+				    <%= j.description %>
+				  </div>
+		    <% end %>
 			  <div class="panel-footer">
 			  	<%= "Posted #{ time_ago_in_words(j.created_at) } ago" %>  | ZIP: <%= j.zip_code %>
 			  </div>
