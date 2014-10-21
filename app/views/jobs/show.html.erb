@@ -1,29 +1,40 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+    <span class="text-center">
+      <%= image_tag @job.image(:original), class: 'img-rounded' %>
+    </span>
 
-<p>
-  <strong>Title:</strong>
-  <%= @job.title %>
-</p>
+    <% if @job.image.processing? %>
+      <h4 class="text-center lead">
+        Image is processing.<br> Refresh page in a few seconds.
+      </h4>
+    <% end %> 
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+    <h3><%= @job.title %></h3>
+    <h4>
+      <strong>Zip code:</strong>
+      <%= @job.zip_code %>
+    </h4>
 
-<p>
-  <strong>Description:</strong>
-  <%= @job.description %>
-</p>
+    <h4>
+      <strong>Posted by:</strong> <%= link_to @job.user.name, @job.user %> <%= time_ago_in_words(@job.created_at) %> ago
+    </h4>
+    <h4>
+      <strong>Categories:</strong>
+      <%= @job.categories.to_sentence %>
+    </h4>
+    <h4>
+      <strong>Description:</strong>
+      <%= @job.description %>
+    </h4>
+  </div>
+</div>
 
-<p>
-  <strong>Zip code:</strong>
-  <%= @job.zip_code %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @job.user.name %>
-</p>
-
-<p>
-  <strong>Contractor:</strong>
-  <%= @job.contractor %>
-</p>
-
-<%= link_to 'Edit', edit_job_path(@job) %> |
-<%= link_to 'Back', jobs_path %>
+<div class="row">
+  <div class="job_return_links">
+    <ul class="list-inline">
+      <li><%= link_to 'Back to profile', current_contractor || current_user, class: 'contractor_submit' %></li>
+    </ul>
+  </div>
+</div>

@@ -45,13 +45,23 @@
 	  			</h3>
 			  </div>
 			  <%= link_to j, class: 'unstyled-description' do %>
-				  <div class="panel-body">			  	
-				    <%= j.description %>
+				  <div class="panel-body">
+				  	<div class="col-xs-4">
+						      <%= image_tag j.image(:thumb), class: 'img-rounded' %>
+						    <% if j.image.processing? %>
+						      <h4 class="text-center lead">
+						        Image is processing.<br> Refresh page in a few seconds.
+						     	</h4>
+						    <% end %>
+				  	</div>
+						<div  class="col-xs-8">
+					    <%= j.description %>
+						</div>				  						  			  	
 				  </div>
-		    <% end %>
-			  <div class="panel-footer">
-			  	<%= "Posted #{ time_ago_in_words(j.created_at) } ago" %>  | ZIP: <%= j.zip_code %>
-			  </div>
+				  <div class="panel-footer">
+				  	<%= "Posted #{ time_ago_in_words(j.created_at) } ago" %>  | ZIP: <%= j.zip_code %>
+				  </div>
+		    <% end %>			  
 			</div>
 		<% end %>
 

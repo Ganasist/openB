@@ -338,3 +338,12 @@ input#form_zip_code {
 a.unstyled-description {
   text-decoration: none;
 }
+
+div.job_return_links {
+  @extend .col-lg-6;
+  @extend .col-lg-offset-3;
+  @extend .col-sm-8;
+  @extend .col-sm-offset-2;
+  @extend .col-xs-12;
+  @extend .text-center;
+}
