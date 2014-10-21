@@ -16,4 +16,8 @@ class Job < ActiveRecord::Base
   	self.zip_code = self.user.zip_code
   end
 
+  def self.duration_units
+    ['minutes', 'hours', 'days', 'weeks', 'months']
+  end
+
 end
