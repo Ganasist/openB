@@ -9,6 +9,7 @@ class ContractorsController < ApplicationController
 
   def show
     @cats = @contractor.categories
+    @jobs = @contractor.jobs
   end
 
   # def update

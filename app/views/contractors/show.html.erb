@@ -3,9 +3,10 @@
 		<%= render partial: 'layouts/profile_sidebar', locals: { member: @contractor } %>
 	</div>
 	<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-		<hr>
+		<hr class="visible-xs">
 		<h3 class="lead text-center">
 			<%= @contractor.try(:bio) %>
 		</h3>
+		<hr>
 	</div>
 </div>
