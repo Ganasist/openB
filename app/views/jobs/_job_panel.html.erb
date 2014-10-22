@@ -12,7 +12,11 @@
               <% end %>
               <%= link_to edit_job_path(job) do %>
                 <%= fa_icon 'edit lg', title: 'Edit', class: 'pull-right' %>
-              <% end %>   
+              <% end %>
+          <% elsif contractor_signed_in? %>
+            <%= link_to new_job_bid_path(job) do %>
+              <%= fa_icon 'dollar 4x', title: 'Bid on this job', class: 'pull-right' %>
+            <% end %>
           <% end %>
           </p>
           <p>

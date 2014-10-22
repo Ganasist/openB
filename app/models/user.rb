@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   include Devisable
 
 	has_many :jobs
-	has_many :contractors, through: :jobs
 
   enum role: [:user, :admin]
   after_initialize :set_default_role, :if => :new_record?

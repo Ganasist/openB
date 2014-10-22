@@ -3,9 +3,9 @@ class Contractor < ActiveRecord::Base
   include Validations
   include Attachments
   include Devisable
-  
-	has_many :jobs
-	has_many :users, through: :jobs
+
+  has_many :bids
+  has_many :jobs, through: :bids
 
   validates :phone, 
             :address, 

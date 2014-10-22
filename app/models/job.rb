@@ -4,7 +4,9 @@ class Job < ActiveRecord::Base
   include Validations
   
   belongs_to :user
-  belongs_to :contractor
+  
+  has_many :bids
+  has_many :contractors, through: :bids
 
   DURATION_UNITS = ['minutes', 'hours', 'days', 'weeks', 'months']
 

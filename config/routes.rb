@@ -8,8 +8,13 @@ Rails.application.routes.draw do
 	devise_for :contractors, controllers: { registrations: 'contractors/registrations', sessions: 'sessions' }							 
 
   resources :users, only: [:show, :index, :destroy]
+  
   resources :contractors, only: [:show, :index, :destroy]
-  resources :jobs
+  
+  resources :jobs do
+    resources :bids
+  end
+
   resource :contact, only: [:new, :create]
   
 	mount Sidekiq::Web => '/sidekiq'

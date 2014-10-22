@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141022112717) do
+ActiveRecord::Schema.define(version: 20141022152808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bids", force: true do |t|
+    t.integer  "job_id"
+    t.integer  "contractor_id"
+    t.integer  "cost"
+    t.integer  "duration"
+    t.string   "duration_unit"
+    t.boolean  "accepted"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "bids", ["contractor_id"], name: "index_bids_on_contractor_id", using: :btree
+  add_index "bids", ["job_id"], name: "index_bids_on_job_id", using: :btree
 
   create_table "contractors", force: true do |t|
     t.string   "email",                  limit: 255, default: "", null: false
