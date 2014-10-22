@@ -8,6 +8,6 @@ jQuery ->
 		if $("input.check_boxes:checked").length == 0
 			$('input.user_submit').attr('disabled', true)
 			$('#category_warning').removeClass('hidden')
-		else if $("input.check_boxes:checked").length > 0
+		else if 0 < $("input.check_boxes:checked").length < 5
 			$('input.user_submit').attr('disabled', false)
 			$('#category_warning').addClass('hidden')
