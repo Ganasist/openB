@@ -349,8 +349,13 @@ div.job_return_links {
 }
 ul.list-inline.categories {
   line-height: 1.7em;
+  font-weight: 100;
   span {
     margin-left: -4px;
     margin-right: -4px;
   }
+}
+
+li.services.label {
+  font-weight: 100;
 }

@@ -36,11 +36,15 @@
 		<h4 class="text-center">
 			<%= member.contractor? ? 'Services Offered' : 'Services Needed' %>
 		</h4><br>
-		<% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
-				<% cats.each do |cat| %>
-          <ul class="list-unstyled lead col-xs-6">
-          	<li class="text-center"><%= cat %></li>
+		<%# @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
+				<% @cats.each do |cat| %>
+          <ul>
+          	<h2>
+          		<li class="services label label-<%= %w(default primary success info warning danger).sample %>">
+	              <%= cat %>
+	            </li>
+	          </h2>
           </ul>
         <% end %>
-		<% end %>				
+		<%# end %>				
 	<% end %>
