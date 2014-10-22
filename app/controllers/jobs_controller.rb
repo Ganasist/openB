@@ -27,7 +27,7 @@ class JobsController < ApplicationController
     @job.user = current_user
     if @job.save
       flash[:notice] = 'Job was successfully created.'
-      redirect_to current_user
+      redirect_to @job
     else
       render 'new'
     end
