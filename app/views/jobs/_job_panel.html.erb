@@ -52,7 +52,7 @@
         </div>
 
         <div class="panel-footer">
-          <%= "Posted #{ time_ago_in_words(job.created_at) } ago" %> <%= "| Approximately #{ @contractor.distance_from(job).round(1) } miles away" if contractor_signed_in? %>
+          <%= "Posted #{ time_ago_in_words(job.created_at) } ago" %> <%= "| Approx. #{ @contractor.distance_from(job).round(1) } miles away" if contractor_signed_in? %>
         </div>
       <% end %>
     </div>
