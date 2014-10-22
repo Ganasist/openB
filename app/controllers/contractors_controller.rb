@@ -9,7 +9,11 @@ class ContractorsController < ApplicationController
 
   def show
     @cats = @contractor.categories
-    @jobs = @contractor.jobs
+    @close_jobs = Job.near(@contractor.full_address, 100).order(created_at: :desc)
+    @jobs = []
+    @close_jobs.each do |cj|
+      @jobs << cj if !(cj.categories & @cats).empty? 
+    end
   end
 
   # def update

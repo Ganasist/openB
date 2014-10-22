@@ -8,5 +8,8 @@
 			<%= @contractor.try(:bio) %>
 		</h3>
 		<hr>
+		<% @jobs.each do |j| %>
+			<%= render 'jobs/job_panel', job: j %>
+		<% end %>		
 	</div>
 </div>

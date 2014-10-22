@@ -2,8 +2,8 @@ class JobsController < ApplicationController
   respond_to :html
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   before_filter :user_check, only: [:edit, :update, :destroy]
-  before_action :authenticate_contractor!, only: :index
-  before_action :authenticate_user!
+  # before_action :authenticate_contractor!, only: [:index, :show]
+  # before_action :authenticate_user!, only: [:in]
 
   def index
     @jobs = Job.all
