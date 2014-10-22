@@ -1,4 +1,4 @@
-<div class="panel panel-info" id="<%= job.id %>">
+<div class="panel panel-default" id="<%= job.id %>">
       <div class="panel-heading">
         <h3 class="panel-title">
           <p>
@@ -28,26 +28,30 @@
           </p>
         </h3>
       </div>
-      <div class="panel-body">
-        <div class="col-xs-4">
-              <%= image_tag job.image(:original), class: 'img-rounded' %>
-            <% if job.image.processing? %>
-              <h4 class="text-center lead">
-                Image is processing.<br> Refresh page in a few seconds.
-              </h4>
-            <% end %>
+      <%= link_to job, class: 'unstyled-description' do %>
+        <div class="panel-body">
+          <div class="col-xs-4">
+                <%= image_tag job.image(:original), class: 'img-rounded' %>
+              <% if job.image.processing? %>
+                <h4 class="text-center lead">
+                  Image is processing.<br> Refresh page in a few seconds.
+                </h4>
+              <% end %>
+          </div>
+          <div  class="col-xs-8">
+            <p class="lead">
+              <strong>
+                <%= job.job_cost %> / <%= job.job_duration %>
+              </strong>
+            </p>
+            <hr>
+            <%= job.description %>
+          </div>                                  
         </div>
-        <div  class="col-xs-8">
-          <p class="lead">
-            <strong>
-              <%= job.job_cost %> / <%= job.job_duration %>
-            </strong>
-          </p>
-          <hr>
-          <%= job.description %>
-        </div>                                  
-      </div>
-      <div class="panel-footer">
-        <%= "Posted #{ time_ago_in_words(job.created_at) } ago" %>  | ZIP: <%= job.zip_code %>
-      </div>
+
+        <div class="panel-footer">
+          <%= "Posted #{ time_ago_in_words(job.created_at) } ago" %>  
+              | ZIP: <%= job.zip_code %>
+        </div>
+      <% end %>
     </div>
