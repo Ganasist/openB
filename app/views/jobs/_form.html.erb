@@ -26,7 +26,7 @@
       <%= f.input :title, label: 'Job Title', required: true, input_html: { maxlength: 50 } %>
       
       <span class="input-group">
-        <%= f.input :cost, required: true, wrapper_html: { class: 'col-xs-5' },
+        <%= f.input :cost, required: true, wrapper_html: { class: 'col-xs-4' },
                               label: 'Cost Est.',
                             wrapper: :vertical_input_group do %>
             <span class="input-group-addon">$</span>
@@ -35,14 +35,14 @@
                                   class: 'form-control',
                                      id: 'form_zip_code' %>
         <% end %>
-
+        
         <%= f.input :duration, as: :string, 
                        input_html: { maxlength: 3 }, 
-                     wrapper_html: { class: 'col-xs-3 '} %>
+                     wrapper_html: { class: 'col-xs-4'} %>
 
         <%= f.input :duration_unit, selected: 'hours',
                                        label: 'Unit',
-                                  collection: Job.duration_units, 
+                                  collection: Job::DURATION_UNITS, 
                                 wrapper_html: { class: 'col-xs-4 '} %>
 
       </span>
