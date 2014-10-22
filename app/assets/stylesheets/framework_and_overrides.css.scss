@@ -347,3 +347,10 @@ div.job_return_links {
   @extend .col-xs-12;
   @extend .text-center;
 }
+ul.list-inline.categories {
+  line-height: 1.7em;
+  span {
+    margin-left: -4px;
+    margin-right: -4px;
+  }
+}
