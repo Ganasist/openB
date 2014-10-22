@@ -35,7 +35,7 @@
 	<% if member.categories.size > 0 %>
 		<h4 class="text-center">
 			<%= member.contractor? ? 'Services Offered' : 'Services Needed' %>
-		</h4><br>
+		</h4>
 		<%# @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
 				<% @cats.each do |cat| %>
           <ul>
