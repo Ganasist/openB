@@ -7,7 +7,12 @@ class Contractor < ActiveRecord::Base
 	has_many :jobs
 	has_many :users, through: :jobs
 
-  validates :phone, :address, :city, :state, :company_name, :bio, presence: true, if: Proc.new { |m| !m.new_record? }
+  validates :phone, 
+            :address, 
+            :city, 
+            :state, 
+            :company_name, 
+            :bio, presence: true, if: Proc.new { |m| !m.new_record? }
 
   def self.categories
     ['Bathrooms', 'Driveways', 'Decks/patios', 'Electrical', 'Fencing', 'Flooring', 'Home', 
