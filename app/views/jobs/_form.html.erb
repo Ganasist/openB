@@ -31,12 +31,14 @@
                             wrapper: :vertical_input_group do %>
             <span class="input-group-addon">$</span>
             <%= f.input_field :cost, as: :string, 
+                            placeholder: '400',
                               maxlength: 5,
                                   class: 'form-control',
                                      id: 'form_zip_code' %>
         <% end %>
-        
-        <%= f.input :duration, as: :string, 
+
+        <%= f.input :duration, as: :string,
+                      placeholder: '6', 
                        input_html: { maxlength: 3 }, 
                      wrapper_html: { class: 'col-xs-4'} %>
 
@@ -49,7 +51,7 @@
       <%= f.input :description, as: :text, 
                           required: true,
                              label: 'Job Description',
-                       placeholder: 'Enter brief description of this job',
+                       placeholder: 'Enter a brief description of this job',
                         input_html: { rows: '7', maxlength: 500 } %>
 
     </div>

@@ -1,54 +1,7 @@
 <div class="row">
-  <div class="col-xs-12">    
-    <div class="panel panel-info" id="<%= @job.id %>">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <p>
-          <%= @job.title %>
-          <% if current_user == @job.user %>
-              <%= link_to @job, method: :delete,
-                         remote: true, 
-                           data: { confirm: "Are you sure you want to delete this post?" } do %>
-                <%= fa_icon 'minus-square lg', title: 'Delete',
-                                               class: 'delete-job-post pull-right' %>
-              <% end %>
-              <%= link_to edit_job_path(@job) do %>
-                <%= fa_icon 'edit lg', title: 'Edit', class: 'pull-right' %>
-              <% end %>   
-          <% end %>
-          </p>
-          <p>
-            <ul class="list-inline">
-              <% @job.categories.each do |c| %>
-                <li>
-                  <span class="label label-<%= %w(default primary success info warning danger).sample %>">
-                    <%= c %>
-                  </span>
-                </li>
-              <% end %>
-            </ul>
-          </p>
-        </h3>
-      </div>
-      <div class="panel-body">
-        <div class="col-xs-4">
-              <%= image_tag @job.image(:original), class: 'img-rounded' %>
-            <% if @job.image.processing? %>
-              <h4 class="text-center lead">
-                Image is processing.<br> Refresh page in a few seconds.
-              </h4>
-            <% end %>
-        </div>
-        <div  class="col-xs-8">
-          <%= @job.description %>
-        </div>                                  
-      </div>
-      <div class="panel-footer">
-        <%= "Posted #{ time_ago_in_words(@job.created_at) } ago" %>  | ZIP: <%= @job.zip_code %>
-      </div>
-    </div>
+  <div class="col-xs-12">
+    <%= render 'job_panel', job: @job %>
   </div>
-
   <div class="row">
     <div class="job_return_links">
       <ul class="list-inline">
