@@ -5,6 +5,12 @@ module Validations
 
 		before_validation :remove_blank_categories
 
+		geocoded_by :full_address
+		after_validation :geocode, if: ->(obj){ obj.full_address.present? && (obj.address_changed? ||
+																																					obj.zip_code_changed? ||
+																																					obj.city_changed? ||
+																																					obj.state_changed?) }
+		
 		phony_normalize :phone, default_country_code: 'US'
 		validates :phone, phony_plausible: true
 
@@ -19,5 +25,9 @@ module Validations
 
   def remove_blank_categories
     self.categories.reject!(&:empty?)
+  end
+
+  def full_address
+    "#{ self.try(:address) }, #{ self.try(:city) }, #{ self.try(:zip_code) }, #{ self.try(:state) }"
   end
 end

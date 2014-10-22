@@ -50,10 +50,10 @@
       </span>
       <%= f.input :description, as: :text, 
                           required: true,
-                             label: 'Job Description',
+                             label: '',
                        placeholder: 'Enter a brief description of this job',
-                        input_html: { rows: '7', maxlength: 500 } %>
-
+                        input_html: { rows: '7', maxlength: 2000 },
+                        label_html: { id: "description_feedback" }  %>
     </div>
 
     <div class="form-inputs col-md-6 col-sm-6">

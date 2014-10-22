@@ -45,13 +45,15 @@
               </strong>
             </p>
             <hr>
-            <%= job.description %>
+            <%= (request.fullpath).include?('jobs') ? 
+                job.description : 
+                truncate(job.description, length: 500) %>
           </div>                                  
         </div>
 
         <div class="panel-footer">
           <%= "Posted #{ time_ago_in_words(job.created_at) } ago" %>  
-              | ZIP code: <%= job.zip_code %>
+              | ZIP code: <%= job.zip_code %> | <%= "#{ job.longitude } : #{ job.latitude }" %>
         </div>
       <% end %>
     </div>

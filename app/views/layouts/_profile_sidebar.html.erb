@@ -29,7 +29,7 @@
 	  <% if member.phone.present? %>
 		  <%= member.phone.phony_formatted(normalize: :US, format: :international, spaces: '-') %><br>
 	  <% end %>
-	  <%= member.email if member.email.present? %>
+	  <%= member.email if member.email.present? %><br>
 	</address>
 	<hr>
 	<% if member.categories.size > 0 %>
