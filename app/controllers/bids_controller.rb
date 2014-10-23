@@ -10,7 +10,7 @@ class BidsController < ApplicationController
     @bid.contractor = current_contractor
     @bid.job = Job.find(params[:job_id])
     if @bid.save
-      redirect_to current_contractor, notice: 'Bid was successfully created!'
+      redirect_to current_contractor, notice: "Your bid for '#{ @bid.job.title }' has been created"
     else
       redirect_to :back, alert: "#{@bid.errors.full_messages.to_sentence}"
     end

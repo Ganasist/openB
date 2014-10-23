@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :contractors, only: [:show, :index, :destroy]
   
   resources :jobs do
-    resources :bids
+    resources :bids, except: [:show, :index]
   end
 
   resource :contact, only: [:new, :create]

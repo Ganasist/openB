@@ -1,3 +1,4 @@
+# Included in User, Contractor
 module Devisable
 	extend ActiveSupport::Concern
 	included do

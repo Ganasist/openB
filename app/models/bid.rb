@@ -6,6 +6,4 @@ class Bid < ActiveRecord::Base
   belongs_to :contractor
 
   validates_associated :job, :contractor
-
-  # validates :cost, :duration, :duration_unit, presence: true
 end

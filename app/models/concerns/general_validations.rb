@@ -4,6 +4,7 @@ module GeneralValidations
 	included do
 
 		before_validation :remove_blank_categories
+		validates :categories, presence: true, length: { maximum: 4, message: 'Pick between 1-4 categories' }
 
 		geocoded_by :full_address
 		after_validation :geocode, if: ->(obj){ obj.full_address.present? && (obj.address_changed? ||
@@ -20,7 +21,7 @@ module GeneralValidations
 										 numericality: true,
 									postcode_format: { country_code: :us,
 																					message: 'Not a valid postcode for the US.'},
-											allow_blank: false, if: Proc.new { |m| !m.new_record? }
+											allow_blank: false, if: Proc.new { |m| !m.new_record? || m.is_a?(Job) }
   end
 
   def remove_blank_categories
