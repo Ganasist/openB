@@ -242,6 +242,8 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
   height: 510px;
   background: transparent;
   padding-top: 70px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
   // margin-top: 80px;
   h2 {
     line-height: 1.5em;
@@ -386,6 +388,11 @@ form#new_bid {
   }
 }
 
+div#splash_row_1 {
+  padding: 0px 20px 0px 0px;
+  margin: 0px;
+}
+
 .splash_green {
   color: #5cb85c;
 }
@@ -393,6 +400,10 @@ form#new_bid {
 h5.splash_green {
   margin-top: 5px;
   font-weight: 110;
+}
+
+h1.splash_green {
+  font-weight: 100;
 }
 
 h4.lead {
