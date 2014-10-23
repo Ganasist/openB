@@ -17,6 +17,13 @@ module GeneralValidations
 
 		validates :name, presence: true, if: Proc.new { |m| !m.new_record? && !m.is_a?(Job) }
 
+		validates :phone, 
+	            :address, 
+	            :city, 
+	            :state, 
+	            :company_name, 
+	            :bio, presence: true, if: Proc.new { |m| !m.new_record? && m.is_a?(Contractor) }
+
 		validates :zip_code, presence: true,
 										 numericality: true,
 									postcode_format: { country_code: :us,

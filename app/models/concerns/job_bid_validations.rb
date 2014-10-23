@@ -5,13 +5,14 @@ module JobBidValidations
 
 		DURATION_UNITS = ['minutes', 'hours', 'days', 'weeks', 'months']
 
-	  validates :duration_unit, inclusion: { in: DURATION_UNITS }
-
 		validates :cost, 
 							:duration, 
 							:duration_unit, presence: true
-							
+
 		validates :cost, 
 							:duration, numericality: true
+
+		validates :duration_unit, inclusion: { in: DURATION_UNITS }
+		
   end
 end

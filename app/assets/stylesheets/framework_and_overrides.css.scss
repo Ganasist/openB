@@ -1,3 +1,6 @@
+$gray-lighter: lighten(#000, 93.5%);
+$gray-light:   lighten(#000, 46.7%);
+
 // import the CSS framework
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -308,19 +311,15 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
 div.marketing {
   font-size: 1.2em;
   text-align: center;
+  padding: 40px;
+}
+
+div#splash_row_2 {
+  background-color: $gray-lighter;
 }
 
 div.col-md-3, div.col-sm-6 {
   padding-bottom: 20px;
-}
-
-hr.green_blur {
-    border: 0;
-    height: 0; /* Firefox... */
-    box-shadow: 0 0 1px 1px #3db952;
-}
-hr.green_blur:after {  /* Not really supposed to work, but does */
-    content: "\00a0";  /* Prevent margin collapse */
 }
 
 div#label_zip_code {
@@ -367,4 +366,35 @@ form#new_bid {
   li {
     margin-top: 10px;
   }
+}
+
+#good_company {
+  font-weight: 100;
+}
+
+#marketing_quote {
+  color: $gray-light;
+}
+
+#view_all_categories {
+  margin-top: 30px;
+  color: #4cae4c;
+  background-color: transparent;
+  &:hover {
+    color: #fff;
+    background-color: #5cb85c;
+  }
+}
+
+.splash_green {
+  color: #5cb85c;
+}
+
+h5.splash_green {
+  margin-top: 5px;
+  font-weight: 110;
+}
+
+h4.lead {
+  margin-bottom: 5px;
 }

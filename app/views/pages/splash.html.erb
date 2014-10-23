@@ -27,19 +27,43 @@
 	</div>
 </div>
 
-<div class="marketing row">
-    <table class="table table-striped table-hover table-bordered text-center">
-      <thead class="lead">
-        <td>Category</td>
-        <td>Available Contractors</td>
-        <td>Open Jobs</td>
-      </thead>
-        <tbody>
-          <%= render partial: 'pages/_categories', 
-                  collection: Contractor.splash_page_categories, 
-                          as: :category %>
-        <tbody>
-     </table>
+<div class="marketing row" id="splash_row_1">
   <%= link_to 'View all categories', page_path('categories'), 
                                      class: 'btn btn-success btn-lg'  %>
+</div>
+
+<div class="marketing row text-center" id="splash_row_2">
+
+    <div class="col-lg-4">
+      <%= image_tag 'Landscaping.png', class: 'img-responsive' %>
+      <h4 class="lead">Landscaping</h4>
+      <h5 class="splash_green">456 Bids</h5>
+    </div>
+
+    <div class="col-lg-4">
+      <%= image_tag 'Remodel.png', class: 'img-responsive' %>
+      <h4 class="lead">Remodel</h4>
+      <h5 class="splash_green">185 Bids</h5>
+    </div>
+
+    <div class="col-lg-4">
+      <%= image_tag 'Roofing.png', class: 'img-responsive' %>
+      <h4 class="lead">Landscaping</h4>
+      <h5 class="splash_green">347 Bids</h5>
+    </div>
+
+    <div class="col-lg-4 col-lg-offset-4">
+      <%= link_to 'VIEW ALL CATEGORIES', page_path('categories'), 
+                                         class: 'btn btn-success btn-lg',
+                                            id: 'view_all_categories'  %>
+    </div>
+</div>
+
+<div class="marketing row text-center" id="splash_row_3">
+  <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+    <h1 id="good_company">You're in good company</h1>
+    <p id="marketing_quote"><em>"Seems yesterday that i enjoyed on Openbid like a business consultant! and over 3 years I've got hundreds of new jobs and lots of fun!"</em></p>
+    <p id="marketing_quote_author">John Campbell, <span class="splash_green">Business Contractors</span></p>
+  </div>
+  
 </div>

@@ -7,13 +7,6 @@ class Contractor < ActiveRecord::Base
   has_many :bids
   has_many :jobs, through: :bids
 
-  validates :phone, 
-            :address, 
-            :city, 
-            :state, 
-            :company_name, 
-            :bio, presence: true, if: Proc.new { |m| !m.new_record? }
-
   def self.categories
     ['Bathrooms', 'Driveways', 'Decks/patios', 'Electrical', 'Fencing', 'Flooring', 'Home', 
     	'Security', 'Interior Design', 'Kitchens', 'Landscaping', 'Moving', 'New Construction',
