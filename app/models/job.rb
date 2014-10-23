@@ -22,12 +22,4 @@ class Job < ActiveRecord::Base
   def add_default_zip_code
   	self.zip_code = self.user.zip_code
   end
-
-  def job_duration
-		"#{ self.duration } #{ self.duration_unit }"  	
-  end
-
-  def job_cost
-  	"$#{ self.cost }"
-  end
 end

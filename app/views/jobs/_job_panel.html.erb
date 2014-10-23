@@ -12,14 +12,14 @@
               <%= link_to edit_job_path(job) do %>
                 <%= fa_icon 'edit 2x', title: 'Edit', class: 'pull-right' %>
               <% end %>
-            <% elsif contractor_signed_in? %>
+            <% elsif contractor_signed_in? && !(request.fullpath).include?('/bids') %>
               <%= link_to new_job_bid_path(job), 
-                          class: 'hidden-xs hidden-sm btn btn-success btn-lg pull-right' do %>
-                BID NOW
+                          class: 'hidden-xs hidden-sm btn btn-primary btn-lg pull-right' do %>
+                View Details
               <% end %>
               <%= link_to new_job_bid_path(job), 
-                          class: 'visible-xs visible-sm btn btn-success btn pull-right' do %>
-                BID NOW
+                          class: 'visible-xs visible-sm btn btn-primary btn pull-right' do %>
+                View Details
               <% end %>
             <% end %></p>
       <ul class="list-inline categories">
@@ -51,7 +51,7 @@
       <div  class="col-xs-8">
         <p class="lead">
           <strong>
-            <%= job.job_cost %> / <%= job.job_duration %>
+            <%= job_cost(job) %> / <%= job_duration(job) %>
           </strong>
         </p>
         <hr>
