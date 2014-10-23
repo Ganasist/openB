@@ -34,20 +34,14 @@
       </ul>
     </h3>
   </div>
-  <%= link_to job, class: 'unstyled-description' do %>
+  
     <div class="panel-body">
-
-      <%# elsif contractor_signed_in? %>
-        <%#= render 'bids/form', job: job %>
-        <%#= link_to new_job_bid_path(job), 
-                    class: 'hidden-xs hidden-sm btn btn-success btn-lg pull-right' do %>
-          <!-- BID NOW -->
-        <%# end %>
-        <%#= link_to new_job_bid_path(job), 
-                    class: 'visible-xs visible-sm btn btn-success btn pull-right' do %>
-          <!-- BID NOW -->
-        <%# end %>
-
+      <% if contractor_signed_in? %>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <%= render 'bids/form', job: job %>
+        </div>
+      <% end %>
+      <%= link_to job, class: 'unstyled-description' do %>
       <div class="col-xs-4">
             <%= image_tag job.image(:original), class: 'img-rounded' %>
           <% if job.image.processing? %>
