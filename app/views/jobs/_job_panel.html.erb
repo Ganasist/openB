@@ -1,7 +1,6 @@
 <div class="panel panel-default" id="<%= job.id %>">
   <div class="panel-heading">
     <h3 class="panel-title">
-
       <p><%= job.title %>
             <% if current_user == job.user %>
               <%= link_to job, method: :delete,
@@ -33,8 +32,7 @@
         <% end %>
       </ul>
     </h3>
-  </div>
-  
+  </div>  
     <div class="panel-body">
       <% if contractor_signed_in? %>
         <div class="col-xs-12 col-sm-12 col-md-12">

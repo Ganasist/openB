@@ -361,5 +361,10 @@ li.services.label {
   font-weight: 100;
 }
 form#new_bid {
+  text-align: center;
+  margin: 0 auto;
   width: 100%;
+  li {
+    margin-top: 10px;
+  }
 }

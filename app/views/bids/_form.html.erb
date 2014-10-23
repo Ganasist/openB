@@ -3,33 +3,30 @@
                               html: { class: 'form-inline', autocomplete: 'off' } do |f| %>
     <%= f.error_notification %>
 
-    <div class="form-group">
-      <%= f.input :cost, required: true,
-                             label: false,
-                           wrapper: :horizontal_input_group do %>
-           <span class="input-group-addon">$</span>
-           <%= f.input_field :cost, as: :string, 
-                           placeholder: "#{ job.cost }",
-                             maxlength: 5,
-                                 class: 'form-control',
-                                    id: 'form_zip_code' %>
-       <% end %>
-     </div>
-     <div class="form-group">
-        <%= f.input :duration, as: :string, label: false,
-                     placeholder: "#{ job.duration }", 
-                      input_html: { maxlength: 3,
-                                    id: 'form_zip_code' } %>
-                    </div>
-      <div class="form-group">
-        <%= f.input :duration_unit, selected: "#{ job.duration_unit }", label: false,
-                                      label: 'Unit',
-                                 collection: Job::DURATION_UNITS, 
-                      input_html: { style: 'width: 75px' } %>
-                               </div>
-      <div class="form-group">
-       <%= f.button :submit, 'Submit Bid', class: 'btn btn-default btn-lg' %>
-     </div>
+
+      <ul class="list-inline">
+
+        <li><%= f.input :cost, as: :string, label: false,
+                                         placeholder: 'Cost', 
+                                          input_html: { maxlength: 3,
+                                                        id: 'form_zip_code' } %></li>
+
+        
+              <li><%= f.input :duration, as: :string, label: false,
+                                         placeholder: 'Duration', 
+                                          input_html: { maxlength: 3,
+                                                        id: 'form_zip_code',
+                                                        style: 'width: 80px' } %></li>
+                          
+      
+              <li><%= f.input :duration_unit, selected: "#{ job.duration_unit }", label: false,
+                                                          label: 'Unit',
+                                                     collection: Job::DURATION_UNITS, 
+                                          input_html: { style: 'width: 75px' } %></li>
+                                     
+      
+             <li><%= f.button :submit, 'Submit Bid', class: 'btn btn-success' %></li>
+           </ul>
        <hr>
   <% end %>
 </div>
