@@ -1,5 +1,5 @@
 <div class="authform_large">
-  <%= simple_form_for [@job, @bid], wrapper: :vertical_form, 
+  <%= simple_form_for [job, job.bids.new], wrapper: :vertical_form, 
                                html: { multipart: true, 
                                     autocomplete: 'off' },
                    wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
@@ -29,17 +29,8 @@
                                   collection: Job::DURATION_UNITS, 
                                 wrapper_html: { class: 'col-xs-4 '} %>
 
-      </span>
-      <%#= f.input :description, as: :text, 
-                          required: true,
-                             label: '',
-                       placeholder: 'Enter a brief description of this job',
-                        input_html: { rows: '7', maxlength: 2000 },
-                        label_html: { id: "description_feedback" }  %>
-    </div>
-
-    <div class="form-inputs col-md-6 col-sm-6">
-      <%= f.button :submit, 'Submit this bid', class: 'bid_submit' %>
-    </div>      
+        <%= f.button :submit, 'BID NOW', class: 'hidden-xs hidden-sm btn btn-success btn-lg pull-right' %>
+    </span>
+  </div>
   <% end %>
 </div>
