@@ -1,5 +1,5 @@
 # Included in User, Contractor, Jobs
-module Validations
+module GeneralValidations
 	extend ActiveSupport::Concern
 	included do
 
@@ -20,7 +20,7 @@ module Validations
 										 numericality: true,
 									postcode_format: { country_code: :us,
 																					message: 'Not a valid postcode for the US.'},
-											allow_blank: false, if: Proc.new { |m| !m.new_record? || m.is_a?(Job) }
+											allow_blank: false, if: Proc.new { |m| !m.new_record? }
   end
 
   def remove_blank_categories

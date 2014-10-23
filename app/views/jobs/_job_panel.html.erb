@@ -13,12 +13,12 @@
           <%= link_to edit_job_path(job) do %>
             <%= fa_icon 'edit 2x', title: 'Edit', class: 'pull-right' %>
           <% end %>
-        <% elsif contractor_signed_in? && !(request.fullpath).include?('/bids') %>
-          <%= link_to new_job_bid_path(job), 
+        <% elsif contractor_signed_in? && (request.fullpath).include?('/contractors') %>
+          <%= link_to job_path(job), 
                       class: 'hidden-xs hidden-sm btn btn-primary btn-lg pull-right' do %>
             View Details
           <% end %>
-          <%= link_to new_job_bid_path(job), 
+          <%= link_to job_path(job), 
                       class: 'visible-xs visible-sm btn btn-primary btn pull-right' do %>
             View Details
           <% end %>

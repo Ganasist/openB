@@ -12,7 +12,7 @@ class BidsController < ApplicationController
     if @bid.save
       redirect_to current_contractor, notice: 'Bid was successfully created!'
     else
-      render 'new'
+      redirect_to :back, alert: "#{@bid.errors.full_messages.to_sentence}"
     end
   end
 
@@ -24,5 +24,4 @@ class BidsController < ApplicationController
     def bid_params
       params.require(:bid).permit(:cost, :duration, :duration_unit)
     end
-
 end
