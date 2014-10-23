@@ -1,27 +1,29 @@
 <div class="panel panel-default" id="<%= job.id %>">
   <div class="panel-heading">
     <h3 class="panel-title">
-      <p><%= job.title %>
-            <% if current_user == job.user %>
-              <%= link_to job, method: :delete,
-                         remote: true, 
-                           data: { confirm: 'Are you sure you want to delete this post?' } do %>
-                <%= fa_icon 'minus-square 2x', title: 'Delete',
-                                               class: 'delete-job-post pull-right' %>
-              <% end %>
-              <%= link_to edit_job_path(job) do %>
-                <%= fa_icon 'edit 2x', title: 'Edit', class: 'pull-right' %>
-              <% end %>
-            <% elsif contractor_signed_in? && !(request.fullpath).include?('/bids') %>
-              <%= link_to new_job_bid_path(job), 
-                          class: 'hidden-xs hidden-sm btn btn-primary btn-lg pull-right' do %>
-                View Details
-              <% end %>
-              <%= link_to new_job_bid_path(job), 
-                          class: 'visible-xs visible-sm btn btn-primary btn pull-right' do %>
-                View Details
-              <% end %>
-            <% end %></p>
+      <p>
+        <%= job.title %>
+        <% if current_user == job.user %>
+          <%= link_to job, method: :delete,
+                     remote: true, 
+                       data: { confirm: 'Are you sure you want to delete this post?' } do %>
+            <%= fa_icon 'minus-square 2x', title: 'Delete',
+                                           class: 'delete-job-post pull-right' %>
+          <% end %>
+          <%= link_to edit_job_path(job) do %>
+            <%= fa_icon 'edit 2x', title: 'Edit', class: 'pull-right' %>
+          <% end %>
+        <% elsif contractor_signed_in? && !(request.fullpath).include?('/bids') %>
+          <%= link_to new_job_bid_path(job), 
+                      class: 'hidden-xs hidden-sm btn btn-primary btn-lg pull-right' do %>
+            View Details
+          <% end %>
+          <%= link_to new_job_bid_path(job), 
+                      class: 'visible-xs visible-sm btn btn-primary btn pull-right' do %>
+            View Details
+          <% end %>
+        <% end %>
+      </p>
       <ul class="list-inline categories">
         <% job.categories.each do |c| %>
           <li>
