@@ -17,15 +17,6 @@ class ContractorsController < ApplicationController
     end
   end
 
-  # def update
-  #   @contractor = Contractor.find(params[:id])
-  #   if @contractor.update_attributes(secure_params)
-  #     redirect_to contractors_path, notice: 'contractor updated.'
-  #   else
-  #     redirect_to contractors_path, alert: 'Unable to update contractor.'
-  #   end
-  # end
-
   def destroy
     contractor = Contractor.find(params[:id])
     contractor.destroy

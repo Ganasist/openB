@@ -6,6 +6,7 @@
 <td>
 	<%= truncate(job.description, length: 100)%>
 </td>
-<td>
-	<%= job_cost(job) %> / <%= job_duration(job) %>
+<td class="text-center">
+	<%= job_cost(job) %><br>
+	<%= job_duration(job) %>
 </td>
