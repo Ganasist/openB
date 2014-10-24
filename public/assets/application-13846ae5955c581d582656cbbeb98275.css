@@ -10261,43 +10261,47 @@ div.marketing {
   font-size: 1.2em;
   text-align: center;
   padding: 40px;
+  background-image: -webkit-gradient(linear, 100% 50%, 0 50%, color-stop(0%, #fff), color-stop(50%, rgba(255, 255, 255, 0)), color-stop(100%, #fff)), -webkit-gradient(linear, 50% 0, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.025)), color-stop(100%, rgba(241, 243, 245, 0)));
+  background-image: -webkit-linear-gradient(right, #fff, rgba(255, 255, 255, 0) 50%, #fff), -webkit-linear-gradient(rgba(0, 0, 0, 0.025), rgba(241, 243, 245, 0));
+  background-image: -moz-linear-gradient(right, #fff, rgba(255, 255, 255, 0) 50%, #fff), -moz-linear-gradient(rgba(0, 0, 0, 0.025), rgba(241, 243, 245, 0));
+  background-image: -o-linear-gradient(right, #fff, rgba(255, 255, 255, 0) 50%, #fff), -o-linear-gradient(rgba(0, 0, 0, 0.025), rgba(241, 243, 245, 0));
+  background-image: linear-gradient(right, #fff, rgba(255, 255, 255, 0) 50%, #fff), linear-gradient(rgba(0, 0, 0, 0.025), rgba(241, 243, 245, 0));
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 100% 75px;
+  border-top: 1px solid #eee;
 }
 
-/* line 319, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
-div#splash_row_2 {
-  background-color: #eeeeee;
-}
-
-/* line 323, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 328, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 div.col-md-3, div.col-sm-6, div.form-actions-submit {
   padding-bottom: 20px;
 }
 
-/* line 327, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 332, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 div#label_zip_code {
   margin-left: 40px;
 }
 
-/* line 331, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 336, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 input#form_zip_code {
   width: 70px;
 }
 
-/* line 335, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 340, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 .delete-job-post {
   color: #d9534f;
 }
 
-/* line 339, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 344, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 a.unstyled-description {
   text-decoration: none;
 }
 
-/* line 351, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 356, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 ul.list-inline.categories {
   line-height: 1.7em;
 }
-/* line 353, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 358, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 ul.list-inline.categories span {
   font-weight: 200;
   color: white;
@@ -10305,72 +10309,81 @@ ul.list-inline.categories span {
   margin-right: -4px;
 }
 
-/* line 361, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 366, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 li.services.label {
-  font-weight: 100;
+  font-weight: 200;
 }
 
-/* line 364, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 369, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 form#new_bid {
   text-align: center;
   margin: 0 auto;
   width: 100%;
 }
-/* line 368, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 373, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 form#new_bid li {
   margin-top: 10px;
 }
 
-/* line 373, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
-#good_company {
+/* line 378, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+h1#good_company {
+  margin-top: 0px;
   font-weight: 100;
 }
 
-/* line 377, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+@media screen and (min-width: 992px) {
+  /* line 385, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+  #macbookair {
+    padding-top: 110px;
+  }
+}
+/* line 390, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 #marketing_quote {
   color: #777777;
 }
 
-/* line 381, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 394, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 #view_all_categories {
   margin-top: 30px;
   color: #4cae4c;
   background-color: transparent;
 }
-/* line 385, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 398, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 #view_all_categories:hover {
   color: #fff;
   background-color: #5cb85c;
 }
 
-/* line 391, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 404, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 div#splash_row_1 {
-  padding: 0px 20px 0px 0px;
+  background-color: #fff;
+  border-top: none;
+  padding: 0px 0px 0px 0px;
   margin: 0px;
 }
 
-/* line 396, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 411, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 .splash_green {
   color: #5cb85c;
 }
 
-/* line 400, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 415, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 h5.splash_green {
   margin-top: 5px;
-  font-weight: 200;
+  font-weight: 110;
 }
 
-/* line 405, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 420, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 h1.splash_green {
-  font-weight: 200;
+  font-weight: 100;
 }
 
-/* line 409, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 424, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 h4.lead {
   margin-bottom: 5px;
 }
 
-/* line 413, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 428, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 div.col-lg-4, div.form-actions-submit {
   padding-top: 25px;
 }

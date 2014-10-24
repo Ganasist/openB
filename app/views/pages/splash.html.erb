@@ -27,7 +27,7 @@
 	</div>
 </div>
 
-<div class="marketing row" id="splash_row_1">
+<div class="row" id="splash_row_1">
   <div class="col-lg-5 text-center">
     <h1 class="splash_green">Search for bids or contractors</h1>
   </div>
@@ -37,7 +37,7 @@
   </div>
 </div>
 
-<div class="marketing row text-center" id="splash_row_2">
+<div class="marketing row text-center">
 
     <div class="col-lg-4">
       <%= image_tag 'Landscaping.png', class: 'img-responsive' %>
@@ -53,7 +53,7 @@
 
     <div class="col-lg-4">
       <%= image_tag 'Roofing.png', class: 'img-responsive' %>
-      <h4 class="lead">Landscaping</h4>
+      <h4 class="lead">Roofing</h4>
       <h5 class="splash_green">347 Bids</h5>
     </div>
 
@@ -65,10 +65,17 @@
 </div>
 
 <div class="marketing row text-center" id="splash_row_3">
-  <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-    <h1 id="good_company">You're in good company</h1>
-    <p id="marketing_quote"><em>"Seems yesterday that i enjoyed on Openbid like a business consultant! and over 3 years I've got hundreds of new jobs and lots of fun!"</em></p>
-    <p id="marketing_quote_author">John Campbell, <span class="splash_green">Business Contractors</span></p>
-  </div>
-  
+    <h1 id="good_company">Find whatever you need from wherever you are</h1>
+    <br><br>
+    <div class="col-md-5"><%= image_tag 'iMac5K.jpeg', class: 'img-responsive' %></div>
+    <br>
+    <div class="col-md-4"><%= image_tag 'macbook.jpg', class: 'img-responsive', id: 'macbookair' %></div>
+    <br>
+    <div class="col-md-3"><%= image_tag 'ipadmini.jpg', class: 'img-responsive', id: 'ipadmini' %></div>
+    <br>
+    <div class="col-xs-12">
+      <%= link_to 'SIGN-UP', new_user_registration_path, 
+                                         class: 'btn btn-success btn-lg',
+                                            id: 'view_all_categories'  %>
+    </div>  
 </div>

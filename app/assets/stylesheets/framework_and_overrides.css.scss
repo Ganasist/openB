@@ -314,10 +314,15 @@ div.marketing {
   font-size: 1.2em;
   text-align: center;
   padding: 40px;
-}
-
-div#splash_row_2 {
-  background-color: $gray-lighter;
+  background-image: -webkit-gradient(linear,100% 50%,0 50%,color-stop(0%,#fff),color-stop(50%,rgba(255,255,255,0)),color-stop(100%,#fff)),-webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,rgba(0,0,0,.025)),color-stop(100%,rgba(241,243,245,0)));
+  background-image: -webkit-linear-gradient(right,#fff,rgba(255,255,255,0) 50%,#fff),-webkit-linear-gradient(rgba(0,0,0,.025),rgba(241,243,245,0));
+  background-image: -moz-linear-gradient(right,#fff,rgba(255,255,255,0) 50%,#fff),-moz-linear-gradient(rgba(0,0,0,.025),rgba(241,243,245,0));
+  background-image: -o-linear-gradient(right,#fff,rgba(255,255,255,0) 50%,#fff),-o-linear-gradient(rgba(0,0,0,.025),rgba(241,243,245,0));
+  background-image: linear-gradient(right,#fff,rgba(255,255,255,0) 50%,#fff),linear-gradient(rgba(0,0,0,.025),rgba(241,243,245,0));
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 100% 75px;
+  border-top: 1px solid #eee;
 }
 
 div.col-md-3, div.col-sm-6 {
@@ -370,8 +375,16 @@ form#new_bid {
   }
 }
 
-#good_company {
+h1#good_company {
+  margin-top: 0px;
   font-weight: 100;
+  // font-size: 2.5em;
+}
+
+@media screen and (min-width: 992px) {
+  #macbookair {
+    padding-top: 110px;
+  } 
 }
 
 #marketing_quote {
@@ -389,7 +402,9 @@ form#new_bid {
 }
 
 div#splash_row_1 {
-  padding: 0px 20px 0px 0px;
+  background-color: #fff;
+  border-top: none;
+  padding: 0px 0px 0px 0px;
   margin: 0px;
 }
 
