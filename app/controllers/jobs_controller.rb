@@ -1,9 +1,8 @@
 class JobsController < ApplicationController
   respond_to :html
   before_action :set_job, only: [:show, :edit, :update, :destroy]
-  before_filter :user_check, only: [:edit, :update, :destroy]
-  # before_action :authenticate_contractor!, only: [:index, :show]
-  # before_action :authenticate_user!, only: [:in]
+  before_action :user_check, only: [:edit, :update, :destroy]
+  before_action :block_visitors
 
   def index
     @jobs = Job.all
@@ -51,6 +50,12 @@ class JobsController < ApplicationController
   end
 
   private
+
+    def block_visitors
+      unless user_signed_in? || contractor_signed_in?
+        redirect_to root_path, alert: 'Sign up or sign in to access Open Jobs'
+      end
+    end
 
     def user_check
       unless current_user == @job.user

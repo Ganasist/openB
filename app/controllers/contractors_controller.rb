@@ -2,6 +2,7 @@ class ContractorsController < ApplicationController
   before_action :set_contractor, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_contractor!, except: [:index, :show]
   # before_filter :admin_only, except: :show
+  before_action :block_visitors
 
   def index
     @contractors = Contractor.all
@@ -32,6 +33,13 @@ class ContractorsController < ApplicationController
   end
 
   private
+
+    def block_visitors
+      unless user_signed_in? || contractor_signed_in?
+        redirect_to root_path, alert: 'Sign up or sign in to access Contractor profiles'
+      end
+    end
+
     def set_contractor
       @contractor = Contractor.find(params[:id])
     end
