@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
 
   resource :contact, only: [:new, :create]
+  resource :search, only: [:show]
   
 	mount Sidekiq::Web => '/sidekiq'
   mount Upmin::Engine => '/admin'

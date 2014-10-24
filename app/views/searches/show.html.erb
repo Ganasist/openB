@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-xs-12">
+      <h2 class="text-center lead">Contractors near ZIP <%= params[:search] %></h2>
+      <table class="table">
+        <tbody>
+          <% @contractors.each do |contractor| %>
+            <tr>
+              <%= render 'contractor_zip_search', contractor: contractor %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6 col-xs-12">
+      <h2 class="text-center lead">Open Jobs near ZIP <%= params[:search] %></h2>
+      <table class="table">
+        <tbody>
+          <% @jobs.each do |job| %>
+            <tr>
+              <%= render 'job_zip_search', job: job %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

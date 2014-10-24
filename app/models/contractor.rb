@@ -4,6 +4,9 @@ class Contractor < ActiveRecord::Base
   include Attachments
   include Devisable
 
+  include PgSearch
+  pg_search_scope :search_by_zip, against: :zip_code
+
   has_many :bids
   has_many :jobs, through: :bids
 
@@ -26,4 +29,13 @@ class Contractor < ActiveRecord::Base
   def contractor?
     true
   end
+
+  private
+    # def self.zip_search(query)
+    #   if query.present?
+    #     where("zip_code = :q", q: query)
+    #   else
+    #     scoped
+    #   end
+    # end
 end
