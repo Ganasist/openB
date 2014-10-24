@@ -1,9 +1,10 @@
-<td>
-  <%= link_to image_tag(job.image(:thumb), class: 'img-rounded'), job %>
-</td>
-<td>
+<td class="text-center">
+	<%= link_to image_tag(job.image(:thumb), class: 'img-rounded'), job %><br>
 	<%= link_to job.title, job %> <br>
   <%= job.categories.to_sentence %>
+</td>
+<td>
+	<%= truncate(job.description, length: 100)%>
 </td>
 <td>
 	<%= job_cost(job) %> / <%= job_duration(job) %>
