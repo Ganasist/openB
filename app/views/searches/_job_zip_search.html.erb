@@ -4,9 +4,7 @@
   <%= job.categories.to_sentence %>
 </td>
 <td>
+	<div class="text-center"><h4><%= job_cost(job) %> / <%= job_duration(job) %></h4></div>
+	<br>
 	<%= truncate(job.description, length: 100)%>
-</td>
-<td class="text-center">
-	<%= job_cost(job) %><br>
-	<%= job_duration(job) %>
 </td>
