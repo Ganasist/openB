@@ -42,15 +42,16 @@
         </div>
       <% end %>
       <%= link_to job, class: 'unstyled-description' do %>
-      <div class="col-xs-4">
-            <%= image_tag job.image(:original), class: 'img-rounded' %>
+      <div class="col-xs-12 col-md-4">
+            <%= image_tag job.image(:original), class: 'img-rounded img-responsive' %>
           <% if job.image.processing? %>
             <h4 class="text-center lead">
               Image is processing.<br> Refresh page in a few seconds.
             </h4>
           <% end %>
+          <hr class="visible-xs visible-sm">
       </div>
-      <div  class="col-xs-8">
+      <div  class="col-xs-12 col-md-8">
         <p class="lead">
           <strong>
             <%= job_cost(job) %> / <%= job_duration(job) %>
