@@ -305,9 +305,34 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
   border-color: #eea236;
 }
 
+.btn-success#user_sign_up2 {
+  background-color: #3db952;
+  border-color: #3db952;
+  &:hover {
+    color: #3db952;
+    border-color: #3db952;
+    background-color: rgba(0,0,0,0);
+  }
+}
+
+.btn-success#contractor_sign_up2 {
+  background-color: #f0ad4e;
+  border-color: #eea236;
+  &:hover {
+    color: #eea236;
+    border-color: #eea236;
+    background-color: rgba(0,0,0,0);
+  }
+}
+
 .btn-success#learn_more {
   background-color: #5bc0de;
   border-color: #46b8da;
+  &:hover {
+    color: #46b8da;
+    border-color: #46b8da;
+    background-color: rgba(0,0,0,0);
+  }
 }
 
 div.marketing {

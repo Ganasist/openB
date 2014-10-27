@@ -53,7 +53,7 @@ class JobsController < ApplicationController
 
     def block_visitors
       unless user_signed_in? || contractor_signed_in?
-        redirect_to root_path, alert: 'Sign up or sign in to access Open Jobs'
+        redirect_to root_path, alert: 'Sign up or sign in to access open jobs'
       end
     end
 
