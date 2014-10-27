@@ -11,11 +11,11 @@ class ContractorsController < ApplicationController
   def show
     puts request.fullpath
     @cats = @contractor.categories
-    @close_jobs = Job.near(@contractor.full_address, 100).order(created_at: :desc)
+    @close_jobs = Job.near(@contractor.full_address, 100).order(created_at: :desc).includes(:user)
     @array = []
     @close_jobs.each do |cj|
       @array << cj if !(cj.categories & @cats).empty?
-      @jobs = Kaminari.paginate_array(@array).page(params[:jobs]).per(10)
+      @jobs = Kaminari.paginate_array(@array).page(params[:jobs]).per(5)
     end
   end
 

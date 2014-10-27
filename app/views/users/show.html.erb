@@ -9,8 +9,6 @@
 																		class: 'btn btn-lg btn-success' if current_user == @user %>
 		</h3>
 		<hr class="visible-xs">
-		<% @jobs.each do |j| %>
-			<%= render 'jobs/job_panel', job: j %>
-		<% end %>
+			<%= render partial: 'jobs/job_panel', collection: @jobs, as: :job %>
 	</div>	
 </div>

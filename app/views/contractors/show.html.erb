@@ -10,23 +10,39 @@
 		</h3>
 		<hr>
 		<ul class="nav nav-pills nav-justified">
-		  <li class="<%= 'active' if !params[:tabs] || params[:tabs] == 'jobs' %>">
-		  	<a href="#jobs" data-toggle="tab">Nearby Jobs</a>
+		  <li class="<%= 'active' if !params[:tab] || params[:tab] == 'job' %>">
+		  	<a href="#job" data-toggle="tab">Nearby Jobs</a>
 		  </li>
-		  <li class="<%= 'active' if params[:tab] == 'portfolio' %>">
+		  <li class="<%= 'active' if params[:tab] == 'portfolios' %>">
 		  	<a href="#portfolio" data-toggle="tab">Your Portfolio</a>
 		  </li>
 		</ul>
 		<br>
-
 		<div class="tab-content">
-		  <div class="tab-pane fade in active" id="jobs">
-		  	<% @jobs.each do |j| %>
-					<%= render 'jobs/job_panel', job: j %>
-				<% end %>	
+		  <div class="tab-pane fade in active" id="job">
+		  	<% if @jobs.present? %>
+          <div id="paginator-jobs-top" class="text-center">
+            <%= paginate @jobs, theme: 'twitter-bootstrap-3',
+                                param_name: 'jobs',
+                                params: { tab: 'jobs' },
+                                pagination_class: 'pagination-small pagination-centered' %>
+          </div>
+          <div id="jobs">
+            <%= render partial: 'jobs/job_panel', collection: @jobs, as: :job %>
+          </div>
+          <div id="paginator-jobs-bottom" class="text-center">
+            <%= paginate @jobs, theme: 'twitter-bootstrap-3',
+                                param_name: 'jobs',
+                                params: { tab: 'jobs' },
+                                pagination_class: 'pagination-small pagination-centered' %>
+	        </div>
+        <% else %>
+          <br>
+          <h4 class="text-center">No notifications</h4>
+        <% end %>
 		  </div>
 		  <div class="tab-pane fade" id="portfolio">
-		  	Portfolio div
+					<%= render partial: 'jobs/job_panel', collection: @jobs, as: :job %>
 		  </div>
 		</div>	
 	</div>
