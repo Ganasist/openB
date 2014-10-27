@@ -9,8 +9,25 @@
 			<%= @contractor.try(:bio) %>
 		</h3>
 		<hr>
-		<% @jobs.each do |j| %>
-			<%= render 'jobs/job_panel', job: j %>
-		<% end %>		
+		<ul class="nav nav-pills nav-justified">
+		  <li class="<%= 'active' if !params[:tabs] || params[:tabs] == 'jobs' %>">
+		  	<a href="#jobs" data-toggle="tab">Nearby Jobs</a>
+		  </li>
+		  <li class="<%= 'active' if params[:tab] == 'portfolio' %>">
+		  	<a href="#portfolio" data-toggle="tab">Your Portfolio</a>
+		  </li>
+		</ul>
+		<br>
+
+		<div class="tab-content">
+		  <div class="tab-pane fade in active" id="jobs">
+		  	<% @jobs.each do |j| %>
+					<%= render 'jobs/job_panel', job: j %>
+				<% end %>	
+		  </div>
+		  <div class="tab-pane fade" id="portfolio">
+		  	Portfolio div
+		  </div>
+		</div>	
 	</div>
 </div>
