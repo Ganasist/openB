@@ -22,10 +22,18 @@
                                class: 'user_submit',
                                   id: 'learn_more_nav' %></li>
 <% else %>
-  <li><%= link_to 'User Sign-in', new_user_session_path, 
+  <li>
+    <%= link_to new_user_registration_path, 
   													 class: 'btn btn-success btn-lg', 
-  														  id: 'user_login_nav' %></li>
-  <li><%= link_to 'Contractor Sign-in', new_contractor_session_path, 
+  														  id: 'user_login_nav' do %>
+      <%= fa_icon 'hand-o-up', title: 'Info' %> Sign-up
+    <% end %>
+  </li>
+  <li>
+    <%= link_to new_user_session_path, 
                              class: 'btn btn-success btn-lg', 
-                                id: 'contractor_login_nav' %></li>
+                                id: 'contractor_login_nav' do %>
+        <%= fa_icon 'sign-in', title: 'Info' %> Log-in
+    <% end %>
+  </li>
 <% end %>
