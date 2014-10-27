@@ -1,6 +1,6 @@
 class ContractorsController < ApplicationController
   before_action :set_contractor, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_contractor!, except: [:index, :show]
+  before_action :authenticate_contractor!, except: [:index, :show]
   # before_filter :admin_only, except: :show
   before_action :block_visitors
 
@@ -35,13 +35,13 @@ class ContractorsController < ApplicationController
       @contractor = Contractor.find(params[:id])
     end
 
-    def admin_only
-      unless current_user && current_user.admin?
-        redirect_to :back, :alert => 'Access denied.'
-      end
-    end
+    # def admin_only
+    #   unless current_user && current_user.admin?
+    #     redirect_to :back, :alert => 'Access denied.'
+    #   end
+    # end
 
-    def secure_params
-      params.require(:contractor).permit(:role)
-    end
+    # def secure_params
+    #   params.require(:contractor).permit(:role)
+    # end
 end
