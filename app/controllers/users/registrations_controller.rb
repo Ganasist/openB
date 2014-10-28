@@ -1,10 +1,6 @@
 class Users::RegistrationsController < RegistrationsController
   before_filter :configure_account_update_params, only: :update
 
-  def create
-    super
-  end
-
   def update
     @user = User.find(current_user.id)
 

@@ -18,9 +18,6 @@ class JobsController < ApplicationController
     respond_with(@job)
   end
 
-  def edit
-  end
-
   def create
     @job = Job.new(job_params)
     @job.user = current_user
@@ -30,6 +27,9 @@ class JobsController < ApplicationController
     else
       render 'new'
     end
+  end
+  
+  def edit
   end
 
   def update

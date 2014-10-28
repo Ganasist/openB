@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141022152808) do
+ActiveRecord::Schema.define(version: 20141028110006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,21 @@ ActiveRecord::Schema.define(version: 20141022152808) do
   add_index "contractors", ["reset_password_token"], name: "index_contractors_on_reset_password_token", unique: true, using: :btree
   add_index "contractors", ["unlock_token"], name: "index_contractors_on_unlock_token", unique: true, using: :btree
 
+  create_table "examples", force: true do |t|
+    t.string   "title"
+    t.integer  "zip_code"
+    t.string   "description"
+    t.integer  "duration"
+    t.string   "duration_unit"
+    t.integer  "cost"
+    t.integer  "portfolio_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "categories",    default: [],              array: true
+  end
+
+  add_index "examples", ["portfolio_id"], name: "index_examples_on_portfolio_id", using: :btree
+
   create_table "jobs", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -119,6 +134,16 @@ ActiveRecord::Schema.define(version: 20141022152808) do
   add_index "jobs", ["latitude"], name: "index_jobs_on_latitude", using: :btree
   add_index "jobs", ["longitude"], name: "index_jobs_on_longitude", using: :btree
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
+
+  create_table "portfolios", force: true do |t|
+    t.integer  "job_id"
+    t.integer  "contractor_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "portfolios", ["contractor_id"], name: "index_portfolios_on_contractor_id", using: :btree
+  add_index "portfolios", ["job_id"], name: "index_portfolios_on_job_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  limit: 255, default: "", null: false

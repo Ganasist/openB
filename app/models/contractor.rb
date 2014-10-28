@@ -9,6 +9,13 @@ class Contractor < ActiveRecord::Base
 
   has_many :bids
   has_many :jobs, through: :bids
+  has_one :portfolio
+  has_many :examples, through: :portfolio
+
+  after_save :create_portfolio, on: :create
+  def create_portfolio
+    Portfolio.create!(contractor: self)
+  end
 
   def self.categories
     ['Bathrooms', 'Driveways', 'Decks/patios', 'Electrical', 'Fencing', 'Flooring', 'Heating and Cooling',
