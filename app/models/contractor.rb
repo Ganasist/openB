@@ -11,8 +11,8 @@ class Contractor < ActiveRecord::Base
   has_many :jobs, through: :bids
 
   def self.categories
-    ['Bathrooms', 'Driveways', 'Decks/patios', 'Electrical', 'Fencing', 'Flooring', 'Home', 
-    	'Security', 'Interior Design', 'Kitchens', 'Landscaping', 'Moving', 'New Construction',
+    ['Bathrooms', 'Driveways', 'Decks/patios', 'Electrical', 'Fencing', 'Flooring', 'Heating and Cooling',
+     'Home','Security', 'Interior Design', 'Kitchens', 'Landscaping', 'Moving', 'New Construction',
     	'Painting', 'Pest Control', 'Pools', 'Plumbing', 'Remodel', 'Roofing', 'Siding',
     	'Stone and Gravel', 'Windows and Doors']
   end
