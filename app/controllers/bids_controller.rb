@@ -12,7 +12,7 @@ class BidsController < ApplicationController
     if @bid.save
       redirect_to current_contractor, notice: "Your bid for '#{ @bid.job.title }' has been created"
     else
-      redirect_to :back, alert: "#{@bid.errors.full_messages.to_sentence}"
+      redirect_to :back, alert: "#{ @bid.errors.full_messages.to_sentence }"
     end
   end
 

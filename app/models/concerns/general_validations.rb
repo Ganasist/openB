@@ -4,7 +4,10 @@ module GeneralValidations
 	included do
 
 		before_validation :remove_blank_categories
-		validates :categories, presence: true, length: { maximum: 4, message: 'Pick between 1-4 categories' }
+		validates :categories, presence: true, 
+														 length: { maximum: 4, 
+														 					 message: 'Pick between 1-4 categories' }, 
+																 if: Proc.new { |m| !m.new_record? && m.is_a?(Job) }
 
 		geocoded_by :full_address
 		after_validation :geocode, if: ->(obj){ obj.full_address.present? && (obj.address_changed? ||
