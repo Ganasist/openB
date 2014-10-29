@@ -38,7 +38,7 @@
 			<%= member.contractor? ? 'Services Offered' : 'Services Needed' %>
 		</h4>
 		<%# @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
-				<% @cats.each do |cat| %>
+		<% @cats.each do |cat| %>
           <ul>
           	<h2>
           		<li class="services label label-<%= %w(default primary success info warning danger).sample %>">
