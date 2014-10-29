@@ -6,7 +6,7 @@ module GeneralValidations
 		before_validation :remove_blank_categories
 		validates :categories, presence: true, 
 														 length: { maximum: 4, 
-														 					 message: 'Pick between 1-4 categories' }, 
+														 		   		 message: 'Pick between 1-4 categories' }, 
 																 if: Proc.new { |m| !m.new_record? && m.is_a?(Job) }
 
 		geocoded_by :full_address
@@ -20,12 +20,12 @@ module GeneralValidations
 
 		validates :name, presence: true, if: Proc.new { |m| !m.new_record? && !m.is_a?(Job) }
 
-		validates :phone, 
-	            :address, 
-	            :city, 
-	            :state, 
-	            :company_name, 
-	            :bio, presence: true, if: Proc.new { |m| !m.new_record? && m.is_a?(Contractor) }
+		# validates :phone, 
+	 #            :address, 
+	 #            :city, 
+	 #            :state, 
+	 #            :company_name, 
+	 #            :bio, presence: true, if: Proc.new { |m| !m.new_record? && m.is_a?(Contractor) }
 
 		validates :zip_code, presence: true,
 										 numericality: true,

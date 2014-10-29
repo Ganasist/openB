@@ -12,7 +12,7 @@ class Contractor < ActiveRecord::Base
   has_one :portfolio
   has_many :examples, through: :portfolio
 
-  after_save :create_portfolio, on: :create
+  after_commit :create_portfolio, on: :create
   def create_portfolio
     Portfolio.create!(contractor: self)
   end
