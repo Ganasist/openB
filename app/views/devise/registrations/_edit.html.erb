@@ -36,6 +36,7 @@
           </li>
           <li>
             <%= f.input :zip_code, as: :string,
+                             required: true,
                            input_html: { min_max: 5, 
                                               id: 'form_zip_code' }, 
                          wrapper_html: { id: 'label_zip_code' } %>

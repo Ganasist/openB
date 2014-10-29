@@ -9,9 +9,7 @@
 		</h4>
 	<% end %>	
 	<hr>
-	<% if @incomplete_profile_message.present? %>
-		<%= @incomplete_profile_message.html_safe %>
-	<% end %>
+	<%= @incomplete_profile_message.html_safe if @incomplete_profile_message.present? %>
 	<address class="lead">
 		<% if member.try(:company_name) %>
 		  <div class="text-center"><strong><%= member.company_name %></strong></div><br>
