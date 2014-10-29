@@ -13,6 +13,12 @@ class User < ActiveRecord::Base
     self.role ||= :user
   end
 
+  def complete_profile?
+    self.name.present? && 
+    self.zip_code.present? &&
+    self.categories.present?
+  end
+
   def user?
     true
   end

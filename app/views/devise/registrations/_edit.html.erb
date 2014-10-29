@@ -16,8 +16,7 @@
 
   <div class="row">
     <div class="form-inputs col-md-6 col-sm-6">
-        <%= f.input :name, required: true, 
-                        placeholder: 'Required' %>
+        <%= f.input :name, required: true %>
         <%= f.input :company_name, required: true, 
                                 placeholder: 'Enter your company name' if contractor_signed_in? %>
         <%= f.input :email, required: true, 
@@ -36,28 +35,26 @@
             <%= f.select :state, options_for_select(us_states, resource.try(:state)) %>
           </li>
           <li>
-            <%= f.input :zip_code, as: :string, placeholder: 'Enter a valid zip code',
-                                    input_html: { min_max: 5, 
-                                                       id: 'form_zip_code' }, 
-                                  wrapper_html: { id: 'label_zip_code' } %>
+            <%= f.input :zip_code, as: :string,
+                           input_html: { min_max: 5, 
+                                              id: 'form_zip_code' }, 
+                         wrapper_html: { id: 'label_zip_code' } %>
           </li>
-        </ul>
-        <%  if contractor_signed_in? %>       
-          <%= f.input :bio, as: :text,
-                      required: true,
-                         label: 'Company Description',
-                   placeholder: 'Enter brief description about your services',
-                    input_html: { rows: '7', maxlength: 500 } %>
-          <% end %>
+        </ul>      
+        <%= f.input :bio, as: :text,
+                    required: true,
+                       label: 'Company Description',
+                 placeholder: 'Enter brief description about your services',
+                  input_html: { rows: '7', maxlength: 500 } if contractor_signed_in? %>
         
         <hr>  
           <p class="text-center lead">Select categories of interest</p>
           <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
             <ul class="list-unstyled col-xs-6">
               <li>
-                <%= f.input :categories, as: :check_boxes, 
-                                  label: false,
-                             collection: cats %>
+                <%= f.input :categories, as: :check_boxes,
+                                      label: false,
+                                 collection: cats %>
               </li>
             </ul> 
           <% end %>

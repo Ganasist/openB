@@ -9,7 +9,10 @@ class ContractorsController < ApplicationController
   end
 
   def show
-    puts request.fullpath
+    if (current_contractor == @contractor) && !current_contractor.complete_profile?
+      @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
+    end
+
     @cats = @contractor.categories
     @close_jobs = Job.near(@contractor.full_address, 100).order(created_at: :desc).includes(:user)
     @array = []

@@ -29,6 +29,14 @@ class Contractor < ActiveRecord::Base
 	  	'Painting','Plumbing', 'Remodel', 'Roofing' ]
   end
 
+  def complete_profile?
+    self.name.present? && 
+    self.company_name.present? && 
+    self.zip_code.present? && 
+    self.bio.present? && 
+    self.categories.present?
+  end
+
   def user?
     false
   end
