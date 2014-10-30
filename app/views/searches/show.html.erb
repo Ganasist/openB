@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-xs-12">
-      <h3 class="text-center">Contractors near ZIP <%= params[:search] %></h3>
       <% if @contractors.length > 0 %>
+      <h3 class="text-center">Contractors near ZIP <%= params[:search] %></h3>
         <table class="table">
           <tbody>
             <% @contractors.each do |contractor| %>
@@ -17,8 +17,8 @@
       <% end %>
     </div>
     <div class="col-md-6 col-xs-12">
+    <% if @jobs.length > 0 %>
       <h3 class="text-center">Open Jobs near ZIP <%= params[:search] %></h3>
-      <% if @contractors.length > 0 %>
         <table class="table">
           <tbody>
             <% @jobs.each do |job| %>
