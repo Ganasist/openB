@@ -5,7 +5,7 @@
      role="dialog" 
      aria-labelledby="myModalLabel" 
      aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title text-center" id="myModalLabel"><%= job.title %></h4>
@@ -24,7 +24,6 @@
     </div>
   </div>
 </div>
-
 
 <div class="panel panel-default" id="<%= job.id %>">
   <div class="panel-heading">
@@ -67,19 +66,18 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
           <%= render 'bids/form', job: job %>
         </div>
-      <% end %>
-      <%= link_to job, class: 'unstyled-description' do %>
+      <% end %>      
       <div class="col-xs-12 col-md-4">
-        <%#= button_tag type: 'button', data: { toggle: 'modal', target: "#myModal-#{job.id}" } do %>
-          <%= image_submit_tag job.image(:medium), class: 'img-rounded img-responsive', data: { toggle: 'modal', target: "#myModal-#{job.id}" } %>
-            <% if job.image.processing? %>
-              <h4 class="text-center lead">
-                Image is processing.<br> Refresh page in a few seconds.
-              </h4>
-            <% end %>
-        <%# end %>
+        <%= image_submit_tag job.image(:medium), class: 'img-rounded img-responsive', data: { toggle: 'modal', target: "#myModal-#{job.id}" } do %>
+          <% if job.image.processing? %>
+            <h4 class="text-center lead">
+              Image is processing.<br> Refresh page in a few seconds.
+            </h4>
+          <% end %>
+        <% end %>
         <hr class="visible-xs visible-sm">
       </div>
+      <%= link_to job, class: 'unstyled-description' do %>
       <div  class="col-xs-12 col-md-8">
         <p class="lead text-center">
           <strong>
@@ -95,11 +93,6 @@
           <% end %>
         </p>
         <hr>
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal-<%= job.id %>">
-            Launch demo modal
-          </button>
-
         <%= (request.fullpath).include?('jobs') ? 
                                 job.description : 
                                 truncate(job.description, length: 200) %>
