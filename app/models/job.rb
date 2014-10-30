@@ -21,13 +21,12 @@ class Job < ActiveRecord::Base
   validates :bidding_period, date: { after: Proc.new { Date.today }, 
                                    message: 'Must be a future date' }, allow_blank: true
 
-  before_validation :add_default_zip_code, if: Proc.new { |j| j.zip_code.blank? }
-
   after_save :create_portfolio, on: :create
   def create_portfolio
     Portfolio.create!(job: self)
   end
 
+  before_validation :add_default_zip_code, if: Proc.new { |j| j.zip_code.blank? }
   def add_default_zip_code
   	self.zip_code = self.user.zip_code
   end

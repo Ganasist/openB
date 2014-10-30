@@ -55,7 +55,14 @@
           <strong>
             <%= job.title %>:
             <%= job_duration(job) %>
-          </strong>
+          </strong><br>
+
+          <%= link_to "http://maps.google.com/?q=#{ job.full_address }", 
+                      class: 'google_links', 
+                     target: "_blank" do %>
+            <%= fa_icon 'external-link', title: 'View in Google Maps' %>
+            View in Google Maps
+          <% end %>
         </p>
         <hr>
         <%= (request.fullpath).include?('jobs') ? 
