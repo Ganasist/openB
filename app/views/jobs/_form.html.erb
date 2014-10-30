@@ -77,7 +77,7 @@
       </div>
       
       <div class="text-center">
-        <%= image_tag(@job.image.url(:original)).html_safe %>
+        <%= image_tag(@job.image.url(:medium)).html_safe %>
           <p>Upload an optional image for this job</p>
           <br><br>
         <% if @job.image? %>

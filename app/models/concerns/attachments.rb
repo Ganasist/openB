@@ -6,7 +6,8 @@ module Attachments
 	  attr_reader :image_remote_url  
 	  before_validation { image.clear if delete_image == '1' }
 	  has_attached_file :image, styles: { thumb: '100x100>',
-	  																 original: '300x300>' },
+																	  	 medium: '300x300>',
+	  																 original: '800x800>' },
 												 default_url: ':class-default-:style.png'                 
 	  validates_attachment :image, size: { in: 0..3.megabytes, 
 	  																message: 'Picture must be less than 3 megabytes' }

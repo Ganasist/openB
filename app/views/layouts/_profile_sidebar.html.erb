@@ -1,6 +1,6 @@
 <% @cats = member.categories %>
 	<span class="text-center">
-		<%= image_tag member.image(:original), class: 'img-rounded' %>
+		<%= image_tag member.image(:medium), class: 'img-rounded' %>
 	</span>
 
 	<% if member.image.processing? %>
