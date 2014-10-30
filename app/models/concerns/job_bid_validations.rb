@@ -8,7 +8,7 @@ module JobBidValidations
 		validates :duration, 
 							:duration_unit, presence: true
 
-		validates	:duration, numericality: true
+		validates	:duration, numericality: { greater_than: 0 }
 
 		validates :duration_unit, inclusion: { in: DURATION_UNITS }
 		
