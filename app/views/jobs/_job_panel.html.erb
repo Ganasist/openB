@@ -2,7 +2,6 @@
   <div class="panel-heading">
     <h3 class="panel-title">
       <p>
-        <%= job.title %>
         <% if current_user == job.user %>
           <%= link_to job, method: :delete,
                      remote: true, 
@@ -54,7 +53,8 @@
       <div  class="col-xs-12 col-md-8">
         <p class="lead text-center">
           <strong>
-            <%= job_cost(job) %> / <%= job_duration(job) %>
+            <%= job.title %>:
+            <%= job_duration(job) %>
           </strong>
         </p>
         <hr>
@@ -67,6 +67,7 @@
     <div class="panel-footer">
       <%= "Posted #{ time_ago_in_words(job.created_at) } ago" %> 
       <%= "| Approx. #{ current_contractor.distance_from(job).round(1) } miles away" if contractor_signed_in? %>
+      <%= job_bid_duration(job) %>
     </div>
   <% end %>
 </div>

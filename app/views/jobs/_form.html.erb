@@ -26,24 +26,29 @@
       <%= f.input :title, label: 'Job Title', required: true, input_html: { maxlength: 50 } %>
       
       <span class="input-group">
-        <%= f.input :cost, required: true, wrapper_html: { class: 'col-xs-4' },
+        <%#= f.input :cost, required: true, wrapper_html: { class: 'col-xs-4' },
                               label: 'Cost Est.',
                             wrapper: :vertical_input_group do %>
-            <span class="input-group-addon">$</span>
-            <%= f.input_field :cost, as: :string, 
+            <!-- <span class="input-group-addon">$</span> -->
+            <%#= f.input_field :cost, as: :string, 
                             placeholder: '400',
                               maxlength: 5,
                                   class: 'form-control',
                                      id: 'form_zip_code' %>
-        <% end %>
+        <%# end %>
 
-        <%= f.input :duration, as: :string,
+        <%= f.input :bidding_period, as: :string, placeholder: "#{ Date.today + 2.weeks }",
+                             input_html: { class: 'datepicker' },
+                           wrapper_html: { class: 'col-xs-4' } %>
+
+
+        <%= f.input :duration, label: 'Timeline', as: :string,
                       placeholder: '6', 
                        input_html: { maxlength: 3 }, 
                      wrapper_html: { class: 'col-xs-4'} %>
 
         <%= f.input :duration_unit, selected: 'hours',
-                                       label: 'Unit',
+                                       label: '',
                                   collection: Job::DURATION_UNITS, 
                                 wrapper_html: { class: 'col-xs-4 '} %>
 

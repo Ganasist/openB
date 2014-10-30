@@ -10,3 +10,10 @@ jQuery ->
 
 		$('label#description_feedback').removeClass("overlimit") &&
 			$('input.user_submit').attr("disabled", false) if text_remaining  >= 0
+
+	today = new Date()
+	dd = today.getDate()
+	$(".datepicker").datepicker(
+  	'startDate' : "dd",
+  	'format' : 'yyyy-mm-dd'
+  	)

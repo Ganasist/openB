@@ -18,6 +18,9 @@ class Job < ActiveRecord::Base
   validates :title, presence: true, allow_blank: false, length: { in: 5..50 }
   validates :description, presence: true, allow_blank: false, length: { in: 10..2000 }
 
+  validates :bidding_period, date: { after: Proc.new { Date.today }, 
+                                   message: 'Must be a future date' }, allow_blank: true
+
   before_validation :add_default_zip_code, if: Proc.new { |j| j.zip_code.blank? }
 
   after_save :create_portfolio, on: :create

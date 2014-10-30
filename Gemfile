@@ -10,6 +10,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 # gem 'spring',        group: :development
 gem 'bootstrap-sass'
+gem 'bootstrap-datepicker-rails'
+gem 'date_validator'
 gem 'devise'
 gem 'devise_invitable'
 gem 'devise-async'
