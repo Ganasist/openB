@@ -71,7 +71,7 @@
         <%= image_submit_tag job.image(:medium), class: 'img-rounded img-responsive', data: { toggle: 'modal', target: "#myModal-#{job.id}" } do %>
           <% if job.image.processing? %>
             <h4 class="text-center lead">
-              Image is processing.<br> Refresh page in a few seconds.
+              Image is processing.<br> Refresh this page in a few seconds.
             </h4>
           <% end %>
         <% end %>
