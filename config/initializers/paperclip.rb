@@ -2,6 +2,7 @@ Paperclip::Attachment.default_options.merge!(
 	url: ':s3_domain_url',
 	path: '/:class/:attachment/:id_partition/:style/:filename',
 	storage: :s3,
+	s3_host_name: 's3-us-west-2.amazonaws.com',
 	s3_permissions: :public_read,
 	s3_protocol: 'http',
 	s3_options: {
