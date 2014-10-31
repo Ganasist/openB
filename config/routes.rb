@@ -17,13 +17,13 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :index, :destroy]
   
-  resources :contractors, only: [:show, :index, :destroy]
+  resources :contractors, only: [:show, :index]
   
   resources :jobs do
-    resources :bids, only: [:create, :update]
+    resources :bids, only: [:create, :update, :destroy]
   end
 
-  resources :bids, only: [:destroy] 
+  resources :bids, only: [:destroy]
 
   resource :contact, only: [:new, :create]
   resource :search, only: [:show]

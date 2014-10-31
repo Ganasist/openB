@@ -7,7 +7,7 @@ class BidsController < ApplicationController
     @bid.contractor = current_contractor
     @bid.job = Job.find(params[:job_id])
     if @bid.save
-      redirect_to current_contractor, notice: "Your bid for '#{ @bid.job.title }' has been created"
+      redirect_to :back, notice: "Your bid for '#{ @bid.job.title }' has been created"
     else
       redirect_to :back, alert: "#{ @bid.errors.full_messages.to_sentence }"
     end
@@ -25,9 +25,10 @@ class BidsController < ApplicationController
 
   def destroy
     @bid = Bid.find(params[:id])
+    @job = @bid.job
     @bid.destroy
     respond_to do |format|
-      format.html { redirect_to :back, notice: "Your bid was successfully removed" }
+      format.html { redirect_to current_contractor, notice: "Your bid for '#{ @job.title }' has been removed" }
       format.js
     end
   end

@@ -1,0 +1,2 @@
+$("#job-<%= @job.id %>").children.remove;
+$("#job-<%= @job.id %>").html("<%= escape_javascript render(partial: 'bids/form', locals: { job: @job }) %>");

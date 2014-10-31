@@ -40,8 +40,7 @@
             <%= fa_icon 'edit 2x', title: 'Edit', class: 'pull-right' %>
           <% end %>
         <% elsif contractor_signed_in? && (request.fullpath).include?('/contractors') %>
-          <%= link_to job_path(job), 
-                      class: 'hidden-xs hidden-sm btn btn-primary pull-right' do %>
+          <%= link_to job_path(job), class: 'hidden-xs hidden-sm btn btn-primary pull-right' do %>
             View Details
           <% end %>
         <% end %>
@@ -59,12 +58,14 @@
   </div>  
     <div class="panel-body">
       <% if contractor_signed_in? %>
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12" id="job-<%= job.id %>">
           <%= render 'bids/form', job: job %>
         </div>
       <% end %>      
       <div class="col-xs-12 col-md-4">
-        <%= image_submit_tag job.image(:medium), class: 'img-rounded img-responsive', data: { toggle: 'modal', target: "#myModal-#{job.id}" } do %>
+        <%= image_submit_tag job.image(:medium), class: 'img-rounded img-responsive', 
+                                                  data: { toggle: 'modal', 
+                                                          target: "#myModal-#{job.id}" } do %>
           <% if job.image.processing? %>
             <h4 class="text-center lead">
               Image is processing.<br> Refresh this page in a few seconds.
