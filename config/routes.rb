@@ -20,8 +20,10 @@ Rails.application.routes.draw do
   resources :contractors, only: [:show, :index, :destroy]
   
   resources :jobs do
-    resources :bids, except: [:show, :index]
+    resources :bids, only: [:create, :update]
   end
+
+  resources :bids, only: [:destroy] 
 
   resource :contact, only: [:new, :create]
   resource :search, only: [:show]

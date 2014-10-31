@@ -41,11 +41,7 @@
           <% end %>
         <% elsif contractor_signed_in? && (request.fullpath).include?('/contractors') %>
           <%= link_to job_path(job), 
-                      class: 'hidden-xs hidden-sm btn btn-primary btn-lg pull-right' do %>
-            View Details
-          <% end %>
-          <%= link_to job_path(job), 
-                      class: 'visible-xs visible-sm btn btn-primary btn pull-right' do %>
+                      class: 'hidden-xs hidden-sm btn btn-primary pull-right' do %>
             View Details
           <% end %>
         <% end %>
