@@ -27,10 +27,11 @@ class BidsController < ApplicationController
     @bid = Bid.find(params[:id])
     @job = @bid.job
     @bid.destroy
-    respond_to do |format|
-      format.html { redirect_to current_contractor, notice: "Your bid for '#{ @job.title }' has been removed" }
-      format.js
-    end
+    redirect_to current_contractor, notice: "Your bid for '#{ @job.title }' has been removed"
+    # respond_to do |format|
+    #   format.html { redirect_to current_contractor, notice: "Your bid for '#{ @job.title }' has been removed" }
+    #   format.js
+    # end
   end
 
   private
