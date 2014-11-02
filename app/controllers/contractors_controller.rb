@@ -13,13 +13,12 @@ class ContractorsController < ApplicationController
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
 
-    @cats = @contractor.categories
-    @close_jobs = Job.near(@contractor.full_address, 100).order(created_at: :desc).includes(:user)
-    @array = []
-    @close_jobs.each do |cj|
-      @array << cj if !(cj.categories & @cats).empty?
-      @jobs = Kaminari.paginate_array(@array).page(params[:jobs]).per(5)
-    end
+    @jobs = Job.near(@contractor.full_address, 100)
+               .order(updated_at: :desc)
+               .includes(:user)
+               .where("categories && ARRAY[?]", current_contractor.categories)
+               .page(params[:jobs])
+               .per(5)
   end
 
   def destroy

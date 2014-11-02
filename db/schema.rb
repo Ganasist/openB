@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141030122613) do
+ActiveRecord::Schema.define(version: 20141102063921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20141030122613) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type",        limit: 255
     t.integer  "invitations_count",                  default: 0
-    t.string   "categories",                         default: [],              array: true
+    t.text     "categories",                         default: [],              array: true
     t.string   "name"
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(version: 20141030122613) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.boolean  "image_processing"
-    t.string   "categories",         default: [],              array: true
+    t.text     "categories",         default: [],              array: true
     t.string   "phone"
     t.integer  "duration"
     t.string   "duration_unit"
@@ -182,7 +182,7 @@ ActiveRecord::Schema.define(version: 20141030122613) do
     t.datetime "image_updated_at"
     t.boolean  "image_processing"
     t.string   "phone"
-    t.string   "categories",                         default: [],              array: true
+    t.text     "categories",                         default: [],              array: true
     t.string   "city"
     t.string   "address"
     t.string   "state"
