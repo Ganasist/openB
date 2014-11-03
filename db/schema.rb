@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141103155236) do
+ActiveRecord::Schema.define(version: 20141103193520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,11 +58,6 @@ ActiveRecord::Schema.define(version: 20141103155236) do
     t.integer  "invitations_count",                  default: 0
     t.text     "categories",                         default: [],              array: true
     t.string   "name"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.boolean  "image_processing"
     t.text     "bio"
     t.string   "phone"
     t.string   "address"
@@ -72,6 +67,11 @@ ActiveRecord::Schema.define(version: 20141103155236) do
     t.string   "state"
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.boolean  "image_processing"
   end
 
   add_index "contractors", ["categories"], name: "index_contractors_on_categories", using: :gin
@@ -103,8 +103,9 @@ ActiveRecord::Schema.define(version: 20141103155236) do
     t.boolean  "image_before_processing"
     t.boolean  "image_after_processing"
     t.integer  "contractor_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.text     "categories",                default: [],              array: true
   end
 
   add_index "examples", ["contractor_id"], name: "index_examples_on_contractor_id", using: :btree
@@ -117,11 +118,6 @@ ActiveRecord::Schema.define(version: 20141103155236) do
     t.integer  "contractor_id"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.boolean  "image_processing"
     t.text     "categories",         default: [],              array: true
     t.string   "phone"
     t.date     "bid_date"
@@ -132,6 +128,11 @@ ActiveRecord::Schema.define(version: 20141103155236) do
     t.string   "state"
     t.date     "bidding_period"
     t.integer  "cost"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.boolean  "image_processing"
   end
 
   add_index "jobs", ["address"], name: "index_jobs_on_address", using: :btree
@@ -172,11 +173,6 @@ ActiveRecord::Schema.define(version: 20141103155236) do
     t.string   "unlock_token",           limit: 255
     t.datetime "locked_at"
     t.integer  "zip_code"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.boolean  "image_processing"
     t.string   "phone"
     t.text     "categories",                         default: [],              array: true
     t.string   "city"
@@ -184,6 +180,11 @@ ActiveRecord::Schema.define(version: 20141103155236) do
     t.string   "state"
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.boolean  "image_processing"
   end
 
   add_index "users", ["address"], name: "index_users_on_address", using: :btree

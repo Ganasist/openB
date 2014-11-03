@@ -1,7 +1,7 @@
 <% @bid = job.bids.where(contractor: current_contractor).first || job.bids.new %>
 
 <div class="col-xs-12 text-center">
-  <%= simple_form_for [job, @bid ], wrapper: :inline_form, 
+  <%= simple_form_for [job, @bid], wrapper: :inline_form, 
                                          html: { class: 'form-inline', 
                                           autocomplete: 'off' } do |f| %>
     
