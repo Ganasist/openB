@@ -1,10 +1,22 @@
 class RegistrationsController < Devise::RegistrationsController
   before_filter :configure_account_create_params, only: :create
 
+  def create
+    if verify_recaptcha
+      super
+    else
+      build_resource(sign_up_params)
+      clean_up_passwords(resource)
+      flash.now[:alert] = "There was an error with the recaptcha code below. Please re-enter the code."      
+      flash.delete :recaptcha_error
+      render :new
+    end
+  end
+
 	protected
 		def after_sign_up_path_for(resource)
 			if resource.sign_in_count == 1
-				flash[:notice] = 'Welcome to OpenBid! Please finish your profile below.'
+				flash[:notice] = 'Welcome to OpenBid! Please complete your profile.'
 				edit_registration_path(resource) 
 			else
 				after_sign_in_path(resource)
