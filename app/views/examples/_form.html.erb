@@ -10,17 +10,25 @@
     <div class="form-inputs col-md-6 col-sm-6">
       <%= f.input :title, label: 'Job Title', required: true, input_html: { maxlength: 50 } %>
       
-        <%#= f.input :cost, required: true, wrapper_html: { class: 'col-xs-4' },
-                              label: 'Cost Est.',
+        <%= f.input :cost, required: true, wrapper_html: { class: 'col-xs-4' },
                             wrapper: :vertical_input_group do %>
-            <!-- <span class="input-group-addon">$</span> -->
-            <%#= f.input_field :cost, as: :string, 
+            <span class="input-group-addon">$</span>
+            <%= f.input_field :cost, as: :string, 
                             placeholder: '400',
                               maxlength: 5,
                                   class: 'form-control',
                                      id: 'form_zip_code' %>
-        <%# end %>
+        <% end %>
 
+      <%= f.input :duration, label: 'Job timeline', as: :string,
+                    placeholder: '6', 
+                     input_html: { maxlength: 3 }, 
+                   wrapper_html: { class: 'col-xs-4'} %>
+
+      <%= f.input :duration_unit, selected: 'hours',
+                                     label: 'duration unit',
+                                collection: Example::DURATION_UNITS, 
+                              wrapper_html: { class: 'col-xs-4 '} %>
 
       <%= f.input :description, as: :text, 
                           required: true,
@@ -46,35 +54,34 @@
 
     <div class="form-inputs col-md-6 col-sm-6">      
       <div class="text-center">
-        <%= image_tag(@example.before_image.url(:medium)).html_safe %>
-          <p>Upload an optional 'before' image</p>
+        <%= image_tag @example.image_before.url(:medium).html_safe %>
+          <p>Upload an optional BEFORE image</p>
           <br><br>
-        <% if @example.before_image? %>
-          <%= f.input :delete_before_image, as: :boolean, 
+        <% if @example.image_before? %>
+          <%= f.input :delete_image_before, as: :boolean, 
                                   label: false, 
                            inline_label: 'Delete image' %><br>
         <% end %>
 
-        <%= f.file_field :before_image %>
+        <%= f.file_field :image_before %>
         <h4>or</h4>
-        <%= f.input :before_image_remote_url, label: 'Paste an image URL' %>
+        <%= f.input :image_before_remote_url, label: 'Paste an image URL' %>
       </div>
       <hr>
       <div class="text-center">
-        <%= image_tag(@example.after_image.url(:medium)).html_safe %>
-          <p>Upload an optional 'before' image</p>
+        <%= image_tag @example.image_after.url(:medium).html_safe %>
+          <p>Upload an AFTER image (required)</p>
           <br><br>
-        <% if @example.after_image? %>
-          <%= f.input :delete_after_image, as: :boolean, 
+        <% if @example.image_after? %>
+          <%= f.input :delete_image_after, as: :boolean, 
                                   label: false, 
                            inline_label: 'Delete image' %><br>
         <% end %>
 
-        <%= f.file_field :after_image %>
+        <%= f.file_field :image_after %>
         <h4>or</h4>
-        <%= f.input :after_image_remote_url, label: 'Paste an image URL' %>
+        <%= f.input :image_after_remote_url, label: 'Paste an image URL' %>
       </div>
-
 
       <h4 class="text-center hidden text-danger" id="category_warning">
         Please pick at least one category.
