@@ -25,7 +25,6 @@
       </ul>
       <%= f.input :title, label: 'Job Title', required: true, input_html: { maxlength: 50 } %>
       
-      <span class="input-group">
         <%#= f.input :cost, required: true, wrapper_html: { class: 'col-xs-4' },
                               label: 'Cost Est.',
                             wrapper: :vertical_input_group do %>
@@ -37,28 +36,26 @@
                                      id: 'form_zip_code' %>
         <%# end %>
 
-        <%= f.input :bidding_period, as: :string, label: 'End Bidding', placeholder: 'Optional',
-                             input_html: { class: 'datepicker' },
-                           wrapper_html: { class: 'col-xs-4' } %>
+        <%= f.input :bidding_period, as: :string, label: 'End Bidding (optional)', placeholder: 'Enter a valid date',
+                             input_html: { class: 'datepicker' } %>
 
 
-        <%= f.input :duration, label: 'Job timeline', as: :string,
+        <%#= f.input :duration, label: 'Job timeline', as: :string,
                       placeholder: '6', 
                        input_html: { maxlength: 3 }, 
                      wrapper_html: { class: 'col-xs-4'} %>
 
-        <%= f.input :duration_unit, selected: 'hours',
+        <%#= f.input :duration_unit, selected: 'hours',
                                        label: '',
                                   collection: Job::DURATION_UNITS, 
                                 wrapper_html: { class: 'col-xs-4 '} %>
 
-      </span>
       <%= f.input :description, as: :text, 
                           required: true,
                              label: '',
                        placeholder: 'Enter a brief description of this job',
                         input_html: { rows: '7', maxlength: 2000 },
-                        label_html: { id: "description_feedback" }  %>
+                        label_html: { id: 'description_feedback' }  %>
     </div>
 
     <div class="form-inputs col-md-6 col-sm-6">
