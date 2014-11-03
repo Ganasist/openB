@@ -56,9 +56,7 @@
                        placeholder: 'Enter a brief description of this job',
                         input_html: { rows: '7', maxlength: 2000 },
                         label_html: { id: 'description_feedback' }  %>
-    </div>
 
-    <div class="form-inputs col-md-6 col-sm-6">
       <div>
         <p class="text-center lead">Select between 1-4 categories</p>
         <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
@@ -72,10 +70,12 @@
           </ul> 
         <% end %>
       </div>
-      
+    </div>
+
+    <div class="form-inputs col-md-6 col-sm-6">      
       <div class="text-center">
         <%= image_tag(@job.image.url(:medium)).html_safe %>
-          <p>Upload an optional image for this job</p>
+          <p>Upload an optional 'before' image</p>
           <br><br>
         <% if @job.image? %>
           <%= f.input :delete_image, as: :boolean, 

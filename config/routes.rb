@@ -3,21 +3,15 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  get 'examples/new'
-
-  get 'examples/create'
-
-  get 'examples/edit'
-
-  get 'examples/update'
-
 	devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'sessions' }
 
 	devise_for :contractors, controllers: { registrations: 'contractors/registrations', sessions: 'sessions' }							 
 
   resources :users, only: [:show, :index, :destroy]
   
-  resources :contractors, only: [:show, :index]
+  resources :contractors, only: [:show, :index] do
+    resources :examples
+  end
   
   resources :jobs do
     resources :bids, only: [:create, :update, :destroy]

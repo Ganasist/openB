@@ -9,23 +9,22 @@ class Job < ActiveRecord::Base
   scope :relevant_categories, -> (categories){where('categories && ARRAY[?]', categories)}
   
   belongs_to :user
-  validates_associated :user
+  # validates_associated :user
   
   has_many :bids
   has_many :contractors, through: :bids
-  has_one :portfolio
-  has_many :examples, through: :portfolio
 
-  validates :title, presence: true, allow_blank: false, length: { in: 5..50 }
-  validates :description, presence: true, allow_blank: false, length: { in: 10..2000 }
+  validates :title, presence: true, 
+                 allow_blank: false, 
+                      length: { in: 5..50 }
 
-  validates :bidding_period, date: { after: Proc.new { Date.today }, 
-                                   message: 'Must be a future date' }, allow_blank: true
+  validates :description, presence: true, 
+                       allow_blank: false, 
+                            length: { in: 10..2000 }
 
-  after_save :create_portfolio, on: :create
-  def create_portfolio
-    Portfolio.create!(job: self)
-  end
+  validates :bidding_period, allow_blank: true, 
+                                    date: { after: Proc.new { Date.today }, 
+                                          message: 'Must be a future date' }
 
   before_validation :add_default_zip_code, if: Proc.new { |j| j.zip_code.blank? }
   def add_default_zip_code

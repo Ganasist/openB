@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141103094433) do
+ActiveRecord::Schema.define(version: 20141103155236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,13 +92,22 @@ ActiveRecord::Schema.define(version: 20141103094433) do
     t.integer  "duration"
     t.string   "duration_unit"
     t.integer  "cost"
-    t.integer  "portfolio_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.string   "categories",    default: [],              array: true
+    t.string   "image_before_file_name"
+    t.string   "image_before_content_type"
+    t.integer  "image_before_file_size"
+    t.datetime "image_before_updated_at"
+    t.string   "image_after_file_name"
+    t.string   "image_after_content_type"
+    t.integer  "image_after_file_size"
+    t.datetime "image_after_updated_at"
+    t.boolean  "image_before_processing"
+    t.boolean  "image_after_processing"
+    t.integer  "contractor_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
-  add_index "examples", ["portfolio_id"], name: "index_examples_on_portfolio_id", using: :btree
+  add_index "examples", ["contractor_id"], name: "index_examples_on_contractor_id", using: :btree
 
   create_table "jobs", force: true do |t|
     t.string   "title"
@@ -131,16 +140,6 @@ ActiveRecord::Schema.define(version: 20141103094433) do
   add_index "jobs", ["latitude"], name: "index_jobs_on_latitude", using: :btree
   add_index "jobs", ["longitude"], name: "index_jobs_on_longitude", using: :btree
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
-
-  create_table "portfolios", force: true do |t|
-    t.integer  "job_id"
-    t.integer  "contractor_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "portfolios", ["contractor_id"], name: "index_portfolios_on_contractor_id", using: :btree
-  add_index "portfolios", ["job_id"], name: "index_portfolios_on_job_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  limit: 255, default: "", null: false
