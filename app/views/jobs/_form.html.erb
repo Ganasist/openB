@@ -37,7 +37,7 @@
                                      id: 'form_zip_code' %>
         <%# end %>
 
-        <%= f.input :bidding_period, as: :string, placeholder: "#{ Date.today + 2.weeks }",
+        <%= f.input :bidding_period, as: :string, label: 'End Bidding', placeholder: 'Optional',
                              input_html: { class: 'datepicker' },
                            wrapper_html: { class: 'col-xs-4' } %>
 

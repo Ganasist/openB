@@ -1,8 +1,8 @@
 module JobsHelper
 
-	def job_duration(job)
-		"#{ pluralize(job.duration, job.duration_unit.singularize) }"  	
-  end
+	# def job_duration(job)
+	# 	"#{ pluralize(job.duration, job.duration_unit.singularize) }"  	
+ #  end
 
   def job_bid_duration(job)
   	if !job.bidding_period.nil?

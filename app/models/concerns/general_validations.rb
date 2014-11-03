@@ -5,7 +5,8 @@ module GeneralValidations
 
 		before_validation :remove_blank_categories
 		validates :categories, presence: true, 
-														 length: { maximum: 4, 
+														 length: { minimum: 1,
+														 					 maximum: 4, 
 														 		   		 message: 'Pick between 1-4 categories' }, 
 																 if: Proc.new { |m| !m.new_record? && m.is_a?(Job) }
 

@@ -2,30 +2,25 @@
 
 <div class="col-xs-12 text-center">
   <%= simple_form_for [job, @bid ], wrapper: :inline_form, 
-                                              html: { class: 'form-inline', 
-                                               autocomplete: 'off' } do |f| %>
+                                         html: { class: 'form-inline', 
+                                          autocomplete: 'off' } do |f| %>
+    
     <%= f.error_notification %>
       <ul class="list-inline">
         <li>
-          <%= f.input :cost, as: :string, 
-                          label: false,
-                    placeholder: '$Cost',
-                     input_html: { maxlength: 5,
-                                          id: 'form_zip_code' } %>
-        </li>        
-        <li>
-          <%= f.input :duration, as: :string, 
-                              label: false,
-                        placeholder: 'Duration', 
-                         input_html: { maxlength: 3,
-                                              id: 'form_zip_code',
-                                           style: 'width: 80px' } %>
-        </li>
-        <li>
-          <%= f.input :duration_unit, selected: "#{ job.duration_unit }", 
-                                         label: false, 
-                                    collection: Job::DURATION_UNITS, 
-                                    input_html: { style: 'width: 75px' } %>
+        <div class="form-group">
+          <span class="input-group">
+            <%= f.input :cost, required: true,  
+                                  label: false,
+                                wrapper: :horizontal_input_group do %>
+                  <span class="input-group-addon">$</span>
+                  <%= f.input_field :cost, maxlength: 5,
+                                         placeholder: 500,
+                                         class: 'form-control',
+                                                  id: 'form_zip_code' %>
+            <% end %>
+          </span>
+          </div>
         </li>
         <li>
           <%= f.button :submit, bid_button_text(@bid), class: bid_button_color(@bid) %>
@@ -39,7 +34,7 @@
             <% end %>
           <% end %>
         </li>
-        </ul>
-       <hr>
+      </ul>
+      <hr>
   <% end %>
 </div>

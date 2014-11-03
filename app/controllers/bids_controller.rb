@@ -36,6 +36,6 @@ class BidsController < ApplicationController
     end
 
     def bid_params
-      params.require(:bid).permit(:cost, :duration, :duration_unit)
+      params.require(:bid).permit(:cost)
     end
 end

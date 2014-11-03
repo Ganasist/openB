@@ -9,7 +9,7 @@ class ContractorsController < ApplicationController
   end
 
   def show
-    if (current_contractor == @contractor) && !current_contractor.complete_profile?
+    if (current_contractor == @contractor) && !@contractor.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
 
