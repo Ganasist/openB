@@ -17,7 +17,6 @@ module Attachments
 		process_in_background :image, processing_image_url: 'ajax_spinner.gif'
   end
 	  
-
 	def image_remote_url=(url_value)
      if url_value.present?
       self.image = URI.parse(url_value)

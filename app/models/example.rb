@@ -1,6 +1,5 @@
 class Example < ActiveRecord::Base
 
-
 	attr_accessor :delete_before_image
   attr_reader :before_image_remote_url  
   

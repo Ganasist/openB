@@ -12,8 +12,8 @@
 		  <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
 		  	<a href="#jobs" data-toggle="tab">Nearby Jobs</a>
 		  </li>
-		  <li class="<%= 'active' if params[:tab] == 'portfolios' %>">
-		  	<a href="#portfolios" data-toggle="tab">Your Portfolio</a>
+		  <li class="<%= 'active' if params[:tab] == 'examples' %>">
+		  	<a href="#examples" data-toggle="tab">Your Portfolio</a>
 		  </li>
 		</ul>
 		<br>
@@ -40,9 +40,32 @@
           <h4 class="text-center">No nearby job posts in your categories</h4>
         <% end %>
 		  </div>
-		  <div class="tab-pane fade" id="portfolios">
-				<%= render partial: 'jobs/job_panel', collection: @jobs, as: :job %>
-		  </div>
+
+		  <h3 class="lead text-center">
+				<%= link_to  'Add an example', new_contractor_example_path(@contractor),	class: 'btn btn-lg btn-success' if current_contractor == @contractor %>
+			</h3>
+
+			<div class="tab-pane" id="examples">
+			  <% if @examples.present? %>
+          <div id="paginator-examples-top" class="text-center">
+            <%= paginate @examples, theme: 'twitter-bootstrap-3',
+                                param_name: 'examples',
+                                params: { tab: 'examples' },
+                                pagination_class: 'pagination-small pagination-centered' %>
+          </div>
+          <div id="example">
+            <%= render partial: 'examples/job_panel', collection: @examples, as: :job %>
+          </div>
+          <div id="paginator-examples-bottom" class="text-center">
+            <%= paginate @examples, theme: 'twitter-bootstrap-3',
+                                param_name: 'examples',
+                                params: { tab: 'examples' },
+                                pagination_class: 'pagination-small pagination-centered' %>
+	        </div>
+		  	<% else %>
+          <br>
+          <h4 class="text-center">You haven't entered any examples past jobs</h4>
+        <% end %>
 		</div>	
 	</div>
 </div>

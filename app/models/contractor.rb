@@ -10,6 +10,8 @@ class Contractor < ActiveRecord::Base
   has_many :bids
   has_many :jobs, through: :bids
 
+  has_many :examples, dependent: :destroy
+
   after_commit :create_portfolio, on: :create
   def create_portfolio
     Portfolio.create!(contractor: self)
