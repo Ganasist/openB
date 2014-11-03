@@ -16,9 +16,8 @@ class ContractorsController < ApplicationController
     @jobs = Job.near(@contractor.full_address, 100)
                .order(updated_at: :desc)
                .includes(:user)
-               .where("categories && ARRAY[?]", current_contractor.categories)
+               .relevant_categories(current_contractor.categories)
                .page(params[:jobs])
-               .per(5)
   end
 
   def destroy

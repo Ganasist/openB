@@ -13,7 +13,9 @@ class UsersController < ApplicationController
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
 
-    @jobs = @user.jobs.order(created_at: :desc)
+    @jobs = @user.jobs
+                 .order(created_at: :desc)
+                 .page(params[:jobs])
   end
 
   def destroy

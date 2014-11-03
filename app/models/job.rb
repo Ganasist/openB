@@ -5,6 +5,8 @@ class Job < ActiveRecord::Base
 
   include PgSearch
   pg_search_scope :search_by_zip, against: :zip_code
+
+  scope :relevant_categories, -> (categories){where('categories && ARRAY[?]', categories)}
   
   belongs_to :user
   validates_associated :user
