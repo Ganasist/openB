@@ -13,6 +13,7 @@ class ExamplesController < ApplicationController
 	def create
     @example = Example.new(example_params)
     @example.contractor = current_contractor
+    @example.zip_code = current_contractor.zip_code
     if @example.save
       flash[:notice] = 'Example was successfully created.'
       redirect_to contractor_example_path(current_contractor, @example)
@@ -47,9 +48,8 @@ class ExamplesController < ApplicationController
   	end
 
   	def example_params
-  		params.require(:example).permit(:contractor, :title, :zip_code, 
-  																		:description, :duration, :duration_unit,
-  																		:cost, { categories: []}, 
+  		params.require(:example).permit(:title, :description, :duration, 
+  																		:duration_unit, :cost, { categories: []}, 
   																		:image_before, :delete_image_before, :image_before_remote_url,
 																			:image_after, :delete_image_after, :image_after_remote_url )
   	end
