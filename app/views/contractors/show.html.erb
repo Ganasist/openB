@@ -8,8 +8,10 @@
 		<h3 class="lead text-center">
 			<%= @contractor.try(:bio) %>
 		</h3>
-		<hr>
-		<ul class="nav nav-pills nav-justified">
+		
+    <hr>
+		
+    <ul class="nav nav-pills nav-justified">
 		  <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
 		  	<a href="#jobs" data-toggle="tab">Nearby Jobs</a>
 		  </li>
@@ -19,7 +21,7 @@
 		</ul>
 		<br>
 		<div class="tab-content">
-		  <div class="tab-pane fade in active" id="jobs">
+		  <div class="<%= if (params[:tab] == 'jobs' || !params[:tab]) then 'tab-pane fade in active'  else 'tab-pane fade in' end %>" id="jobs">
 		  	<% if @jobs.present? %>
           <div id="paginator-jobs-top" class="text-center">
             <%= paginate @jobs, theme: 'twitter-bootstrap-3',
@@ -42,7 +44,7 @@
         <% end %>
 		  </div>
 
-			<div class="tab-pane" id="examples">
+			<div class="<%= if params[:tab] == 'examples' then 'tab-pane fade in active'  else 'tab-pane fade in' end%>" id="examples">
         <h3 class="lead text-center">
           <%= link_to  'Add an example', new_contractor_example_path(@contractor),  
                                          class: 'btn btn-lg btn-success' if current_contractor == @contractor %>

@@ -12,8 +12,7 @@ class ExamplesController < ApplicationController
 
 	def create
     @contractor = Contractor.find(params[:contractor_id])
-    @example = Example.new(example_params)
-    @example.contractor = @contractor
+    @example = @contractor.examples.create(example_params)
     if @example.save
       flash[:notice] = 'Example was successfully created.'
       redirect_to contractor_example_path(current_contractor, @example)
