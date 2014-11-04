@@ -1,14 +1,14 @@
 <!-- Modal -->
 <div class="modal" 
-     id="myModal-<%= job.id %>" 
+     id="myJobModal-<%= job.id %>" 
      tabindex="-1" 
      role="dialog" 
-     aria-labelledby="myModalLabel" 
+     aria-labelledby="myJobModalLabel" 
      aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title text-center" id="myModalLabel"><%= job.title %></h4>
+        <h4 class="modal-title text-center" id="myJobModalLabel"><%= job.title %></h4>
       </div>
       <div class="modal-body">
         <%= image_tag job.image(:original), class: 'img-rounded img-responsive' %>
@@ -65,7 +65,7 @@
       <div class="col-xs-12 col-md-4">
         <%= image_submit_tag job.image(:medium), class: 'img-rounded img-responsive', 
                                                   data: { toggle: 'modal', 
-                                                          target: "#myModal-#{job.id}" } do %>
+                                                          target: "#myJobModal-#{job.id}" } do %>
           <% if job.image.processing? %>
             <h4 class="text-center lead">
               Image is processing.<br> Refresh this page in a few seconds.
