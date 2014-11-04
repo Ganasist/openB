@@ -5,6 +5,6 @@ class AddZipCodeToUsersAndContractors < ActiveRecord::Migration
     
     add_index  :users, :zip_code
     add_index  :contractors, :zip_code
-    add_index  :posts, :zip_code
+    # add_index  :posts, :zip_code
   end
 end
