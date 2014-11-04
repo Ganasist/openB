@@ -42,8 +42,8 @@ module GeneralValidations
 
   def full_address
     "#{ self.try(:address) }, 
-    #{ self.try(:city) }, 
-    #{ self.try(:zip_code) }, 
-    #{ self.try(:state) }"
+     #{ self.try(:city) }, 
+     #{ self.try(:zip_code) }, 
+     #{ self.try(:state) }"
   end
 end
