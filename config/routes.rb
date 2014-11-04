@@ -10,17 +10,19 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :index, :destroy]
   
   resources :contractors, only: [:show, :index] do
-    resources :examples
+    resources :examples, except: :destroy
   end
+
+  resources :examples, only: :destroy
   
   resources :jobs do
     resources :bids, only: [:create, :update, :destroy]
   end
 
-  resources :bids, only: [:destroy]
+  resources :bids, only: :destroy
 
   resource :contact, only: [:new, :create]
-  resource :search, only: [:show]
+  resource :search, only: :show
   
 	mount Sidekiq::Web => '/sidekiq'
   mount Upmin::Engine => '/admin'

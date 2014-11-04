@@ -63,9 +63,9 @@
                            inline_label: 'Delete image' %><br>
         <% end %>
 
-        <%= f.file_field :image_before %>
-        <h4>or</h4>
         <%= f.input :image_before_remote_url, label: 'Paste an image URL' %>
+        <h4>or</h4>
+        <%= f.file_field :image_before %>
       </div>
       <hr>
       <div class="text-center">
@@ -78,9 +78,10 @@
                            inline_label: 'Delete image' %><br>
         <% end %>
 
-        <%= f.file_field :image_after %>
-        <h4>or</h4>
         <%= f.input :image_after_remote_url, label: 'Paste an image URL' %>
+        <h4>or</h4>
+        <%= f.file_field :image_after, class: 'text-center' %>
+        <hr>
       </div>
 
       <h4 class="text-center hidden text-danger" id="category_warning">

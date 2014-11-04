@@ -1,5 +1,7 @@
 class Example < ActiveRecord::Base
 
+  belongs_to :contractor
+
   DURATION_UNITS = ['hours', 'days', 'weeks', 'months']
 
 	attr_accessor :delete_image_before
@@ -40,18 +42,29 @@ class Example < ActiveRecord::Base
 	# process_in_background :image_after, processing_image_url: 'ajax_spinner.gif'
   
 
-	def before_image_remote_url=(url_value)
+	def image_before_remote_url=(url_value)
      if url_value.present?
-      self.before_image = URI.parse(url_value)
-      @before_image_remote_url = url_value
+      self.image_before = URI.parse(url_value)
+      @image_before_remote_url = url_value
     end
   end
 
-  def after_image_remote_url=(url_value)
+  def image_after_remote_url=(url_value)
      if url_value.present?
-      self.after_image = URI.parse(url_value)
-      @after_image_remote_url = url_value
+      self.image_after = URI.parse(url_value)
+      @image_after_remote_url = url_value
     end
   end
 
+  before_validation :remove_blank_categories
+  def remove_blank_categories
+    self.categories.reject!(&:empty?)
+  end
+
+  def full_address
+    "#{ self.contractor.try(:address) }, 
+    #{ self.contractor.try(:city) }, 
+    #{ self.contractor.try(:zip_code) }, 
+    #{ self.contractor.try(:state) }"
+  end
 end

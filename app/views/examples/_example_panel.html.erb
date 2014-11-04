@@ -1,0 +1,86 @@
+<!-- Modal -->
+<div class="modal" 
+     id="myModal-<%= example.id %>" 
+     tabindex="-1" 
+     role="dialog" 
+     aria-labelledby="myModalLabel" 
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center" id="myModalLabel"><%= example.title %></h4>
+      </div>
+      <div class="modal-body">
+        <%= image_tag example.image_after(:original), class: 'img-rounded img-responsive' %>
+        <% if example.image_after.processing? %>
+          <h4 class="text-center lead">
+            Image is processing.<br> Refresh page in a few seconds.
+          </h4>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default submit" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default" id="<%= example.id %>">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <p>
+        <% if current_contractor == example.contractor %>
+          <%= link_to example, method: :delete,
+                     remote: true, 
+                       data: { confirm: 'Are you sure you want to delete this post?' } do %>
+            <%= fa_icon 'minus-square 2x', title: 'Delete',
+                                           class: 'delete-job-post pull-right' %>
+          <% end %>
+          <%= link_to edit_contractor_example_path(example.contractor, example) do %>
+            <%= fa_icon 'edit 2x', title: 'Edit', class: 'pull-right' %>
+          <% end %>
+        <% end %>
+      </p>
+      <ul class="list-inline categories">
+        <% example.categories.each do |c| %>
+          <li>
+            <span class="label label-<%= %w(default primary success info warning danger).sample %>">
+              <%= c %>
+            </span>
+          </li>
+        <% end %>
+      </ul>
+    </h3>
+  </div>  
+    <div class="panel-body">     
+      <div class="col-xs-12 col-md-4">
+        <%= image_submit_tag example.image_after(:medium), class: 'img-rounded img-responsive', 
+                                                  data: { toggle: 'modal', 
+                                                          target: "#myModal-#{example.id}" } do %>
+          <% if example.image.processing? %>
+            <h4 class="text-center lead">
+              Image is processing.<br> Refresh this page in a few seconds.
+            </h4>
+          <% end %>
+        <% end %>
+        <hr class="visible-xs visible-sm">
+      </div>
+      <%= link_to example, class: 'unstyled-description' do %>
+      <div  class="col-xs-12 col-md-8">
+        <p class="lead text-center">
+          <strong>
+            <%= example.title %>
+          </strong>
+        <hr>
+        <%= (request.fullpath).include?('examples') ? 
+                                example.description : 
+                                truncate(example.description, length: 200) %>
+      </div>                                  
+    </div>
+
+    <div class="panel-footer">
+      <%= "Posted #{ time_ago_in_words(example.created_at) } ago" %> 
+      <%= "| Approx. #{ current_contractor.distance_from(example).round(1) } miles away" if contractor_signed_in? %>
+    </div>
+  <% end %>
+</div>

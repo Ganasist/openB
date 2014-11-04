@@ -12,6 +12,7 @@ class ContractorsController < ApplicationController
     if (current_contractor == @contractor) && !@contractor.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
+    @examples = @contractor.examples.page(params[:examples])
 
     @jobs = Job.near(@contractor.full_address, 100)
                .order(updated_at: :desc)

@@ -4,6 +4,7 @@ module GeneralValidations
 	included do
 
 		before_validation :remove_blank_categories
+
 		validates :categories, presence: true, 
 														 length: { minimum: 1,
 														 					 maximum: 4, 
@@ -40,6 +41,9 @@ module GeneralValidations
   end
 
   def full_address
-    "#{ self.try(:address) }, #{ self.try(:city) }, #{ self.try(:zip_code) }, #{ self.try(:state) }"
+    "#{ self.try(:address) }, 
+    #{ self.try(:city) }, 
+    #{ self.try(:zip_code) }, 
+    #{ self.try(:state) }"
   end
 end

@@ -36,9 +36,10 @@
                                      id: 'form_zip_code' %>
         <%# end %>
 
-        <%= f.input :bidding_period, as: :string, label: 'End Bidding (optional)', placeholder: 'Enter a valid date',
+        <%= f.input :bidding_period, as: :string, 
+                                  label: 'End Bidding (optional)', 
+                            placeholder: 'Enter a valid date',
                              input_html: { class: 'datepicker' } %>
-
 
         <%#= f.input :duration, label: 'Job timeline', as: :string,
                       placeholder: '6', 
@@ -54,7 +55,8 @@
                           required: true,
                              label: '',
                        placeholder: 'Enter a brief description of this job',
-                        input_html: { rows: '7', maxlength: 2000 },
+                        input_html: { rows: '7', 
+                                 maxlength: 2000 },
                         label_html: { id: 'description_feedback' }  %>
 
       <div>
@@ -82,10 +84,11 @@
                                   label: false, 
                            inline_label: 'Delete image' %><br>
         <% end %>
-
-        <%= f.file_field :image %>
-        <h4>or</h4>
+        
         <%= f.input :image_remote_url, label: 'Paste an image URL' %>
+        <h4>or</h4>
+        <%= f.file_field :image %>
+        <hr>
       </div>
       <h4 class="text-center hidden text-danger" id="category_warning">
         Please pick at least one category.

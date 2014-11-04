@@ -42,7 +42,8 @@
 		  </div>
 
 		  <h3 class="lead text-center">
-				<%= link_to  'Add an example', new_contractor_example_path(@contractor),	class: 'btn btn-lg btn-success' if current_contractor == @contractor %>
+				<%= link_to  'Add an example', new_contractor_example_path(@contractor),	
+                                       class: 'btn btn-lg btn-success' if current_contractor == @contractor %>
 			</h3>
 
 			<div class="tab-pane" id="examples">
@@ -54,7 +55,7 @@
                                 pagination_class: 'pagination-small pagination-centered' %>
           </div>
           <div id="example">
-            <%= render partial: 'examples/job_panel', collection: @examples, as: :job %>
+            <%= render partial: 'examples/example_panel', collection: @examples, as: :example %>
           </div>
           <div id="paginator-examples-bottom" class="text-center">
             <%= paginate @examples, theme: 'twitter-bootstrap-3',

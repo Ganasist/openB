@@ -12,30 +12,33 @@ class ExamplesController < ApplicationController
 
 	def create
     @example = Example.new(example_params)
-    # @example.contractor = current_contractor
+    @example.contractor = current_contractor
     if @example.save
       flash[:notice] = 'Example was successfully created.'
-      redirect_to @example
+      redirect_to contractor_example_path(current_contractor, @example)
     else
       render 'new'
     end
   end
 
+  def edit
+  	@contractor = Contractor.find(params[:contractor_id])
+  end
+
   def update
-    @example = example.find(params[:id])
+    @example = Example.find(params[:id])
     if @example.update(example_params)
       flash[:notice] = 'example was successfully updated.'
-      redirect_to :back, notice: "Your example for '#{ @example.job.title }' has been updated"
+      redirect_to contractor_example_path(current_contractor, @example), notice: "Your example '#{ @example.title }' has been updated"
     else
-      redirect_to :back, alert: "#{ @example.errors.full_messages.to_sentence }"
+      render 'edit'
     end
   end
 
   def destroy
     @example = example.find(params[:id])
-    @job = @example.job
     @example.destroy
-    redirect_to current_contractor, notice: "Your example for '#{ @job.title }' has been removed"
+    redirect_to current_contractor, notice: "Your example '#{ @example.title }' has been removed"
   end
 
   private
