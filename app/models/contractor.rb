@@ -12,11 +12,6 @@ class Contractor < ActiveRecord::Base
 
   has_many :examples, dependent: :destroy
 
-  after_commit :create_portfolio, on: :create
-  def create_portfolio
-    Portfolio.create!(contractor: self)
-  end
-
   def self.categories
     ['Bathrooms', 'Driveways', 'Decks/patios', 'Electrical', 'Fencing', 'Flooring', 'Heating and Cooling',
      'Home','Security', 'Interior Design', 'Kitchens', 'Landscaping', 'Moving', 'New Construction',
