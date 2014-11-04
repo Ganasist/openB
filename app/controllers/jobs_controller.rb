@@ -69,10 +69,9 @@ class JobsController < ApplicationController
     end
 
     def job_params
-      params.require(:job).permit(:zip_code, :phone, :title,
-                                  :bidding_period,
-                                  :description, :image, :delete_image,
-                                  :image_remote_url, :after_image, :delete_after_image,
-                                  :after_image_remote_url, { categories: [] })
+      params.require(:job).permit(:zip_code, :phone, :title, 
+                                  :bidding_period, :description, { categories: [] }, 
+                                  :image_before, :delete_image_before, :image_before_remote_url, 
+                                  :image_after, :delete_image_after, :image_after_remote_url)
     end
 end

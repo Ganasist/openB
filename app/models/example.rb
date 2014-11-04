@@ -1,5 +1,7 @@
 class Example < ActiveRecord::Base
 
+  include JobAttachments
+
   belongs_to :contractor
 
   DURATION_UNITS = ['hours', 'days', 'weeks', 'months']

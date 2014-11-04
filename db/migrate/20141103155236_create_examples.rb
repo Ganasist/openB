@@ -7,6 +7,7 @@ class CreateExamples < ActiveRecord::Migration
       t.integer :duration
       t.string :duration_unit
       t.integer :cost
+      t.text :categories, array: true, default: []
       t.attachment :image_before
       t.attachment :image_after
 	    t.boolean :image_before_processing

@@ -1,5 +1,5 @@
-# Included in User, Contractor, Job
-module Attachments
+# Included in User, Contractor
+module MemberAttachments
 	extend ActiveSupport::Concern
 	included do
 		attr_accessor :delete_image

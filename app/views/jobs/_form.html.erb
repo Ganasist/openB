@@ -76,20 +76,38 @@
 
     <div class="form-inputs col-md-6 col-sm-6">      
       <div class="text-center">
-        <%= image_tag(@job.image.url(:medium)).html_safe %>
+        <%= image_tag(@job.image_before.url(:medium)).html_safe %>
           <p>Upload an optional 'before' image</p>
           <br><br>
-        <% if @job.image? %>
-          <%= f.input :delete_image, as: :boolean, 
+        <% if @job.image_before? %>
+          <%= f.input :delete_image_before, as: :boolean, 
                                   label: false, 
                            inline_label: 'Delete image' %><br>
         <% end %>
         
-        <%= f.input :image_remote_url, label: 'Paste an image URL' %>
+        <%= f.input :image_before_remote_url, label: 'Paste an image URL' %>
         <h4>or</h4>
-        <%= f.file_field :image %>
+        <%= f.file_field :image_before %>
         <hr>
       </div>
+      <% if @job.persisted? %>
+        <div class="text-center">
+          <%= image_tag(@job.image_after.url(:medium)).html_safe %>
+            <p>Upload an optional 'after' image</p>
+            <br><br>
+          <% if @job.image_after? %>
+            <%= f.input :delete_image_after, as: :boolean, 
+                                    label: false, 
+                             inline_label: 'Delete image' %><br>
+          <% end %>
+          
+          <%= f.input :image_after_remote_url, label: 'Paste an image URL' %>
+          <h4>or</h4>
+          <%= f.file_field :image_after %>
+          <hr>
+        </div>
+      <% end %>
+
       <h4 class="text-center hidden text-danger" id="category_warning">
         Please pick at least one category.
       </h4>

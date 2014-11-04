@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20141103193520) do
     t.integer  "duration"
     t.string   "duration_unit"
     t.integer  "cost"
+    t.text     "categories",                default: [],              array: true
     t.string   "image_before_file_name"
     t.string   "image_before_content_type"
     t.integer  "image_before_file_size"
@@ -105,7 +106,6 @@ ActiveRecord::Schema.define(version: 20141103193520) do
     t.integer  "contractor_id"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-    t.text     "categories",                default: [],              array: true
   end
 
   add_index "examples", ["contractor_id"], name: "index_examples_on_contractor_id", using: :btree
@@ -116,9 +116,9 @@ ActiveRecord::Schema.define(version: 20141103193520) do
     t.integer  "zip_code"
     t.integer  "user_id"
     t.integer  "contractor_id"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.text     "categories",         default: [],              array: true
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.text     "categories",                default: [],              array: true
     t.string   "phone"
     t.date     "bid_date"
     t.float    "latitude"
@@ -128,11 +128,16 @@ ActiveRecord::Schema.define(version: 20141103193520) do
     t.string   "state"
     t.date     "bidding_period"
     t.integer  "cost"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.boolean  "image_processing"
+    t.string   "image_before_file_name"
+    t.string   "image_before_content_type"
+    t.integer  "image_before_file_size"
+    t.datetime "image_before_updated_at"
+    t.boolean  "image_before_processing"
+    t.string   "image_after_file_name"
+    t.string   "image_after_content_type"
+    t.integer  "image_after_file_size"
+    t.datetime "image_after_updated_at"
+    t.boolean  "image_after_processing"
   end
 
   add_index "jobs", ["address"], name: "index_jobs_on_address", using: :btree

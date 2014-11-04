@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
   include GeneralValidations
-  include Attachments
+  include MemberAttachments
   include Devisable
 
 	has_many :jobs

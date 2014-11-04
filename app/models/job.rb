@@ -1,6 +1,6 @@
 class Job < ActiveRecord::Base
 
-  include Attachments
+  include JobAttachments
   include GeneralValidations
 
   include PgSearch

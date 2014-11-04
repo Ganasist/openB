@@ -1,7 +1,7 @@
 class Contractor < ActiveRecord::Base
 	
   include GeneralValidations
-  include Attachments
+  include MemberAttachments
   include Devisable
 
   include PgSearch
