@@ -65,22 +65,24 @@
         <% end %>
         <hr class="visible-xs visible-sm">
       </div>
-      <%= link_to example, class: 'unstyled-description' do %>
       <div  class="col-xs-12 col-md-8">
-        <p class="lead text-center">
-          <strong>
-            <%= example.title %>
-          </strong>
-        <hr>
-        <%= (request.fullpath).include?('examples') ? 
-                                example.description : 
-                                truncate(example.description, length: 200) %>
-      </div>                                  
+        <%= link_to contractor_example_path(example.contractor, example), 
+                    class: 'unstyled-description' do %>
+          <p class="lead text-center">
+            <strong>
+              <%= example.title %>
+            </strong>
+          </p>
+          <hr>
+          <%= (request.fullpath).include?('examples') ? 
+                                  example.description : 
+                                  truncate(example.description, length: 200) %>
+        <% end %> 
+      </div>                                
     </div>
 
     <div class="panel-footer">
       <%= "Posted #{ time_ago_in_words(example.created_at) } ago" %> 
       <%= "| Approx. #{ current_contractor.distance_from(example).round(1) } miles away" if contractor_signed_in? %>
     </div>
-  <% end %>
 </div>
