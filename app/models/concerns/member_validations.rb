@@ -1,5 +1,5 @@
-# Included in User, Contractor, Jobs
-module GeneralValidations
+# Included in User, Contractor
+module MemberValidations
 	extend ActiveSupport::Concern
 	included do
 
@@ -9,7 +9,7 @@ module GeneralValidations
 														 length: { minimum: 1,
 														 					 maximum: 4, 
 														 		   		 message: 'Pick between 1-4 categories' }, 
-																 if: Proc.new { |m| !m.new_record? && m.is_a?(Job) }
+																 if: Proc.new { |o| !o.new_record? }
 
 		geocoded_by :full_address
 		after_validation :geocode, if: ->(obj){ obj.full_address.present? && (obj.address_changed? ||
@@ -20,7 +20,7 @@ module GeneralValidations
 		phony_normalize :phone, default_country_code: 'US'
 		validates :phone, phony_plausible: true
 
-		validates :name, presence: true, if: Proc.new { |m| !m.new_record? && !m.is_a?(Job) }
+		validates :name, presence: true, if: Proc.new { |o| !o.new_record? }
 
 		# validates :phone, 
 	 #            :address, 
@@ -33,7 +33,7 @@ module GeneralValidations
 										 numericality: true,
 									postcode_format: { country_code: :us,
 																					message: 'Not a valid postcode for the US.'},
-																					     if: Proc.new { |m| !m.new_record? || m.is_a?(Job) }
+																					     if: Proc.new { |o| !o.new_record? }
   end
 
   def remove_blank_categories

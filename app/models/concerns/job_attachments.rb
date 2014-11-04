@@ -2,9 +2,6 @@
 module JobAttachments
 	extend ActiveSupport::Concern
 	included do
-
-	  before_validation :remove_blank_categories
-  
 		attr_accessor :delete_image_before
 	  attr_reader :image_before_remote_url  
 	  
@@ -23,7 +20,6 @@ module JobAttachments
 
 		# process_in_background :image_before, processing_image_url: 'ajax_spinner.gif'
 
-
 		attr_accessor :delete_image_after
 	  attr_reader :image_after_remote_url  
 	  
@@ -38,7 +34,7 @@ module JobAttachments
 	  																			message: 'Picture must be less than 3 megabytes' }
 	  
 	  validates_attachment_content_type :image_after, content_type: /^image\/(png|gif|jpeg|jpg)/,
-			                                     				 message: 'only (png/gif/jpeg) image_afters'
+			                                     				 			 message: 'only (png/gif/jpeg) image_afters'
 
 		process_in_background :image_after, processing_image_url: 'ajax_spinner.gif'
   end
@@ -55,9 +51,5 @@ module JobAttachments
       self.image_after = URI.parse(url_value)
       @image_after_remote_url = url_value
     end
-  end
-
-  def remove_blank_categories
-    self.categories.reject!(&:empty?)
   end
 end

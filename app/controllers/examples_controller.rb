@@ -1,19 +1,19 @@
 class ExamplesController < ApplicationController
 	before_action :set_example, only: [:show, :edit, :update, :destroy]
 
+  def show
+    
+  end
+
 	def new
 		@contractor = Contractor.find(params[:contractor_id])
 		@example = @contractor.examples.build	
 	end
 
-	def show
-		
-	end
-
 	def create
+    @contractor = Contractor.find(params[:contractor_id])
     @example = Example.new(example_params)
-    @example.contractor = current_contractor
-    @example.zip_code = current_contractor.zip_code
+    @example.contractor = @contractor
     if @example.save
       flash[:notice] = 'Example was successfully created.'
       redirect_to contractor_example_path(current_contractor, @example)

@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  include GeneralValidations
+  include MemberValidations
   include MemberAttachments
   include Devisable
 
