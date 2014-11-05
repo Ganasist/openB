@@ -76,19 +76,21 @@
 
         <%= f.file_field :image %>
         <h4>or</h4>
-        <%= f.input :image_remote_url, label: 'Paste an image URL' %>
+        <%= f.input :image_remote_url, label: 'Paste an image URL', input_html: { autocomplete: 'off' } %>
       </div>
       <hr>
       <%= f.input :password, label: 'New Password (optional)', 
                       autocomplete: 'off', 
                        placeholder: 'Enter new password', 
                           required: false, 
-                        input_html: { id: 'new_password' } %>
+                        input_html: { id: 'new_password', autocomplete: 'off' } %>
       <%= f.input :password_confirmation, label: 'New password confirmation', 
-                                       required: false,                                    
+                                       required: false, 
+                                     input_html: { autocomplete: 'off' },                                    
                                    wrapper_html: { style: 'display: none', 
                                                       id: 'new_password_confirmation'}  %>
       <%= f.input :current_password, placeholder: 'Enter current password to confirm updates', 
+                                      input_html: { autocomplete: 'off' },
                                     wrapper_html: { style: 'display: none', 
                                                        id: 'current_password'} %>
     </div>
