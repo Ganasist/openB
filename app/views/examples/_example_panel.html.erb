@@ -96,7 +96,7 @@
       <div  class="col-xs-12 col-md-6">
       <hr class="visible-xs visible-sm">
         <%= link_to contractor_example_path(example.contractor, example), 
-                    class: 'unstyled-description' do %>
+                    class: 'unstyled-link' do %>
           <p class="lead text-center">
             <strong>
               <%= example.title %>
@@ -127,6 +127,6 @@
 
     <div class="panel-footer">
       <%= "Posted #{ time_ago_in_words(example.created_at) } ago" %> |
-      <%= link_to "By #{ example.contractor.company_name }", example.contractor, class: 'unstyled-description' %>
+      <%= link_to "By #{ example.contractor.company_name }", example.contractor, class: 'unstyled-link' %>
     </div>
 </div>

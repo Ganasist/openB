@@ -6,6 +6,9 @@ class JobsController < ApplicationController
 
   def index
     @jobs = Job.all
+    if category = params[:search]
+      @jobs = @jobs.relevant_categories(category)
+    end
     respond_with(@jobs)
   end
 

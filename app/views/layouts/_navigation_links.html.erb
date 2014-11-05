@@ -2,6 +2,9 @@
   <li><%= link_to 'Post a Job', new_job_path,
                                 class: 'user_submit visible-xs visible-sm',
                                    id: 'learn_more_nav' %></li>
+  <li><%= link_to 'View All Categories', page_path('categories'), 
+                                         class: 'user_submit',
+                                            id: 'learn_more_nav'  %></li>
   <li><%= link_to 'Edit Profile', edit_user_registration_path,
                                   class: 'user_submit',
                                      id: 'learn_more_nav' %></li>
@@ -14,6 +17,9 @@
     <li><%= link_to 'USERS', users_path %></li>
   <% end %>
 <% elsif contractor_signed_in? %>
+  <li><%= link_to 'View All Categories', page_path('categories'), 
+                                         class: 'user_submit',
+                                            id: 'learn_more_nav'  %></li>
   <li><%= link_to 'Edit Profile', edit_contractor_registration_path,
                                   class: 'user_submit',
                                      id: 'learn_more_nav' %></li>

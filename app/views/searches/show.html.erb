@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-6 col-xs-12">
       <% if @contractors.length > 0 %>
-      <h3 class="text-center">Contractors near ZIP <%= params[:search] %></h3>
+        <h3 class="text-center">Contractors near ZIP <%= params[:search] %></h3>
         <table class="table">
           <tbody>
             <% @contractors.each do |contractor| %>
@@ -19,15 +19,15 @@
     <div class="col-md-6 col-xs-12">
     <% if @jobs.length > 0 %>
       <h3 class="text-center">Open Jobs near ZIP <%= params[:search] %></h3>
-        <table class="table">
-          <tbody>
-            <% @jobs.each do |job| %>
-              <tr>
-                <%= render 'job_zip_search', job: job %>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+      <table class="table">
+        <tbody>
+          <% @jobs.each do |job| %>
+            <tr>
+              <%= render 'job_zip_search', job: job %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
       <% else %>
         <h4 class="text-center">No open jobs found near this ZIP code</h4>
       <% end %>

@@ -56,7 +56,7 @@
     <div class="form-inputs col-md-6 col-sm-6">      
       <div class="text-center">
         <%= image_tag @example.image_before.url(:medium).html_safe %>
-          <p>Upload an optional BEFORE image</p>
+          <p>Upload a BEFORE image (optional)</p>
           <br><br>
         <% if @example.image_before? %>
           <%= f.input :delete_image_before, as: :boolean, 
@@ -64,14 +64,14 @@
                            inline_label: 'Delete image' %><br>
         <% end %>
 
-        <%= f.input :image_before_remote_url, label: 'Paste an image URL' %>
+        <%= f.input :image_before_remote_url, label: 'Paste an image URL', input_html: { autocomplete: 'off' } %>
         <h4>or</h4>
         <%= f.file_field :image_before %>
       </div>
       <hr>
       <div class="text-center">
         <%= image_tag @example.image_after.url(:medium).html_safe %>
-          <p>Upload an AFTER image (required)</p>
+          <p>Upload an AFTER image (optional)</p>
           <br><br>
         <% if @example.image_after? %>
           <%= f.input :delete_image_after, as: :boolean, 
@@ -79,7 +79,7 @@
                            inline_label: 'Delete image' %><br>
         <% end %>
 
-        <%= f.input :image_after_remote_url, label: 'Paste an image URL' %>
+        <%= f.input :image_after_remote_url, label: 'Paste an image URL', input_html: { autocomplete: 'off' } %>
         <h4>or</h4>
         <%= f.file_field :image_after, class: 'text-center' %>
         <hr>

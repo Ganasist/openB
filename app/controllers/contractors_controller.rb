@@ -6,6 +6,9 @@ class ContractorsController < ApplicationController
 
   def index
     @contractors = Contractor.all
+    if category = params[:search]
+      @contractors = @contractors.relevant_categories(category)
+    end
   end
 
   def show

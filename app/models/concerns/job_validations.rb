@@ -6,6 +6,7 @@ module JobValidations
 		before_validation :remove_blank_categories
 
 		scope :relevant_categories, -> (categories){ where('categories && ARRAY[?]', categories) }
+		scope :relevant_categories_count, -> (categories){ where('categories && ARRAY[?]', categories).uniq.count }
 
 		validates :categories, presence: true, 
 														 length: { minimum: 1,

@@ -1,35 +1,25 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <table class="table table-striped table-hover table-bordered text-center">
+      <thead class="lead">
+        <td>Title</td>
+        <td>Description</td>
+        <td>Zip code</td>
+        <td>User</td>
+        <td>Contractor</td>
+      </thead>
 
-<h1>Listing Jobs</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Zip code</th>
-      <th>User</th>
-      <th>Contractor</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @jobs.each do |job| %>
-      <tr>
-        <td><%= job.title %></td>
-        <td><%= job.description %></td>
-        <td><%= job.zip_code %></td>
-        <td><%= job.user %></td>
-        <td><%= job.contractor %></td>
-        <td><%= link_to 'Show', job %></td>
-        <td><%= link_to 'Edit', edit_job_path(job) %></td>
-        <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Job', new_job_path %>
+      <tbody>
+        <% @jobs.each do |job| %>
+          <tr>
+            <td><%= link_to job.title, job, class: 'unstyled-link' %></td>
+            <td><%= link_to truncate(job.description, length: 100), job, class: 'unstyled-link' %></td>
+            <td><%= job.zip_code %></td>
+            <td><%= link_to job.user.fullname, job.user, class: 'unstyled-link' %></td>
+            <td><%= job.contractors.exists? ? job.contractors.first.company_name : 'No contractors'  %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
