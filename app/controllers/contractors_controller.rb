@@ -10,7 +10,7 @@ class ContractorsController < ApplicationController
       @contractors = @contractors.relevant_categories(category)
                                  .order(updated_at: :desc)
                                  .page(params[:contractors])
-                                 .per(20)
+                                 .per(15)
     end
   end
 

@@ -1,5 +1,7 @@
 <div class="container">
   <div class="row">
+  <h1 class="text-center lead">Contactors: <%= params[:search] %></h1>
+    <br>
     <table class="table table-striped table-hover table-bordered text-center">
       <thead class="lead">
         <td>Company Name</td>
@@ -21,7 +23,7 @@
               <% end %>
             </td>
             <td><%= contractor.zip_code  %></td>
-            <td><%= time_ago_in_words(contractor.updated_at)  %> ago</td>
+            <td><%= time_ago_in_words(contractor.updated_at) %> ago</td>
           </tr>
         <% end %>
       </tbody>

@@ -5,7 +5,7 @@ class SearchesController < ApplicationController
 			# @jobs = Job.near(params[:search], 50).order(:updated_at).reverse_order
 			@contractors = Contractor.near(params[:search], 50).order(:updated_at).reverse_order
 		else
-			@jobs = Job.all.limit(20)
+			@jobs = Job.where(contractor_id: nil).limit(20)
 			@contractors = Contractor.all.limit(20)
 		end
 	end

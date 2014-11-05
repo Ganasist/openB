@@ -7,10 +7,10 @@ class JobsController < ApplicationController
   def index
     @jobs = Job.all
     if category = params[:search]
-      @jobs = @jobs.relevant_categories(category)
-                   .order(updated_at: :desc)
-                   .page(params[:jobs])
-                   .per(20)
+      @jobs = Job.relevant_categories(category)
+                 .order(updated_at: :desc)
+                 .page(params[:jobs])
+                 .per(20)
     end
     respond_with(@jobs)
   end
