@@ -6,6 +6,7 @@
         <td>Categories</td>
         <td>Description</td>
         <td>Zip code</td>
+        <td>Updated</td>
       </thead>
       <tbody>
         <% @contractors.each do |contractor| %>
@@ -20,6 +21,7 @@
               <% end %>
             </td>
             <td><%= contractor.zip_code  %></td>
+            <td><%= time_ago_in_words(contractor.updated_at)  %> ago</td>
           </tr>
         <% end %>
       </tbody>

@@ -8,6 +8,9 @@ class ContractorsController < ApplicationController
     @contractors = Contractor.all
     if category = params[:search]
       @contractors = @contractors.relevant_categories(category)
+                                 .order(updated_at: :desc)
+                                 .page(params[:contractors])
+                                 .per(20)
     end
   end
 
@@ -22,7 +25,7 @@ class ContractorsController < ApplicationController
     @jobs = Job.near(@contractor.full_address, 100)
                .order(updated_at: :desc)
                .includes(:user)
-               .relevant_categories(current_contractor.categories)
+               .relevant_categories(@contractor.categories)
                .page(params[:jobs])
   end
 

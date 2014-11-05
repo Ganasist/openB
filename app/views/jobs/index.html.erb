@@ -6,7 +6,7 @@
         <td>Description</td>
         <td>Zip code</td>
         <td>User</td>
-        <td>Contractor</td>
+        <td>Updated</td>
       </thead>
 
       <tbody>
@@ -16,7 +16,7 @@
             <td><%= link_to truncate(job.description, length: 100), job, class: 'unstyled-link' %></td>
             <td><%= job.zip_code %></td>
             <td><%= link_to job.user.fullname, job.user, class: 'unstyled-link' %></td>
-            <td><%= job.contractors.exists? ? job.contractors.first.company_name : 'No contractors'  %></td>
+            <td><%= time_ago_in_words(job.updated_at)  %> ago</td>
           </tr>
         <% end %>
       </tbody>

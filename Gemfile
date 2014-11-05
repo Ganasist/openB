@@ -44,6 +44,7 @@ gem 'simple_form', '~> 3.1.0.rc1', github: 'plataformatec/simple_form', branch: 
 gem 'unicorn'
 gem 'unicorn-rails'
 gem 'upmin-admin'
+gem 'faker'
 group :development do
   # gem 'web-console', '2.0.0.beta3'
   gem 'quiet_assets'
@@ -59,7 +60,6 @@ group :development do
 end
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'faker'
   gem 'rspec-rails'
 end
 group :production, :staging do

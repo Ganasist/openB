@@ -8,6 +8,9 @@ class JobsController < ApplicationController
     @jobs = Job.all
     if category = params[:search]
       @jobs = @jobs.relevant_categories(category)
+                   .order(updated_at: :desc)
+                   .page(params[:jobs])
+                   .per(20)
     end
     respond_with(@jobs)
   end
