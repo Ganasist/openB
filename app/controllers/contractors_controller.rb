@@ -27,6 +27,7 @@ class ContractorsController < ApplicationController
                .includes(:user)
                .relevant_categories(@contractor.categories)
                .page(params[:jobs])
+               .per(2)
   end
 
   def destroy

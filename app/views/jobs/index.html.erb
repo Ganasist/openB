@@ -1,7 +1,12 @@
 <div class="container">
   <div class="row">
     <h1 class="text-center lead">Open Jobs: <%= params[:search] %></h1>
-    <br>
+    <!-- <br> -->
+    <div id="paginator-jobs-top" class="text-center">
+      <%= paginate @jobs, theme: 'twitter-bootstrap-3',
+                          param_name: 'jobs' %>
+    </div>
+
     <table class="table table-striped table-hover table-bordered text-center">
       <thead class="lead">
         <td>Title</td>
@@ -10,7 +15,6 @@
         <td>User</td>
         <td>Updated</td>
       </thead>
-
       <tbody>
         <% @jobs.each do |job| %>
           <tr>
@@ -23,5 +27,10 @@
         <% end %>
       </tbody>
     </table>
+
+    <div id="paginator-jobs-bottom" class="text-center">
+      <%= paginate @jobs, theme: 'twitter-bootstrap-3',
+                          param_name: 'jobs' %>
+    </div>
   </div>
 </div>

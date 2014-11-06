@@ -26,8 +26,7 @@
           <div id="paginator-jobs-top" class="text-center">
             <%= paginate @jobs, theme: 'twitter-bootstrap-3',
                                 param_name: 'jobs',
-                                params: { tab: 'jobs' },
-                                pagination_class: 'pagination-small pagination-centered' %>
+                                params: { tab: 'jobs' } %>
           </div>
           <div id="job">
             <%= render partial: 'jobs/job_panel', collection: @jobs, as: :job %>
@@ -35,8 +34,7 @@
           <div id="paginator-jobs-bottom" class="text-center">
             <%= paginate @jobs, theme: 'twitter-bootstrap-3',
                                 param_name: 'jobs',
-                                params: { tab: 'jobs' },
-                                pagination_class: 'pagination-small pagination-centered' %>
+                                params: { tab: 'jobs' } %>
 	        </div>
         <% else %>
           <br>
@@ -53,8 +51,7 @@
           <div id="paginator-examples-top" class="text-center">
             <%= paginate @examples, theme: 'twitter-bootstrap-3',
                                 param_name: 'examples',
-                                params: { tab: 'examples' },
-                                pagination_class: 'pagination-small pagination-centered' %>
+                                params: { tab: 'examples' } %>
           </div>
           <div id="example">
             <%= render partial: 'examples/example_panel', collection: @examples, as: :example %>
@@ -62,8 +59,7 @@
           <div id="paginator-examples-bottom" class="text-center">
             <%= paginate @examples, theme: 'twitter-bootstrap-3',
                                 param_name: 'examples',
-                                params: { tab: 'examples' },
-                                pagination_class: 'pagination-small pagination-centered' %>
+                                params: { tab: 'examples' } %>
 	        </div>
 		  	<% else %>
           <br>

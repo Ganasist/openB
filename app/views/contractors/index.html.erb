@@ -1,7 +1,11 @@
 <div class="container">
   <div class="row">
-  <h1 class="text-center lead">Contactors: <%= params[:search] %></h1>
-    <br>
+    <h1 class="text-center lead">Contactors: <%= params[:search] %></h1>
+    <div id="paginator-jobs-top" class="text-center">
+      <%= paginate @contractors, theme: 'twitter-bootstrap-3',
+                            param_name: 'contractors' %>
+    </div>
+
     <table class="table table-striped table-hover table-bordered text-center">
       <thead class="lead">
         <td>Company Name</td>
@@ -17,7 +21,7 @@
             <td><%= link_to contractor.categories.to_sentence, contractor, class: 'unstyled-link' %></td>
             <td>
               <% if contractor.bio %>
-                <%= link_to truncate(contractor.bio, length: 100), contractor, class: 'unstyled-link' %>
+                <%= link_to truncate(contractor.bio, length: 75), contractor, class: 'unstyled-link' %>
               <% else %>
                 No description
               <% end %>
@@ -28,6 +32,11 @@
         <% end %>
       </tbody>
     </table>
+
+    <div id="paginator-jobs-bottom" class="text-center">
+      <%= paginate @contractors, theme: 'twitter-bootstrap-3',
+                            param_name: 'contractors' %>
+    </div>
   </div>
 </div>
 

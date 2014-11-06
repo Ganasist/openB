@@ -10,7 +10,7 @@ class JobsController < ApplicationController
       @jobs = Job.relevant_categories(category)
                  .order(updated_at: :desc)
                  .page(params[:jobs])
-                 .per(20)
+                 .per(15)
     end
     respond_with(@jobs)
   end
