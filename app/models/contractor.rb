@@ -1,7 +1,9 @@
 class Contractor < ActiveRecord::Base
 	
+  has_many :uploads, as: :uploadable, dependent: :destroy
+
   include MemberValidations
-  include MemberAttachments
+  # include MemberAttachments
   include Devisable
 
   include PgSearch

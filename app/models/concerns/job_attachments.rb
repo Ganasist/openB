@@ -36,7 +36,7 @@ module JobAttachments
 	  validates_attachment_content_type :image_after, content_type: /^image\/(png|gif|jpeg|jpg)/,
 			                                     				 			 message: 'only (png/gif/jpeg) image_afters'
 
-		process_in_background :image_after, processing_image_url: 'ajax_spinner.gif'
+		# process_in_background :image_after, processing_image_url: 'ajax_spinner.gif'
   end
 
 	def image_before_remote_url=(url_value)

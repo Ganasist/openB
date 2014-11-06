@@ -62,21 +62,28 @@
     </div>
 
     <div class="form-inputs col-md-6 col-sm-6">
-      
 
       <div class="text-center">
-          <%= image_tag(resource.image.url(:medium)).html_safe %>
-          <p>Upload a profile image or icon</p>
-          <br><br>
-        <% if resource.image? %>
-          <%= f.input :delete_image, as: :boolean, 
-                                  label: false, 
-                           inline_label: 'Delete image' %><br>
-        <% end %>
 
-        <%= f.file_field :image %>
+      <%= f.simple_fields_for :uploads do |ul| %>        
+        <p>Upload a profile image or icon</p>
+        <%= ul.input :image_remote_url, label: 'Paste an image URL', input_html: { autocomplete: 'off' } %>
+        <br>
         <h4>or</h4>
-        <%= f.input :image_remote_url, label: 'Paste an image URL', input_html: { autocomplete: 'off' } %>
+        <br>
+        <%= ul.file_field :image %>
+      <% end %>
+
+      <% if resource.uploads %>
+        <% resource.uploads.each do |i| %>
+          <%= image_tag i.image(:medium).html_safe %>
+          <%= f.simple_fields_for :uploads do |ul| %>        
+            <%= ul.input :_destroy, as: :boolean, 
+                                 label: false, 
+                          inline_label: 'Delete image' %>
+          <% end %>        
+        <% end %>
+      <% end %>
       </div>
       <hr>
       <%= f.input :password, label: 'New Password (optional)', 

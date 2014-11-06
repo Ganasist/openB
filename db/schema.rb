@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104112531) do
+ActiveRecord::Schema.define(version: 20141106111619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,19 @@ ActiveRecord::Schema.define(version: 20141104112531) do
   add_index "jobs", ["latitude"], name: "index_jobs_on_latitude", using: :btree
   add_index "jobs", ["longitude"], name: "index_jobs_on_longitude", using: :btree
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
+
+  create_table "uploads", force: true do |t|
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.integer  "uploadable_id"
+    t.string   "uploadable_type"
+  end
+
+  add_index "uploads", ["uploadable_id", "uploadable_type"], name: "index_uploads_on_uploadable_id_and_uploadable_type", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  limit: 255, default: "", null: false

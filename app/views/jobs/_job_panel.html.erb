@@ -12,11 +12,11 @@
       </div>
       <div class="modal-body">
         <%= image_tag job.image_before(:original), class: 'img-rounded img-responsive' %>
-        <% if job.image_before.processing? %>
+        <%# if job.image_before.processing? %>
           <h4 class="text-center lead">
             Image is processing.<br> Refresh page in a few seconds.
           </h4>
-        <% end %>
+        <%# end %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default submit" data-dismiss="modal">Close</button>

@@ -14,4 +14,14 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker/core
+//= require dropzone.min
 //= require_tree .
+
+
+$( document ).ajaxStart(function() {
+  console.log( "Triggered ajaxStart handler." );
+});
+
+$( document ).ajaxComplete(function() {
+  console.log( "Triggered ajaxComplete handler." );
+});

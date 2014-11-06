@@ -1,0 +1,9 @@
+<span id="image-<%= u.id %>">
+	<%= image_tag u.image(:medium), class: 'img-rounded' %>
+
+	<%= link_to u, method: :delete, class: 'member_pic_delete', remote: true do %>
+        <%= fa_icon 'minus-square lg', title: 'Delete',
+                                       class: 'delete-job-post pull-right' %>
+  <% end if current_user == u.uploadable %>
+	<hr>
+</span>

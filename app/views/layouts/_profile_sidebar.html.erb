@@ -1,13 +1,12 @@
 <% @cats = member.categories %>
-	<span class="text-center">
-		<%= image_tag member.image(:medium), class: 'img-rounded' %>
+	<span class="text-center" id="member_profile_pic">
+		<%= render partial: 'layouts/member_profile_pic', collection: member.uploads, as: :u %>
 	</span>
+	<div class="text-center">
+		<%= link_to 'Upload a profile pic', new_upload_path, 
+																		class: 'btn btn-lg btn-success' if current_user == member %>
 
-	<% if member.image.processing? %>
-		<h4 class="text-center lead">
-			Image is processing.<br> Refresh page in a few seconds.
-		</h4>
-	<% end %>	
+	</div>
 	<hr>
 	<%= @incomplete_profile_message.html_safe if @incomplete_profile_message.present? %>
 	<address class="lead">

@@ -8,11 +8,13 @@ Rails.application.routes.draw do
 	devise_for :contractors, controllers: { registrations: 'contractors/registrations', sessions: 'sessions' }							 
 
   resources :users, only: [:show, :index, :destroy]
-  
+
   resources :contractors, only: [:show, :index] do
     resources :examples, except: :destroy
   end
 
+  resources :uploads, except: [:index, :show]
+  
   resources :examples, only: :destroy
   
   resources :jobs do

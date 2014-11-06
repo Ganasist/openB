@@ -1,7 +1,10 @@
 class User < ActiveRecord::Base
 
+  has_many :uploads, as: :uploadable, dependent: :destroy
+  # accepts_nested_attributes_for :uploads, allow_destroy: true
+
   include MemberValidations
-  include MemberAttachments
+  # include MemberAttachments
   include Devisable
 
 	has_many :jobs

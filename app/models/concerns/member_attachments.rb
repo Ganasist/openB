@@ -14,7 +14,7 @@ module MemberAttachments
 	  validates_attachment_content_type :image, content_type: /^image\/(png|gif|jpeg|jpg)/,
 			                                     				 message: 'only (png/gif/jpeg) images'
   
-		process_in_background :image, processing_image_url: 'ajax_spinner.gif'
+		# process_in_background :image, processing_image_url: 'ajax_spinner.gif'
   end
 	  
 	def image_remote_url=(url_value)
