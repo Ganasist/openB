@@ -3,9 +3,9 @@ $(document).ready ->
   # disable auto discover
   Dropzone.autoDiscover = false
   
-  # grap our upload form by its id
+  # grab our upload form by its id
   $("#new_upload").dropzone
-    
+        
     # restrict image size to a maximum 3MB and number of files to 3
     maxFilesize: 3
     maxFiles: 3
@@ -20,7 +20,6 @@ $(document).ready ->
     
     # show remove links on each image upload
     addRemoveLinks: true
-
 
     # if the upload was successful
     success: (file, response) ->
