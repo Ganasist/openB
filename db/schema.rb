@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141107151229) do
+ActiveRecord::Schema.define(version: 20141107164452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(version: 20141107151229) do
     t.string   "uploadable_type"
     t.boolean  "before",             default: false
     t.boolean  "after",              default: false
+    t.boolean  "image_processing"
   end
 
   add_index "uploads", ["uploadable_id", "uploadable_type"], name: "index_uploads_on_uploadable_id_and_uploadable_type", using: :btree
