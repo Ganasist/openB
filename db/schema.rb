@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106111619) do
+ActiveRecord::Schema.define(version: 20141107151229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,11 +67,6 @@ ActiveRecord::Schema.define(version: 20141106111619) do
     t.string   "state"
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.boolean  "image_processing"
   end
 
   add_index "contractors", ["categories"], name: "index_contractors_on_categories", using: :gin
@@ -92,20 +87,10 @@ ActiveRecord::Schema.define(version: 20141106111619) do
     t.integer  "duration"
     t.string   "duration_unit"
     t.integer  "cost"
-    t.text     "categories",                default: [],              array: true
-    t.string   "image_before_file_name"
-    t.string   "image_before_content_type"
-    t.integer  "image_before_file_size"
-    t.datetime "image_before_updated_at"
-    t.string   "image_after_file_name"
-    t.string   "image_after_content_type"
-    t.integer  "image_after_file_size"
-    t.datetime "image_after_updated_at"
-    t.boolean  "image_before_processing"
-    t.boolean  "image_after_processing"
+    t.text     "categories",    default: [],              array: true
     t.integer  "contractor_id"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "examples", ["contractor_id"], name: "index_examples_on_contractor_id", using: :btree
@@ -116,9 +101,9 @@ ActiveRecord::Schema.define(version: 20141106111619) do
     t.integer  "zip_code"
     t.integer  "user_id"
     t.integer  "contractor_id"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.text     "categories",                default: [],              array: true
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.text     "categories",     default: [],              array: true
     t.string   "phone"
     t.date     "bid_date"
     t.float    "latitude"
@@ -128,16 +113,6 @@ ActiveRecord::Schema.define(version: 20141106111619) do
     t.string   "state"
     t.date     "bidding_period"
     t.integer  "cost"
-    t.string   "image_before_file_name"
-    t.string   "image_before_content_type"
-    t.integer  "image_before_file_size"
-    t.datetime "image_before_updated_at"
-    t.string   "image_after_file_name"
-    t.string   "image_after_content_type"
-    t.integer  "image_after_file_size"
-    t.datetime "image_after_updated_at"
-    t.boolean  "image_before_processing"
-    t.boolean  "image_after_processing"
   end
 
   add_index "jobs", ["address"], name: "index_jobs_on_address", using: :btree
@@ -148,14 +123,16 @@ ActiveRecord::Schema.define(version: 20141106111619) do
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
 
   create_table "uploads", force: true do |t|
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "uploadable_id"
     t.string   "uploadable_type"
+    t.boolean  "before",             default: false
+    t.boolean  "after",              default: false
   end
 
   add_index "uploads", ["uploadable_id", "uploadable_type"], name: "index_uploads_on_uploadable_id_and_uploadable_type", using: :btree
@@ -198,11 +175,6 @@ ActiveRecord::Schema.define(version: 20141106111619) do
     t.string   "state"
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.boolean  "image_processing"
   end
 
   add_index "users", ["address"], name: "index_users_on_address", using: :btree

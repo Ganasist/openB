@@ -1,56 +1,4 @@
-<!-- Example Before Modal -->
-<div class="modal" 
-     id="myExampleBeforeModal-<%= example.id %>" 
-     tabindex="-1" 
-     role="dialog" 
-     aria-labelledby="myExampleBeforeModalLabel" 
-     aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title text-center" id="myExampleBeforeModalLabel"><%= example.title %></h4>
-      </div>
-      <div class="modal-body">
-        <%= image_tag example.image_before(:original), class: 'img-rounded img-responsive' %>
-        <% if example.image_before.processing? %>
-          <h4 class="text-center lead">
-            Image is processing.<br> Refresh page in a few seconds.
-          </h4>
-        <% end %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default submit" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Example After Modal -->
-<div class="modal" 
-     id="myExampleAfterModal-<%= example.id %>" 
-     tabindex="-1" 
-     role="dialog" 
-     aria-labelledby="myExampleAfterModalLabel" 
-     aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title text-center" id="myExampleAfterModalLabel"><%= example.title %></h4>
-      </div>
-      <div class="modal-body">
-        <%= image_tag example.image_after(:original), class: 'img-rounded img-responsive' %>
-        <% if example.image_after.processing? %>
-          <h4 class="text-center lead">
-            Image is processing.<br> Refresh page in a few seconds.
-          </h4>
-        <% end %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default submit" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render partial: 'layouts/image_modals', collection: example.uploads, as: :upload %>
 
 <div class="panel panel-default" id="<%= example.id %>">
   <div class="panel-heading">
@@ -58,8 +6,7 @@
       <p>
         <% if current_contractor == example.contractor %>
           <%= link_to example, method: :delete,
-                     remote: true, 
-                       data: { confirm: 'Are you sure you want to delete this post?' } do %>
+                               remote: true do %>
             <%= fa_icon 'minus-square 2x', title: 'Delete',
                                            class: 'delete-job-post pull-right' %>
           <% end %>
@@ -82,15 +29,20 @@
     <div class="panel-body">     
       <div class="col-xs-12 col-md-3">
       <p class="text-center lead">Before</p>
-        <%= image_submit_tag example.image_before(:medium), class: 'img-rounded img-responsive', 
-                                                  data: { toggle: 'modal', 
-                                                          target: "#myExampleBeforeModal-#{ example.id }" } do %>
-          <% if example.image_before.processing? %>
-            <h4 class="text-center lead">
-              Image is processing.<br> Refresh this page in a few seconds.
-            </h4>
+        <% example.uploads.each do |upload| %>
+          <% if upload.before? %>
+            <%= image_submit_tag upload.image(:medium), class: 'img-rounded img-responsive', 
+                                                      data: { toggle: 'modal', 
+                                                              target: "#myModal-#{ upload.id }" } do %>
+              <% if upload.image.processing? %>
+                <h4 class="text-center lead">
+                  Image is processing.<br> Refresh this page in a few seconds.
+                </h4>
+              <% end %>
+            <% end %>
           <% end %>
         <% end %>
+       
         <!-- <hr class="visible-xs visible-sm"> -->
       </div>
       <div  class="col-xs-12 col-md-6">
@@ -112,15 +64,19 @@
       </div>
       <div class="col-xs-12 col-md-3">
         <p class="text-center lead">After</p>
-        <%= image_submit_tag example.image_after(:medium), class: 'img-rounded img-responsive', 
-                                                  data: { toggle: 'modal', 
-                                                          target: "#myExampleAfterModal-#{ example.id }" } do %>
-          <% if example.image_after.processing? %>
-            <h4 class="text-center lead">
-              Image is processing.<br> Refresh this page in a few seconds.
-            </h4>
+          <% example.uploads.each do |upload| %>
+            <% if upload.after? %>
+              <%= image_submit_tag upload.image(:medium), class: 'img-rounded img-responsive', 
+                                                        data: { toggle: 'modal', 
+                                                                target: "#myModal-#{ upload.id }" } do %>
+                <% if upload.image.processing? %>
+                  <h4 class="text-center lead">
+                    Image is processing.<br> Refresh this page in a few seconds.
+                  </h4>
+                <% end %>
+              <% end %>
+            <% end %>
           <% end %>
-        <% end %>
         <hr class="visible-xs visible-sm">
       </div>
     </div>

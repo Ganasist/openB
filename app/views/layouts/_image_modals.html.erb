@@ -1,0 +1,26 @@
+<!-- Example Before Modal -->
+  <div class="modal" 
+       id="myModal-<%= upload.id %>" 
+       tabindex="-1" 
+       role="dialog" 
+       aria-labelledby="myModalLabel" 
+       aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-center" id="myModalLabel"><%= upload.uploadable.title %></h4>
+        </div>
+        <div class="modal-body">
+            <%= image_tag upload.image(:original), class: 'img-rounded img-responsive' %>
+            <% if upload.image.processing? %>
+              <h4 class="text-center lead">
+                Image is processing.<br> Refresh page in a few seconds.
+              </h4>
+            <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default submit" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

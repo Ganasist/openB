@@ -1,0 +1,92 @@
+<% @cats = Contractor.categories %>
+<div class="authform_large">
+  <%= simple_form_for [member, job], wrapper: :vertical_form, 
+                               html: { multipart: true, 
+                                    autocomplete: 'off' },
+                   wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
+                                              file: :horizontal_file_input } do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs col-lg-8 col-lg-offset-2">
+      <% if type == 'job' %>
+        <ul class="list-inline">
+          <li>
+            <%= f.input :zip_code, as: :string,
+                             required: true,
+                          placeholder: "#{ current_user.zip_code }",
+                           input_html: { maxlength: 5, id: 'form_zip_code' } %>
+          </li>
+          <li>
+            <%= f.input :phone, as: :string,
+                             label: 'Phone (optional)',
+                          required: false,
+                       placeholder: 'Enter a valid number' %>
+
+          </li>
+        </ul>
+      <% end %>
+
+      <%= f.input :title, label: 'Job Title', required: true, input_html: { maxlength: 50 } %>
+      
+      <% if type == 'example' %>
+        <ul class="list-inline">
+          <li><%= f.input :cost, required: true,
+                                      wrapper: :vertical_input_group do %>
+                    <span class="input-group-addon">$</span>
+                    <%= f.input_field :cost, as: :string, 
+                                    placeholder: '400',
+                                      maxlength: 5,
+                                          class: 'form-control',
+                                             id: 'form_zip_code' %>                  
+              <% end %>
+          </li>
+
+              
+          <li><%= f.input :duration, label: 'Job timeline', as: :string,
+                                placeholder: '6', 
+                                 input_html: { maxlength: 3 } %>
+          </li>
+
+          <li><%= f.input :duration_unit, selected: 'hours',
+                                             label: 'duration unit',
+                                        collection: Example::DURATION_UNITS %>
+          </li>
+        </ul>
+      <% end %>
+
+      <% if type == 'job' %>
+        <%= f.input :bidding_period, as: :string, 
+                                  label: 'End Bidding (optional)', 
+                            placeholder: 'Enter a valid date',
+                             input_html: { class: 'datepicker' } %>
+      <% end %>
+      
+      
+      <%= f.input :description, as: :text, 
+                          required: true,
+                             label: '',
+                       placeholder: 'Enter a brief description of this job',
+                        input_html: { id: 'job_description', rows: '7', 
+                                 maxlength: 2000 },
+                        label_html: { id: 'description_feedback' }  %>
+
+      <p class="text-center lead">Select between 1-4 categories</p>
+      <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
+        <ul class="list-unstyled col-xs-6">
+          <li>
+            <%= f.input :categories, as: :check_boxes, 
+                              label: false,
+                           required: true,
+                         collection: cats %>
+          </li>
+        </ul> 
+      <% end %>        
+    </div>
+    <div class="form-inputs">
+      <h4 class="text-center hidden text-danger" id="category_warning">
+        Please pick at least one category.
+      </h4>
+      <%= f.button :submit, 'Post this example', class: 'user_submit' %>
+    </div>      
+  <% end %>
+</div>

@@ -44,10 +44,6 @@ class Users::RegistrationsController < RegistrationsController
                                                                      :password, 
                                                                      :current_password, 
                                                                      :password_confirmation,
-                                                                     :zip_code, :phone,
-                                                                     uploads_attributes: [:id, :_destroy,
-                                                                                          :image, 
-                                                                                          :image_remote_url, 
-                                                                                          :delete_image]) }
+                                                                     :zip_code, :phone) }
     end
 end

@@ -1,14 +1,14 @@
 class Job < ActiveRecord::Base
 
-  include JobAttachments
   include JobValidations
-
   include PgSearch
   pg_search_scope :search_by_zip, against: :zip_code
   
   belongs_to :user
   # validates_associated :user
   
+  has_many :uploads, as: :uploadable, dependent: :destroy
+
   has_many :bids
   has_many :contractors, through: :bids
 

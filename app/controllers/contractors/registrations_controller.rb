@@ -46,8 +46,6 @@ class Contractors::RegistrationsController < RegistrationsController
                                                                      :current_password, 
                                                                      :password_confirmation,
                                                                      :zip_code,
-                                                                     :bio,
-                                                                     :image, :delete_image, 
-                                                                     :image_remote_url) }
+                                                                     :bio) }
     end
 end

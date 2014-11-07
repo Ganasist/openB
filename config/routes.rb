@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   end
   
   resources :examples, only: :destroy
-
   resources :bids, only: :destroy
 
   resource :contact, only: [:new, :create]

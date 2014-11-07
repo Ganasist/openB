@@ -48,60 +48,37 @@
                  placeholder: 'Enter brief description about your services',
                   input_html: { rows: '7', maxlength: 500 } if contractor_signed_in? %>
         
-        <hr>  
-          <p class="text-center lead">Select categories of interest</p>
-          <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
-            <ul class="list-unstyled col-xs-6">
-              <li>
-                <%= f.input :categories, as: :check_boxes,
-                                      label: false,
-                                 collection: cats %>
-              </li>
-            </ul> 
-          <% end %>
     </div>
 
-    <div class="form-inputs col-md-6 col-sm-6">
-
-      <div class="text-center">
-
-      <%= f.simple_fields_for :uploads do |ul| %>        
-        <p>Upload a profile image or icon</p>
-        <%= ul.input :image_remote_url, label: 'Paste an image URL', input_html: { autocomplete: 'off' } %>
-        <br>
-        <h4>or</h4>
-        <br>
-        <%= ul.file_field :image %>
-      <% end %>
-
-      <% if resource.uploads %>
-        <% resource.uploads.each do |i| %>
-          <%= image_tag i.image(:medium).html_safe %>
-          <%= f.simple_fields_for :uploads do |ul| %>        
-            <%= ul.input :_destroy, as: :boolean, 
-                                 label: false, 
-                          inline_label: 'Delete image' %>
-          <% end %>        
-        <% end %>
-      <% end %>
+    <div class="form-inputs col-md-6 col-sm-6">      
+      <p class="lead">Select categories of interest</p>
+      <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
+        <ul class="list-unstyled col-xs-6">
+          <li>
+            <%= f.input :categories, as: :check_boxes,
+                                  label: false,
+                             collection: cats %>
+          </li>
+        </ul> 
+      <% end %>     
       </div>
-      <hr>
-      <%= f.input :password, label: 'New Password (optional)', 
-                      autocomplete: 'off', 
-                       placeholder: 'Enter new password', 
-                          required: false, 
-                        input_html: { id: 'new_password', autocomplete: 'off' } %>
-      <%= f.input :password_confirmation, label: 'New password confirmation', 
-                                       required: false, 
-                                     input_html: { autocomplete: 'off' },                                    
-                                   wrapper_html: { style: 'display: none', 
-                                                      id: 'new_password_confirmation'}  %>
-      <%= f.input :current_password, placeholder: 'Enter current password to confirm updates', 
-                                      input_html: { autocomplete: 'off' },
-                                    wrapper_html: { style: 'display: none', 
-                                                       id: 'current_password'} %>
+
+      <div class="form-inputs col-md-6 col-sm-6">
+        <%= f.input :password, label: 'New Password (optional)', 
+                        autocomplete: 'off', 
+                         placeholder: 'Enter new password', 
+                            required: false, 
+                          input_html: { id: 'new_password', autocomplete: 'off' } %>
+        <%= f.input :password_confirmation, label: 'New password confirmation', 
+                                         required: false, 
+                                       input_html: { autocomplete: 'off' },                                    
+                                     wrapper_html: { style: 'display: none', 
+                                                        id: 'new_password_confirmation'}  %>
+        <%= f.input :current_password, placeholder: 'Enter current password to confirm updates', 
+                                        input_html: { autocomplete: 'off' },
+                                      wrapper_html: { style: 'display: none', 
+                                                         id: 'current_password'} %>
     </div>
-  </div>
 
   <div class="row center-block">
     <div class="form-actions-submit">

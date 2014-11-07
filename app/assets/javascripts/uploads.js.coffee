@@ -33,7 +33,6 @@ $(document).ready ->
       $(file.previewElement).addClass("dz-success")
       # return
 
-
     #when the remove button is clicked
     removedfile: (file) ->
       # grab the current path withou the trailing '/new'

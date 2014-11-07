@@ -1,7 +1,9 @@
 class Example < ActiveRecord::Base
 
-  include JobAttachments
   include JobValidations
+
+  
+  has_many :uploads, as: :uploadable, dependent: :destroy
 
   belongs_to :contractor
 

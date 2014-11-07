@@ -1,0 +1,19 @@
+<span id="image-<%= u.id %>">
+	<%= image_submit_tag u.image_before(:medium), class: 'img-rounded img-responsive', 
+	                                                    data: { toggle: 'modal', 
+	                                                            target: "#myJobModal-#{job.id}" } do %>
+    <% if job.image_before.processing? %>
+      <h4 class="text-center lead">
+        Image is processing.<br> Refresh this page in a few seconds.
+      </h4>
+    <% end %>
+
+    <%= link_to polymorphic_url([u.uploadable, u]), method: :delete, 
+    																								remote: true do %>
+      <%= fa_icon 'minus-square lg', title: 'Delete',
+                                     class: 'member_pic_delete delete-job-post pull-right' %>
+
+	  <% end if (current_user || current_contractor) == u.uploadable %>
+
+  <% end %>
+</span>

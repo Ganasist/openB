@@ -1,6 +1,6 @@
 <% @cats = Contractor.categories %>
 <div class="authform_large">
-  <%= simple_form_for @job, wrapper: :vertical_form, 
+  <%= simple_form_for [@user, @job], wrapper: :vertical_form, 
                                html: { multipart: true, 
                                     autocomplete: 'off' },
                    wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
@@ -23,33 +23,13 @@
 
         </li>
       </ul>
+      
       <%= f.input :title, label: 'Job Title', required: true, input_html: { maxlength: 50 } %>
       
-        <%#= f.input :cost, required: true, wrapper_html: { class: 'col-xs-4' },
-                              label: 'Cost Est.',
-                            wrapper: :vertical_input_group do %>
-            <!-- <span class="input-group-addon">$</span> -->
-            <%#= f.input_field :cost, as: :string, 
-                            placeholder: '400',
-                              maxlength: 5,
-                                  class: 'form-control',
-                                     id: 'form_zip_code' %>
-        <%# end %>
-
-        <%= f.input :bidding_period, as: :string, 
-                                  label: 'End Bidding (optional)', 
-                            placeholder: 'Enter a valid date',
-                             input_html: { class: 'datepicker' } %>
-
-        <%#= f.input :duration, label: 'Job timeline', as: :string,
-                      placeholder: '6', 
-                       input_html: { maxlength: 3 }, 
-                     wrapper_html: { class: 'col-xs-4'} %>
-
-        <%#= f.input :duration_unit, selected: 'hours',
-                                       label: '',
-                                  collection: Job::DURATION_UNITS, 
-                                wrapper_html: { class: 'col-xs-4 '} %>
+      <%= f.input :bidding_period, as: :string, 
+                                label: 'End Bidding (optional)', 
+                          placeholder: 'Enter a valid date',
+                           input_html: { class: 'datepicker' } %>
 
       <%= f.input :description, as: :text, 
                           required: true,
@@ -74,40 +54,7 @@
       </div>
     </div>
 
-    <div class="form-inputs col-md-6 col-sm-6">      
-      <div class="text-center">
-        <%= image_tag(@job.image_before.url(:medium)).html_safe %>
-          <p>Upload a BEFORE image (optional)</p>
-          <br><br>
-        <% if @job.image_before? %>
-          <%= f.input :delete_image_before, as: :boolean, 
-                                  label: false, 
-                           inline_label: 'Delete image' %><br>
-        <% end %>
-        
-        <%= f.input :image_before_remote_url, label: 'Paste an image URL', input_html: { autocomplete: 'off' } %>
-        <h4>or</h4>
-        <%= f.file_field :image_before %>
-        <hr>
-      </div>
-      <% if @job.persisted? %>
-        <div class="text-center">
-          <%= image_tag(@job.image_after.url(:medium)).html_safe %>
-            <p>Upload an AFTER image (optional)</p>
-            <br><br>
-          <% if @job.image_after? %>
-            <%= f.input :delete_image_after, as: :boolean, 
-                                    label: false, 
-                             inline_label: 'Delete image' %><br>
-          <% end %>
-          
-          <%= f.input :image_after_remote_url, label: 'Paste an image URL', input_html: { autocomplete: 'off' } %>
-          <h4>or</h4>
-          <%= f.file_field :image_after %>
-          <hr>
-        </div>
-      <% end %>
-
+    <div class="form-inputs col-md-6 col-sm-6">
       <h4 class="text-center hidden text-danger" id="category_warning">
         Please pick at least one category.
       </h4>
