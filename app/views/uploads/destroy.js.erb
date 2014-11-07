@@ -1,1 +1,7 @@
-$('span#image-<%= @upload.id %>').slideUp(500);
+$("span#member_profile_pic").html("<%= escape_javascript render partial: 'layouts/member_profile_pic', collection: @member.uploads, as: :u %>");
+
+if (<%= @member.uploads.count < 3 %>) {
+	$("a#upload_pic_button").removeClass('disabled');
+}
+
+$('span#image-<%= @upload.id %>').hide();

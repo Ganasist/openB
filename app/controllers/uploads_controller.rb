@@ -1,14 +1,14 @@
 class UploadsController < ApplicationController
   def new
-    @member = current_user || current_contractor
-  	@upload = @member.uploads.build
+    @context = current_user || current_contractor
+  	@upload = @context.uploads.build
   end
  
   def create
     @member = current_user || current_contractor
   	@upload = @member.uploads.create(upload_params)
   	if @upload.save
-  	  render json: { message: "success" }, :status => 200
+  	  render json: { message: "success", fileID: @upload.id }, status: 200
   	else
   	  #  you need to send an error header, otherwise Dropzone
       #  will not interpret the response as an error:
@@ -27,7 +27,7 @@ class UploadsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to current_user, notice: 'Image was deleted' }
       format.js
-      # format.json { render json: { message: 'File deleted from server' } }
+      format.json { render json: { message: 'File deleted from server', fileID: @upload.id } }
     end
   end
  

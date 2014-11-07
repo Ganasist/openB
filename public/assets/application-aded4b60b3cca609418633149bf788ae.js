@@ -14603,7 +14603,50 @@ return jQuery;
 
 }).call(this);
 (function() {
-
+  $(document).ready(function() {
+    Dropzone.autoDiscover = false;
+    return $("#new_upload").dropzone({
+      maxFilesize: 3,
+      maxFiles: 3,
+      paramName: "upload[image]",
+      acceptedFiles: "image/png,image/jpg,image/jpeg",
+      parallelUploads: 3,
+      addRemoveLinks: true,
+      success: function(file, response) {
+        console.log(response.fileID);
+        $(file.previewTemplate).find(".dz-remove").attr("id", response.fileID);
+        return $(file.previewElement).addClass("dz-success");
+      },
+      removedfile: function(file) {
+        var id, url;
+        url = window.location.pathname.split('new')[0];
+        id = $(file.previewTemplate).find(".dz-remove").attr("id");
+        if (id !== void 0) {
+          $(file.previewElement).removeClass("dz-success").addClass("dz-error");
+          $(file.previewElement).fadeOut(1000);
+          return $.ajax({
+            type: "POST",
+            url: url + id,
+            dataType: "json",
+            data: {
+              "_method": "delete"
+            },
+            success: function(data) {
+              console.log(data);
+              return console.log(data.fileID);
+            },
+            error: function(data, error) {
+              alert('Some of your images could not be removed. Please erase them manually from your profile page.');
+              return console.log(data);
+            }
+          });
+        } else {
+          console.log('Removing failed upload for ' + id);
+          return $(file.previewElement).fadeOut(1000);
+        }
+      }
+    });
+  });
 
 }).call(this);
 (function() {
@@ -14648,4 +14691,12 @@ return jQuery;
 
 
 
-;
+
+
+$( document ).ajaxStart(function() {
+  console.log( "Triggered ajaxStart handler." );
+});
+
+$( document ).ajaxComplete(function() {
+  console.log( "Triggered ajaxComplete handler." );
+});

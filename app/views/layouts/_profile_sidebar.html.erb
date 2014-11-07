@@ -3,11 +3,19 @@
 		<%= render partial: 'layouts/member_profile_pic', collection: member.uploads, as: :u %>
 	</span>
 	<div class="text-center">
-		<%= link_to 'Upload a profile pic', new_upload_path, 
-																		class: 'btn btn-lg btn-success' if current_user == member %>
+		<% if member.uploads.count >= 3 %>
+			<%= link_to 'Upload a profile pic', new_polymorphic_url([member, Upload]),
+																						 id: 'upload_pic_button', 
+																					class: 'btn btn-lg btn-success disabled' if (current_user == member || current_contractor == member) %>
+		<% else %>
+			<%= link_to 'Upload a profile pic', new_polymorphic_url([member, Upload]),
+																				 id: 'upload_pic_button',
+																			class: 'btn btn-lg btn-success' if (current_user == member || current_contractor == member) %>
+		<% end %>
+		
+		<hr>
 
 	</div>
-	<hr>
 	<%= @incomplete_profile_message.html_safe if @incomplete_profile_message.present? %>
 	<address class="lead">
 		<% if member.try(:company_name) %>

@@ -19,9 +19,11 @@
 
 
 $( document ).ajaxStart(function() {
+	$('div#ajax-modal').modal();
   console.log( "Triggered ajaxStart handler." );
 });
 
 $( document ).ajaxComplete(function() {
+	$('div#ajax-modal').modal('hide');
   console.log( "Triggered ajaxComplete handler." );
 });

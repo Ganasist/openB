@@ -1,7 +1,15 @@
-<%= form_for @upload, html: { multipart: true, class: 'dropzone' } do |f|  %>
-  <div class="fallback">
-    <%= f.file_field :image %><br>
-    <%= f.submit "Upload" %>
+
+<div class="row">
+	<%= form_for [@context, @upload], html: { multipart: true, class: 'dropzone' } do |f|  %>
+	  <div class="fallback">
+	    <%= f.file_field :image %><br>
+	    <%= f.submit "Upload" %>
+	  </div>
+	<% end %>
+	<br>
+  <div class="job_return_links">
+    <ul class="list-inline">
+      <li><%= link_to 'Back to profile', current_contractor || current_user, class: 'contractor_submit' %></li>
+    </ul>
   </div>
-<% end %>
-<br>
+</div>

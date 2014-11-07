@@ -1,9 +1,8 @@
 <span id="image-<%= u.id %>">
 	<%= image_tag u.image(:medium), class: 'img-rounded' %>
-
-	<%= link_to u, method: :delete, class: 'member_pic_delete', remote: true do %>
+	<%= link_to polymorphic_url([u.uploadable, u]), method: :delete, remote: true do %>
         <%= fa_icon 'minus-square lg', title: 'Delete',
-                                       class: 'delete-job-post pull-right' %>
-  <% end if current_user == u.uploadable %>
+                                       class: 'member_pic_delete delete-job-post pull-right' %>
+  <% end if (current_user || current_contractor) == u.uploadable %>
 	<hr>
 </span>
