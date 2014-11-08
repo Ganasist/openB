@@ -10,13 +10,13 @@ Rails.application.routes.draw do
 
 	devise_for :contractors, controllers: { registrations: 'contractors/registrations', sessions: 'sessions' }							 
 
-  resources :users, only: [:show, :index, :destroy], concerns: :uploadable
+  resources :users, only: [:show, :index, :destroy], concerns: :uploadable, defaults: { uploadable: 'user' }
 
-  resources :contractors, only: [:show, :index], concerns: :uploadable do
-    resources :examples, except: :destroy, concerns: :uploadable
+  resources :contractors, only: [:show, :index], concerns: :uploadable, defaults: { uploadable: 'contractor' } do
+    resources :examples, except: :destroy, concerns: :uploadable, defaults: { uploadable: 'example' }
   end
   
-  resources :jobs, concerns: :uploadable do
+  resources :jobs, concerns: :uploadable, defaults: { uploadable: 'job' } do
     resources :bids, only: [:create, :update, :destroy]
   end
   

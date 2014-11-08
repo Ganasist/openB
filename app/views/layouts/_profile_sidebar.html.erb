@@ -1,6 +1,6 @@
 <% @cats = member.categories %>
 	<span class="text-center" id="member_profile_pic">
-		<%= render partial: 'layouts/member_profile_pic', collection: member.uploads, as: :u %>
+		<%= render partial: 'layouts/member_profile_pic', collection: member.uploads, as: :upload %>
 	</span>
 	<div class="text-center">
 		<% if member.uploads.count >= 3 %>

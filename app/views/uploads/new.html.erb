@@ -1,5 +1,5 @@
 <div class="row">
-	<%= form_for [@context, @upload], html: { multipart: true, class: 'dropzone' } do |f|  %>
+	<%= form_for [@uploadable, @upload], html: { multipart: true, class: 'dropzone' } do |f|  %>
 	  <div class="fallback">
 	    <%= f.file_field :image %><br>
 	    <%= f.submit "Upload" %>

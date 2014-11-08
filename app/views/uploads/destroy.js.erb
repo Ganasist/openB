@@ -1,6 +1,6 @@
-$("span#member_profile_pic").html("<%= escape_javascript render partial: 'layouts/member_profile_pic', collection: @member.uploads, as: :u %>");
+$("span#member_profile_pic").html("<%= escape_javascript render partial: 'layouts/member_profile_pic', collection: @uploadable.uploads, as: :upload %>");
 
-if (<%= @member.uploads.count < 3 %>) {
+if (<%= @uploadable.uploads.count < 3 %>) {
 	$("a#upload_pic_button").removeClass('disabled');
 }
 

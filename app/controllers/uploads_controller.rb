@@ -1,12 +1,12 @@
 class UploadsController < ApplicationController
+  before_action :get_uploadable
+
   def new
-    @context = current_user || current_contractor
-  	@upload = @context.uploads.build
+  	@upload = @uploadable.uploads.build
   end
  
   def create
-    @member = current_user || current_contractor
-  	@upload = @member.uploads.create(upload_params)
+  	@upload = @uploadable.uploads.create(upload_params)
   	if @upload.save
   	  render json: { message: "success", fileID: @upload.id }, status: 200
   	else
@@ -16,13 +16,9 @@ class UploadsController < ApplicationController
   	end  		
   end
 
-  def edit
-    @member = current_user || current_contractor
-  end
-
   def destroy
     @upload = Upload.find(params[:id])
-    @member = @upload.uploadable
+    @uploadable = @upload.uploadable
     @upload.destroy
     respond_to do |format|
       format.html { redirect_to current_user, notice: 'Image was deleted' }
@@ -32,7 +28,16 @@ class UploadsController < ApplicationController
   end
  
   private
-  def upload_params
-  	params.require(:upload).permit(:image, :before, :after)
-  end
+
+    def get_uploadable
+      @uploadable = params[:uploadable].classify.constantize.find(uploadable_id)
+    end
+
+    def uploadable_id
+      params[(params[:uploadable].singularize + "_id").to_sym]
+    end
+
+    def upload_params
+    	params.require(:upload).permit(:image, :before, :after)
+    end
 end
