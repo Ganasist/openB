@@ -19,7 +19,7 @@ class UploadsController < ApplicationController
   def destroy
     @upload = Upload.find(params[:id])
     @uploadable = @upload.uploadable
-    @member = @uploadable.is_a?(User) ? @uploadable : @uploadable.user
+    @member = (@uploadable.is_a?(User) || @uploadable.is_a?(Contractor)) ? @uploadable : @uploadable.user
     @upload.destroy
     respond_to do |format|
       format.html { redirect_to current_user, notice: 'Image was deleted' }
