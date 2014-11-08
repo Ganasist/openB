@@ -1,4 +1,3 @@
-<%= render partial: 'layouts/image_modals', collection: example.uploads, as: :upload %>
 
 <div class="panel panel-default" id="<%= example.id %>">
   <div class="panel-heading">
@@ -29,19 +28,18 @@
     <div class="panel-body">     
       <div class="col-xs-12 col-md-3">
       <p class="text-center lead">Before</p>
-        <% example.uploads.each do |upload| %>
-          <% if upload.before? %>
-            <%= image_submit_tag upload.image(:medium), class: 'img-rounded img-responsive', 
+      <% if example.uploads.count > 0 %>
+        <%= render partial: 'layouts/pic', collection: example.uploads, as: :upload %>
+      <% end %>
+
+        <%# example.uploads.each do |upload| %>
+          <%# if upload.before? %>
+            <%#= image_submit_tag upload.image(:medium), class: 'img-rounded img-responsive', 
                                                       data: { toggle: 'modal', 
                                                               target: "#myModal-#{ upload.id }" } do %>
-              <% if upload.image.processing? %>
-                <h4 class="text-center lead">
-                  Image is processing.<br> Refresh this page in a few seconds.
-                </h4>
-              <% end %>
-            <% end %>
-          <% end %>
-        <% end %>
+            <%# end %>
+          <%# end %>
+        <%# end %>
        
         <!-- <hr class="visible-xs visible-sm"> -->
       </div>

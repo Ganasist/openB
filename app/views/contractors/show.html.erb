@@ -24,17 +24,17 @@
 		  <div class="<%= if (params[:tab] == 'jobs' || !params[:tab]) then 'tab-pane fade in active'  else 'tab-pane fade in' end %>" id="jobs">
 		  	<% if @jobs.present? %>
           <div id="paginator-jobs-top" class="text-center">
-            <%= paginate @jobs, theme: 'twitter-bootstrap-3',
+            <%= paginate(@jobs, theme: 'twitter-bootstrap-3',
                                 param_name: 'jobs',
-                                params: { tab: 'jobs' } %>
+                                params: { tab: 'jobs' }) %>
           </div>
           <div id="job">
             <%= render partial: 'jobs/job_panel', collection: @jobs, as: :job %>
           </div>
           <div id="paginator-jobs-bottom" class="text-center">
-            <%= paginate @jobs, theme: 'twitter-bootstrap-3',
+            <%= paginate(@jobs, theme: 'twitter-bootstrap-3',
                                 param_name: 'jobs',
-                                params: { tab: 'jobs' } %>
+                                params: { tab: 'jobs' }) %>
 	        </div>
         <% else %>
           <br>
@@ -49,17 +49,17 @@
         </h3>
 			  <% if @examples.present? %>
           <div id="paginator-examples-top" class="text-center">
-            <%= paginate @examples, theme: 'twitter-bootstrap-3',
+            <%= paginate(@examples, theme: 'twitter-bootstrap-3',
                                 param_name: 'examples',
-                                params: { tab: 'examples' } %>
+                                params: { tab: 'examples' }) %>
           </div>
           <div id="example">
             <%= render partial: 'examples/example_panel', collection: @examples, as: :example %>
           </div>
           <div id="paginator-examples-bottom" class="text-center">
-            <%= paginate @examples, theme: 'twitter-bootstrap-3',
+            <%= paginate(@examples, theme: 'twitter-bootstrap-3',
                                 param_name: 'examples',
-                                params: { tab: 'examples' } %>
+                                params: { tab: 'examples' }) %>
 	        </div>
 		  	<% else %>
           <br>

@@ -1,15 +1,15 @@
 <% @cats = member.categories %>
-	<span class="text-center" id="member_profile_pic">
-		<%= render partial: 'layouts/member_profile_pic', collection: member.uploads, as: :upload %>
+	<span class="text-center">
+		<%= render partial: 'layouts/pic', collection: member.uploads, as: :upload, locals: { owner: member } %>
 	</span>
 	<div class="text-center">
 		<% if member.uploads.count >= 3 %>
 			<%= link_to 'Upload a profile pic', new_polymorphic_url([member, Upload]),
-																						 id: 'upload_pic_button', 
+																						 id: "#{ member.class.name + "-" + member.id.to_s }-upload_pic_button", 
 																					class: 'btn btn-lg btn-success disabled' if (current_user == member || current_contractor == member) %>
 		<% else %>
 			<%= link_to 'Upload a profile pic', new_polymorphic_url([member, Upload]),
-																				 id: 'upload_pic_button',
+																				 id: "#{ member.class.name + "-" + member.id.to_s  }-upload_pic_button",
 																			class: 'btn btn-lg btn-success' if (current_user == member || current_contractor == member) %>
 		<% end %>		
 		<hr>
@@ -43,15 +43,13 @@
 		<h4 class="text-center">
 			<%= member.contractor? ? 'Services Offered' : 'Services Needed' %>
 		</h4>
-		<%# @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
 		<% @cats.each do |cat| %>
-          <ul>
-          	<h2>
-          		<li class="services label label-<%= %w(default primary success info warning danger).sample %>">
-	              <%= cat %>
-	            </li>
-	          </h2>
-          </ul>
-        <% end %>
-		<%# end %>				
+      <ul>
+      	<h2>
+      		<li class="services label label-<%= %w(default primary success info warning danger).sample %>">
+            <%= cat %>
+          </li>
+        </h2>
+      </ul>
+    <% end %>			
 	<% end %>

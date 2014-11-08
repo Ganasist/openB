@@ -3,6 +3,6 @@
 	<%= link_to polymorphic_url([upload.uploadable, upload]), method: :delete, remote: true do %>
         <%= fa_icon 'minus-square lg', title: 'Delete',
                                        class: 'member_pic_delete delete-job-post pull-right' %>
-  <% end if (current_user || current_contractor) == upload.uploadable %>
+  <% end if (current_user || current_contractor) == owner %>
 	<hr>
 </span>

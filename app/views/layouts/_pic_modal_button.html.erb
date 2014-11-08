@@ -1,12 +1,7 @@
 <span id="image-<%= upload.id %>">
 	<%= image_submit_tag upload.image_before(:medium), class: 'img-rounded img-responsive', 
 	                                                    data: { toggle: 'modal', 
-	                                                            target: "#myJobModal-#{job.id}" } do %>
-    <% if job.image_before.processing? %>
-      <h4 class="text-center lead">
-        Image is processing.<br> Refresh this page in a few seconds.
-      </h4>
-    <% end %>
+	                                                            target: "#myModal-#{upload.id}" } do %>
 
     <%= link_to polymorphic_url([upload.uploadable, upload]), method: :delete, 
     																								remote: true do %>
