@@ -29,34 +29,28 @@ img {
   @extend .col-md-6;
   @extend .text-center;
   }
+.form-actions-submit {
+  @extend .col-sm-4;
+  @extend .col-sm-offset-4;
+  @extend .col-xs-6;
+  @extend .col-xs-offset-3;
+}
 .submit {
+  @extend .form-actions-submit;
   @extend .btn;
   @extend .btn-primary;
   @extend .btn-lg;
-  @extend .btn-block;
-  }
+}
 .user_submit {
-  @extend .btn;
+  @extend .submit;
+  @extend .form-actions-submit;
   @extend .btn-success;
-  @extend .btn-lg;
-  @extend .btn-block;
   }
 .contractor_submit {
-  @extend .btn;
+  @extend .submit;
   @extend .btn-warning;
-  @extend .btn-lg;
-  @extend .btn-block;
   }
-.form-actions-submit {
-  @extend .col-lg-4;
-  @extend .col-lg-offset-4;
-  @extend .col-md-6;
-  @extend .col-md-offset-3;
-  @extend .col-sm-6;
-  @extend .col-sm-offset-3;
-  @extend .col-xs-8;
-  @extend .col-xs-offset-2;
-}
+
 // apply styles to HTML elements
 // to make views framework-neutral
 main {
@@ -204,10 +198,12 @@ nav.navbar {
   border-bottom: 1px solid #178C32;
 }
 
-.navbar-inverse .navbar-nav > li > strong > a {
+.navbar-inverse .navbar-nav > li > a {
   color: #777777;
+  font-size: 1.2em;
   &:hover {
     color: #178C32;
+    font-weight: 500;
   }
 }
 
@@ -257,34 +253,6 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
     color: #3db952;
   }
 
-#learn_more_nav, #user_login_nav, #contractor_login_nav {
-  background-color: rgba(0,0,0,0);
-  border-color: rgba(0,0,0,0);
-  &:hover {
-    color: #f1f1f1;
-  }
-}
-
-#learn_more_nav {
-  color: #5bc0de;
-  &:hover {
-    background-color: #5bc0de;
-  }
-}
-
-#user_login_nav {
-  color: #3db952;
-  &:hover {
-    background-color: #3db952;
-  }
-}
-
-#contractor_login_nav {
-  color: #f0ad4e;
-  &:hover {
-    background-color: #f0ad4e;
-  }
-}
 
 .btn-success#user_sign_up, .btn-success#contractor_sign_up, .btn-info#learn_more  {
   color: #f1f1f1;
@@ -436,11 +404,6 @@ div#splash_row_1 {
   margin: 0px;
 }
 
-div#splash_row_3 {
-  // margin-bottom: 40px;
-  // padding-bottom: 40px;
-}
-
 .splash_green {
   color: #5cb85c;
 }
@@ -464,4 +427,8 @@ div.col-lg-4 {
 
 div#ajax-modal {
   background-color:rgba(0,0,0,0.2);
+}
+
+div#modal_content {
+  padding: 20px;
 }

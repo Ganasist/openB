@@ -80,15 +80,17 @@
                                                          id: 'current_password'} %>
     </div>
 
-  <div class="row center-block">
-    <div class="form-actions-submit">
-      <%= f.button :submit, 'Update Profile', class: 'user_submit' %>
-    </div>
-  </div>   
-  <% end %>
-  <div class="row">
-    <div class="form-actions-submit">
-      <%= link_to 'Back', resource, class: 'btn-sm submit' %>
-    </div>
+    <div class="row">
+      <div class="form-inputs">
+        <%= f.button :submit, 'Update Profile', class: 'user_submit' %>
+      </div>
+    </div>   
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-actions-submit">
+    <%= link_to 'Back', current_user, class: 'submit' %>
   </div>
 </div>
