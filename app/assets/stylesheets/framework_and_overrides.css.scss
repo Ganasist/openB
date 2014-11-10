@@ -43,14 +43,12 @@ img {
 }
 .user_submit {
   @extend .submit;
-  @extend .form-actions-submit;
   @extend .btn-success;
   }
 .contractor_submit {
   @extend .submit;
   @extend .btn-warning;
   }
-
 // apply styles to HTML elements
 // to make views framework-neutral
 main {
