@@ -26,8 +26,7 @@ class ContractorsController < ApplicationController
                .order(updated_at: :desc)
                .includes([:user, :uploads])
                .relevant_categories(@contractor.categories)
-               .page(params[:jobs])
-               .per(2)
+               .page(params[:jobs]).per(2)
   end
 
   def destroy

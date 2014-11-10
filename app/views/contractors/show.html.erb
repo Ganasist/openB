@@ -5,7 +5,7 @@
 
 	<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
 		<hr class="visible-xs">
-		<h3 class="lead text-center">
+		<h3 class="lead text-center" id="bio">
 			<%= @contractor.try(:bio) %>
 		</h3>
 		
@@ -13,28 +13,30 @@
     
     <ul class="nav nav-pills nav-justified">
 		  <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
-		  	<a href="#jobs" data-toggle="tab">Nearby Jobs</a>
+		  	<a href="#job" data-toggle="tab">Nearby Jobs</a>
 		  </li>
 		  <li class="<%= 'active' if params[:tab] == 'examples' %>">
-		  	<a href="#examples" data-toggle="tab">Portfolio</a>
+		  	<a href="#example" data-toggle="tab">Portfolio</a>
 		  </li>
 		</ul>
 		<br>
 		<div class="tab-content">
-		  <div class="<%= if (params[:tab] == 'jobs' || !params[:tab]) then 'tab-pane fade in active'  else 'tab-pane fade in' end %>" id="jobs">
+		  <div class="<%= if (params[:tab] == 'jobs' || !params[:tab]) then 'tab-pane fade in active'  else 'tab-pane fade in' end %>" id="job">
 		  	<% if @jobs.present? %>
           <div id="paginator-jobs-top" class="text-center">
-            <%= paginate(@jobs, theme: 'twitter-bootstrap-3',
-                                param_name: 'jobs',
-                                params: { tab: 'jobs' }) %>
+            <%= paginate @jobs, remote: true,
+                                 theme: 'twitter-bootstrap-3',
+                            param_name: 'jobs',
+                                params: { tab: 'jobs' } %>
           </div>
-          <div id="job">
+          <div id="jobs">
             <%= render partial: 'jobs/job_panel', collection: @jobs, as: :job %>
           </div>
           <div id="paginator-jobs-bottom" class="text-center">
-            <%= paginate(@jobs, theme: 'twitter-bootstrap-3',
-                                param_name: 'jobs',
-                                params: { tab: 'jobs' }) %>
+            <%= paginate @jobs, remote: true,
+                                 theme: 'twitter-bootstrap-3',
+                            param_name: 'jobs',
+                                params: { tab: 'jobs' } %>
 	        </div>
         <% else %>
           <br>
@@ -42,24 +44,26 @@
         <% end %>
 		  </div>
 
-			<div class="<%= if params[:tab] == 'examples' then 'tab-pane fade in active'  else 'tab-pane fade in' end%>" id="examples">
+			<div class="<%= if params[:tab] == 'examples' then 'tab-pane fade in active'  else 'tab-pane fade in' end%>" id="example">
         <h3 class="lead text-center">
           <%= link_to  'Add an example', new_contractor_example_path(@contractor),  
                                          class: 'btn btn-lg btn-success' if current_contractor == @contractor %>
         </h3>
 			  <% if @examples.present? %>
           <div id="paginator-examples-top" class="text-center">
-            <%= paginate(@examples, theme: 'twitter-bootstrap-3',
+            <%= paginate @examples, remote: true,
+                                     theme: 'twitter-bootstrap-3',
                                 param_name: 'examples',
-                                params: { tab: 'examples' }) %>
+                                params: { tab: 'examples' } %>
           </div>
-          <div id="example">
+          <div id="examples">
             <%= render partial: 'examples/example_panel', collection: @examples, as: :example %>
           </div>
           <div id="paginator-examples-bottom" class="text-center">
-            <%= paginate(@examples, theme: 'twitter-bootstrap-3',
+            <%= paginate @examples, remote: true,
+                                     theme: 'twitter-bootstrap-3',
                                 param_name: 'examples',
-                                params: { tab: 'examples' }) %>
+                                params: { tab: 'examples' } %>
 	        </div>
 		  	<% else %>
           <br>

@@ -1,6 +1,12 @@
 // $("span.upload_pic").html("<%= escape_javascript render partial: 'layouts/pic', collection: @uploadable.uploads, as: :upload, locals: { owner: @member } %>");
 
-if (<%= @uploadable.uploads.count < 3 %>) {
+if (<%= @uploadable.is_a?(Example) %>) {
+	if (<%= @upload.before? && @uploadable.before_uploads.count < 3 %>) {
+			$("a#<%= @uploadable.class.name %>-<%= @uploadable.id.to_s %>-upload-pic-button.before").removeClass("disabled btn-danger").addClass('btn-success');
+		} else if (<%= @upload.after? && @uploadable.after_uploads.count < 3 %>) {
+				$("a#<%= @uploadable.class.name %>-<%= @uploadable.id.to_s %>-upload-pic-button.after").removeClass("disabled btn-danger").addClass('btn-success');
+		}
+} else if (<%= @uploadable.uploads.count < 3 %>) {
 	$("a#<%= @uploadable.class.name %>-<%= @uploadable.id.to_s %>-upload-pic-button").removeClass("disabled btn-danger").addClass('btn-success');
 }
 

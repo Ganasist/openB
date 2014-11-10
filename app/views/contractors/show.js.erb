@@ -1,26 +1,27 @@
-$('#paginator-jobs-top').html('<%= escape_javascript(paginate(@jobs, 
+$('#paginator-jobs-top').html('<%= escape_javascript(paginate @jobs, 
 																															 remote: true,
 																															  theme: "twitter-bootstrap-3",
 																													 param_name: "jobs",
-																															 params: { tab: "jobs" },
-                               											 pagination_class: "pagination-small pagination-centered").to_s) %>');
-$('#paginator-jobs-bottom').html('<%= escape_javascript(paginate(@jobs, 
+																															 params: { tab: "jobs" }) %>');
+
+$('#paginator-jobs-bottom').html('<%= escape_javascript(paginate @jobs, 
 																																 remote: true,
 																															 		theme: "twitter-bootstrap-3",
 																														 param_name: "jobs",
-																															   params: { tab: "jobs" }, 
-                               												 pagination_class: "pagination-small pagination-centered").to_s) %>');
+																															   params: { tab: "jobs" }) %>');
 
 $('#jobs').html('<%= escape_javascript(render partial: "jobs/job_panel", collection: @jobs, as: :job) %>');
 
-$('#paginator-portfolio-top').html('<%= escape_javascript(paginate(@portfolio, 
-																																		theme: "twitter-bootstrap-3",
-																															 param_name: "portfolio",
-																																	 params: { tab: "activity" },
-                                       									 pagination_class: "pagination-small pagination-centered").to_s) %>');
-$('#paginator-portfolio-bottom').html('<%= escape_javascript(paginate(@portfolio,
-																																			 theme: "twitter-bootstrap-3",
-																																	param_name: "portfolio",
-																																			params: { tab: "activity" },
-                                       											pagination_class: "pagination-small pagination-centered").to_s) %>');
-$('#portfolio').html('<%= escape_javascript(render("portfolio")) %>');
+$('#paginator-examples-top').html('<%= escape_javascript(paginate @examples, remote: true,
+																					                                     theme: "twitter-bootstrap-3",
+																					                                param_name: "examples",
+																					                                		params: { tab: "examples" }) %>');
+
+$('#paginator-examples-bottom').html('<%= escape_javascript(paginate @examples, remote: true,
+																						                                      theme: "twitter-bootstrap-3",
+																						                                 param_name: "examples",
+																						                                 		 params: { tab: "examples" }) %>');
+
+$('#examples').html('<%= escape_javascript(render partial: "examples/example_panel", collection: @examples, as: :example) %>');
+
+$('body').scrollTo('#bio', { duration: 300 });

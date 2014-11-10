@@ -16,9 +16,9 @@ class Upload < ActiveRecord::Base
 
 	def status
 		if self.before?
-			'before-'
+			'before'
 		elsif self.after?
-			'after-'
+			'after'
 		else
 			''
 		end				

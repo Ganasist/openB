@@ -14,15 +14,17 @@
 		<hr class="visible-xs">
 			<% if @jobs.present? %>
         <div id="paginator-jobs-top" class="text-center">
-          <%= paginate @jobs, theme: 'twitter-bootstrap-3',
-                              param_name: 'jobs' %>
+          <%= paginate @jobs, remote: true, 
+                               theme: 'twitter-bootstrap-3',
+                          param_name: 'jobs' %>
         </div>
-        <div id="job">
-          <%= render partial: 'jobs/job_panel', collection: @jobs, as: :job %>
+        <div id="jobs">
+          <%= render partial: "jobs/job_panel", collection: @jobs, as: :job %>
         </div>
         <div id="paginator-jobs-bottom" class="text-center">
-          <%= paginate @jobs, theme: 'twitter-bootstrap-3',
-                              param_name: 'jobs' %>
+          <%= paginate @jobs, remote: true, 
+                               theme: 'twitter-bootstrap-3',
+                          param_name: 'jobs' %>
         </div>
       <% else %>
         <br>
