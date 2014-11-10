@@ -17,10 +17,10 @@ $(document).ready ->
     acceptedFiles: "image/png,image/jpg,image/jpeg"
 
     parallelUploads: 3
-    
+
     # show remove links on each image upload
     addRemoveLinks: true
-
+      
     # if the upload was successful
     success: (file, response) ->
       console.log(response.fileID)

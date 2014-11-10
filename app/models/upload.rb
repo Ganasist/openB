@@ -12,4 +12,15 @@ class Upload < ActiveRecord::Base
 		                                     				 message: 'only (png/gif/jpeg) images'
 
 	process_in_background :image, processing_image_url: 'ajax-loader.gif'
+
+
+	def status
+		if self.before?
+			'before-'
+		elsif self.after?
+			'after-'
+		else
+			''
+		end				
+	end
 end

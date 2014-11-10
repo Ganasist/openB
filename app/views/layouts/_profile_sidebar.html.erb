@@ -3,15 +3,13 @@
 		<%= render partial: 'layouts/pic', collection: member.uploads, as: :upload, locals: { owner: member } %>
 	</span>
 	<div class="text-center">
-		<% if member.uploads.count >= 3 %>
-			<%= link_to 'Upload a profile pic', new_polymorphic_url([member, Upload]),
-																						 id: "#{ member.class.name + "-" + member.id.to_s }-upload_pic_button", 
-																					class: 'btn btn-lg btn-success disabled' if (current_user == member || current_contractor == member) %>
-		<% else %>
-			<%= link_to 'Upload a profile pic', new_polymorphic_url([member, Upload]),
-																				 id: "#{ member.class.name + "-" + member.id.to_s  }-upload_pic_button",
-																			class: 'btn btn-lg btn-success' if (current_user == member || current_contractor == member) %>
-		<% end %>		
+	<%= render partial: 'layouts/pic_upload_button', locals: { item: member,
+                                                       item_owner: member, 
+                                                   current_member: current_user || current_contractor,
+                                                item_upload_count: member.uploads.count,
+                                                      item_status: '' } %>
+
+	
 		<hr>
 
 	</div>

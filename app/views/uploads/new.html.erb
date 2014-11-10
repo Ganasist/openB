@@ -1,5 +1,11 @@
 <div class="row">
-	<%= form_for [@uploadable, @upload], html: { multipart: true, class: 'dropzone' } do |f|  %>
+	<%= simple_form_for [@uploadable, @upload], html: { multipart: true, class: 'dropzone' } do |f|  %>
+	  <% if params[:status] == "before" %>
+	  	<%= f.input :before, as: :hidden, input_html: { value: true } %>
+	  <% elsif params[:status] == "after" %>		  	
+	  	<%= f.input :after, as: :hidden, input_html: { value: true } %>
+  	<% end %>
+
 	  <div class="fallback">
 	    <%= f.file_field :image %><br>
 	    <%= f.submit "Upload" %>
@@ -8,7 +14,7 @@
 	<br>
   <div class="job_return_links">
     <ul class="list-inline">
-      <li><%= link_to 'Back to profile', current_contractor || current_user, class: 'contractor_submit' %></li>
+      <li><%= link_to 'Back to profile', current_contractor || current_user, class: 'btn btn-lg btn-warning' %></li>
     </ul>
   </div>
 </div>

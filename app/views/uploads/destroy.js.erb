@@ -1,7 +1,7 @@
 // $("span.upload_pic").html("<%= escape_javascript render partial: 'layouts/pic', collection: @uploadable.uploads, as: :upload, locals: { owner: @member } %>");
 
 if (<%= @uploadable.uploads.count < 3 %>) {
-	$("a#<%= @uploadable.class.name %>-<%= @uploadable.id.to_s %>-upload_pic_button").removeClass('disabled');
+	$("a#<%= @uploadable.class.name %>-<%= @uploadable.id.to_s %>-upload-pic-button").removeClass("disabled btn-danger").addClass('btn-success');
 }
 
 $('span#image-<%= @upload.id %>').hide();

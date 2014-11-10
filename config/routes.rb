@@ -13,14 +13,14 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :index, :destroy], concerns: :uploadable, defaults: { uploadable: 'user' }
 
   resources :contractors, only: [:show, :index], concerns: :uploadable, defaults: { uploadable: 'contractor' } do
-    resources :examples, except: :destroy, concerns: :uploadable, defaults: { uploadable: 'example' }
+    resources :examples, except: :destroy
   end
   
   resources :jobs, concerns: :uploadable, defaults: { uploadable: 'job' } do
     resources :bids, only: [:create, :update, :destroy]
   end
   
-  resources :examples, only: :destroy
+  resources :examples, only: :destroy, concerns: :uploadable, defaults: { uploadable: 'example' }
   resources :bids, only: :destroy
 
   resource :contact, only: [:new, :create]

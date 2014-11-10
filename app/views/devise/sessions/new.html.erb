@@ -10,7 +10,6 @@
 		  <% end %>
 		<% end %>
 	</div>
-
 	<div class="authform">
 		<%= simple_form_for resource, as: resource_name, 
 																 url: session_path(resource_name) do |f| %>
@@ -26,11 +25,8 @@
        	<%= render partial: 'devise/sessions/sign_up_in_button', 
 		  							locals: { text: 'sign-in'} %>
       </div>
-
-		  
-		  	
 		<% end %>
 	</div>
-</div>	
+</div>
 
-	<%= render 'devise/shared/links' %>
+<%= render 'devise/shared/links' %>
