@@ -8,6 +8,7 @@
 		  <% end if (current_user || current_contractor) == owner %>
 	  <% end %>
 	</span>
+	<br>
 <% else %>
 	<span id="image-<%= upload.id %>">
 		<%= image_tag upload.image.url(:medium), class: 'img-rounded img-responsive' %>
@@ -17,4 +18,5 @@
 	  <% end if (current_user || current_contractor) == owner %>
 		<hr>
 	</span>
+	<br>
 <% end %>
