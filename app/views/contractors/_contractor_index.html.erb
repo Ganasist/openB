@@ -1,0 +1,26 @@
+<table class="table table-striped table-hover table-bordered text-center">
+  <thead class="lead">
+    <td>Company Name</td>
+    <td>Categories</td>
+    <td>Description</td>
+    <td>Zip code</td>
+    <td>Updated</td>
+  </thead>
+  <tbody>
+    <% @contractors.each do |contractor| %>
+      <tr>
+        <td><%= link_to contractor.company_name, contractor, class: 'unstyled-link' %></td>
+        <td><%= link_to contractor.categories.to_sentence, contractor, class: 'unstyled-link' %></td>
+        <td>
+          <% if contractor.bio %>
+            <%= link_to truncate(contractor.bio, length: 75), contractor, class: 'unstyled-link' %>
+          <% else %>
+            No description
+          <% end %>
+        </td>
+        <td><%= contractor.zip_code  %></td>
+        <td><%= time_ago_in_words(contractor.updated_at) %> ago</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

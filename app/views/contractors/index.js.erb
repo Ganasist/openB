@@ -1,0 +1,10 @@
+$('#paginator-contractors-top').html('<%= escape_javascript(paginate(@contractors, remote: true, 
+																							  										  theme: "twitter-bootstrap-3",
+																					                       param_name: "contractors")) %>');
+$('#paginator-contractors-bottom').html('<%= escape_javascript(paginate(@contractors, remote: true, 
+																								  										   theme: "twitter-bootstrap-3",
+																						                        param_name: "contractors")) %>');
+
+$('#contractor_index').html('<%= escape_javascript(render "contractor_index") %>');
+
+$('body').scrollTo('#contractor_index', { duration: 500, offset: -150 });

@@ -5,12 +5,11 @@ class ContractorsController < ApplicationController
   before_action :block_visitors
 
   def index
-    @contractors = Contractor.all
-    if category = params[:search]
-      @contractors = @contractors.relevant_categories(category)
-                                 .order(updated_at: :desc)
+    @contractors = Contractor.all.order(updated_at: :desc)
                                  .page(params[:contractors])
                                  .per(15)
+    if category = params[:search]
+      @contractors = @contractors.relevant_categories(category)                                 
     end
   end
 
