@@ -6,9 +6,11 @@ Rails.application.routes.draw do
     resources :uploads, only: [:new, :create, :destroy]
   end
 
-	devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'sessions' }
+	devise_for :users, controllers: { registrations: 'users/registrations', 
+                                          sessions: 'sessions' }
 
-	devise_for :contractors, controllers: { registrations: 'contractors/registrations', sessions: 'sessions' }							 
+	devise_for :contractors, controllers: { registrations: 'contractors/registrations', 
+                                               sessions: 'sessions' }							 
 
   resources :users, only: [:show, :index, :destroy], concerns: :uploadable, defaults: { uploadable: 'user' }
 
