@@ -1,13 +1,9 @@
 <span id="image-<%= upload.id %>">
-	<%= image_submit_tag upload.image_before(:medium), class: 'img-rounded img-responsive', 
-	                                                    data: { toggle: 'modal', 
-	                                                            target: "#myModal-#{upload.id}" } do %>
-
-    <%= link_to polymorphic_url([upload.uploadable, upload]), method: :delete, 
-    																								remote: true do %>
-      <%= fa_icon 'minus-square lg', title: 'Delete',
-                                     class: 'member_pic_delete delete-job-post pull-right' %>
-
+	<%= image_submit_tag upload.image.url(:medium), class: 'img-rounded', data: { toggle: 'modal', 
+														                                                    target: "#myModal-#{ upload.id }" } do %>
+    <%= link_to polymorphic_url([upload.uploadable, upload]), method: :delete, remote: true do %>
+    	<br>
+      <%= fa_icon 'minus-square lg', title: 'Delete', class: 'member_pic_delete delete-job-post pull-right' %>
 	  <% end if (current_user || current_contractor) == upload.uploadable %>
   <% end %>
 </span>

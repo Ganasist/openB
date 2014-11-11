@@ -2,15 +2,12 @@
 	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 		<%= render partial: 'layouts/profile_sidebar', locals: { member: @contractor } %>
 	</div>
-
 	<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
 		<hr class="visible-xs">
 		<h3 class="lead text-center" id="bio">
 			<%= @contractor.try(:bio) %>
 		</h3>
-		
     <hr>
-    
     <ul class="nav nav-pills nav-justified">
 		  <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
 		  	<a href="#job" data-toggle="tab">Nearby Jobs</a>
@@ -29,9 +26,11 @@
                             param_name: 'jobs',
                                 params: { tab: 'jobs' } %>
           </div>
+
           <div id="jobs">
             <%= render partial: 'jobs/job_panel', collection: @jobs, as: :job %>
           </div>
+
           <div id="paginator-jobs-bottom" class="text-center">
             <%= paginate @jobs, remote: true,
                                  theme: 'twitter-bootstrap-3',
@@ -56,9 +55,11 @@
                                 param_name: 'examples',
                                 params: { tab: 'examples' } %>
           </div>
+
           <div id="examples">
             <%= render partial: 'examples/example_panel', collection: @examples, as: :example %>
           </div>
+
           <div id="paginator-examples-bottom" class="text-center">
             <%= paginate @examples, remote: true,
                                      theme: 'twitter-bootstrap-3',

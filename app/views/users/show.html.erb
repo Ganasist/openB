@@ -3,32 +3,29 @@
 		<%= render partial: 'layouts/profile_sidebar', locals: { member: @user } %>
 	</div>
 	<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-		
 		<hr class="visible-xs">
-		
 		<h3 class="lead text-center">
 			<%= link_to 'Post a New Job', new_job_path, 
 																		class: 'btn btn-lg btn-success' if current_user == @user %>
 		</h3>
-
 		<hr class="visible-xs">
-			<% if @jobs.present? %>
-        <div id="paginator-jobs-top" class="text-center">
-          <%= paginate @jobs, remote: true, 
-                               theme: 'twitter-bootstrap-3',
-                          param_name: 'jobs' %>
-        </div>
-        <div id="jobs">
-          <%= render partial: "jobs/job_panel", collection: @jobs, as: :job %>
-        </div>
-        <div id="paginator-jobs-bottom" class="text-center">
-          <%= paginate @jobs, remote: true, 
-                               theme: 'twitter-bootstrap-3',
-                          param_name: 'jobs' %>
-        </div>
-      <% else %>
-        <br>
-        <h4 class="text-center">You have not posted any Jobs</h4>
-      <% end %>
+		<% if @jobs.present? %>
+      <div id="paginator-jobs-top" class="text-center">
+        <%= paginate @jobs, remote: true, 
+                             theme: 'twitter-bootstrap-3',
+                        param_name: 'jobs' %>
+      </div>
+      <div id="jobs">
+        <%= render partial: "jobs/job_panel", collection: @jobs, as: :job %>
+      </div>
+      <div id="paginator-jobs-bottom" class="text-center">
+        <%= paginate @jobs, remote: true, 
+                             theme: 'twitter-bootstrap-3',
+                        param_name: 'jobs' %>
+      </div>
+    <% else %>
+      <br>
+      <h4 class="text-center">You have not posted any Jobs</h4>
+    <% end %>
 	</div>	
 </div>
