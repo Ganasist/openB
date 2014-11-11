@@ -27,6 +27,5 @@ Rails.application.routes.draw do
   resource :search, only: :show
   
 	mount Sidekiq::Web => '/sidekiq'
-  mount Upmin::Engine => '/admin'
   root to: 'high_voltage/pages#show', id: 'splash'
 end
