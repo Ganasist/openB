@@ -28,14 +28,16 @@
       <div class="col-xs-12 col-md-3 text-center">
       <p class="lead">Before</p>
       <% if example.before_uploads.count > 0 %>
-        <%= render partial: 'layouts/pic', collection: example.before_uploads, as: :upload, locals: { owner: example.contractor } %>
+        <%= render partial: 'layouts/pic', collection: example.before_uploads, 
+                                                   as: :upload, 
+                                               locals: { owner: example.contractor } %>
       <% end %>
 
       <%= render partial: 'layouts/pic_upload_button', locals: { item: example, 
                                                            item_owner: example.contractor, 
-                                                      current_member: @contractor,
-                                                        item_upload_count: example.before_uploads.count,
-                                                              item_status: 'before' } %>
+                                                       current_member: @contractor,
+                                                    item_upload_count: example.before_uploads.count,
+                                                          item_status: 'before' } %>
 
         <!-- <hr class="visible-xs visible-sm"> -->
       </div>
