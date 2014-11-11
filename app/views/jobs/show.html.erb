@@ -1,14 +1,41 @@
-<%= render partial: 'layouts/modals', collection: @job.uploads, as: :upload %>
+<div class="container">
+  <%= render partial: 'layouts/modals', collection: @job.uploads, as: :upload %>
 
-<div class="row">
-  <div class="col-xs-12">
-    <%= render 'job_panel', job: @job %>
-  </div>
   <div class="row">
+    <div class="col-xs-12">
+      <%= render 'job_panel', job: @job %>
+    </div>
+
+
+    <% if @bids.count > 0 && current_user == @job.user %>
+      <hr>
+      <h3 class="text-center lead">Recent bids for this job</h3>
+
+      <div id="paginator-bids-top" class="text-center">
+        <%= paginate @bids, remote: true,
+                             theme: 'twitter-bootstrap-3',
+                        param_name: 'bids' %>
+      </div>
+
+      <div class="col-xs-12" id="bids">
+        <%= render partial: 'bid_panel' %> 
+      </div>
+
+      <div id="paginator-bids-bottom" class="text-center">
+        <%= paginate @bids, remote: true,
+                             theme: 'twitter-bootstrap-3',
+                        param_name: 'bids' %>
+      </div>
+    <% elsif @bids.count == 0 && current_user == @job.user %>
+      <h3 class="text-center lead">There are no bids for this job</h3>
+    <% end %>
+
+
     <div class="job_return_links">
       <ul class="list-inline">
         <li><%= link_to 'Back to profile', current_contractor || current_user, class: 'btn btn-sm btn-warning' %></li>
       </ul>
     </div>
+
   </div>
 </div>

@@ -1,0 +1,16 @@
+<table class="table table-striped table-hover table-bordered text-center">
+  <thead class="lead">
+    <td>Contractor</td>
+    <td>Cost</td>
+    <td>Updated</td>
+  </thead>
+  <tbody>
+	  <% @bids.each do |bid| %>
+	    <tr>
+			  <td><%= link_to bid.contractor.company_name, bid.contractor, class: 'unstyled-link' %></td>
+			  <td>$<%= bid.cost %></td>
+			  <td><%= time_ago_in_words(bid.updated_at)  %> ago</td>
+		  </tr>
+	  <% end %>          
+  </tbody>
+</table>

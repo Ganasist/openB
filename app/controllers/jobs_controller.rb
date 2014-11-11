@@ -5,18 +5,18 @@ class JobsController < ApplicationController
   before_action :block_visitors
 
   def index
-    @jobs = Job.all
+    @jobs = Job.all.order(updated_at: :desc)
+                   .page(params[:jobs])
+                   .per(15)
     if category = params[:search]
       @jobs = Job.relevant_categories(category)
-                 .order(updated_at: :desc)
-                 .page(params[:jobs])
-                 .per(15)
     end
-    respond_with(@jobs)
   end
 
   def show
-    respond_with(@job)
+    @bids = @job.bids.order(updated_at: :desc)
+                     .page(params[:bids])
+                     .per(5)
   end
 
   def new

@@ -1,5 +1,7 @@
 <td class="text-center">
-	<%= link_to image_tag(contractor.image(:thumb), class: 'img-rounded'), contractor %><br>
+	<% if contractor.uploads.exists? %>
+		<%= link_to image_tag(contractor.uploads.first.image(:thumb), class: 'img-rounded'), contractor %><br>
+	<% end %>
 	<%= link_to contractor.company_name, contractor %><br>
   <%= contractor.categories.to_sentence %>
 </td>
