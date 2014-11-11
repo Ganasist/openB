@@ -34,6 +34,10 @@ class Contractor < ActiveRecord::Base
     self.categories.present?
   end
 
+  def fullname
+    self.company_name || self.name || self.email
+  end
+
   def user?
     false
   end
