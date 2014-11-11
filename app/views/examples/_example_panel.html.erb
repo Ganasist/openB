@@ -27,7 +27,6 @@
     <div class="panel-body">     
       <div class="col-xs-12 col-md-3 text-center">
       <p class="lead">Before</p>
-      <p><%= params[:controller] %></p>
       <% if example.before_uploads.count > 0 %>
         <%= render partial: 'layouts/pic', collection: example.before_uploads, as: :upload, locals: { owner: example.contractor } %>
       <% end %>
