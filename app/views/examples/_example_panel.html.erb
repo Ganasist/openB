@@ -2,7 +2,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">
       <p>
-        <% if current_contractor == @contractor %>
+        <% if current_contractor == example.contractor %>
           <%= link_to example, method: :delete,
                                remote: true do %>
             <%= fa_icon 'minus-square 2x', title: 'Delete',
@@ -37,7 +37,7 @@
       <%= render partial: 'layouts/pic_upload_button', 
                   locals: { item: example, 
                       item_owner: example.contractor, 
-                  current_member: @contractor,
+                  current_member: current_user || current_contractor,
                item_upload_count: example.before_uploads.count,
                      item_status: 'before' } %>
 
@@ -72,7 +72,7 @@
           <%= render partial: 'layouts/pic_upload_button', 
                       locals: { item: example, 
                           item_owner: example.contractor, 
-                      current_member: @contractor,
+                      current_member: current_user || current_contractor,
                    item_upload_count: example.after_uploads.count,
                          item_status: 'after' } %>
 

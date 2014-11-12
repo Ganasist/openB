@@ -5,7 +5,8 @@
 
   <div class="row">
     <div class="col-xs-12">
-      <%= render 'job_panel', job: @job %>
+      <%= render 'job_panel', 
+                  job: @job %>
     </div>
 
     <% if @bids.count > 0 && current_user == @job.user %>
@@ -26,12 +27,7 @@
       <h3 class="text-center lead">There are no bids for this job</h3>
     <% end %>
 
-    <div class="job_return_links">
-      <ul class="list-inline">
-        <li><%= link_to 'Back to profile', current_contractor || current_user, 
-                                           class: 'btn btn-sm btn-warning' %></li>
-      </ul>
-    </div>
+    <%= render 'layouts/back_to_profile' %>
     
   </div>
 </div>

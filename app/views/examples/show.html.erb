@@ -1,14 +1,15 @@
-<%= render partial: 'layouts/modals', collection: @example.uploads, as: :upload %>
+<div class="container">
+  <%= render partial: 'layouts/modals', 
+          collection: @example.uploads, 
+                  as: :upload %>
 
-<div class="row">
-  <div class="col-xs-12">
-    <%= render 'example_panel', example: @example %>
-  </div>
   <div class="row">
-    <div class="job_return_links">
-      <ul class="list-inline">
-        <li><%= link_to 'Back to profile', current_contractor || current_user, class: 'btn btn-sm btn-warning' %></li>
-      </ul>
+    <div class="col-xs-12">
+      <%= render 'example_panel', 
+                  example: @example %>
     </div>
+    
+    <%= render 'layouts/back_to_profile' %>
+    
   </div>
 </div>
