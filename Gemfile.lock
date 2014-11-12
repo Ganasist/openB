@@ -48,10 +48,16 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    acts_as_commentable_with_threading (2.0.0)
+      activerecord (>= 4.0)
+      activesupport (>= 4.0)
+      awesome_nested_set (>= 3.0)
     addressable (2.3.6)
     amoeba (2.0.0)
       activerecord (>= 3.0)
     arel (6.0.0.beta1)
+    awesome_nested_set (3.0.1)
+      activerecord (>= 4.0.0, < 5)
     aws-sdk (1.36.1)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -347,6 +353,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_attr
+  acts_as_commentable_with_threading
   amoeba
   aws-sdk
   better_errors

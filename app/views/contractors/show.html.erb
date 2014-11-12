@@ -7,7 +7,8 @@
 		<h3 class="lead text-center" id="description">
 			<%= @contractor.try(:description) %>
 		</h3>
-    <hr>
+    <hr class="visible-xs">
+
     <ul class="nav nav-pills nav-justified">
 		  <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
 		  	<a href="#job" data-toggle="tab">Nearby Jobs</a>
@@ -15,10 +16,13 @@
 		  <li class="<%= 'active' if params[:tab] == 'examples' %>">
 		  	<a href="#example" data-toggle="tab">Portfolio</a>
 		  </li>
-		</ul>
+		</ul>    
 		<br>
+
 		<div class="tab-content">
-		  <div class="<%= if (params[:tab] == 'jobs' || !params[:tab]) then 'tab-pane fade in active'  else 'tab-pane fade in' end %>" id="job">
+		  <div class="<%= (params[:tab] == 'jobs' || !params[:tab]) ? 
+                      'tab-pane fade in active' : 
+                      'tab-pane fade in' %>" id="job">
 		  	<% if @jobs.present? %>
           <div id="paginator-jobs-top" class="text-center">
             <%= render partial: 'layouts/paginator', 
