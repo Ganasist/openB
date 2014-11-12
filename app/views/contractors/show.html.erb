@@ -21,15 +21,21 @@
 		  <div class="<%= if (params[:tab] == 'jobs' || !params[:tab]) then 'tab-pane fade in active'  else 'tab-pane fade in' end %>" id="job">
 		  	<% if @jobs.present? %>
           <div id="paginator-jobs-top" class="text-center">
-            <%= render partial: 'layouts/paginator', locals: { context: @jobs, context_string: 'jobs' } %>
+            <%= render partial: 'layouts/paginator', 
+                        locals: { context: @jobs, 
+                           context_string: 'jobs' } %>
           </div>
 
           <div id="jobs">
-            <%= render partial: 'jobs/job_panel', collection: @jobs, as: :job %>
+            <%= render partial: 'jobs/job_panel', 
+                    collection: @jobs, 
+                            as: :job %>
           </div>
 
           <div id="paginator-jobs-bottom" class="text-center">
-            <%= render partial: 'layouts/paginator', locals: { context: @jobs, context_string: 'jobs' } %>
+            <%= render partial: 'layouts/paginator', 
+                        locals: { context: @jobs, 
+                           context_string: 'jobs' } %>
 	        </div>
         <% else %>
           <br>
@@ -44,15 +50,21 @@
         </h3>
 			  <% if @examples.present? %>
           <div id="paginator-examples-top" class="text-center">
-            <%= render partial: 'layouts/paginator', locals: { context: @examples, context_string: 'examples' } %>
+            <%= render partial: 'layouts/paginator', 
+                        locals: { context: @examples, 
+                           context_string: 'examples' } %>
           </div>
 
           <div id="examples">
-            <%= render partial: 'examples/example_panel', collection: @examples, as: :example %>
+            <%= render partial: 'examples/example_panel', 
+                    collection: @examples, 
+                            as: :example %>
           </div>
 
           <div id="paginator-examples-bottom" class="text-center">
-            <%= render partial: 'layouts/paginator', locals: { context: @examples, context_string: 'examples' } %>
+            <%= render partial: 'layouts/paginator', 
+                        locals: { context: @examples, 
+                           context_string: 'examples' } %>
 	        </div>
 		  	<% else %>
           <br>

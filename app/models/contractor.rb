@@ -30,7 +30,7 @@ class Contractor < ActiveRecord::Base
     self.name.present? && 
     self.company_name.present? && 
     self.zip_code.present? && 
-    self.bio.present? && 
+    self.description.present? && 
     self.categories.present?
   end
 

@@ -1,5 +1,7 @@
 <div class="container">
-  <%= render partial: 'layouts/modals', collection: @job.uploads, as: :upload %>
+  <%= render partial: 'layouts/modals', 
+          collection: @job.uploads, 
+                  as: :upload %>
 
   <div class="row">
     <div class="col-xs-12">
@@ -11,7 +13,9 @@
       <h3 class="text-center lead">Recent bids for this job</h3>
 
       <div id="paginator-bids-top" class="text-center">
-        <%= render partial: 'layouts/paginator', locals: { context: @bids, context_string: 'bids' } %>
+        <%= render partial: 'layouts/paginator', 
+                    locals: { context: @bids, 
+                       context_string: 'bids' } %>
       </div>
 
       <div class="col-xs-12" id="bids">
@@ -24,9 +28,10 @@
 
     <div class="job_return_links">
       <ul class="list-inline">
-        <li><%= link_to 'Back to profile', current_contractor || current_user, class: 'btn btn-sm btn-warning' %></li>
+        <li><%= link_to 'Back to profile', current_contractor || current_user, 
+                                           class: 'btn btn-sm btn-warning' %></li>
       </ul>
     </div>
-
+    
   </div>
 </div>
