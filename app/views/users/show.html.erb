@@ -14,8 +14,8 @@
       <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
         <a href="#job" data-toggle="tab">Your Jobs</a>
       </li>
-      <li class="<%= 'active' if params[:tab] == 'messages' %>">
-        <a href="#message" data-toggle="tab">Messages</a>
+      <li class="<%= 'active' if params[:tab] == 'comments' %>">
+        <a href="#comment" data-toggle="tab">Comments</a>
       </li>
     </ul>    
     <br>
@@ -25,53 +25,22 @@
                       'tab-pane fade in active' : 
                       'tab-pane fade in' %>" id="job">
         <% if @jobs.present? %>
-          <div id="paginator-jobs-top" class="text-center">
-            <%= render partial: 'layouts/paginator', 
-                        locals: { context: @jobs, 
-                           context_string: 'jobs' } %>
-          </div>
-          <div id="jobs">
-            <%= render partial: 'jobs/job_panel', 
-                    collection: @jobs, 
-                            as: :job %>
-          </div>
-          <div id="paginator-jobs-bottom" class="text-center">
-            <%= render partial: 'layouts/paginator', 
-                        locals: { context: @jobs, 
-                           context_string: 'jobs' } %>
-          </div>
+          <%= render 'layouts/jobs' %>
         <% else %>
           <br>
-          <h4 class="text-center">You have not posted any Jobs</h4>
+          <h4 class="text-center">You have not posted any jobs</h4>
         <% end %>
       </div>
 
-      <div class="<%= (params[:tab] == 'examples') ? 
+      <div class="<%= (params[:tab] == 'comments') ? 
                       'tab-pane fade in active' : 
-                      'tab-pane fade in' %>" id="message">
+                      'tab-pane fade in' %>" id="comment">
         
-
-        <% if @examples.present? %>
-          <div id="paginator-examples-top" class="text-center">
-            <%= render partial: 'layouts/paginator', 
-                        locals: { context: @examples, 
-                           context_string: 'examples' } %>
-          </div>
-
-          <div id="examples">
-            <%= render partial: 'examples/example_panel', 
-                    collection: @examples, 
-                            as: :example %>
-          </div>
-
-          <div id="paginator-examples-bottom" class="text-center">
-            <%= render partial: 'layouts/paginator', 
-                        locals: { context: @examples, 
-                           context_string: 'examples' } %>
-          </div>
+        <% if @comments.present? %>
+          <%= render 'comments/comments' %>
         <% else %>
           <br>
-          <h4 class="text-center">You have no messages</h4>
+          <h4 class="text-center">You have no comments</h4>
         <% end %>
       </div>
     </div>

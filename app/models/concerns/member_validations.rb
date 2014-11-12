@@ -2,6 +2,8 @@
 module MemberValidations
 	extend ActiveSupport::Concern
 	included do
+		
+		acts_as_commentable
 
 		before_validation :remove_blank_categories
 

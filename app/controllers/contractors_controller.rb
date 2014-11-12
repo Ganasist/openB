@@ -23,6 +23,10 @@ class ContractorsController < ApplicationController
                            .order(updated_at: :desc)
                            .page(params[:examples])
 
+    @comments = @contractor.comment_threads
+                           .order(updated_at: :desc)
+                           .page(params[:examples])
+
     @jobs = Job.near(@contractor.full_address, 100)
                .order(updated_at: :desc)
                .includes([:user, :uploads])

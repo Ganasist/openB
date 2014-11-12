@@ -24,4 +24,16 @@ $('#paginator-examples-bottom').html('<%= escape_javascript(paginate @examples, 
 
 $('#examples').html('<%= escape_javascript(render partial: "examples/example_panel", collection: @examples, as: :example) %>');
 
+$('#paginator-comments-top').html('<%= escape_javascript(paginate @comments, remote: true,
+																					                                     theme: "twitter-bootstrap-3",
+																					                                param_name: "comments",
+																					                                		params: { tab: "comments" }) %>');
+
+$('#paginator-comments-bottom').html('<%= escape_javascript(paginate @comments, remote: true,
+																						                                      theme: "twitter-bootstrap-3",
+																						                                 param_name: "comments",
+																						                                 		 params: { tab: "comments" }) %>');
+
+$('#comments').html('<%= escape_javascript(render partial: "comments/comments") %>');
+
 $('body').scrollTo('#description', { duration: 300 });

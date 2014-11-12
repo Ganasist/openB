@@ -1,0 +1,17 @@
+<div id="paginator-examples-top" class="text-center">
+  <%= render partial: 'layouts/paginator', 
+              locals: { context: @examples, 
+                 context_string: 'examples' } %>
+</div>
+
+<div id="examples">
+  <%= render partial: 'examples/example_panel', 
+          collection: @examples, 
+                  as: :example %>
+</div>
+
+<div id="paginator-examples-bottom" class="text-center">
+  <%= render partial: 'layouts/paginator', 
+              locals: { context: @examples, 
+                 context_string: 'examples' } %>
+</div>

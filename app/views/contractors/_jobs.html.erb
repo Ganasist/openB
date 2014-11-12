@@ -1,0 +1,15 @@
+<div id="paginator-jobs-top" class="text-center">
+  <%= render partial: 'layouts/paginator', 
+              locals: { context: @jobs, 
+                 context_string: 'jobs' } %>
+</div>
+<div id="jobs">
+  <%= render partial: 'jobs/job_panel', 
+          collection: @jobs, 
+                  as: :job %>
+</div>
+<div id="paginator-jobs-bottom" class="text-center">
+  <%= render partial: 'layouts/paginator', 
+              locals: { context: @jobs, 
+                 context_string: 'jobs' } %>
+</div>
