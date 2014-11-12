@@ -9,15 +9,17 @@
                                            class: 'delete-job-post pull-right' %>
           <% end %>
           <%= link_to edit_contractor_example_path(example.contractor, example) do %>
-            <%= fa_icon 'edit 2x', title: 'Edit', class: 'pull-right' %>
+            <%= fa_icon 'edit 2x', 
+                        title: 'Edit', 
+                        class: 'pull-right' %>
           <% end %>
         <% end %>
       </p>
       <ul class="list-inline categories">
-        <% example.categories.each do |c| %>
+        <% example.categories.each do |category| %>
           <li>
             <span class="label label-<%= %w(default primary success info warning danger).sample %>">
-              <%= c %>
+              <%= category %>
             </span>
           </li>
         <% end %>
@@ -26,20 +28,20 @@
   </div>  
     <div class="panel-body">     
       <div class="col-xs-12 col-md-3 text-center">
-      <p class="lead">Before</p>
-      <% if example.before_uploads.count > 0 %>
-        <%= render partial: 'layouts/pic', 
-                collection: example.before_uploads, 
-                        as: :upload, 
-                    locals: { owner: example.contractor } %>
-      <% end %>
+        <p class="lead">Before</p>
+        <% if example.before_uploads.count > 0 %>
+          <%= render partial: 'layouts/pic', 
+                  collection: example.before_uploads, 
+                          as: :upload, 
+                      locals: { owner: example.contractor } %>
+        <% end %>
 
-      <%= render partial: 'layouts/pic_upload_button', 
-                  locals: { item: example, 
-                      item_owner: example.contractor, 
-                  current_member: current_user || current_contractor,
-               item_upload_count: example.before_uploads.count,
-                     item_status: 'before' } %>
+        <%= render partial: 'layouts/pic_upload_button', 
+                    locals: { item: example, 
+                        item_owner: example.contractor, 
+                    current_member: current_user || current_contractor,
+                 item_upload_count: example.before_uploads.count,
+                       item_status: 'before' } %>
 
         <!-- <hr class="visible-xs visible-sm"> -->
       </div>
@@ -82,6 +84,6 @@
 
     <div class="panel-footer">
       <%= "Posted #{ time_ago_in_words(example.created_at) } ago" %> |
-      <%= link_to "By #{ example.contractor.company_name }", example.contractor, class: 'unstyled-link' %>
+      <%= link_to "By #{ example.contractor.fullname }", example.contractor, class: 'unstyled-link' %>
     </div>
 </div>
