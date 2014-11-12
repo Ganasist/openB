@@ -7,9 +7,11 @@ class ContractorsController < ApplicationController
   def index
     @contractors = Contractor.all.order(updated_at: :desc)
                                  .page(params[:contractors])
-                                 .per(15)
+                                 .per(10)
     if category = params[:search]
-      @contractors = @contractors.relevant_categories(category)                                 
+      @contractors = @contractors.relevant_categories(category).order(updated_at: :desc)
+                                 .page(params[:contractors])
+                                 .per(10)                               
     end
   end
 

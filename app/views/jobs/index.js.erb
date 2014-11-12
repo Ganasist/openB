@@ -5,6 +5,6 @@ $('#paginator-jobs-bottom').html('<%= escape_javascript(paginate(@jobs, remote: 
 																								  										   theme: "twitter-bootstrap-3",
 																						                        param_name: "jobs")) %>');
 
-$('#job_index').html('<%= escape_javascript(render "job_index") %>');
+$('#job_index').html('<%= escape_javascript(render partial: "job_index") %>');
 
 $('body').scrollTo('#job_index', { duration: 500, offset: -150 });

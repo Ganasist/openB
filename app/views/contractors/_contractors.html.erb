@@ -1,0 +1,13 @@
+<tr>
+  <td><%= link_to contractor.company_name, contractor, class: 'unstyled-link' %></td>
+  <td><%= link_to contractor.categories.to_sentence, contractor, class: 'unstyled-link' %></td>
+  <td>
+    <% if contractor.description %>
+      <%= link_to truncate(contractor.description, length: 75), contractor, class: 'unstyled-link' %>
+    <% else %>
+      No description
+    <% end %>
+  </td>
+  <td><%= contractor.zip_code  %></td>
+  <td><%= time_ago_in_words(contractor.updated_at) %> ago</td>
+</tr>

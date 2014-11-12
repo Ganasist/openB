@@ -46,6 +46,6 @@ class Contractors::RegistrationsController < RegistrationsController
                                                                      :current_password, 
                                                                      :password_confirmation,
                                                                      :zip_code,
-                                                                     :bio) }
+                                                                     :description) }
     end
 end

@@ -7,9 +7,12 @@ class JobsController < ApplicationController
   def index
     @jobs = Job.all.order(updated_at: :desc)
                    .page(params[:jobs])
-                   .per(15)
+                   .per(10)
     if category = params[:search]
       @jobs = Job.relevant_categories(category)
+                 .order(updated_at: :desc)
+                 .page(params[:jobs])
+                 .per(10)
     end
   end
 
