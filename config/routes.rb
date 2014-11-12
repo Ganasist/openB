@@ -6,23 +6,35 @@ Rails.application.routes.draw do
     resources :uploads, only: [:new, :create, :destroy]
   end
 
+  concern :commentable do
+    resources :comments, only: [:new, :create, :edit, :update, :destroy]
+  end
+
 	devise_for :users, controllers: { registrations: 'users/registrations', 
                                           sessions: 'sessions' }
 
 	devise_for :contractors, controllers: { registrations: 'contractors/registrations', 
                                                sessions: 'sessions' }							 
 
-  resources :users, only: [:show, :index, :destroy], concerns: :uploadable, defaults: { uploadable: 'user' }
+  resources :users, only: [:show, :index, :destroy], 
+                concerns: [:uploadable, :commentable],
+                defaults: { uploadable: 'user', commentable: 'user' }
 
-  resources :contractors, only: [:show, :index], concerns: :uploadable, defaults: { uploadable: 'contractor' } do
+  resources :contractors, only: [:show, :index], 
+                      concerns: [:uploadable, :commentable],
+                      defaults: { uploadable: 'contractor', commentable: 'contractor' } do
     resources :examples, except: :destroy
   end
   
-  resources :jobs, concerns: :uploadable, defaults: { uploadable: 'job' } do
+  resources :jobs, concerns: [:uploadable, :commentable],
+                   defaults: { uploadable: 'job', commentable: 'job' } do
     resources :bids, only: [:create, :update, :destroy]
   end
   
-  resources :examples, only: :destroy, concerns: :uploadable, defaults: { uploadable: 'example' }
+  resources :examples, only: :destroy, 
+                   concerns: [:uploadable, :commentable],
+                   defaults: { uploadable: 'example', commentable: 'example' }
+
   resources :bids, only: :destroy
 
   resource :contact, only: [:new, :create]

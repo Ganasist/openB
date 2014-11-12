@@ -12,8 +12,9 @@
       						title: 'Delete', 
       						class: 'member_pic_delete delete-job-post pull-right' %>
 	  <% end if (current_user || current_contractor) == owner %>
+
+		<hr>
 	</span>
-	<hr>
 <% else %>
 	<span id="image-<%= upload.id %>">
 		<%= image_tag upload.image.url(:medium), 
@@ -26,6 +27,6 @@
 	        						title: 'Delete', 
 	        						class: 'member_pic_delete delete-job-post pull-right' %>
 	  <% end if (current_user || current_contractor) == owner %>
+		<hr>
 	</span>
-	<hr>
 <% end %>

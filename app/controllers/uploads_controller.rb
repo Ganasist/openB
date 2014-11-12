@@ -6,7 +6,7 @@ class UploadsController < ApplicationController
   end
  
   def create
-  	@upload = @uploadable.uploads.create(upload_params)
+  	@upload = @uploadable.uploads.build(upload_params)
   	if @upload.save
   	  render json: { message: "success", fileID: @upload.id }, status: 200
   	else
@@ -19,7 +19,9 @@ class UploadsController < ApplicationController
   def destroy
     @upload = Upload.find(params[:id])
     @uploadable = @upload.uploadable
-    @member = (@uploadable.is_a?(User) || @uploadable.is_a?(Contractor)) ? @uploadable : (@uploadable.try(:user) || @uploadable.try(:contractor))
+    @member = (@uploadable.is_a?(User) || @uploadable.is_a?(Contractor)) ? 
+               @uploadable : 
+              (@uploadable.try(:user) || @uploadable.try(:contractor))
     @upload.destroy
     respond_to do |format|
       format.html { redirect_to current_user, notice: 'Image was deleted' }

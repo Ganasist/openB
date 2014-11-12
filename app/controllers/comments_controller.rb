@@ -19,12 +19,13 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @commentable = @comment.commentable
-    @member = (@commentable.is_a?(User) || @commentable.is_a?(Contractor)) ? @commentable : (@commentable.try(:user) || @commentable.try(:contractor))
+    @member = (@commentable.is_a?(User) || @commentable.is_a?(Contractor)) ? 
+               @commentable : 
+              (@commentable.try(:user) || @commentable.try(:contractor))
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to current_user, notice: 'Image was deleted' }
+      format.html { redirect_to current_user, notice: 'Comment was deleted' }
       format.js
-      format.json { render json: { message: 'File deleted from server', fileID: @comment.id } }
     end
   end
 
