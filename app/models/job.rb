@@ -9,7 +9,7 @@ class Job < ActiveRecord::Base
   
   has_many :uploads, as: :uploadable, dependent: :destroy
 
-  has_many :bids
+  has_many :bids, dependent: :destroy
   has_many :contractors, through: :bids
 
   validates :bidding_period, allow_blank: true, 
