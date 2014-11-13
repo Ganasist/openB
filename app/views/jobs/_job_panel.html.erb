@@ -12,9 +12,17 @@
           <%= link_to edit_job_path(job) do %>
             <%= fa_icon 'edit 2x', title: 'Edit', class: 'pull-right' %>
           <% end %>
-        <% elsif contractor_signed_in? && (request.fullpath).include?('/contractors') %>
-          <%= link_to job_path(job), class: 'hidden-xs hidden-sm btn btn-primary pull-right' do %>
-            View Details
+        <% elsif contractor_signed_in? %>
+          <% if (request.fullpath).include?('/contractors') %>
+            <%= link_to job_path(job), class: 'hidden-xs hidden-sm btn btn-primary pull-right' do %>
+              View Details
+            <% end %>
+          <% elsif (request.fullpath).include?('/jobs') %>
+            <%= link_to "Send a comment", new_polymorphic_url([@job, Comment.new]), 
+                                              class: 'btn btn-small btn-success pull-right',
+                                              remote: true, 
+                                               data: { toggle: 'modal',
+                                                       target: '#commentModal' } %>
           <% end %>
         <% end %>
       </p>
@@ -28,6 +36,8 @@
         <% end %>
       </ul>
     </h3>
+
+
   </div>  
     <div class="panel-body">
       <% if contractor_signed_in? %>

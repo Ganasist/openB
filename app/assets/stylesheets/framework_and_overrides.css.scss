@@ -332,12 +332,27 @@ input.img-rounded.img-responsive {
   margin: 0 auto;
 }
 
-.delete-job-post {
+.delete-job-post, .delete-comment-post {
   color: #d9534f;
 }
 
 a.unstyled-link {
   text-decoration: none;
+}
+
+.comment-panel {
+  position: relative;
+  font-size: 1.5em;
+  padding: 15px;
+  margin: 0 15px;
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  background-color: #fff;
 }
 
 div.job_return_links {
@@ -374,6 +389,19 @@ h1#good_company {
   margin-top: 0px;
   font-weight: 100;
   // font-size: 2.5em;
+}
+
+@media (min-width: 768px) {
+  .bs-example {
+    margin-right: 0;
+    margin-left: 0;
+    background-color: #fff;
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px 4px 0 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
 }
 
 @media screen and (min-width: 992px) {

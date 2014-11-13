@@ -1,3 +1,7 @@
+<%= render partial: 'layouts/comment_modal', 
+              locals: { commentable: @contractor, comment: Comment.new } %>
+
+
 <div class="row">
 	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 		<%= render partial: 'layouts/profile_sidebar', locals: { member: @contractor } %>
@@ -42,7 +46,7 @@
                                          class: 'btn btn-lg btn-success' if current_contractor == @contractor %>
         </h3>
 			  <% if @examples.present? %>
-          <%= render 'examples' %>
+          <%= render 'layouts/examples' %>
 		  	<% else %>
           <br>
           <h4 class="text-center">You haven't entered examples of past jobs</h4>

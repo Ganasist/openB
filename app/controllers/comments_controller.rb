@@ -6,6 +6,10 @@ class CommentsController < ApplicationController
     @comment = Comment.new
     @comment.commentable = @commentable
     @comment.commenterable = @commenterable
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
  
   def create
@@ -18,18 +22,37 @@ class CommentsController < ApplicationController
     else
       flash[:error] = "#{ @comment.errors.full_messages.to_sentence }"
       render 'new'
-    end    
+    end  
+  end
+
+  def edit
+    @comment = Comment.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def update
+    @comment = Comment.find(params[:id])
+    if @comment.update(comment_params)
+      flash[:notice] = 'Comment has been updated.'
+      redirect_to @commentable
+    else
+      flash[:error] = "#{ @comment.errors.full_messages.to_sentence }"
+      render 'new'
+    end
   end
 
   def destroy
     @comment = Comment.find(params[:id])
-    @commentable = @comment.commentable
-    @member = (@commentable.is_a?(User) || @commentable.is_a?(Contractor)) ? 
-               @commentable : 
-              (@commentable.try(:user) || @commentable.try(:contractor))
+    # @commentable = @comment.commentable
+    # @member = (@commentable.is_a?(User) || @commentable.is_a?(Contractor)) ? 
+    #            @commentable : 
+    #           (@commentable.try(:user) || @commentable.try(:contractor))
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to current_user, notice: 'Comment was deleted' }
+      format.html { redirect_to (current_user || current_contractor), notice: 'Comment was deleted' }
       format.js
     end
   end

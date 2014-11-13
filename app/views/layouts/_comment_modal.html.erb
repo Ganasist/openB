@@ -1,0 +1,37 @@
+<!-- Comment Modal -->
+<div class="modal" 
+     id="commentModal" 
+     tabindex="-1" 
+     role="dialog" 
+     aria-labelledby="myModalLabel" 
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center" id="myModalLabel">
+          <%= commentable.try(:title) || commentable.try(:fullname) %>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for [commentable, Comment.new], html: { autocomplete: 'off' } do |f|  %>
+
+          <%= f.error_notification %>
+
+          <div class="list-inline">
+            <%= f.input :subject %>
+            <%= f.input :body, as: :text, 
+                              required: true,
+                                 label: 'Comment', 
+                           placeholder: 'Enter a brief comment',
+                            input_html: { rows: '7', maxlength: 2000 } %>
+
+            <%= f.submit %>
+          </div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default submit" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

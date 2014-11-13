@@ -1,12 +1,15 @@
 <div class="container">
-  <%= render partial: 'layouts/modals', 
+  <%= render partial: 'layouts/image_modal', 
           collection: @job.uploads, 
                   as: :upload %>
 
+  <%= render partial: 'layouts/comment_modal', 
+              locals: { commentable: @job } %>
+
+
   <div class="row">
     <div class="col-xs-12">
-      <%= render 'job_panel', 
-                  job: @job %>
+      <%= render 'job_panel', job: @job %>
     </div>
 
     <% if @bids.count > 0 && current_user == @job.user %>

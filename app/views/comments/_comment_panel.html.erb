@@ -1,11 +1,10 @@
 <div class="panel panel-default" id="<%= comment.id %>">
   <div class="panel-heading">
     <h3 class="panel-title">
-      <p class="lead text-center">
-         
-          <strong>
-            <%= comment.subject %>
-          </strong>        
+      <p>
+      <%= link_to comment.commenterable.fullname, comment.commenterable, class: 'unstyled-link' %> -
+        <%= comment.subject %>
+
         <% if (current_user || current_contractor) == comment.commenterable %>
           <%= link_to polymorphic_url([comment.commenterable, comment]), method: :delete,
                      remote: true, 
@@ -20,16 +19,11 @@
       </p>
     </h3>
   </div>  
-    <div class="panel-body">
-      <div  class="col-xs-12">
-        <%= (request.fullpath).include?('comments') ? 
-                                comment.body : 
-                                truncate(comment.body, length: 200) %>
-      </div>                                  
+    <div class="panel-body">    
+      <%= comment.body %>                                 
     </div>
 
-    <div class="panel-footer">
-      <%= "Sent #{ time_ago_in_words(comment.created_at) } ago by 
-                #{ link_to comment.commenterable.fullname, comment.commenterable }" %>
+    <div class="panel-footer text-center">
+      <%= "Updated #{ time_ago_in_words(comment.updated_at) } ago " %>
     </div>
 </div>
