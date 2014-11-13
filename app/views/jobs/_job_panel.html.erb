@@ -5,14 +5,14 @@
         <% if current_user == job.user %>
           <% if (request.fullpath).include?('/jobs') %>
             <%= link_to job, method: :delete,
-                         data: { confirm: 'Are you sure you want to delete this post?' } do %>
+                                 data: { confirm: 'Are you sure you want to delete this post?' } do %>
               <%= fa_icon 'minus-square 2x', title: 'Delete',
                                              class: 'delete-job-post pull-right' %>
             <% end %>
-          <% elsif (request.fullpath).include?('/users') %>
+          <% else %>
             <%= link_to job, method: :delete,
-                       remote: true, 
-                         data: { confirm: 'Are you sure you want to delete this post?' } do %>
+                             remote: true, 
+                               data: { confirm: 'Are you sure you want to delete this post?' } do %>
               <%= fa_icon 'minus-square 2x', title: 'Delete',
                                              class: 'delete-job-post pull-right' %>
             <% end %>
@@ -94,7 +94,8 @@
     </div>
 
     <div class="panel-footer">
-      <%= "Posted #{ time_ago_in_words(job.created_at) } ago" %> 
+      <%= "Posted #{ time_ago_in_words(job.created_at) } ago" %> by 
+      <%= link_to "#{ job.user.fullname }", job.user, class: 'unstyled-link' %>
       <%= "| Approx. #{ current_contractor.distance_from(job).round(1) } miles away" if contractor_signed_in? %>
       <%= job_bid_duration(job) %>
     </div>
