@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
     @comment.commenterable = @commenterable
     if @comment.save
       flash[:notice] = 'Comment was successfully created.'
-      redirect_to @commenterable
+      redirect_to @commentable
     else
       flash[:error] = "#{ @comment.errors.full_messages.to_sentence }"
       render 'new'
