@@ -1,19 +1,24 @@
 class CommentsController < ApplicationController
   before_action :get_commentable
+  before_action :get_commenterable, only: [:new, :create]
 
   def new
-    @comment = @commentable.comments.build
+    @comment = Comment.new
+    @comment.commentable = @commentable
+    @comment.commenterable = @commenterable
   end
  
   def create
-    @comment = @commentable.comments.create(comment_params)
+    @comment = Comment.create(comment_params)
+    @comment.commentable = @commentable
+    @comment.commenterable = @commenterable
     if @comment.save
-      render json: { message: "success", fileID: @comment.id }, status: 200
+      flash[:notice] = 'Comment was successfully created.'
+      redirect_to @commenterable
     else
-      #  you need to send an error header, otherwise Dropzone
-      #  will not interpret the response as an error:
-      render json: { error: @comment.errors.full_messages.join(',')}, status: 400
-    end     
+      flash[:error] = "#{ @comment.errors.full_messages.to_sentence }"
+      render 'new'
+    end    
   end
 
   def destroy
@@ -31,6 +36,10 @@ class CommentsController < ApplicationController
 
   private
 
+    def get_commenterable
+      @commenterable = current_user || current_contractor
+    end
+
     def get_commentable
       @commentable = params[:commentable].classify.constantize.find(commentable_id)
     end
@@ -40,6 +49,6 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      params.require(:comment).permit(:title, :subject, :body)
+      params.require(:comment).permit(:subject, :body)
     end
 end

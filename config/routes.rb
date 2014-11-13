@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     resources :comments, only: [:new, :create, :edit, :update, :destroy]
   end
 
+  concern :commenterable do
+    resources :comments, only: [:new, :create, :edit, :update, :destroy]
+  end
+
 	devise_for :users, controllers: { registrations: 'users/registrations', 
                                           sessions: 'sessions' }
 
@@ -17,12 +21,16 @@ Rails.application.routes.draw do
                                                sessions: 'sessions' }							 
 
   resources :users, only: [:show, :index, :destroy], 
-                concerns: [:uploadable, :commentable],
-                defaults: { uploadable: 'user', commentable: 'user' }
+                concerns: [:uploadable, :commentable, :commenterable],
+                defaults: { uploadable: 'user', 
+                           commentable: 'user', 
+                         commenterable: 'user' }
 
   resources :contractors, only: [:show, :index], 
                       concerns: [:uploadable, :commentable],
-                      defaults: { uploadable: 'contractor', commentable: 'contractor' } do
+                      defaults: { uploadable: 'contractor', 
+                                 commentable: 'contractor', 
+                               commenterable: 'contractor' } do
     resources :examples, except: :destroy
   end
   

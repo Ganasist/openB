@@ -1,10 +1,9 @@
 class Comment < ActiveRecord::Base
   acts_as_nested_set scope: [:commentable_id, :commentable_type]
 
-  validates :commenter_id,
-            :commenter_type,
+  validates :commenterable,
             :commentable,
-            :title,
+            :subject,
             :body, presence: true
 
   # NOTE: install the acts_as_votable plugin if you
@@ -12,18 +11,19 @@ class Comment < ActiveRecord::Base
   #acts_as_votable
 
   belongs_to :commentable, polymorphic: true
+  belongs_to :commenterable, polymorphic: true
 
   # Helper class method that allows you to build a comment
   # by passing a commentable object, a user_id, and comment text
   # example in readme
-  def self.build_from(commenter_id, commenter_type, commentable, title, body)
-    new \
-      commenter_id: commenter_id,
-      commenter_type: commenter_type,
-      commentable: commentable,
-      title: title,
-      body: body
-  end
+  # def self.build_from(commenter_id, commenter_type, commentable, subject, body)
+  #   new \
+  #     commenter_id: commenter_id,
+  #     commenter_type: commenter_type,
+  #     commentable: commentable,
+  #     subject: subject,
+  #     body: body
+  # end
 
   #helper method to check if a comment has children
   def has_children?

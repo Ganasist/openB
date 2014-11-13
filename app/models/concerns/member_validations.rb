@@ -4,6 +4,7 @@ module MemberValidations
 	included do
 
 		acts_as_commentable
+		has_many :comments, as: :commenterable, dependent: :destroy
 
 		before_validation :remove_blank_categories
 
