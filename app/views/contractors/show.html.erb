@@ -1,6 +1,5 @@
 <%= render partial: 'layouts/comment_modal', 
-              locals: { commentable: @contractor } %>
-
+            locals: { commentable: @contractor } %>
 
 <div class="row">
 	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -8,63 +7,28 @@
 	</div>
 	<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
 		<hr class="visible-xs">
-		<h3 class="lead text-center" id="description">
-			<%= @contractor.try(:description) %>
-		</h3>
-    <hr class="visible-xs">
+    <% if current_contractor == @contractor %>
+  		<h3 class="lead text-center" id="description">
+  			<%= @contractor.try(:description) %>
+  		</h3>
 
-    <ul class="nav nav-pills nav-justified">
-		  <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
-		  	<a href="#job" data-toggle="tab">Nearby Jobs</a>
-		  </li>
-		  <li class="<%= 'active' if params[:tab] == 'examples' %>">
-		  	<a href="#example" data-toggle="tab">Portfolio</a>
-		  </li>
-      <li class="<%= 'active' if params[:tab] == 'comments' %>">
-        <a href="#comment" data-toggle="tab">Comments</a>
-      </li>
-		</ul>    
-		<br>
+      <%= render 'layouts/nav_pills' %>
 
-		<div class="tab-content">
-		  <div class="<%= (params[:tab] == 'jobs' || !params[:tab]) ? 
-                      'tab-pane fade in active' : 
-                      'tab-pane fade in' %>" id="job">
-		  	<% if @jobs.present? %>
-          <%= render 'layouts/jobs' %>
-        <% else %>
-          <br>
-          <h4 class="text-center">No nearby job posts in your categories</h4>
-        <% end %>
-		  </div>
+  		<div class="tab-content">
+  		  <%= render 'layouts/job_tab_pane', locals: { no_jobs: 'No nearby job posts in your categories' } %>
 
-			<div class="<%= (params[:tab] == 'examples') ? 
-                      'tab-pane fade in active' : 
-                      'tab-pane fade in' %>" id="example">
-        <h3 class="lead text-center">
-          <%= link_to  'Add an example', new_contractor_example_path(@contractor),  
-                                         class: 'btn btn-lg btn-success' if current_contractor == @contractor %>
-        </h3>
-			  <% if @examples.present? %>
-          <%= render 'layouts/examples' %>
-		  	<% else %>
-          <br>
-          <h4 class="text-center">You haven't entered examples of past jobs</h4>
-        <% end %>
-  		</div>
+  			<%= render 'layouts/example_tab_pane' %>
 
-      <div class="<%= (params[:tab] == 'comments') ? 
-                      'tab-pane fade in active' : 
-                      'tab-pane fade in' %>" id="comment">
-        
-        <% if @comments.present? %>
-          <%= render 'comments/comments' %>
-        <% else %>
-          <br>
-          <h4 class="text-center">You have no comments</h4>
-        <% end %>
-      </div>
-
-  	</div>
+        <%= render 'layouts/comment_tab_pane' %>
+    	</div>
+    <% else %>
+      <% if @examples.present? %>
+        <h2 class="text-center lead">Portfolio</h2>
+        <%= render 'layouts/examples' %>
+      <% else %>
+        <br>
+        <h4 class="text-center">This contractor has no past job examples</h4>
+      <% end %>
+    <% end %>
   </div>
 </div>

@@ -1,0 +1,10 @@
+<div class="<%= (params[:tab] == 'jobs' || !params[:tab]) ? 
+                'tab-pane fade in active' : 
+                'tab-pane fade in' %>" id="job">
+	<% if @jobs.present? %>
+    <%= render 'layouts/jobs' %>
+  <% else %>
+    <br>
+    <h4 class="text-center"><%= no_jobs %></h4>
+  <% end %>
+</div>

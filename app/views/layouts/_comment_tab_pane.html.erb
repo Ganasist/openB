@@ -1,0 +1,11 @@
+<div class="<%= (params[:tab] == 'comments') ? 
+                'tab-pane fade in active' : 
+                'tab-pane fade in' %>" id="comment">
+
+  <% if @comments.present? %>
+    <%= render 'comments/comments' %>
+  <% else %>
+    <br>
+    <h4 class="text-center">You have no comments</h4>
+  <% end %>
+</div>

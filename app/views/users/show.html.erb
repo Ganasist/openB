@@ -7,45 +7,26 @@
 	</div>
 	<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
 		<hr class="visible-xs">
-		<h3 class="lead text-center">
-			<%= link_to 'Post a New Job', new_job_path, 
-																		class: 'btn btn-lg btn-success' if current_user == @user %>
-		</h3>
-		<hr class="visible-xs">
+    <% if current_user == @user %>
+  		<h3 class="lead text-center">
+  			<%= link_to 'Post a New Job', new_job_path, class: 'btn btn-lg btn-success' if current_user == @user %>
+  		</h3>
 
-    <ul class="nav nav-pills nav-justified">
-      <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
-        <a href="#job" data-toggle="tab">Your Jobs</a>
-      </li>
-      <li class="<%= 'active' if params[:tab] == 'comments' %>">
-        <a href="#comment" data-toggle="tab">Comments</a>
-      </li>
-    </ul>    
-    <br>
+  		<%= render 'layouts/nav_pills' %>
 
-    <div class="tab-content">
-      <div class="<%= (params[:tab] == 'jobs' || !params[:tab]) ? 
-                      'tab-pane fade in active' : 
-                      'tab-pane fade in' %>" id="job">
-        <% if @jobs.present? %>
-          <%= render 'layouts/jobs' %>
-        <% else %>
-          <br>
-          <h4 class="text-center">You have not posted any jobs</h4>
-        <% end %>
+      <div class="tab-content">
+        <%= render 'layouts/job_tab_pane', locals: { no_jobs: 'You have not posted any jobs' } %>
+
+        <%= render 'layouts/comment_tab_pane' %>
       </div>
-
-      <div class="<%= (params[:tab] == 'comments') ? 
-                      'tab-pane fade in active' : 
-                      'tab-pane fade in' %>" id="comment">
-        
-        <% if @comments.present? %>
-          <%= render 'comments/comments' %>
-        <% else %>
-          <br>
-          <h4 class="text-center">You have no comments</h4>
-        <% end %>
-      </div>
-    </div>
+    <% else %>
+      <% if @jobs.present? %>
+        <h2 class="text-center lead">Job posts</h2>
+        <%= render 'layouts/jobs' %>
+      <% else %>
+        <br>
+        <h4 class="text-center">This user hasn't posted any jobs</h4>
+      <% end %>
+    <% end %>
 	</div>	
 </div>
