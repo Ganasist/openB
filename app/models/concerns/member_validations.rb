@@ -38,8 +38,7 @@ module MemberValidations
 		validates :zip_code, presence: true, 
 										 numericality: true,
 									postcode_format: { country_code: :us,
-																					message: 'Not a valid postcode for the US.'},
-																					     if: Proc.new { |o| !o.new_record? }
+																					message: 'Not a valid postcode for the US.'}
   end
 
   def remove_blank_categories

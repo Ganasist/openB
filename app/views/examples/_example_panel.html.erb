@@ -83,7 +83,7 @@
     </div>
 
     <div class="panel-footer">
-      <%= "Posted #{ time_ago_in_words(example.created_at) } ago" %> |
-      <%= link_to "By #{ example.contractor.fullname }", example.contractor, class: 'unstyled-link' %>
+      <%= "Posted #{ time_ago_in_words(example.created_at) } ago" %> by
+      <%= link_to "#{ example.contractor.fullname }", example.contractor, class: 'unstyled-link' %>
     </div>
 </div>
