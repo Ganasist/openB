@@ -8,10 +8,6 @@
                                                    current_member: current_user || current_contractor,
                                                 item_upload_count: member.uploads.count,
                                                       item_status: '' } %>
-
-	
-		<hr>
-
 	</div>
 	<%= @incomplete_profile_message.html_safe if @incomplete_profile_message.present? %>
 	<address class="lead">
