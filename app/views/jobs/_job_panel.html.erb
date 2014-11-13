@@ -1,4 +1,5 @@
 <div class="panel panel-default" id="<%= job.id %>">
+  
   <div class="panel-heading">
     <h3 class="panel-title">
       <p>
@@ -36,43 +37,36 @@
           <% end %>
         <% end %>
       </p>
-      <ul class="list-inline categories">
-        <% job.categories.each do |c| %>
-          <li>
-            <span class="label label-<%= %w(default primary success info warning danger).sample %>">
-              <%= c %>
-            </span>
-          </li>
-        <% end %>
-      </ul>
+
+      <%= render partial: 'jobs/job_category_panel', locals: { job: job } %>
+    
     </h3>
+  </div>
 
-
-  </div>  
-    <div class="panel-body">
-      <% if contractor_signed_in? %>
-        <div class="col-xs-12 col-sm-12 col-md-12" id="job-<%= job.id %>">
-          <%= render 'bids/form', job: job %>
-        </div>
-      <% end %>      
-      <div class="col-xs-12 col-md-4 text-center">
-        <% if job.uploads.count > 0 %>
-          <%= render partial: 'layouts/pic', 
-                  collection: job.uploads, 
-                          as: :upload, 
-                      locals: { owner: job.user } %>
-        <% end %>
-
-        <%= render partial: 'layouts/pic_upload_button', 
-                    locals: { item: job,
-                        item_owner: job.user, 
-                    current_member: current_user || current_contractor,
-                 item_upload_count: job.uploads.count,
-                       item_status: '' } %>
-
-        <hr class="visible-xs visible-sm">
+  <div class="panel-body">
+    <% if contractor_signed_in? %>
+      <div class="col-xs-12 col-sm-12 col-md-12" id="job-<%= job.id %>">
+        <%= render 'bids/form', job: job %>
       </div>
-      <%= link_to job, class: 'unstyled-link' do %>
+    <% end %>      
+    <div class="col-xs-12 col-md-4 text-center">
+      <% if job.uploads.count > 0 %>
+        <%= render partial: 'layouts/pic', 
+                collection: job.uploads, 
+                        as: :upload, 
+                    locals: { owner: job.user } %>
+      <% end %>
+
+      <%= render partial: 'layouts/pic_upload_button', 
+                  locals: { item: job,
+                      item_owner: job.user, 
+                  current_member: current_user || current_contractor,
+               item_upload_count: job.uploads.count,
+                     item_status: '' } %>
+
+      <hr class="visible-xs visible-sm">
+    </div>
+    <%= link_to job, class: 'unstyled-link' do %>
       <div  class="col-xs-12 col-md-8">
         <p class="lead text-center">
           <strong>
@@ -92,12 +86,6 @@
                                 truncate(job.description, length: 200) %>
       </div>                                  
     </div>
-
-    <div class="panel-footer">
-      <%= "Posted #{ time_ago_in_words(job.created_at) } ago" %> by 
-      <%= link_to "#{ job.user.fullname }", job.user, class: 'unstyled-link' %>
-      <%= "| Approx. #{ current_contractor.distance_from(job).round(1) } miles away" if contractor_signed_in? %>
-      <%= job_bid_duration(job) %>
-    </div>
+    <%= render partial: 'jobs/job_footer_panel', locals: { job: job, owner: job.user } %>
   <% end %>
 </div>

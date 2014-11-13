@@ -1,4 +1,5 @@
 <div class="panel panel-default" id="<%= example.id %>">
+  
   <div class="panel-heading">
     <h3 class="panel-title">
       <p>
@@ -15,23 +16,53 @@
           <% end %>
         <% end %>
       </p>
-      <ul class="list-inline categories">
-        <% example.categories.each do |category| %>
-          <li>
-            <span class="label label-<%= %w(default primary success info warning danger).sample %>">
-              <%= category %>
-            </span>
-          </li>
-        <% end %>
-      </ul>
+      
+      <%= render partial: 'jobs/job_category_panel', locals: { job: example } %>
+
     </h3>
-  </div>  
-    <div class="panel-body">     
-      <div class="col-xs-12 col-md-3 text-center">
-        <p class="lead">Before</p>
-        <% if example.before_uploads.count > 0 %>
+  </div>
+
+  <div class="panel-body">
+    <div class="col-xs-12 col-md-3 text-center">
+      <p class="lead">Before</p>
+      <% if example.before_uploads.count > 0 %>
+        <%= render partial: 'layouts/pic', 
+                collection: example.before_uploads, 
+                        as: :upload, 
+                    locals: { owner: example.contractor } %>
+      <% end %>
+
+      <%= render partial: 'layouts/pic_upload_button', 
+                  locals: { item: example, 
+                      item_owner: example.contractor, 
+                  current_member: current_user || current_contractor,
+               item_upload_count: example.before_uploads.count,
+                     item_status: 'before' } %>
+
+      <!-- <hr class="visible-xs visible-sm"> -->
+    </div>
+    <div  class="col-xs-12 col-md-6">
+    <hr class="visible-xs visible-sm">
+      <%= link_to contractor_example_path(example.contractor, example), 
+                  class: 'unstyled-link' do %>
+        <p class="lead text-center">
+          <strong>
+            <%= example.title %>
+          </strong>
+        </p>
+        <!-- <hr> -->
+        <%= (request.fullpath).include?('examples') ? 
+                                example.description : 
+                                truncate(example.description, length: 200) %>
+      <% end %> 
+
+     <hr class="visible-xs visible-sm">
+    </div>
+    <div class="col-xs-12 col-md-3 text-center">
+      <p class="text-center lead">After</p>
+        <% if example.after_uploads.count > 0 %>
           <%= render partial: 'layouts/pic', 
-                  collection: example.before_uploads, 
+                  collection: example.after_uploads, 
                           as: :upload, 
                       locals: { owner: example.contractor } %>
         <% end %>
@@ -40,50 +71,11 @@
                     locals: { item: example, 
                         item_owner: example.contractor, 
                     current_member: current_user || current_contractor,
-                 item_upload_count: example.before_uploads.count,
-                       item_status: 'before' } %>
+                 item_upload_count: example.after_uploads.count,
+                       item_status: 'after' } %>
 
-        <!-- <hr class="visible-xs visible-sm"> -->
-      </div>
-      <div  class="col-xs-12 col-md-6">
       <hr class="visible-xs visible-sm">
-        <%= link_to contractor_example_path(example.contractor, example), 
-                    class: 'unstyled-link' do %>
-          <p class="lead text-center">
-            <strong>
-              <%= example.title %>
-            </strong>
-          </p>
-          <!-- <hr> -->
-          <%= (request.fullpath).include?('examples') ? 
-                                  example.description : 
-                                  truncate(example.description, length: 200) %>
-        <% end %> 
-
-       <hr class="visible-xs visible-sm">
-      </div>
-      <div class="col-xs-12 col-md-3 text-center">
-        <p class="text-center lead">After</p>
-          <% if example.after_uploads.count > 0 %>
-            <%= render partial: 'layouts/pic', 
-                    collection: example.after_uploads, 
-                            as: :upload, 
-                        locals: { owner: example.contractor } %>
-          <% end %>
-
-          <%= render partial: 'layouts/pic_upload_button', 
-                      locals: { item: example, 
-                          item_owner: example.contractor, 
-                      current_member: current_user || current_contractor,
-                   item_upload_count: example.after_uploads.count,
-                         item_status: 'after' } %>
-
-        <hr class="visible-xs visible-sm">
-      </div>
     </div>
-
-    <div class="panel-footer">
-      <%= "Posted #{ time_ago_in_words(example.created_at) } ago" %> by
-      <%= link_to "#{ example.contractor.fullname }", example.contractor, class: 'unstyled-link' %>
-    </div>
+  </div>
+  <%= render partial: 'jobs/job_footer_panel', locals: { job: example, owner: example.contractor } %>
 </div>

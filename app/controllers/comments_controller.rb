@@ -35,12 +35,14 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
-    if @comment.update(comment_params)
-      flash[:notice] = 'Comment has been updated.'
-      redirect_to @commentable
-    else
-      flash[:error] = "#{ @comment.errors.full_messages.to_sentence }"
-      render 'new'
+    respond_to do |format|
+      if @comment.update(comment_params)      
+        format.html { redirect_to @commentable, notice: 'Comment updated' }
+        format.js
+      else
+        format.html { render 'edits', notice: "#{ @comment.errors.full_messages.to_sentence }" }
+        format.js
+      end
     end
   end
 

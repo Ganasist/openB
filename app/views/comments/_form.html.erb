@@ -1,0 +1,20 @@
+<div class="row authform_large">
+	<%= simple_form_for [@commentable, @comment], html: { autocomplete: 'off' } do |f|  %>
+
+    <%= f.error_notification %>
+
+	  <div class="list-inline">
+	  	<%= f.input :subject %>
+	  	<%= f.input :body, as: :text, 
+                        required: true,
+                           label: 'Comment', 
+                     placeholder: 'Enter a brief comment',
+                      input_html: { rows: '7', maxlength: 2000 } %>
+
+	    <%= f.button :submit, "Enter this comment", class: 'user_submit' %>
+	  </div>
+	<% end %>
+	<br>
+
+  <%= render 'layouts/back_to_profile' %>
+</div>

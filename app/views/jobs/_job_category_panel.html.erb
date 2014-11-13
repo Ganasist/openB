@@ -1,0 +1,9 @@
+<ul class="list-inline categories">
+  <% job.categories.each do |c| %>
+    <li>
+      <span class="label label-<%= %w(default primary success info warning danger).sample %>">
+        <%= c %>
+      </span>
+    </li>
+  <% end %>
+</ul>
