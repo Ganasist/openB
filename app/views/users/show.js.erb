@@ -17,7 +17,9 @@ $('#paginator-comments-bottom').html('<%= escape_javascript(paginate @comments, 
 																						                                 param_name: "comments",
 																						                                 		 params: { tab: "comments" }) %>');
 
-$('#comments').html('<%= escape_javascript(render partial: "comments/comments") %>');
+$('#comments').html('<%= escape_javascript(render partial: "comments/comment_panel", 
+																			         collection: @comments, 
+																			                 as: :comment) %>');
 
 
 

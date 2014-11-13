@@ -13,9 +13,9 @@ class UsersController < ApplicationController
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
 
-    @comments = @user.comments
-                     .order(updated_at: :desc)
-                     .page(params[:comments])
+    @comments = Comment.where(commentable_type: "User", commentable_id: @user.id)
+                       .order(updated_at: :desc)
+                       .page(params[:comments])
 
     @jobs = @user.jobs
                  .order(created_at: :desc)

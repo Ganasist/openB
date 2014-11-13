@@ -4,7 +4,6 @@
       <p>
       <%= link_to comment.commenterable.fullname, comment.commenterable, class: 'unstyled-link' %> -
         <%= comment.subject %>
-
         <% if (current_user || current_contractor) == comment.commenterable %>
           <%= link_to polymorphic_url([comment.commenterable, comment]), method: :delete,
                      remote: true, 

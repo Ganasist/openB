@@ -4,8 +4,8 @@ class CommentsController < ApplicationController
 
   def new
     @comment = Comment.new
-    @comment.commentable = @commentable
-    @comment.commenterable = @commenterable
+    # @comment.commentable = @commentable
+    # @comment.commenterable = @commenterable
     respond_to do |format|
       format.html
       format.js
