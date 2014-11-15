@@ -27,7 +27,7 @@ Rails.application.routes.draw do
                          commenterable: 'user' }
 
   resources :contractors, only: [:show, :index], 
-                      concerns: [:uploadable, :commentable],
+                      concerns: [:uploadable, :commentable, :commenterable],
                       defaults: { uploadable: 'contractor', 
                                  commentable: 'contractor', 
                                commenterable: 'contractor' } do
