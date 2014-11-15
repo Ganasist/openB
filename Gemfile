@@ -61,6 +61,7 @@ group :development, :test do
 end
 group :production, :staging do
   gem 'rails_12factor'
+  gem 'exception_notification'
 end
 group :test do
   gem 'capybara'
