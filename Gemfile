@@ -44,7 +44,6 @@ gem 'unicorn-rails'
 gem 'faker'
 group :development do
   gem 'railroady'
-  gem 'bloat_check'
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
