@@ -6,6 +6,8 @@ module MemberValidations
 		acts_as_commentable
 		has_many :comments, as: :commenterable, dependent: :destroy
 
+	  has_many :uploads, as: :uploadable, dependent: :destroy
+
 		before_validation :remove_blank_categories
 
 		scope :relevant_categories, -> (categories){ where('categories && ARRAY[?]', categories) }
@@ -27,13 +29,6 @@ module MemberValidations
 		validates :phone, phony_plausible: true
 
 		validates :name, presence: true, if: Proc.new { |o| !o.new_record? }
-
-		# validates :phone, 
-	 #            :address, 
-	 #            :city, 
-	 #            :state, 
-	 #            :company_name, 
-	 #            :bio, presence: true, if: Proc.new { |m| !m.new_record? && m.is_a?(Contractor) }
 
 		validates :zip_code, presence: true, 
 										 numericality: true,

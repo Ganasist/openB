@@ -2,8 +2,6 @@ class Example < ActiveRecord::Base
 
   include JobValidations
 
-  has_many :uploads, as: :uploadable, dependent: :destroy
-
   belongs_to :contractor
 
   DURATION_UNITS = ['hours', 'days', 'weeks', 'months']

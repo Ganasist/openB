@@ -1,7 +1,5 @@
 class User < ActiveRecord::Base
 
-  has_many :uploads, as: :uploadable, dependent: :destroy
-
   include MemberValidations
   include Devisable
 

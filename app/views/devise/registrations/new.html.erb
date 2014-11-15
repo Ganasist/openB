@@ -12,15 +12,19 @@
   </div>
   <div class="authform">
     <%= simple_form_for resource, as: resource_name, 
-                                 url: registration_path(resource_name) do |f| %>
+                                 url: registration_path(resource_name), 
+                             wrapper: :vertical_form, 
+                              html: { multipart: true, 
+                                   autocomplete: 'off' } do |f| %>
                                  
       <%= f.error_notification %>
       <div class="form-inputs">
-        <%= f.input :zip_code, as: :string,
-                               required: true,
-                             input_html: { min_max: 5 } %>
+        <%= f.input :zip_code, as: :string, 
+                        autofocus: true,
+                         required: true,
+                       input_html: { min_max: 5 } %>
                              
-        <%= f.input :email, required: true, autofocus: true %>
+        <%= f.input :email, required: true %>
         <%= f.input :password, required: true, 
                                    hint: ("#{ @minimum_password_length } characters minimum" if @validatable) %>
         <%= f.input :password_confirmation, required: true %>

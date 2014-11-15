@@ -5,6 +5,9 @@ module JobValidations
 
 		acts_as_commentable
 
+		
+	  has_many :uploads, as: :uploadable, dependent: :destroy
+
 		before_validation :remove_blank_categories
 
 		scope :relevant_categories, -> (categories){ where('categories && ARRAY[?]', categories) }
@@ -27,18 +30,6 @@ module JobValidations
 	                       allow_blank: false, 
 	                            length: { in: 10..2000 }
 
-		# validates :phone, 
-	 #            :address, 
-	 #            :city, 
-	 #            :state, 
-	 #            :company_name, 
-	 #            :bio, presence: true, if: Proc.new { |m| !m.new_record? && m.is_a?(Contractor) }
-
-		# validates :zip_code, presence: true, 
-		# 								 numericality: true,
-		# 							postcode_format: { country_code: :us,
-		# 																			message: 'Not a valid postcode for the US.'},
-		# 																			     if: Proc.new { |o| !o.new_record? || o.is_a?(Job) }
   end
 
   def remove_blank_categories

@@ -82,11 +82,13 @@
         </ul> 
       <% end %>        
     </div>
-    <div class="form-inputs">
-      <h4 class="text-center hidden text-danger" id="category_warning">
-        Please pick at least one category.
-      </h4>
-      <%= f.button :submit, "Post this #{ job.class.name.downcase }", class: 'user_submit' %>
-    </div>      
+    <div class="row">
+      <div class="form-inputs col-lg-12">
+        <h4 class="text-center hidden text-danger" id="category_warning">
+          Please pick at least one category.
+        </h4>
+        <%= f.button :submit, "Post this #{ job.class.name.downcase }", class: 'user_submit' %>
+      </div> 
+    </div>     
   <% end %>
 </div>
