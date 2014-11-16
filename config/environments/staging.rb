@@ -4,13 +4,6 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.cache_classes = true
 
-  config.middleware.use ExceptionNotification::Rack,
-    email: {
-      email_prefix: "[Staging] ",
-      sender_address: %{"Staging Notifier" <staging.notifier@openbid.com>},
-      exception_recipients: %w{ lance@.openbid.contractors admin@infinitory.com }
-    }
-
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
@@ -90,7 +83,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'openbid-staging.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false

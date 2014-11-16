@@ -10,13 +10,6 @@ Rails.application.configure do
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
 
-  config.middleware.use ExceptionNotification::Rack,
-    email: {
-      email_prefix: "[Production] ",
-      sender_address: %{"Production Notifier" <production.notifier@openbid.com>},
-      exception_recipients: %w{ lance@.openbid.contractors admin@infinitory.com }
-    }
-
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
@@ -90,7 +83,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'staging.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false
