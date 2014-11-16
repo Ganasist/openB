@@ -12,6 +12,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'date_validator'
 gem 'devise'
 gem 'devise_invitable'
+gem 'exception_notification'
 gem 'devise-async'
 gem 'responders', '~> 2.0'
 gem 'figaro', '>= 1.0.0.rc1'
@@ -61,7 +62,6 @@ group :development, :test do
 end
 group :production, :staging do
   gem 'rails_12factor'
-  gem 'exception_notification'
 end
 group :test do
   gem 'capybara'

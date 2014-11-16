@@ -1,6 +1,5 @@
 require 'exception_notification/rails'
-
-
+require 'exception_notification/sidekiq'
 
 ExceptionNotification.configure do |config|
   # Ignore additional exception types.
@@ -17,11 +16,13 @@ ExceptionNotification.configure do |config|
 
   # Email notifier sends notifications by email.
   config.add_notifier :email, {
-    email_prefix:         "[ERROR] ",
-    sender_address:       %{"Notifier" <noreply@openbid.com>},
-    exception_recipients: %w{ lance@.openbid.contractors admin@infinitory.com },
-    email_format: :html
-  }
+    email: {
+      email_prefix:         "[ERROR] ",
+      sender_address:       %{"Notifier" <noreply@openbid.com>},
+      exception_recipients: %w{ lance@.openbid.contractors admin@infinitory.com },
+      email_format: :html
+      }
+    }
 
   # Campfire notifier sends notifications to your Campfire room. Requires 'tinder' gem.
   # config.add_notifier :campfire, {
