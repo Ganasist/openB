@@ -15,7 +15,7 @@
       <%= render 'layouts/nav_pills' %>
 
   		<div class="tab-content">
-  		  <%= render 'layouts/job_tab_pane', locals: { no_jobs: 'No nearby job posts in your categories' } %>
+  		  <%= render partial: 'layouts/job_tab_pane', locals: { no_jobs: 'No nearby job posts in your categories' } %>
 
   			<%= render 'layouts/example_tab_pane' %>
 
