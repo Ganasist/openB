@@ -15,7 +15,8 @@
   		<%= render 'layouts/nav_pills' %>
 
       <div class="tab-content">
-        <%= render partial: 'layouts/job_tab_pane', locals: { no_jobs: 'You have not posted any jobs' } %>
+        <%= render partial: 'layouts/job_tab_pane', 
+                    locals: { no_jobs: 'You have not posted any jobs' } %>
 
         <%= render 'layouts/comment_tab_pane' %>
       </div>
