@@ -10,7 +10,7 @@ before_fork do |server, worker|
   if defined?(ActiveRecord::Base)
     ActiveRecord::Base.connection.disconnect!
   end
-  unless Rails.env.production?
+  if Rails.env.staging?
     @sidekiq_pid ||= spawn('bundle exec sidekiq')
   end
 end
