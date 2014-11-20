@@ -143,6 +143,7 @@ GEM
     geocoder (1.2.5)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
+    going_postal (0.1.5)
     guard (2.6.1)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -210,7 +211,6 @@ GEM
       activesupport (>= 3.0)
       countries (>= 0.8.2)
       phony (~> 2.4.3)
-    postoffice (0.0.9)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -379,6 +379,7 @@ DEPENDENCIES
   figaro (>= 1.0.0.rc1)
   font-awesome-rails
   geocoder
+  going_postal
   guard-bundler
   guard-rails
   guard-rspec
@@ -393,7 +394,6 @@ DEPENDENCIES
   pg
   pg_search
   phony_rails
-  postoffice
   quiet_assets
   railroady
   rails (~> 4.2.0.beta2)

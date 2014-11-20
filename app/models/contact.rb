@@ -6,10 +6,7 @@ class Contact
   attribute :subject
   attribute :comment
 
-  attr_accessor :name
-  attr_accessor :email
-  attr_accessor :subject
-  attr_accessor :comment
+  attr_accessor :name, :email, :subject, :subject
   
   validates_presence_of :name
   validates_presence_of :email

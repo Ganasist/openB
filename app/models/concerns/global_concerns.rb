@@ -22,5 +22,4 @@ module GlobalConcerns
      #{ self.try(:zip_code) }, 
      #{ self.try(:state) }"
   end
-
 end

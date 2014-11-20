@@ -18,9 +18,6 @@ module JobValidations
 														 					 maximum: 4, 
 														 		   		 message: 'Pick between 1-4 categories' }
 
-		
-		# phony_normalize :phone, default_country_code: 'US'
-		# validates :phone, phony_plausible: true
 
 		validates :title, presence: true, 
 	                 allow_blank: false, 

@@ -31,9 +31,9 @@ module MemberValidations
 		validates :name, presence: true, if: Proc.new { |o| !o.new_record? }
 
 		validates :zip_code, presence: true, 
-										 numericality: true,
-									postcode_format: { country_code: :us,
-																					message: 'Not a valid postcode for the US.'}
+										 numericality: true
+									# postcode_format: { country_code: :us,
+									# 												message: 'is not a valid postcode for the US.'}
   
   end
 end

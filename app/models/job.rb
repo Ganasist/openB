@@ -11,9 +11,7 @@ class Job < ActiveRecord::Base
   has_many :bids, dependent: :destroy
   has_many :contractors, through: :bids
 
-  validates :zip_code, numericality: true,
-                    postcode_format: { country_code: :us,
-                                            message: 'Not a valid postcode for the US.'}
+  validates :zip_code, numericality: true
 
   validates :bidding_period, allow_blank: true, 
                                     date: { after: Proc.new { Date.today }, 

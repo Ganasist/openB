@@ -1,16 +1,15 @@
 <% content_for :title do %>Contact Us<% end %>
 
 <div class="authform">
-		<%= simple_form_for @contact, url: contact_path do |f| %>
-				<h3 class="text-center">Contact Us</h3>
-				<%= f.error_notification %>
-			  <%= f.input :name %>
-			  <%= f.input :email %>
-		    <%= f.input :subject %>
-		    <%= f.input :comment, as: :text, 
-		    							label_html: { id: 'comment_contact' },
-		                  input_html: { rows: 7,  id: 'comment' } %>
-    			  <%= f.button :submit, 'Send!', class: 'submit' %>
-    	</div>
-			<% end %>
+	<%= simple_form_for @contact, url: contact_path do |f| %>
+		<h3 class="text-center">Contact Us</h3>
+		<%= f.error_notification %>
+	  <%= f.input :name %>
+	  <%= f.input :email %>
+    <%= f.input :subject %>
+    <%= f.input :comment, as: :text, 
+    							label_html: { id: 'comment_contact' },
+                  input_html: { rows: 7,  id: 'comment' } %>
+	  <%= f.button :submit, 'Send!', class: 'submit' %>
+	<% end %>
 </div>
