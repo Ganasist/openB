@@ -3,7 +3,7 @@ class SearchesController < ApplicationController
 		@search = Search.new
 		@search.zip_code = params[:search]
 		unless Rails.env.staging?
-			if @search.valid? && Search.exists?(zip_code: params[:search])
+			if @search.valid? && Search.exists?(['zip_code = ?', params[:search]])
 				@jobs = Job.zip_search(params[:search])
 				@contractors = Contractor.zip_search(params[:search])
 			else

@@ -35,13 +35,4 @@ class Job < ActiveRecord::Base
      #{ self.try(:zip_code) }, 
      #{ self.try(:state) }"
   end
-
-  private
-    # def self.zip_search(query)
-    #   if query.present?
-    #     near(query, 50).order(:updated_at).reverse_order
-    #   else
-    #     scoped
-    #   end
-    # end
 end

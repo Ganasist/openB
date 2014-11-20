@@ -43,13 +43,4 @@ class Contractor < ActiveRecord::Base
   def contractor?
     true
   end
-
-  private
-    # def self.zip_search(query)
-    #   if query.present?
-    #     where("zip_code = :q", q: query)
-    #   else
-    #     scoped
-    #   end
-    # end
 end
