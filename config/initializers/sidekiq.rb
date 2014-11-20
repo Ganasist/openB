@@ -1,11 +1,6 @@
 require 'sidekiq'
 require 'sidekiq/web'
 
-heroku = nil
-if ENV['HEROKU_APP']
-  heroku = Autoscaler::HerokuScaler.new
-end
-
 Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
   [user, password] == [ENV['SIDEKIQ_WEB_NAME'], ENV['SIDEKIQ_WEB_PASS']]
 end
