@@ -8,9 +8,9 @@ if ENV['HEROKU_APP']
   heroku = Autoscaler::HerokuScaler.new
 end
 
-Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
-  [user, password] == ['john', 'loislane']
-end
+# Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
+#   [user, password] == ['john', 'loislane']
+# end
 
 Sidekiq.configure_server do |config|
   config.server_middleware do |chain|
