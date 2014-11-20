@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/JustinLove/autoscaler.git
+  revision: 5668d8d98192486517a03e68c919c6f8e7979297
+  specs:
+    autoscaler (0.9.0)
+      heroku-api
+      sidekiq (~> 3)
+
+GIT
   remote: git://github.com/plataformatec/simple_form.git
   revision: 84378b307cccff3b6e1d3040c5f4f32985f1aba7
   branch: master
@@ -126,6 +134,7 @@ GEM
     exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
+    excon (0.41.0)
     execjs (2.2.1)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -157,6 +166,9 @@ GEM
     guard-rspec (4.3.1)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
+    heroku-api (0.3.20)
+      excon (~> 0.38)
+      multi_json (~> 1.8)
     high_voltage (2.2.1)
     hike (1.2.3)
     hitimes (1.2.2)
@@ -359,6 +371,7 @@ DEPENDENCIES
   active_attr
   acts_as_commentable_with_threading
   amoeba
+  autoscaler!
   aws-sdk
   better_errors
   binding_of_caller
