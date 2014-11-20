@@ -1,5 +1,5 @@
 require 'sidekiq'
-require 'sidekiq/web'
+# require 'sidekiq/web'
 require 'autoscaler/sidekiq'
 require 'autoscaler/heroku_scaler'
 

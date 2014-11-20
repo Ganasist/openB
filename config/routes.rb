@@ -1,4 +1,4 @@
-require 'sidekiq/web'
+# require 'sidekiq/web'
 # require 'sidetiq/web'
 
 Rails.application.routes.draw do
@@ -48,6 +48,6 @@ Rails.application.routes.draw do
   resource :contact, only: [:new, :create]
   resource :search, only: :show
   
-	mount Sidekiq::Web => '/sidekiq'
+	# mount Sidekiq::Web => '/sidekiq'
   root to: 'high_voltage/pages#show', id: 'splash'
 end
