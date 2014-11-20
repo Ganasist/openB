@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 
   include MemberValidations
   include Devisable
+  include GlobalConcerns
 
 	has_many :jobs
 

@@ -232,6 +232,30 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
   z-index: -1;
 }
 
+.navbar-input-group {
+  @media (min-width: $screen-sm) {
+    font-size: 0px; /*removes whitespace between button and input*/
+
+    input {
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+    .btn {
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+      border-left: 0px;
+    }
+  }
+  @media (max-width: $screen-xs-max) {
+    margin-top:0px;
+    margin-bottom:0px;
+
+    .btn {
+      width:100%;
+    }
+  }
+}
+
 .jumbotron {
   height: 510px;
   background: transparent;

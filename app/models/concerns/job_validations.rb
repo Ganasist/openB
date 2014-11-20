@@ -31,8 +31,4 @@ module JobValidations
 	                            length: { in: 10..2000 }
 
   end
-
-  def remove_blank_categories
-    self.categories.reject!(&:empty?)
-  end
 end

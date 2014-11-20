@@ -2,6 +2,7 @@ class Job < ActiveRecord::Base
 
   include JobValidations
   include PgSearch
+  include GlobalConcerns
   pg_search_scope :search_by_zip, against: :zip_code
   
   belongs_to :user
@@ -38,12 +39,11 @@ class Job < ActiveRecord::Base
   end
 
   private
-    def self.zip_search(query)
-      if query.present?
-        # where("zip_code = :q", q: query)
-        near(query, 50).order(:updated_at).reverse_order
-      else
-        scoped
-      end
-    end
+    # def self.zip_search(query)
+    #   if query.present?
+    #     near(query, 50).order(:updated_at).reverse_order
+    #   else
+    #     scoped
+    #   end
+    # end
 end

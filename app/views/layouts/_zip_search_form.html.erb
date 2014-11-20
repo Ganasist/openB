@@ -1,0 +1,12 @@
+<%= simple_form_for :search, url: '/search', 
+                          method: 'get',
+                            html: { autocomplete: 'off', 
+                                           class: 'navbar-form', 
+                                            role: 'search' } do %>
+
+  <%= search_field_tag :search, params[:search], type: 'search', 
+                                          placeholder: 'Search ZIP code', 
+                                                class: 'form-control text-center', 
+                                            maxlength: 5, 
+                                            minlength: 5 %>
+ <% end %>

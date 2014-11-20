@@ -1,10 +1,10 @@
 class Contractor < ActiveRecord::Base
 
   include MemberValidations
-  # include MemberAttachments
   include Devisable
-
+  include GlobalConcerns
   include PgSearch
+  
   pg_search_scope :search_by_zip, against: :zip_code
 
   has_many :bids

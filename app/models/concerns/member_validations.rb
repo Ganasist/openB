@@ -34,16 +34,6 @@ module MemberValidations
 										 numericality: true,
 									postcode_format: { country_code: :us,
 																					message: 'Not a valid postcode for the US.'}
-  end
-
-  def remove_blank_categories
-    self.categories.reject!(&:empty?)
-  end
-
-  def full_address
-    "#{ self.try(:address) }, 
-     #{ self.try(:city) }, 
-     #{ self.try(:zip_code) }, 
-     #{ self.try(:state) }"
+  
   end
 end

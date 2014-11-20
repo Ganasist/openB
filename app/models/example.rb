@@ -1,6 +1,7 @@
 class Example < ActiveRecord::Base
 
   include JobValidations
+  include GlobalConcerns
 
   belongs_to :contractor
 
