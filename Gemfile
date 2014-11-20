@@ -62,6 +62,7 @@ group :development, :test do
 end
 group :production, :staging do
   gem 'rails_12factor'
+  gem 'autoscaler'
 end
 group :test do
   gem 'capybara'
