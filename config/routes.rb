@@ -23,14 +23,12 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :index, :destroy], 
                 concerns: [:uploadable, :commentable, :commenterable],
                 defaults: { uploadable: 'user', 
-                           commentable: 'user', 
-                         commenterable: 'user' }
+                           commentable: 'user' }
 
   resources :contractors, only: [:show, :index], 
                       concerns: [:uploadable, :commentable, :commenterable],
                       defaults: { uploadable: 'contractor', 
-                                 commentable: 'contractor', 
-                               commenterable: 'contractor' } do
+                                 commentable: 'contractor' } do
     resources :examples, except: :destroy
   end
   

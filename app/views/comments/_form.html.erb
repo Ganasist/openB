@@ -1,5 +1,5 @@
 <div class="row authform_large">
-	<%= simple_form_for [@commentable, @comment], html: { autocomplete: 'off' } do |f|  %>
+	<%= simple_form_for [@commentable, Comment.new], html: { autocomplete: 'off' } do |f|  %>
 
     <%= f.error_notification %>
 
@@ -11,7 +11,7 @@
                      placeholder: 'Enter a brief comment',
                       input_html: { rows: '7', maxlength: 2000 } %>
 
-	    <%= f.button :submit, "Enter this comment", class: 'user_submit' %>
+	    <%= f.button :submit, 'Send message', class: 'user_submit' %>
 	  </div>
 	<% end %>
 	<br>

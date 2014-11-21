@@ -1,7 +1,6 @@
 class ContractorsController < ApplicationController
   before_action :set_contractor, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_contractor!, except: [:index, :show]
-  # before_filter :admin_only, except: :show
   before_action :block_visitors
 
   def index
@@ -9,7 +8,8 @@ class ContractorsController < ApplicationController
                                  .page(params[:contractors])
                                  .per(10)
     if category = params[:search]
-      @contractors = @contractors.relevant_categories(category).order(updated_at: :desc)
+      @contractors = @contractors.relevant_categories(category)
+                                 .order(updated_at: :desc)
                                  .page(params[:contractors])
                                  .per(10)                               
     end
@@ -23,9 +23,9 @@ class ContractorsController < ApplicationController
                            .order(updated_at: :desc)
                            .page(params[:examples])
 
-    @comments = @contractor.comments
-                           .order(updated_at: :desc)
-                           .page(params[:comments])
+    @comments = Comment.where(commentable_type: 'Contractor', commentable_id: @contractor.id)
+                       .order(updated_at: :desc)
+                       .page(params[:comments])
 
     @jobs = Job.near(@contractor.full_address, 100)
                .order(updated_at: :desc)

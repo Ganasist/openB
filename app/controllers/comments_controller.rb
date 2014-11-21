@@ -1,15 +1,13 @@
 class CommentsController < ApplicationController
-  before_action :get_commentable
+  before_action :get_commentable, only: [:new, :create]
   before_action :get_commenterable, only: [:new, :create]
 
   def new
-    @comment = Comment.new
-    # @comment.commentable = @commentable
-    # @comment.commenterable = @commenterable
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    # @comment = Comment.new
+    # respond_to do |format|
+    #   format.html
+    #   format.js
+    # end
   end
  
   def create
@@ -17,7 +15,7 @@ class CommentsController < ApplicationController
     @comment.commentable = @commentable
     @comment.commenterable = @commenterable
     if @comment.save
-      flash[:notice] = 'Comment sent.'
+      flash[:notice] = 'Message sent.'
       redirect_to @commentable
     else
       flash[:error] = "#{ @comment.errors.full_messages.to_sentence }"
@@ -37,7 +35,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     respond_to do |format|
       if @comment.update(comment_params)      
-        format.html { redirect_to @commentable, notice: 'Comment updated' }
+        format.html { redirect_to @commentable, notice: 'Message updated' }
         format.js
       else
         format.html { render 'edits', notice: "#{ @comment.errors.full_messages.to_sentence }" }
@@ -70,7 +68,7 @@ class CommentsController < ApplicationController
     end
 
     def commentable_id
-      params[(params[:commentable].singularize + "_id").to_sym]
+      params[(params[:commentable].singularize + '_id').to_sym]
     end
 
     def comment_params
