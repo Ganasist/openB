@@ -8,7 +8,7 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(params[:contact])
     if @contact.valid?
-      ContactMailer.delay(retry: false).contact_email(@contact.email, @contact.user, @contact.comment)
+      ContactMailer.delay(retry: false).contact_email(@contact.email, @contact.comment)
       redirect_to :back, notice: 'Your contact is appreciated!'
     else
       render 'new'

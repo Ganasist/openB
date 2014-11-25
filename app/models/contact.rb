@@ -1,14 +1,11 @@
 class Contact
 	include ActiveAttr::Model
 
-	attribute :name
   attribute :email
-  attribute :subject
   attribute :comment
 
-  attr_accessor :name, :email, :subject, :subject
+  attr_accessor :name, :email
   
-  validates_presence_of :name
   validates_presence_of :email
   validates_presence_of :comment, message: "Comment can't be blank"
   

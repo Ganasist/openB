@@ -5,5 +5,4 @@ class ContactMailer < ActionMailer::Base
     @comment = comment
     mail(to: 'contact@openbid.com', from: @email, subject: "New message from #{ @email }" )
   end
-  
 end
