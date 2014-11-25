@@ -69,22 +69,13 @@
                                  maxlength: 2000 },
                         label_html: { id: 'description_feedback' }  %>
 
-      <p class="text-center lead">Select between 1-4 categories</p>
-      <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
-        <ul class="list-unstyled col-xs-6">
-          <li>
-            <%= f.input :categories, as: :check_boxes, 
-                              label: false,
-                           required: true,
-                         collection: cats %>
-          </li>
-        </ul> 
-      <% end %>        
+      <%= render 'layouts/category_select', f: f %>
+             
     </div>
     <div class="row">
       <div class="form-inputs col-lg-12">
         <h4 class="text-center hidden text-danger" id="category_warning">
-          Please pick at least one category.
+          Please pick between 1-4 categories!
         </h4>
         <%= f.button :submit, "Post this #{ job.class.name.downcase }", class: 'user_submit' %>
       </div> 

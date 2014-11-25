@@ -1,0 +1,12 @@
+<!-- <p class="text-center lead">Select categories of interest</p> -->
+
+<ul class="list-unstyled col-xs-12">
+	<li>
+  	<%= f.input :categories, as: :select,
+  												label: 'Pick 1-4 categories',
+								  	 collection: @cats, 
+  									 input_html: { size: 10, 
+  									 					 multiple: true,
+			  									 					 id: 'category_select' } %>
+  </li>
+</ul>

@@ -50,17 +50,10 @@
         
     </div>
 
-    <div class="form-inputs col-md-6 col-sm-6">      
-      <p class="lead">Select categories of interest</p>
-      <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
-        <ul class="list-unstyled col-xs-6">
-          <li>
-            <%= f.input :categories, as: :check_boxes,
-                                  label: false,
-                             collection: cats %>
-          </li>
-        </ul> 
-      <% end %>     
+    <div class="form-inputs col-md-6 col-sm-6">
+
+      <%= render 'layouts/category_select', f: f %>
+
     </div>
 
     <div class="form-inputs col-md-6 col-sm-6">
@@ -81,9 +74,9 @@
     </div>
 
     <div class="row">
-      <div class="form-inputs">
+      <div class="form-inputs col-lg-12">
         <h4 class="text-center hidden text-danger" id="category_warning">
-          Please pick at least one category!
+          Please pick between 1-4 categories!
         </h4>
         <%= f.button :submit, 'Update Profile', class: 'user_submit' %>
       </div>
