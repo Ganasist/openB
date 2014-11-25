@@ -9,7 +9,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new(params[:contact])
     if @contact.valid?
       ContactMailer.delay(retry: false).contact_email(@contact.email, @contact.comment)
-      redirect_to root_path, notice: 'Your contact is appreciated!'
+      redirect_to root_path, notice: 'Your message has been sent. Thank you for your feedback.'
     else
       render 'new'
     end
