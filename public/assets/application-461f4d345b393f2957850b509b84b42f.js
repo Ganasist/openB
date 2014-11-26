@@ -14550,22 +14550,46 @@ return jQuery;
 
 }).call(this);
 (function() {
-  jQuery(function() {
-    return $("select#category_select").on("change", function(evt) {
-      if ($("select#category_select option:selected").length >= 4) {
-        console.log($('select#category_select option:not(:selected)').length);
-        $('select#category_select option:not(:selected)').attr('disabled', true).fadeTo(100, .3);
-      } else if ($("select#category_select option:selected").length < 4) {
+  var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  $(function() {
+    var checkbox_check, dropdown_check, warning_check;
+    warning_check = function() {
+      var _ref, _ref1;
+      console.log('running warning_check');
+      if ((_ref = $("select#category_select option:selected").length, __indexOf.call([1, 2, 3, 4], _ref) >= 0) || (_ref1 = $("input.check_boxes:checked").length, __indexOf.call([1, 2, 3, 4], _ref1) >= 0)) {
+        return $('input.user_submit').attr('disabled', false) && $('#category_warning').addClass('hidden');
+      } else {
+        return $('input.user_submit').attr('disabled', true) && $('#category_warning').removeClass('hidden');
+      }
+    };
+    checkbox_check = function() {
+      var _ref;
+      console.log('running checkbox_check');
+      if (_ref = $("input.check_boxes:checked").length, __indexOf.call([0, 1, 2, 3], _ref) >= 0) {
+        $("input.check_boxes:not(:checked)").attr('disabled', false).parent().fadeTo(100, 1);
+      } else {
+        $("input.check_boxes:not(:checked)").attr('disabled', true).parent().fadeTo(100, .3);
+      }
+      return warning_check();
+    };
+    dropdown_check = function() {
+      var _ref;
+      if (_ref = $("select#category_select option:selected").length, __indexOf.call([0, 1, 2, 3], _ref) >= 0) {
         $('select#category_select option:not(:selected)').attr('disabled', false).fadeTo(100, 1);
+      } else {
+        $('select#category_select option:not(:selected)').attr('disabled', true).fadeTo(100, .3);
       }
-      if ($("select#category_select option:selected").length > 0 && $("select#category_select option:selected").length >= 5) {
-        console.log($("select#category_select option:selected").length);
-        $('input.user_submit').attr('disabled', true);
-        return $('#category_warning').removeClass('hidden');
-      } else if ($("select#category_select option:selected").length >= 1 || $("select#category_select option:selected").length >= 4) {
-        $('input.user_submit').attr('disabled', false);
-        return $('#category_warning').addClass('hidden');
-      }
+      return warning_check();
+    };
+    warning_check();
+    checkbox_check();
+    dropdown_check();
+    $("input.check_boxes").on("change", function(evt) {
+      return checkbox_check();
+    });
+    return $("select#category_select").on("change", function(evt) {
+      return dropdown_check();
     });
   });
 
