@@ -1,12 +1,23 @@
-<!-- <p class="text-center lead">Select categories of interest</p> -->
-
-<ul class="list-unstyled col-xs-12">
-	<li>
-  	<%= f.input :categories, as: :select,
-  												label: 'Pick 1-4 categories',
-								  	 collection: @cats, 
-  									 input_html: { size: 10, 
-  									 					 multiple: true,
-			  									 					 id: 'category_select' } %>
-  </li>
-</ul>
+<% if mobile? %>
+	<ul class="list-unstyled col-xs-12">
+		<li>
+	  	<%= f.input :categories, as: :select,
+	  												label: 'Pick 1-4 categories',
+									  	 collection: @cats, 
+	  									 input_html: { size: 10, 
+	  									 					 multiple: true,
+				  									 					 id: 'category_select' } %>
+	  </li>
+	</ul>
+<% else %>     
+  <p class="lead">Select categories of interest</p>
+  <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
+    <ul class="list-unstyled col-xs-6">
+      <li>
+        <%= f.input :categories, as: :check_boxes,
+                              label: false,
+                         collection: cats %>
+      </li>
+    </ul> 
+ <% end %>
+<% end %>
