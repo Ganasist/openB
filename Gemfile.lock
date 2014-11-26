@@ -308,8 +308,8 @@ GEM
     sendgrid (1.2.0)
       json
       json
-    sidekiq (3.2.4)
-      celluloid (>= 0.15.2)
+    sidekiq (3.3.0)
+      celluloid (>= 0.16.0)
       connection_pool (>= 2.0.0)
       json
       redis (>= 3.0.6)
