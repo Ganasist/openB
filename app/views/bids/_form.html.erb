@@ -10,14 +10,13 @@
         <li>
         <div class="form-group">
           <span class="input-group">
-            <%= f.input :cost, required: true,  
-                                  label: false,
-                                wrapper: :horizontal_input_group do %>
-                  <span class="input-group-addon">$</span>
-                  <%= f.input_field :cost, maxlength: 5,
-                                         placeholder: 500,
-                                         class: 'form-control',
-                                                  id: 'form_zip_code' %>
+            <%= f.input :cost, label: false,
+                             wrapper: :horizontal_input_group do %>
+              <span class="input-group-addon">$</span>
+              <%= f.input_field :cost, maxlength: 5,
+                                     placeholder: 500,
+                                     class: 'form-control',
+                                              id: 'form_zip_code' %>
             <% end %>
           </span>
           </div>

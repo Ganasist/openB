@@ -6,10 +6,9 @@
 	  <div class="list-inline">
 	  	<%= f.input :subject %>
 	  	<%= f.input :body, as: :text, 
-                        required: true,
-                           label: 'Comment', 
-                     placeholder: 'Enter a brief comment',
-                      input_html: { rows: '7', maxlength: 2000 } %>
+                      label: 'Comment', 
+                placeholder: 'Enter a brief comment',
+                 input_html: { rows: '7', maxlength: 2000 } %>
 
 	    <%= f.button :submit, 'Send message', class: 'user_submit' %>
 	  </div>

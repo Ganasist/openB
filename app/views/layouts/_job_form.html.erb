@@ -1,10 +1,10 @@
 <% @cats = Contractor.categories %>
 <div class="authform_large">
   <%= simple_form_for [member, job], wrapper: :vertical_form, 
-                                        html: { multipart: true, 
-                                             autocomplete: 'off' },
-                            wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
-                                                       file: :horizontal_file_input } do |f| %>
+                               html: { multipart: true, 
+                                    autocomplete: 'off' },
+                   wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
+                                              file: :horizontal_file_input } do |f| %>
     <%= f.error_notification %>
 
     <div class="form-inputs col-lg-8 col-lg-offset-2">
@@ -28,8 +28,7 @@
       
       <% if type == 'example' %>
         <ul class="list-inline">
-          <li><%= f.input :cost, 
-                                      wrapper: :vertical_input_group do %>
+          <li><%= f.input :cost, wrapper: :vertical_input_group do %>
                     <span class="input-group-addon">$</span>
                     <%= f.input_field :cost, as: :string, 
                                     placeholder: '400',
@@ -60,12 +59,11 @@
       <% end %>
       
       
-      <%= f.input :description, as: :text, 
+      <%= f.input :description, as: :text,
                              label: '',
                        placeholder: 'Enter a brief description of this job',
-                        input_html: { id: 'job_description', 
-                                    rows: '7', 
-                               maxlength: 2000 },
+                        input_html: { id: 'job_description', rows: '7', 
+                                 maxlength: 2000 },
                         label_html: { id: 'description_feedback' }  %>
 
       <%= render 'layouts/category_select', f: f %>

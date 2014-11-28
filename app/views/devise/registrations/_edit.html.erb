@@ -17,11 +17,9 @@
   <div class="row">
     <div class="form-inputs col-md-6 col-sm-6">
         <%= f.input :name %>
-        <%= f.input :company_name, required: true, 
+        <%= f.input :company_name,  
                                 placeholder: 'Enter your company name' if contractor_signed_in? %>
-        <%= f.input :email, required: true, 
-                         placeholder: 'Required', 
-                          input_html: { id: 'current_email' } %>
+        <%= f.input :email, input_html: { id: 'current_email' } %>
         <%= f.input :phone, as: :string,
                    placeholder: 'Enter a valid full phone number',
                     input_html: { value: resource.try(:phone) ? 
@@ -36,14 +34,14 @@
           </li>
           <li>
             <%= f.input :zip_code, as: :string,
-                             required: true,
+                             
                            input_html: { min_max: 5, 
                                               id: 'form_zip_code' }, 
                          wrapper_html: { id: 'label_zip_code' } %>
           </li>
         </ul>      
         <%= f.input :description, as: :text,
-                            required: true,
+                            
                                label: 'Company Description',
                          placeholder: 'Enter brief description about your services',
                           input_html: { rows: '7', maxlength: 500 } if contractor_signed_in? %>
@@ -57,11 +55,9 @@
     <div class="form-inputs col-md-6 col-sm-6">
         <%= f.input :password, label: 'New Password (optional)', 
                         autocomplete: 'off', 
-                         placeholder: 'Enter new password', 
-                            required: false, 
+                         placeholder: 'Enter new password',
                           input_html: { id: 'new_password', autocomplete: 'off' } %>
-        <%= f.input :password_confirmation, label: 'New password confirmation', 
-                                         required: false, 
+        <%= f.input :password_confirmation, label: 'New password confirmation',
                                        input_html: { autocomplete: 'off' },                                    
                                      wrapper_html: { style: 'display: none', 
                                                         id: 'new_password_confirmation'}  %>
