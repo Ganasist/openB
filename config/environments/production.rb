@@ -94,13 +94,3 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
-
-
-Openbid::Application.config.middleware.use ExceptionNotification::Rack,
-  email: {
-      email_prefix:         "[ERROR] ",
-      sender_address:       %{"Notifier" <noreply@openbid.com>},
-      exception_recipients: %w{ lance@.openbid.contractors admin@infinitory.com },
-      email_format: :html
-      }
-    }
