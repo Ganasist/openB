@@ -11,8 +11,6 @@ Sidekiq.configure_server do |config|
   					 namespace: "openbid_#{ Rails.env }" }
   config.poll_interval = 5
 
-  config.error_handlers << Proc.new {|ex,context| ExceptionNotification.add_notifier(ex, context) }
-
   config.on(:startup) do
     puts 'Worker starting up!'
   end
