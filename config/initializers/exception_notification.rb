@@ -22,9 +22,6 @@ ExceptionNotification.configure do |config|
       exception_recipients: %w{ lance@.openbid.contractors admin@infinitory.com },
       email_format: :html
       }
-    default: {
-      options: 'just a test'
-      }
     }
 
   # Campfire notifier sends notifications to your Campfire room. Requires 'tinder' gem.
