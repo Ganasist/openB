@@ -7,7 +7,7 @@
 	</div>
 	<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
 		<hr class="visible-xs">
-    <% if current_user == @user %>
+    <% if current_use == @user %>
   		<h3 class="lead text-center">
   			<%= link_to 'Post a New Job', new_job_path, class: 'btn btn-lg btn-success' if current_user == @user %>
   		</h3>
