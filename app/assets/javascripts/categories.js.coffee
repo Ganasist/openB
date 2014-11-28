@@ -16,16 +16,16 @@ $ ->
 		warning_check()
 
 	# For mobile devices which will use a multi-select dropdown menu
-	dropdown_check = ->
-		if $("select#category_select option:selected").length in [0..3]
-			$('select#category_select option:not(:selected)').attr('disabled', false).fadeTo(100, 1)
-		else
-			$('select#category_select option:not(:selected)').attr('disabled', true).fadeTo(100, .3)
-		warning_check()
+	# dropdown_check = ->
+	# 	if $("select#category_select option:selected").length in [0..3]
+	# 		$('select#category_select option:not(:selected)').attr('disabled', false).fadeTo(100, 1)
+	# 	else
+	# 		$('select#category_select option:not(:selected)').attr('disabled', true).fadeTo(100, .3)
+	# 	warning_check()
 	
 	warning_check()
 	checkbox_check()
-	dropdown_check()
+	# dropdown_check()
 
 	$("input.check_boxes").on "change", (evt) ->
 		checkbox_check()
