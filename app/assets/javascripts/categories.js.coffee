@@ -31,4 +31,5 @@ $ ->
 		checkbox_check()
 
 	$("select#category_select").on "change", (evt) ->
-		dropdown_check()
+		# dropdown_check()
+		warning_check()
