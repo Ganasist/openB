@@ -81,7 +81,7 @@ Rails.application.configure do
   }
   # ActionMailer Config
   config.action_mailer.default_url_options = { host: 'openbid-staging.herokuapp.com' }
-  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
 
@@ -94,11 +94,3 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
-
-
-Openbid::Application.config.middleware.use ExceptionNotification::Rack,
-  :email => {
-    :email_prefix => "[Whatever] ",
-    :sender_address => %{"notifier" <notifier@example.com>},
-    :exception_recipients => %w{ johntrichereau@gmail.com }
-  }
