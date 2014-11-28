@@ -25,11 +25,11 @@
         </ul>
       <% end %>
 
-      <%= f.input :title, label: 'Job Title', required: true, input_html: { maxlength: 50 } %>
+      <%= f.input :title, label: 'Job Title', input_html: { maxlength: 50 } %>
       
       <% if type == 'example' %>
         <ul class="list-inline">
-          <li><%= f.input :cost, required: true,
+          <li><%= f.input :cost, 
                                       wrapper: :vertical_input_group do %>
                     <span class="input-group-addon">$</span>
                     <%= f.input_field :cost, as: :string, 
@@ -62,7 +62,6 @@
       
       
       <%= f.input :description, as: :text, 
-                          required: true,
                              label: '',
                        placeholder: 'Enter a brief description of this job',
                         input_html: { id: 'job_description', rows: '7', 
