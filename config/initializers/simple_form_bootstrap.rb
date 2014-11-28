@@ -3,7 +3,7 @@ SimpleForm.setup do |config|
   config.error_notification_class = 'alert alert-danger'
   config.button_class = 'btn btn-default'
   config.boolean_label_class = nil
-  config.required_by_default = false
+  # config.required_by_default = false
 
   config.wrappers :vertical_input_group, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
