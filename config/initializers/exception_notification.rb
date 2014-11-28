@@ -1,5 +1,5 @@
 require 'exception_notification/rails'
-require 'exception_notification/sidekiq'
+# require 'exception_notification/sidekiq'
 
 ExceptionNotification.configure do |config|
   # Ignore additional exception types.
@@ -21,6 +21,9 @@ ExceptionNotification.configure do |config|
       sender_address:       %{"Notifier" <noreply@openbid.com>},
       exception_recipients: %w{ lance@.openbid.contractors admin@infinitory.com },
       email_format: :html
+      }
+    default: {
+      options: 'just a test'
       }
     }
 
