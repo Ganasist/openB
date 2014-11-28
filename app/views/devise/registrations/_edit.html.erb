@@ -40,11 +40,11 @@
                          wrapper_html: { id: 'label_zip_code' } %>
           </li>
         </ul>      
-        <%= f.input :description, as: :text,
-                            
+        <%= f.input :description, as: :text, 
                                label: 'Company Description',
                          placeholder: 'Enter brief description about your services',
-                          input_html: { rows: '7', maxlength: 500 } if contractor_signed_in? %>
+                          input_html: { rows: '7', 
+                                   maxlength: 500 } if contractor_signed_in? %>
         
     </div>
 
@@ -58,7 +58,7 @@
                          placeholder: 'Enter new password',
                           input_html: { id: 'new_password', autocomplete: 'off' } %>
         <%= f.input :password_confirmation, label: 'New password confirmation',
-                                       input_html: { autocomplete: 'off' },                                    
+                                       input_html: { autocomplete: 'off' },  
                                      wrapper_html: { style: 'display: none', 
                                                         id: 'new_password_confirmation'}  %>
         <%= f.input :current_password, placeholder: 'Enter current password to confirm updates', 

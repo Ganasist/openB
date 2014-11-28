@@ -10,11 +10,9 @@ module JobValidations
 
 
 		validates :title, presence: true, 
-	                 allow_blank: false, 
 	                      length: { in: 5..50 }
 
-    validates :description, presence: true, 
-	                       allow_blank: false, 
+    validates :description, presence: true,
 	                            length: { in: 10..2000 }
 
   end
