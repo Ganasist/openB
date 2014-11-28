@@ -6,7 +6,6 @@ class Job < ActiveRecord::Base
   pg_search_scope :search_by_zip, against: :zip_code
   
   belongs_to :user
-  # validates_associated :user
 
   has_many :bids, dependent: :destroy
   has_many :contractors, through: :bids
