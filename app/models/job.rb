@@ -14,7 +14,8 @@ class Job < ActiveRecord::Base
 
   validates :bidding_period, allow_blank: true, 
                                     date: { after: Proc.new { Date.today }, 
-                                          message: 'Must be a future date' }
+                                          message: 'Must be a future date' }, 
+                                      if: Proc.new { |o| o.new_record? }
 
   geocoded_by :full_address
   after_validation :geocode, if: ->(obj){ obj.full_address.present? && (obj.address_changed? ||
