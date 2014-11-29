@@ -21,22 +21,26 @@ puts 'start seed here'
 																 )
 
 	rand(20).times do |j|
-		Job.create!(user_id: user.id,
+		job = Job.create(user_id: user.id,
 								contractor_id: [contractor.id, nil].sample,
 								title: Faker::Name.title, 
-								description: Faker::Lorem.paragraph(4, true, 4), 
-								categories: user.categories,
+								description: Faker::Lorem.paragraph(4, true, 4),
 								zip_code: user.zip_code
 							 )
+		job.category << user.categories.sample
+		job.category_will_change!
+		job.save!
 	end
 
 	rand(20).times do |j|
-		Example.create!(contractor_id: contractor.id,
+		example = Example.create(contractor_id: contractor.id,
 										title: Faker::Name.title, 
-										description: Faker::Lorem.paragraph(4, true, 4), 
-										categories: contractor.categories,
+										description: Faker::Lorem.paragraph(4, true, 4),
 										zip_code: contractor.zip_code
 									 )
+		example.category << user.categories.sample
+		example.category_will_change!
+		example.save!
 	end
 end
 

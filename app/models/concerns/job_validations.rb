@@ -8,7 +8,7 @@ module JobValidations
 
 		validates :category, presence: true, 
 													 length: { is: 1,
-										 		   		  message: 'Pick between a category' }
+										 		   		  message: 'Pick a category' }
 
 		validates :title, presence: true, 
 	                      length: { in: 5..50 }
