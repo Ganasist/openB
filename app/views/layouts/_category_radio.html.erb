@@ -1,0 +1,11 @@
+<p class="lead text-center">Select a job category</p>
+  <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
+    <ul class="list-unstyled col-xs-6">
+      <li>
+        <%= f.input :category, as: :radio_buttons,
+                            label: false,
+                          checked: checked,
+                       collection: cats, input_html: { multiple: true } %>
+      </li>
+    </ul> 
+ <% end %>

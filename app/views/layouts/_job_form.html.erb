@@ -3,7 +3,7 @@
   <%= simple_form_for [member, job], wrapper: :vertical_form, 
                                html: { multipart: true, 
                                     autocomplete: 'off' },
-                   wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
+                   wrapper_mappings: { radio_buttons: :vertical_radio_and_checkboxes,
                                               file: :horizontal_file_input } do |f| %>
     <%= f.error_notification %>
 
@@ -24,7 +24,7 @@
         </ul>
       <% end %>
 
-      <%= f.input :title, label: 'Job Title', input_html: { maxlength: 50 } %>
+      <%= f.input :title, label: 'Job Title', input_html: { maxlength: 50, id: 'job_title' } %>
       
       <% if type == 'example' %>
         <ul class="list-inline">
@@ -66,13 +66,14 @@
                                  maxlength: 2000 },
                         label_html: { id: 'description_feedback' }  %>
 
-      <%= render 'layouts/category_select', f: f %>
+
+      <%= render 'layouts/category_radio', f: f, checked: job.category if job.category %>
              
     </div>
     <div class="row">
       <div class="form-inputs col-lg-12">
         <h4 class="text-center hidden text-danger" id="category_warning">
-          Please pick between 1-4 categories!
+          Please pick a category!
         </h4>
         <%= f.button :submit, "Post this #{ job.class.name.downcase }", class: 'user_submit' %>
       </div> 

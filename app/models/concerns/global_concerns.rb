@@ -6,14 +6,11 @@ module GlobalConcerns
 
     acts_as_commentable
     
-    scope :relevant_categories, -> (categories){ where('categories && ARRAY[?]', categories) }
-    scope :relevant_categories_count, -> (categories){ where('categories && ARRAY[?]', categories).count }
+    # scope :relevant_categories, -> (categories){ where('category @> ARRAY[?]', categories) }
+    # scope :relevant_categories_count, -> (categories){ where('category @> ARRAY[?]', categories).count }
 
 
     has_many :uploads, as: :uploadable, dependent: :destroy
-
-
-    before_validation :remove_blank_categories
   end
 	
 	module ClassMethods
@@ -24,10 +21,6 @@ module GlobalConcerns
         scoped
       end
     end
-  end
-
-  def remove_blank_categories
-    self.categories.reject!(&:empty?)
   end
 
   def full_address

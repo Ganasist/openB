@@ -27,5 +27,10 @@ module MemberValidations
 									# postcode_format: { country_code: :us,
 									# 												message: 'is not a valid postcode for the US.'}
   
+    before_validation :remove_blank_categories
+  end
+
+  def remove_blank_categories
+    self.categories.reject!(&:empty?)
   end
 end

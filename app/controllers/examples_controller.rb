@@ -36,7 +36,6 @@ class ExamplesController < ApplicationController
   end
 
   def destroy
-    # @example = example.find(params[:id])
     @example.destroy
     respond_to do |format|
       format.html { redirect_to current_contractor, notice: "Your example '#{ @example.title }' has been removed" }
@@ -51,6 +50,6 @@ class ExamplesController < ApplicationController
 
   	def example_params
   		params.require(:example).permit(:title, :description, :duration, 
-  																		:duration_unit, :cost, { categories: []})
+  																		:duration_unit, :cost, { category: [] })
   	end
 end

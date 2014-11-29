@@ -27,10 +27,10 @@ class ContractorsController < ApplicationController
                        .order(updated_at: :desc)
                        .page(params[:comments])
 
-    @jobs = Job.near(@contractor.full_address, 100)
+    @jobs = Job.where('category <@ ARRAY[?]', @contractor.categories)
                .order(updated_at: :desc)
+               .near(@contractor.full_address, 50)
                .includes([:user, :uploads])
-               .relevant_categories(@contractor.categories)
                .page(params[:jobs]).per(2)
   end
 
