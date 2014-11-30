@@ -4,6 +4,13 @@ class Contractor < ActiveRecord::Base
   include Devisable
   include GlobalConcerns
   include PgSearch
+
+  before_save :search_radius_check
+  validates :search_radius, numericality: { only_integer: true,
+                                             allow_blank: true,
+                                            greater_than: 0, 
+                                               less_than: 1000, 
+                                                 message: 'Please choose a distance between 1 - 999 miles.' }
   
   pg_search_scope :search_by_zip, against: :zip_code
 
@@ -22,6 +29,10 @@ class Contractor < ActiveRecord::Base
   def self.splash_page_categories
     ['Driveways', 'Electrical', 'Landscaping', 'New Construction',
 	  	'Painting','Plumbing', 'Remodel', 'Roofing' ]
+  end
+
+  def search_radius_check
+    self.search_radius = 50 if self.search_radius.blank?
   end
 
   def complete_profile?

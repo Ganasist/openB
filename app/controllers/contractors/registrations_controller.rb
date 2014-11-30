@@ -41,6 +41,7 @@ class Contractors::RegistrationsController < RegistrationsController
                                                                      { categories: [] },
                                                                      :city,
                                                                      :state,
+                                                                     :search_radius,
                                                                      :company_name,
                                                                      :password, 
                                                                      :current_password, 

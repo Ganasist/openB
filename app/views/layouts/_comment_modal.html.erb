@@ -17,7 +17,7 @@
 
           <%= f.error_notification %>
 
-          <div class="list-inline">
+          <div class="list-inline text-center">
             <%= f.input :subject %>
             <%= f.input :body, as: :text, 
                               required: true,
@@ -25,7 +25,7 @@
                            placeholder: 'Enter a brief comment',
                             input_html: { rows: '7', maxlength: 2000 } %>
 
-            <%= f.button :submit, 'Submit message', class: 'user_submit' %>
+            <%= f.button :submit, 'Submit message', class: 'btn btn-success btn-lg' %>
           </div>
         <% end %>
       </div>

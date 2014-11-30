@@ -32,18 +32,15 @@
             <%= f.select :state, options_for_select(us_states, resource.try(:state)), include_blank: 'Select a State' %>
           </li>
           <li>
-            <%= f.input :zip_code, as: :string,                             
+            <%= f.input :zip_code, as: :string,
+                             
                            input_html: { min_max: 5, 
                                               id: 'form_zip_code' }, 
                          wrapper_html: { id: 'label_zip_code' } %>
           </li>
         </ul>
 
-        <%= f.input :search_radius, as: :string, 
-                                 label: 'Search radius (miles)',
-                                  hint: 'Job posts within this distance will show up in your feed.', 
-                            input_html: { maxlength: 3, 
-                                              style: 'width:100px' } if contractor_signed_in? %>
+        <%= f.input :search_radius, input_html: { style: 'width:100px', max: 3 } if contractor_signed_in? %>
 
         <%= f.input :description, as: :text, 
                                label: 'Company Description',

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141129140706) do
+ActiveRecord::Schema.define(version: 20141130100557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20141129140706) do
     t.string   "state"
     t.float    "latitude"
     t.float    "longitude"
+    t.integer  "search_radius"
   end
 
   add_index "contractors", ["categories"], name: "index_contractors_on_categories", using: :gin

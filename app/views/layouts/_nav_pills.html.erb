@@ -1,16 +1,17 @@
 <hr class="visible-xs">
-
-    <ul class="nav nav-pills nav-justified">
-		  <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
-		  	<a href="#job" data-toggle="tab"><%= @contractor ? 'Nearby jobs' : 'Your jobs' %></a>
-		  </li>
-		  <% if @contractor %>
-			  <li class="<%= 'active' if params[:tab] == 'examples' %>">
-			  	<a href="#example" data-toggle="tab">Portfolio</a>
-			  </li>
-			 <% end %>
-      <li class="<%= 'active' if params[:tab] == 'comments' %>">
-        <a href="#comment" data-toggle="tab">Messages</a>
-      </li>
-		</ul>    
-		<br>
+<ul class="nav nav-pills nav-justified">
+  <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
+  	<a href="#job" data-toggle="tab">
+  		<%= @contractor ? "Jobs within #{ @contractor.search_radius.to_s } miles" : "Your jobs" %>
+  	</a>
+  </li>
+  <% if @contractor %>
+	  <li class="<%= 'active' if params[:tab] == 'examples' %>">
+	  	<a href="#example" data-toggle="tab">Portfolio</a>
+	  </li>
+	 <% end %>
+  <li class="<%= 'active' if params[:tab] == 'comments' %>">
+    <a href="#comment" data-toggle="tab">Messages</a>
+  </li>
+</ul>    
+<br>

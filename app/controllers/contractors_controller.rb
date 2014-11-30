@@ -29,7 +29,7 @@ class ContractorsController < ApplicationController
 
     @jobs = Job.where('category <@ ARRAY[?]', @contractor.categories)
                .order(updated_at: :desc)
-               .near(@contractor.full_address, 50)
+               .near(@contractor.full_address, @contractor.search_radius)
                .includes([:user, :uploads])
                .page(params[:jobs]).per(2)
   end
