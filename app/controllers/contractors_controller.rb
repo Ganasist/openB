@@ -51,14 +51,4 @@ class ContractorsController < ApplicationController
     def set_contractor
       @contractor = Contractor.find(params[:id])
     end
-
-    # def admin_only
-    #   unless current_user && current_user.admin?
-    #     redirect_to :back, :alert => 'Access denied.'
-    #   end
-    # end
-
-    # def secure_params
-    #   params.require(:contractor).permit(:role)
-    # end
 end

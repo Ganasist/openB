@@ -5,7 +5,7 @@ class Contractor < ActiveRecord::Base
   include GlobalConcerns
   include PgSearch
 
-  before_save :search_radius_check
+  after_commit :search_radius_check
   validates :search_radius, numericality: { only_integer: true,
                                              allow_blank: true,
                                             greater_than: 0, 
