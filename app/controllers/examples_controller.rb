@@ -50,6 +50,6 @@ class ExamplesController < ApplicationController
 
   	def example_params
   		params.require(:example).permit(:title, :description, :duration, 
-  																		:duration_unit, :cost, { category: [] })
+  																		:duration_unit, :cost, { categories: [] })
   	end
 end

@@ -3,7 +3,7 @@
   <%= simple_form_for [member, job], wrapper: :vertical_form, 
                                html: { multipart: true, 
                                     autocomplete: 'off' },
-                   wrapper_mappings: { radio_buttons: :vertical_radio_and_checkboxes,
+                   wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
                                               file: :horizontal_file_input } do |f| %>
     <%= f.error_notification %>
 
@@ -67,7 +67,7 @@
                         label_html: { id: 'description_feedback' }  %>
 
 
-    <div class="form-inputs col-md-6 col-sm-6 col-xs-12">
+    <div class="form-inputs col-xs-12">
       <%= render 'layouts/category_select', f: f %>
     </div>
              
@@ -75,7 +75,7 @@
     <div class="row">
       <div class="form-inputs col-xs-12">
         <h4 class="text-center hidden text-danger" id="category_warning">
-          Please pick a category
+          Please pick 1-4 categories
         </h4>
       </div> 
         <%= f.button :submit, "Post this #{ job.class.name.downcase }", class: 'user_submit' %>

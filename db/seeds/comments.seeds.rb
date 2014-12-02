@@ -1,6 +1,8 @@
 
 puts 'start comments seed now'
 
+Comment.delete_all
+
 500.times do |u|
 	commentable = %w(Job User Contractor Example).sample.constantize.all.sample
 	commenterable = %w(User Contractor).sample.constantize.all.sample

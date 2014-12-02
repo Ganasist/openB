@@ -1,6 +1,8 @@
 
 puts 'start bids seed now'
 
+Bid.delete_all
+
 500.times do |u|
 	Bid.create!(job_id: Job.pluck(:id).sample,
 							contractor_id: Contractor.pluck(:id).sample, 

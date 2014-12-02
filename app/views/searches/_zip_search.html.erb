@@ -4,7 +4,7 @@
 			<%= link_to image_tag(context.uploads.first.image(:thumb), class: 'img-rounded img-responsive'), context %><br>
 		<% end %>
 		<%= context.is_a?(Job) ? (link_to context.title, context) : (link_to context.fullname, context)  %> <br>
-	  <%= context.is_a?(Job) ? context.category.first : context.categories.to_sentence %>
+	  <%= context.categories.to_sentence %>
 	</td>
 	<td>
 		<div class="text-center"><h4>test</h4></div>
