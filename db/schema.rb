@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141130100557) do
+ActiveRecord::Schema.define(version: 20141202145951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,10 +109,10 @@ ActiveRecord::Schema.define(version: 20141130100557) do
     t.integer  "contractor_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.text     "category",      default: [],              array: true
+    t.text     "categories",    default: [],              array: true
   end
 
-  add_index "examples", ["category"], name: "index_examples_on_category", using: :gin
+  add_index "examples", ["categories"], name: "index_examples_on_categories", using: :gin
   add_index "examples", ["contractor_id"], name: "index_examples_on_contractor_id", using: :btree
 
   create_table "jobs", force: true do |t|
@@ -132,11 +132,11 @@ ActiveRecord::Schema.define(version: 20141130100557) do
     t.string   "state"
     t.date     "bidding_period"
     t.integer  "cost"
-    t.text     "category",       default: [],              array: true
+    t.text     "categories",     default: [],              array: true
   end
 
   add_index "jobs", ["address"], name: "index_jobs_on_address", using: :btree
-  add_index "jobs", ["category"], name: "index_jobs_on_category", using: :gin
+  add_index "jobs", ["categories"], name: "index_jobs_on_categories", using: :gin
   add_index "jobs", ["contractor_id"], name: "index_jobs_on_contractor_id", using: :btree
   add_index "jobs", ["latitude"], name: "index_jobs_on_latitude", using: :btree
   add_index "jobs", ["longitude"], name: "index_jobs_on_longitude", using: :btree

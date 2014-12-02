@@ -1,6 +1,5 @@
 $ ->
 	warning_check = ->
-		# console.log $("input[name='job[categories]']:radio:checked").val()
 		if $("select#category_select option:selected").length in [1..4] or 
 			$("input.check_boxes:checked").length in [1..4] or 
 			$("input:radio:checked").val()?
@@ -9,15 +8,6 @@ $ ->
 		else
 			$('input.user_submit').attr('disabled', true) and $('#category_warning').removeClass('hidden')
 	
-	# For non-mobile devices which will use a checkbox list
-	checkbox_check = ->
-		console.log ('running checkbox_check')
-		if $("input.check_boxes:checked").length in [0..3]
-			$("input.check_boxes:not(:checked)").attr('disabled', false).parent().fadeTo(100, 1)
-		else
-			$("input.check_boxes:not(:checked)").attr('disabled', true).parent().fadeTo(100, .3)
-		warning_check()
-
 	# For non-mobile devices which will use a checkbox list
 	checkbox_check = ->
 		console.log ('running checkbox_check')

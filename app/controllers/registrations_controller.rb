@@ -13,9 +13,9 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def edit
-    # resource.uploads.build
-  end
+  # def edit
+  #   # resource.uploads.build
+  # end
 
 	protected
 		def after_sign_up_path_for(resource)

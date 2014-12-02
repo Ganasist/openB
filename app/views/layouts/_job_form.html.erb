@@ -67,16 +67,18 @@
                         label_html: { id: 'description_feedback' }  %>
 
 
-      <%= render 'layouts/category_radio', f: f, checked: job.category if job.category %>
+    <div class="form-inputs col-md-6 col-sm-6 col-xs-12">
+      <%= render 'layouts/category_select', f: f %>
+    </div>
              
     </div>
     <div class="row">
-      <div class="form-inputs col-lg-12">
+      <div class="form-inputs col-xs-12">
         <h4 class="text-center hidden text-danger" id="category_warning">
           Please pick a category
         </h4>
-        <%= f.button :submit, "Post this #{ job.class.name.downcase }", class: 'user_submit' %>
       </div> 
+        <%= f.button :submit, "Post this #{ job.class.name.downcase }", class: 'user_submit' %>
     </div>     
   <% end %>
 </div>
