@@ -18,9 +18,9 @@ $ ->
 		warning_check()
 
 	# For job posts which will use a radio button list
-	radio_check = ->
-		console.log ('running radio_check')
-		warning_check()
+	# radio_check = ->
+	# 	console.log ('running radio_check')
+	# 	warning_check()
 
 	# For mobile devices which will use a multi-select dropdown menu
 	# dropdown_check = ->
@@ -32,13 +32,13 @@ $ ->
 	
 	warning_check()
 	checkbox_check()
-	radio_check()
+	# radio_check()
 
 	$("input.check_boxes").on "change", (evt) ->
 		checkbox_check()
 
-	$("select#category_select").on "change", (evt) ->
-		warning_check()
+	# $("select#category_select").on "change", (evt) ->
+	# 	warning_check()
 
-	$("input:radio").on "click", (evt) ->
-		warning_check()
+	# $("input:radio").on "click", (evt) ->
+	# 	warning_check()
