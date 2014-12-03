@@ -32,7 +32,9 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     def configure_account_create_params
-      devise_parameter_sanitizer.for(:sign_up) { |a| a.permit(:zip_code,
+      devise_parameter_sanitizer.for(:sign_up) { |a| a.permit(:address,
+                                                              :longitude,
+                                                              :latitude,
                                                               :email,
                                                               :password, 
                                                               :password_confirmation) }

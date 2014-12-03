@@ -29,7 +29,6 @@ Rails.application.routes.draw do
                       concerns: [:uploadable, :commentable, :commenterable],
                       defaults: { uploadable: 'contractor', 
                                  commentable: 'contractor' } do
-    resources :examples, except: :destroy
   end
   
   resources :jobs, concerns: [:uploadable, :commentable],
@@ -37,9 +36,8 @@ Rails.application.routes.draw do
     resources :bids, only: [:create, :update, :destroy]
   end
   
-  resources :examples, only: :destroy, 
-                   concerns: [:uploadable, :commentable],
-                   defaults: { uploadable: 'example', commentable: 'example' }
+  resources :examples, concerns: [:uploadable, :commentable],
+                       defaults: { uploadable: 'example', commentable: 'example' }
 
   resources :bids, only: :destroy
 

@@ -9,7 +9,7 @@
             <%= fa_icon 'minus-square 2x', title: 'Delete',
                                            class: 'delete-job-post pull-right' %>
           <% end %>
-          <%= link_to edit_contractor_example_path(example.contractor, example) do %>
+          <%= link_to edit_example_path(example) do %>
             <%= fa_icon 'edit 2x', 
                         title: 'Edit', 
                         class: 'pull-right' %>
@@ -44,7 +44,7 @@
     </div>
     <div  class="col-xs-12 col-md-6">
     <hr class="visible-xs visible-sm">
-      <%= link_to contractor_example_path(example.contractor, example), 
+      <%= link_to example_path(example), 
                   class: 'unstyled-link' do %>
         <p class="lead text-center">
           <strong>

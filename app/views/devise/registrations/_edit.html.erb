@@ -5,8 +5,7 @@
   <%= simple_form_for resource, as: resource_name, 
                                url: registration_path(resource),
                            wrapper: :vertical_form, 
-                              html: { multipart: true, 
-                                   autocomplete: 'off' },
+                              html: { multipart: true, class: 'registration' },
                   wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
                                              file: :horizontal_file_input } do |f| %>
     
@@ -27,19 +26,12 @@
                                           resource.phone.phony_formatted(normalize: :US, 
                                                                             format: :international,
                                                                             spaces: '-') : '' } %>
-        <%= f.input :address, placeholder: 'Enter your address' %>
-        <%= f.input :city, placeholder: 'Enter your city' %>
-        <ul class="list-inline text-center">
-          <li>
-            <%= f.select :state, options_for_select(us_states, resource.try(:state)), include_blank: 'Select a State' %>
-          </li>
-          <li>
-            <%= f.input :zip_code, as: :string,                             
-                           input_html: { min_max: 5, 
-                                              id: 'form_zip_code' }, 
-                         wrapper_html: { id: 'label_zip_code' } %>
-          </li>
-        </ul>
+        <%= f.input :address, placeholder: 'Enter your address', 
+                               input_html: { id: 'geocomplete', 
+                                            geo: 'formatted_address' } %>
+
+        <%= f.input :latitude, as: :hidden, input_html: { geo: 'lat'} %>
+        <%= f.input :longitude, as: :hidden, input_html: { geo: 'lng'} %>
 
         <%= f.input :search_radius, as: :string, 
                                  label: 'Search radius (miles)',
@@ -65,13 +57,9 @@
                          placeholder: 'Enter new password',
                           input_html: { id: 'new_password', autocomplete: 'off' } %>
         <%= f.input :password_confirmation, label: 'New password confirmation',
-                                       input_html: { autocomplete: 'off' },  
-                                     wrapper_html: { style: 'display: none', 
-                                                        id: 'new_password_confirmation'}  %>
+                                       input_html: { autocomplete: 'off' }  %>
         <%= f.input :current_password, placeholder: 'Enter current password to confirm updates', 
-                                        input_html: { autocomplete: 'off' },
-                                      wrapper_html: { style: 'display: none', 
-                                                         id: 'current_password'} %>
+                                        input_html: { autocomplete: 'off' } %>
     </div>
 
     <div class="row">

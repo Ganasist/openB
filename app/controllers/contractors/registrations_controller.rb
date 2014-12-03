@@ -39,14 +39,13 @@ class Contractors::RegistrationsController < RegistrationsController
                                                                      :phone,
                                                                      :address, 
                                                                      { categories: [] },
-                                                                     :city,
-                                                                     :state,
+                                                                     :longitude,
+                                                                     :latitude,
                                                                      :search_radius,
                                                                      :company_name,
                                                                      :password, 
                                                                      :current_password, 
-                                                                     :password_confirmation,
-                                                                     :zip_code,
+                                                                     :password_confirmation
                                                                      :description) }
     end
 end

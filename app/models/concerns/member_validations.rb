@@ -16,25 +16,25 @@ module MemberValidations
 																 if: Proc.new { |o| !o.new_record? }
 
 		geocoded_by :full_address
-		after_validation :geocode, if: ->(obj){ obj.full_address.present? && (obj.address_changed? ||
-																																					obj.zip_code_changed? ||
-																																					obj.city_changed? ||
-																																					obj.state_changed?) }
+		# after_validation :geocode, if: ->(obj){ obj.full_address.present? && (obj.address_changed? ||
+		# 																																			obj.zip_code_changed? ||
+		# 																																			obj.city_changed? ||
+		# 																																			obj.state_changed?) }
 		
 		phony_normalize :phone, default_country_code: 'US'
 		validates :phone, phony_plausible: true
 
 		validates :name, presence: true, if: Proc.new { |o| !o.new_record? }
 
-		validates :zip_code, presence: true, 
-										 numericality: true
+		# validates :zip_code, presence: true, 
+		# 								 numericality: true
 									# postcode_format: { country_code: :us,
 									# 												message: 'is not a valid postcode for the US.'}
   
-    before_validation :remove_blank_categories
+    # before_validation :remove_blank_categories
   end
 
-  def remove_blank_categories
-    self.categories.reject!(&:empty?)
-  end
+  # def remove_blank_categories
+  #   self.categories.reject!(&:empty?)
+  # end
 end

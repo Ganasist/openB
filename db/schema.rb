@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141202145951) do
+ActiveRecord::Schema.define(version: 20141203150055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,15 +79,13 @@ ActiveRecord::Schema.define(version: 20141202145951) do
     t.text     "description"
     t.string   "phone"
     t.string   "address"
-    t.string   "city"
     t.string   "company_name"
-    t.integer  "zip_code"
-    t.string   "state"
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "search_radius"
   end
 
+  add_index "contractors", ["address"], name: "index_contractors_on_address", using: :btree
   add_index "contractors", ["categories"], name: "index_contractors_on_categories", using: :gin
   add_index "contractors", ["confirmation_token"], name: "index_contractors_on_confirmation_token", unique: true, using: :btree
   add_index "contractors", ["email"], name: "index_contractors_on_email", unique: true, using: :btree
@@ -101,7 +99,6 @@ ActiveRecord::Schema.define(version: 20141202145951) do
 
   create_table "examples", force: true do |t|
     t.string   "title"
-    t.integer  "zip_code"
     t.string   "description"
     t.integer  "duration"
     t.string   "duration_unit"
@@ -110,15 +107,18 @@ ActiveRecord::Schema.define(version: 20141202145951) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.text     "categories",    default: [],              array: true
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "examples", ["categories"], name: "index_examples_on_categories", using: :gin
   add_index "examples", ["contractor_id"], name: "index_examples_on_contractor_id", using: :btree
+  add_index "examples", ["latitude"], name: "index_examples_on_latitude", using: :btree
+  add_index "examples", ["longitude"], name: "index_examples_on_longitude", using: :btree
 
   create_table "jobs", force: true do |t|
     t.string   "title"
     t.text     "description"
-    t.integer  "zip_code"
     t.integer  "user_id"
     t.integer  "contractor_id"
     t.datetime "created_at",                  null: false
@@ -196,19 +196,15 @@ ActiveRecord::Schema.define(version: 20141202145951) do
     t.integer  "failed_attempts",                    default: 0,  null: false
     t.string   "unlock_token",           limit: 255
     t.datetime "locked_at"
-    t.integer  "zip_code"
     t.string   "phone"
     t.text     "categories",                         default: [],              array: true
-    t.string   "city"
     t.string   "address"
-    t.string   "state"
     t.float    "latitude"
     t.float    "longitude"
   end
 
   add_index "users", ["address"], name: "index_users_on_address", using: :btree
   add_index "users", ["categories"], name: "index_users_on_categories", using: :gin
-  add_index "users", ["city"], name: "index_users_on_city", using: :btree
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
@@ -218,6 +214,5 @@ ActiveRecord::Schema.define(version: 20141202145951) do
   add_index "users", ["longitude"], name: "index_users_on_longitude", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
-  add_index "users", ["zip_code"], name: "index_users_on_zip_code", using: :btree
 
 end

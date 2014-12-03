@@ -2,7 +2,7 @@
                 'tab-pane fade in active' : 
                 'tab-pane fade in' %>" id="example">
   <h3 class="lead text-center">
-    <%= link_to  'Add an example', new_contractor_example_path(@contractor),  
+    <%= link_to  'Add an example', new_example_path,  
                                    class: 'btn btn-lg btn-success' if current_contractor == @contractor %>
   </h3>
   <% if @examples.present? %>

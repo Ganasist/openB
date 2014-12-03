@@ -14553,11 +14553,10 @@ return jQuery;
   var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   $(function() {
-    var checkbox_check, dropdown_check, warning_check;
+    var checkbox_check, warning_check;
     warning_check = function() {
       var _ref, _ref1;
-      console.log('running warning_check');
-      if ((_ref = $("select#category_select option:selected").length, __indexOf.call([1, 2, 3, 4], _ref) >= 0) || (_ref1 = $("input.check_boxes:checked").length, __indexOf.call([1, 2, 3, 4], _ref1) >= 0)) {
+      if ((_ref = $("select#category_select option:selected").length, __indexOf.call([1, 2, 3, 4], _ref) >= 0) || (_ref1 = $("input.check_boxes:checked").length, __indexOf.call([1, 2, 3, 4], _ref1) >= 0) || ($("input:radio:checked").val() != null)) {
         return $('input.user_submit').attr('disabled', false) && $('#category_warning').addClass('hidden');
       } else {
         return $('input.user_submit').attr('disabled', true) && $('#category_warning').removeClass('hidden');
@@ -14573,23 +14572,10 @@ return jQuery;
       }
       return warning_check();
     };
-    dropdown_check = function() {
-      var _ref;
-      if (_ref = $("select#category_select option:selected").length, __indexOf.call([0, 1, 2, 3], _ref) >= 0) {
-        $('select#category_select option:not(:selected)').attr('disabled', false).fadeTo(100, 1);
-      } else {
-        $('select#category_select option:not(:selected)').attr('disabled', true).fadeTo(100, .3);
-      }
-      return warning_check();
-    };
     warning_check();
     checkbox_check();
-    dropdown_check();
-    $("input.check_boxes").on("change", function(evt) {
+    return $("input.check_boxes").on("change", function(evt) {
       return checkbox_check();
-    });
-    return $("select#category_select").on("change", function(evt) {
-      return warning_check();
     });
   });
 
@@ -14603,20 +14589,58 @@ return jQuery;
 
 }).call(this);
 (function() {
+  var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
   jQuery(function() {
-    var dd, description_max, today;
+    var dd, description_check, description_max, description_min, description_remaining, title_check, title_max, title_min, today;
     description_max = 2000;
+    description_min = 10;
+    title_max = 50;
+    title_min = 5;
+    description_remaining = description_max - $("#job_description").val().length;
     $("label#description_feedback").html("* Job Description (" + description_max + " characters remaining)");
+    description_check = function() {
+      var _i, _j, _ref, _ref1, _results, _results1;
+      if (_ref = $("#job_description").val().length, __indexOf.call((function() {
+        _results = [];
+        for (var _i = description_min; description_min <= description_max ? _i <= description_max : _i >= description_max; description_min <= description_max ? _i++ : _i--){ _results.push(_i); }
+        return _results;
+      }).apply(this), _ref) < 0) {
+        $('#description_feedback').parent().addClass("has-error");
+      }
+      if (_ref1 = $("#job_description").val().length, __indexOf.call((function() {
+        _results1 = [];
+        for (var _j = description_min; description_min <= description_max ? _j <= description_max : _j >= description_max; description_min <= description_max ? _j++ : _j--){ _results1.push(_j); }
+        return _results1;
+      }).apply(this), _ref1) >= 0) {
+        return $('#description_feedback').parent().removeClass("has-error");
+      }
+    };
+    title_check = function() {
+      var _i, _j, _ref, _ref1, _results, _results1;
+      if (_ref = $("#job_title").val().length, __indexOf.call((function() {
+        _results = [];
+        for (var _i = title_min; title_min <= title_max ? _i <= title_max : _i >= title_max; title_min <= title_max ? _i++ : _i--){ _results.push(_i); }
+        return _results;
+      }).apply(this), _ref) < 0) {
+        $('#job_title').parent().addClass("has-error");
+      }
+      if (_ref1 = $("#job_title").val().length, __indexOf.call((function() {
+        _results1 = [];
+        for (var _j = title_min; title_min <= title_max ? _j <= title_max : _j >= title_max; title_min <= title_max ? _j++ : _j--){ _results1.push(_j); }
+        return _results1;
+      }).apply(this), _ref1) >= 0) {
+        return $('#job_title').parent().removeClass("has-error");
+      }
+    };
     $("#job_description").keyup(function() {
       var text_remaining;
       text_remaining = description_max - $("#job_description").val().length;
       $("label#description_feedback").html("* Job Description (" + text_remaining + " characters remaining)");
-      if (text_remaining < 0) {
-        $('label#description_feedback').addClass("overlimit") && $('input.user_submit').attr("disabled", true);
-      }
-      if (text_remaining >= 0) {
-        return $('label#description_feedback').removeClass("overlimit") && $('input.user_submit').attr("disabled", false);
-      }
+      return description_check();
+    });
+    $("#job_title").keyup(function() {
+      return title_check();
     });
     today = new Date();
     dd = today.getDate();

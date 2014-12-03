@@ -1,27 +1,24 @@
 <% @cats = Contractor.categories %>
 <div class="authform_large">
-  <%= simple_form_for [member, job], wrapper: :vertical_form, 
-                               html: { multipart: true, 
-                                    autocomplete: 'off' },
+  <%= simple_form_for job, wrapper: :vertical_form, 
+                               html: { multipart: true, class: 'registration' },
                    wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
                                               file: :horizontal_file_input } do |f| %>
     <%= f.error_notification %>
 
     <div class="form-inputs col-lg-8 col-lg-offset-2">
       <% if type == 'job' %>
-        <ul class="list-inline">
-          <li>
-            <%= f.input :zip_code, as: :string,
-                          placeholder: "#{ current_user.zip_code }",
-                           input_html: { maxlength: 5, id: 'form_zip_code' } %>
-          </li>
-          <li>
+            <%= f.input :address, placeholder: "#{ current_user.address }", 
+                                   input_html: { id: 'geocomplete', 
+                                                geo: 'formatted_address' } %>
+
+            <%= f.input :latitude, as: :hidden, input_html: { geo: 'lat'} %>
+            <%= f.input :longitude, as: :hidden, input_html: { geo: 'lng'} %>
+          
             <%= f.input :phone, as: :string,
                              label: 'Phone (optional)',
                        placeholder: 'Enter a valid number' %>
 
-          </li>
-        </ul>
       <% end %>
 
       <%= f.input :title, label: 'Job Title', input_html: { maxlength: 50, id: 'job_title' } %>

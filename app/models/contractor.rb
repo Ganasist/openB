@@ -12,7 +12,7 @@ class Contractor < ActiveRecord::Base
                                                less_than: 1000, 
                                                  message: 'Please choose a distance between 1 - 999 miles.' }
   
-  pg_search_scope :search_by_zip, against: :zip_code
+  # pg_search_scope :search_by_zip, against: :zip_code
 
   has_many :bids
   has_many :jobs, through: :bids
@@ -38,7 +38,7 @@ class Contractor < ActiveRecord::Base
   def complete_profile?
     self.name.present? && 
     self.company_name.present? && 
-    self.zip_code.present? && 
+    self.address.present? && 
     self.description.present? && 
     self.categories.present?
   end

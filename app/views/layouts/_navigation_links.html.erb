@@ -8,7 +8,7 @@
   <li><%= link_to 'Edit Profile', edit_user_registration_path, class: 'nav_link' %></li>
   <li><%= link_to 'Sign-out', destroy_user_session_path, method: 'delete', class: 'nav_link' %></li>
 <% elsif contractor_signed_in? %>
-  <li><%= link_to 'Create a portfolio example', new_contractor_example_path(current_contractor), 
+  <li><%= link_to 'Create a portfolio example', new_example_path, 
                                                 class: 'nav_link visible-xs visible-sm' %></li>
   <li><%= link_to 'Edit Profile', edit_contractor_registration_path, class: 'nav_link' %></li>
   <li><%= link_to 'Sign-out', destroy_contractor_session_path, method: 'delete', class: 'nav_link' %></li>

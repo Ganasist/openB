@@ -16,7 +16,7 @@ jQuery ->
 		$('#job_title').parent().removeClass("has-error") if $("#job_title").val().length in [title_min..title_max]
 
 	description_check()
-	title_check()	
+	title_check()
 
 	$("#job_description").keyup ->
 		text_remaining = description_max - $("#job_description").val().length

@@ -1,7 +1,6 @@
 # Included in User, Contractor, Job, Example
 module GlobalConcerns
 	extend ActiveSupport::Concern
-
   included do
 
     acts_as_commentable
@@ -9,8 +8,8 @@ module GlobalConcerns
     scope :relevant_categories, -> (categories){ where('categories @> ARRAY[?]', categories) }
     scope :relevant_categories_count, -> (categories){ where('categories @> ARRAY[?]', categories).count }
 
-
     has_many :uploads, as: :uploadable, dependent: :destroy
+    before_validation :remove_blank_categories
   end
 	
 	module ClassMethods
@@ -23,10 +22,11 @@ module GlobalConcerns
     end
   end
 
+  def remove_blank_categories
+    self.categories.reject!(&:empty?)
+  end
+
   def full_address
-    "#{ self.try(:address) }, 
-     #{ self.try(:city) }, 
-     #{ self.try(:zip_code) }, 
-     #{ self.try(:state) }"
+    self.address
   end
 end

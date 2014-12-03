@@ -7,11 +7,11 @@ class Example < ActiveRecord::Base
 
   DURATION_UNITS = ['hours', 'days', 'weeks', 'months']
 
-  def full_address
-    "#{ self.contractor.try(:address) }, 
-     #{ self.contractor.try(:city) }, 
-     #{ self.contractor.try(:zip_code) }, 
-     #{ self.contractor.try(:state) }"
+  before_validation :add_default_location, if: Proc.new { |j| j.latitude.blank? || j.longitude.blank? || j.address.blank? }
+   def add_default_location
+    self.address = self.contractor.address
+    self.longitude = self.contractor.longitude
+    self.latitude = self.contractor.latitude
   end
 
   def before_uploads
