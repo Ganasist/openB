@@ -4,9 +4,6 @@ module GlobalConcerns
   included do
 
     acts_as_commentable
-    
-    scope :relevant_categories, -> (categories){ where('categories @> ARRAY[?]', categories) }
-    scope :relevant_categories_count, -> (categories){ where('categories @> ARRAY[?]', categories).count }
 
     has_many :uploads, as: :uploadable, dependent: :destroy
     before_validation :remove_blank_categories

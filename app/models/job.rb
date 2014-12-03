@@ -7,6 +7,7 @@ class Job < ActiveRecord::Base
   belongs_to :user
 
   geocoded_by :address
+  validates :address, presence: true
 
   has_many :bids, dependent: :destroy
   has_many :contractors, through: :bids

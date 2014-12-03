@@ -1,7 +1,7 @@
 <% @cats = Contractor.categories %>
 <div class="authform_large">
   <%= simple_form_for job, wrapper: :vertical_form, 
-                               html: { multipart: true, class: 'registration' },
+                               html: { multipart: true, class: 'geocoder_form' },
                    wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
                                               file: :horizontal_file_input } do |f| %>
     <%= f.error_notification %>
@@ -12,8 +12,8 @@
                                    input_html: { id: 'geocomplete', 
                                                 geo: 'formatted_address' } %>
 
-            <%= f.input :latitude, as: :hidden, input_html: { geo: 'lat'} %>
-            <%= f.input :longitude, as: :hidden, input_html: { geo: 'lng'} %>
+            <%= f.input :latitude,  input_html: { geo: 'lat'} %>
+            <%= f.input :longitude, input_html: { geo: 'lng'} %>
           
             <%= f.input :phone, as: :string,
                              label: 'Phone (optional)',
