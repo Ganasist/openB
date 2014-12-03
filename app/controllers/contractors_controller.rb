@@ -28,7 +28,7 @@ class ContractorsController < ApplicationController
                        .page(params[:comments])
 
     @jobs = Job.relevant_categories(@contractor.categories)
-               .near(@contractor.full_address, @contractor.search_radius)
+               .near(@contractor.address, @contractor.search_radius)
                .includes([:user, :uploads])
                .order(updated_at: :desc)
                .page(params[:jobs]).per(2)
