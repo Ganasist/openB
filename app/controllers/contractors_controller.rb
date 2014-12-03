@@ -19,7 +19,8 @@ class ContractorsController < ApplicationController
     if (current_contractor == @contractor) && !@contractor.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
-    @examples = @contractor.examples.includes(:uploads)
+    @examples = @contractor.examples
+                           .includes(:uploads)
                            .order(updated_at: :desc)
                            .page(params[:examples])
 
@@ -27,11 +28,11 @@ class ContractorsController < ApplicationController
                        .order(updated_at: :desc)
                        .page(params[:comments])
 
-    @jobs = Job.relevant_categories(@contractor.categories)
+    @jobs = Job.order(updated_at: :desc)
+               .page(params[:jobs]).per(2)
+               .relevant_categories(@contractor.categories)
                .near(@contractor.address, @contractor.search_radius)
                .includes([:user, :uploads])
-               .order(updated_at: :desc)
-               .page(params[:jobs]).per(2)
   end
 
   def destroy
