@@ -2,9 +2,6 @@
 module JobValidations
 	extend ActiveSupport::Concern
 	included do
-
-    scope :relevant_categories, -> (categories){ where('categories <@ ARRAY[?]', categories) }
-    scope :relevant_categories_count, -> (categories){ where('categories <@ ARRAY[?]', categories).count }
     
 		validates :categories, presence: true, 
 														 length: { minimum: 1,

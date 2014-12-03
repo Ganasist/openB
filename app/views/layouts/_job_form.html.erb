@@ -12,8 +12,8 @@
                                    input_html: { id: 'geocomplete', 
                                                 geo: 'formatted_address' } %>
 
-            <%= f.input :latitude,  input_html: { geo: 'lat'} %>
-            <%= f.input :longitude, input_html: { geo: 'lng'} %>
+            <%= f.input :latitude, as: :hidden,  input_html: { geo: 'lat'} %>
+            <%= f.input :longitude, as: :hidden, input_html: { geo: 'lng'} %>
           
             <%= f.input :phone, as: :string,
                              label: 'Phone (optional)',

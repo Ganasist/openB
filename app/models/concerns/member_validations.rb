@@ -1,11 +1,7 @@
 # Included in User, Contractor
 module MemberValidations
 	extend ActiveSupport::Concern
-	included do
-
-    scope :relevant_categories, -> (categories){ where('categories @> ARRAY[?]', categories) }
-    scope :relevant_categories_count, -> (categories){ where('categories @> ARRAY[?]', categories).count }
-    
+	included do    
 		has_many :comments, as: :commenterable, dependent: :destroy
 
 		validates :categories, presence: true, 

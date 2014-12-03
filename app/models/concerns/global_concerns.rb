@@ -3,6 +3,9 @@ module GlobalConcerns
 	extend ActiveSupport::Concern
   included do
 
+    scope :relevant_categories, -> (categories){ where('categories && ARRAY[?]', categories) }
+    scope :relevant_categories_count, -> (categories){ where('categories && ARRAY[?]', categories).count }
+
     acts_as_commentable
 
     has_many :uploads, as: :uploadable, dependent: :destroy
@@ -12,7 +15,7 @@ module GlobalConcerns
 	module ClassMethods
     def zip_search(query)
       if query.present?
-        near(query, 50).order(:updated_at).reverse_order
+        near(query, 50).order(:created_at)
       else
         scoped
       end
