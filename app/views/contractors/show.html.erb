@@ -1,3 +1,9 @@
+<% if contractor_signed_in? && current_contractor == @contractor %>
+  <% title "Your Profile" %>
+<% else %>
+  <% title @contractor.fullname %>
+<% end %>
+
 <%= render partial: 'layouts/comment_modal', 
             locals: { commentable: @contractor } %>
 

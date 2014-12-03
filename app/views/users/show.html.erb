@@ -1,3 +1,9 @@
+<% if user_signed_in? && current_user == @user %>
+  <% title "Your Profile" %>
+<% else %>
+  <% title @user.fullname %>
+<% end %>
+
 <%= render partial: 'layouts/comment_modal', 
               locals: { commentable: @user } %>
 
