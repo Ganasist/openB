@@ -45,7 +45,7 @@ class Contractors::RegistrationsController < RegistrationsController
                                                                      :company_name,
                                                                      :password, 
                                                                      :current_password, 
-                                                                     :password_confirmation
+                                                                     :password_confirmation,
                                                                      :description) }
     end
 end
