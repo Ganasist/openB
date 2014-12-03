@@ -1,7 +1,6 @@
 <tr>
   <td><%= link_to job.title, job, class: 'unstyled-link' %></td>
   <td><%= link_to truncate(job.description, length: 100), job, class: 'unstyled-link' %></td>
-  <td><%= job.zip_code %></td>
   <td><%= link_to job.user.fullname, job.user, class: 'unstyled-link' %></td>
   <td><%= time_ago_in_words(job.updated_at)  %> ago</td>
 </tr>

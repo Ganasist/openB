@@ -6,6 +6,8 @@ class Job < ActiveRecord::Base
   
   belongs_to :user
 
+  geocoded_by :address
+
   has_many :bids, dependent: :destroy
   has_many :contractors, through: :bids
 

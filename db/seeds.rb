@@ -5,15 +5,13 @@ Contractor.delete_all
 Job.delete_all
 Example.delete_all
 
-zips = JSON.parse(File.read(Rails.root.join('valid-zips.json')))
-
 50.times do |u|
 	user = User.create!(email: Faker::Internet.email,
 											password: 'loislane',
 											password_confirmation: 'loislane',
 											name: Faker::Name.name,
 											categories: Contractor.categories.sample(rand(3) + 1).sort,
-											zip_code: zips.sample
+											address: Faker::Address.street_address
 										 )
 
 	contractor = Contractor.create!(email: Faker::Internet.email,
@@ -23,7 +21,7 @@ zips = JSON.parse(File.read(Rails.root.join('valid-zips.json')))
 																 description: Faker::Lorem.paragraph(4, true, 4),
 																 company_name: Faker::Company.name,
 																 categories: Contractor.categories.sample(rand(3) + 1).sort,
-																 zip_code: User.all.sample.zip_code
+																 address: Faker::Address.street_address
 																 )
 
 	rand(20).times do |j|
@@ -31,7 +29,6 @@ zips = JSON.parse(File.read(Rails.root.join('valid-zips.json')))
 								contractor_id: [contractor.id, nil].sample,
 								title: Faker::Name.title, 
 								description: Faker::Lorem.paragraph(4, true, 4),
-								zip_code: user.zip_code,
 								categories: user.categories.sample(rand(3) + 1).sort
 							 )
 		job.save!
@@ -42,7 +39,6 @@ zips = JSON.parse(File.read(Rails.root.join('valid-zips.json')))
 		example = Example.create(contractor_id: contractor.id,
 										title: Faker::Name.title, 
 										description: Faker::Lorem.paragraph(4, true, 4),
-										zip_code: contractor.zip_code,
 										categories: contractor.categories.sample(rand(3) + 1).sort
 									 )
 		example.save!

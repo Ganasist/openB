@@ -27,7 +27,7 @@
 		  <%= member.name %><br>
 	  <% end %>
 	  <% if member.address.present? %>
-			  <%= member.address if member == current_user || current_contractor %><br>
+			  <%= member.address if member == current_user %><br>
 		  <% end %>
 	  <% if member.is_a?(Contractor) %>
 		  <% if member.address.present? %>
@@ -36,7 +36,6 @@
 		  <% if member.phone.present? %>
 			  <%= member.phone.phony_formatted(normalize: :US, format: :international, spaces: '-') %><br>
 		  <% end %>
-		  <%= member.email if member.email.present? %><br>
 	  <% end %>
 	</address>
 	<hr>
