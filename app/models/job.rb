@@ -15,7 +15,7 @@ class Job < ActiveRecord::Base
                                       if: Proc.new { |o| o.new_record? }
 
 
-  before_validation :add_default_location, if: Proc.new { |j| j.latitude.blank? || j.longitude.blank? || j.address.blank?  }
+  before_validation :add_default_location, if: Proc.new { |j| j.address.blank?  }
   def add_default_location
     self.address = self.user.address
     self.longitude = self.user.longitude
