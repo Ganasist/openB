@@ -1,19 +1,25 @@
 <% @cats = Contractor.categories %>
-<div class="authform_large">
+
+<div class="row col-lg-6 col-xs-12">
+  <div class="map_canvas"></div>
+  <br>
+</div>
+<div class="row col-lg-6 col-sm-12">
+  <div class="authform_large">
   <%= simple_form_for job, wrapper: :vertical_form, 
                                html: { multipart: true, class: 'geocoder_form' },
                    wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
                                               file: :horizontal_file_input } do |f| %>
     <%= f.error_notification %>
 
-    <div class="form-inputs col-lg-8 col-lg-offset-2">
+    <div class="form-inputs col-lg-10 col-lg-offset-1">
       <% if type == 'job' %>
             <%= f.input :address, placeholder: "#{ current_user.address }", 
-                                   input_html: { id: 'geocomplete', 
-                                                geo: 'formatted_address' } %>
+                                   input_html: { class: 'geocomplete',
+                                               data: { geo: 'formatted_address' } } %>
 
-            <%= f.input :latitude, as: :hidden,  input_html: { geo: 'lat'} %>
-            <%= f.input :longitude, as: :hidden, input_html: { geo: 'lng'} %>
+            <%= f.input :latitude,  input_html: { class: 'latitude', data: { geo: 'lat' } } %>
+            <%= f.input :longitude, input_html: { class: 'longitude', data: { geo: 'lng' } } %>
           
             <%= f.input :phone, as: :string,
                              label: 'Phone (optional)',
@@ -78,4 +84,5 @@
         <%= f.button :submit, "Post this #{ job.class.name.downcase }", class: 'user_submit' %>
     </div>     
   <% end %>
+</div>
 </div>
