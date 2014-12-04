@@ -1,80 +1,83 @@
 <% title "Edit Profile" %>
-
 <% @cats = Contractor.categories %>
-<div class="authform_large">
-  <%= simple_form_for resource, as: resource_name, 
-                               url: registration_path(resource),
-                           wrapper: :vertical_form, 
-                              html: { multipart: true, class: 'geocoder_form' },
-                  wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
-                                             file: :horizontal_file_input } do |f| %>
-    
-    <h3>Profile</h3>
-    <%= f.error_notification %>
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
-
-  <div class="row">
-    <div class="form-inputs col-md-6 col-sm-6">
-        <%= f.input :name %>
-        <%= f.input :company_name, placeholder: 'Enter your company name' if contractor_signed_in? %>
-        <%= f.input :email, input_html: { id: 'current_email' } %>
-        <%= f.input :phone, as: :string,
-                   placeholder: 'Enter a valid full phone number',
-                    input_html: { value: resource.try(:phone) ? 
-                                          resource.phone.phony_formatted(normalize: :US, 
-                                                                            format: :international,
-                                                                            spaces: '-') : '' } %>
-        <%= f.input :address, placeholder: 'Enter your address', 
-                               input_html: { id: 'geocomplete', 
-                                            geo: 'formatted_address' } %>
-
-        <%= f.input :latitude, as: :hidden, input_html: { geo: 'lat'} %>
-        <%= f.input :longitude, as: :hidden, input_html: { geo: 'lng'} %>
-
-        <%= f.input :search_radius, as: :string, 
-                                 label: 'Search radius (miles)',
-                                  hint: 'Job posts within this distance will show up in your feed.', 
-                            input_html: { maxlength: 3, 
-                                              style: 'width:100px' } if contractor_signed_in? %>
-
-        <%= f.input :description, as: :text, 
-                               label: 'Company Description',
-                         placeholder: 'Enter brief description about your services',
-                          input_html: { rows: '7', 
-                                   maxlength: 500 } if contractor_signed_in? %>
-        
-    </div>
-
-    <div class="form-inputs col-md-6 col-sm-6 col-xs-12">
-      <%= render 'layouts/category_select', f: f %>
-    </div>
-
-    <div class="form-inputs col-md-6 col-sm-6 col-xs-12">
-        <%= f.input :password, label: 'New Password (optional)', 
-                        autocomplete: 'off', 
-                         placeholder: 'Enter new password',
-                          input_html: { id: 'new_password', autocomplete: 'off' } %>
-        <%= f.input :password_confirmation, label: 'New password confirmation',
-                                       input_html: { autocomplete: 'off' }  %>
-        <%= f.input :current_password, placeholder: 'Enter current password to confirm updates', 
-                                        input_html: { autocomplete: 'off' } %>
-    </div>
-
-    <div class="row">
-      <div class="form-inputs col-xs-12">
-        <h4 class="text-center hidden text-danger" id="category_warning">
-          Please pick 1-4 categories of interest
-        </h4>
-      </div>
-        <%= f.button :submit, 'Update Profile', class: 'user_submit' %>
-    </div>   
-    <% end %>
-  </div>
-</div>
 
 <div class="row">
+  <div class="col-lg-6 col-md-6 col-xs-12">
+    <div class="map_canvas_form"></div>
+    <br>
+  </div>
+
+  <div class="authform_large col-lg-6 col-md-6 col-xs-12">
+    <%= simple_form_for resource, as: resource_name, 
+                                 url: registration_path(resource),
+                             wrapper: :vertical_form, 
+                                html: { multipart: true, class: 'geocoder_form' },
+                    wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
+                                               file: :horizontal_file_input } do |f| %>
+      
+      <h3>Profile</h3>
+      <%= f.error_notification %>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+      <% end %>
+
+      <div class="form-inputs col-md-6 col-sm-6">
+          <%= f.input :name %>
+          <%= f.input :company_name, placeholder: 'Enter your company name' if contractor_signed_in? %>
+          <%= f.input :email, input_html: { id: 'current_email' } %>
+          <%= f.input :phone, as: :string,
+                     placeholder: 'Enter a valid full phone number',
+                      input_html: { value: resource.try(:phone) ? 
+                                            resource.phone.phony_formatted(normalize: :US, 
+                                                                              format: :international,
+                                                                              spaces: '-') : '' } %>
+          <%= f.input :address, placeholder: 'Enter your address', 
+                                 input_html: { id: 'geocomplete', 
+                                              geo: 'formatted_address' } %>
+
+          <%= f.input :latitude, as: :hidden, input_html: { geo: 'lat'} %>
+          <%= f.input :longitude, as: :hidden, input_html: { geo: 'lng'} %>
+
+          <%= f.input :search_radius, as: :string, 
+                                   label: 'Search radius (miles)',
+                                    hint: 'Job posts within this distance will show up in your feed.', 
+                              input_html: { maxlength: 3, 
+                                                style: 'width:100px' } if contractor_signed_in? %>
+
+          <%= f.input :description, as: :text, 
+                                 label: 'Company Description',
+                           placeholder: 'Enter brief description about your services',
+                            input_html: { rows: '7', 
+                                     maxlength: 500 } if contractor_signed_in? %>
+          
+      </div>
+
+      <div class="form-inputs col-md-6 col-sm-6 col-xs-12">
+        <%= render 'layouts/category_select', f: f %>
+      </div>
+
+      <div class="form-inputs col-md-6 col-sm-6 col-xs-12">
+          <%= f.input :password, label: 'New Password (optional)', 
+                          autocomplete: 'off', 
+                           placeholder: 'Enter new password',
+                            input_html: { id: 'new_password', autocomplete: 'off' } %>
+          <%= f.input :password_confirmation, label: 'New password confirmation',
+                                         input_html: { autocomplete: 'off' }  %>
+          <%= f.input :current_password, placeholder: 'Enter current password to confirm updates', 
+                                          input_html: { autocomplete: 'off' } %>
+      </div>
+
+      <div class="row">
+        <div class="form-inputs col-xs-12">
+          <h4 class="text-center hidden text-danger" id="category_warning">
+            Please pick 1-4 categories of interest
+          </h4>
+        </div>
+          <%= f.button :submit, 'Update Profile', class: 'user_submit' %>
+      </div>   
+      <% end %>
+  </div>
+
   <div class="form-actions-submit">
     <%= link_to 'Back', current_user, class: 'submit' %>
   </div>

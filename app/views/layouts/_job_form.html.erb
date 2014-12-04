@@ -1,8 +1,8 @@
 <% @cats = Contractor.categories %>
 
 <div class="row">
-  <div class="col-lg-6 col-md-6 col-xs-12 pull-left">
-    <div class="map_canvas"></div>
+  <div class="col-lg-6 col-md-6 col-xs-12">
+    <div class="map_canvas_form"></div>
     <br>
   </div>
 
@@ -19,8 +19,18 @@
                                      input_html: { class: 'geocomplete',
                                                  data: { geo: 'formatted_address' } } %>
 
-              <%= f.input :latitude, disabled: true,  input_html: { class: 'latitude', data: { geo: 'lat' } } %>
-              <%= f.input :longitude, disabled: true, input_html: { class: 'longitude', data: { geo: 'lng' } } %>
+              <%= f.input :latitude, disabled: true, 
+                                   input_html: { class: 'latitude', 
+                                                  data: { geo: 'lat' } } %>
+              <%= f.input :latitude, as: :hidden, 
+                             input_html: { class: 'latitude', 
+                                            data: { geo: 'lat' } } %>
+              <%= f.input :longitude, disabled: true, 
+                                    input_html: { class: 'longitude', 
+                                                   data: { geo: 'lng' } } %>
+              <%= f.input :longitude, as: :hidden,
+                              input_html: { class: 'longitude', 
+                                             data: { geo: 'lng' } } %>
             
               <%= f.input :phone, as: :string,
                                label: 'Phone (optional)',

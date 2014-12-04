@@ -1,5 +1,10 @@
 <div class="panel panel-default" id="<%= job.id %>">
-  
+
+<% if params[:controller] == "jobs" %>
+  <span class="hidden latitude"><%= job.latitude %></span>
+  <span class="hidden longitude"><%= job.longitude %></span>
+<% end %>
+
   <div class="panel-heading">
     <h3 class="panel-title">
       <p>
@@ -49,7 +54,7 @@
         <%= render 'bids/form', job: job %>
       </div>
     <% end %>      
-    <div class="col-xs-12 col-md-4 text-center">
+    <div class="col-xs-12 col-md-6 text-center">
       <% if job.uploads.count > 0 %>
         <%= render partial: 'layouts/pic', 
                 collection: job.uploads, 
@@ -65,9 +70,14 @@
                      item_status: '' } %>
 
       <hr class="visible-xs visible-sm">
+      <% if params[:controller] == "jobs" %>
+        <br><br>
+        <div class="map_canvas"></div>
+        <br>
+      <% end %>
     </div>
     <%= link_to job, class: 'unstyled-link' do %>
-      <div  class="col-xs-12 col-md-8">
+      <div  class="col-xs-12 col-md-6">
         <p class="lead text-center">
           <strong>
             <%= job.title %>

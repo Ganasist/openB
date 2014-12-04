@@ -1,10 +1,8 @@
 <% title "Post Job" %>
 
-<div class="row">
+<div class="container">
 	<%= render partial: 'layouts/job_form', locals: { job: @job, type: 'job' } %>
-</div>
-<hr>
-<div class="row">
+	<hr>
 	<div class="form-actions-submit">
     <%= link_to 'Back', current_user, class: 'submit' %>
 	</div>
