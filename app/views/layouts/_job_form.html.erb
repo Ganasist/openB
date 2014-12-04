@@ -1,88 +1,89 @@
 <% @cats = Contractor.categories %>
 
-<div class="row col-lg-6 col-xs-12">
-  <div class="map_canvas"></div>
-  <br>
-</div>
-<div class="row col-lg-6 col-sm-12">
-  <div class="authform_large">
-  <%= simple_form_for job, wrapper: :vertical_form, 
-                               html: { multipart: true, class: 'geocoder_form' },
-                   wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
-                                              file: :horizontal_file_input } do |f| %>
-    <%= f.error_notification %>
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-xs-12 pull-left">
+    <div class="map_canvas"></div>
+    <br>
+  </div>
 
-    <div class="form-inputs col-lg-10 col-lg-offset-1">
-      <% if type == 'job' %>
-            <%= f.input :address, placeholder: "#{ current_user.address }", 
-                                   input_html: { class: 'geocomplete',
-                                               data: { geo: 'formatted_address' } } %>
+  <div class="authform_large col-lg-6 col-md-6 col-xs-12">
+    <%= simple_form_for job, wrapper: :vertical_form, 
+                                 html: { multipart: true, class: 'geocoder_form' },
+                     wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
+                                                file: :horizontal_file_input } do |f| %>
+      <%= f.error_notification %>
 
-            <%= f.input :latitude,  input_html: { class: 'latitude', data: { geo: 'lat' } } %>
-            <%= f.input :longitude, input_html: { class: 'longitude', data: { geo: 'lng' } } %>
-          
-            <%= f.input :phone, as: :string,
-                             label: 'Phone (optional)',
-                       placeholder: 'Enter a valid number' %>
+      <div class="form-inputs col-lg-10 col-lg-offset-1">
+        <% if type == 'job' %>
+              <%= f.input :address, placeholder: "#{ current_user.address }", 
+                                     input_html: { class: 'geocomplete',
+                                                 data: { geo: 'formatted_address' } } %>
 
-      <% end %>
+              <%= f.input :latitude, disabled: true,  input_html: { class: 'latitude', data: { geo: 'lat' } } %>
+              <%= f.input :longitude, disabled: true, input_html: { class: 'longitude', data: { geo: 'lng' } } %>
+            
+              <%= f.input :phone, as: :string,
+                               label: 'Phone (optional)',
+                         placeholder: 'Enter a valid number' %>
 
-      <%= f.input :title, label: 'Job Title', input_html: { maxlength: 50, id: 'job_title' } %>
-      
-      <% if type == 'example' %>
-        <ul class="list-inline">
-          <li><%= f.input :cost, wrapper: :vertical_input_group do %>
-                    <span class="input-group-addon">$</span>
-                    <%= f.input_field :cost, as: :string, 
-                                    placeholder: '400',
-                                      maxlength: 5,
-                                          class: 'form-control',
-                                             id: 'form_zip_code' %>                  
-              <% end %>
-          </li>
+        <% end %>
 
-              
-          <li><%= f.input :duration, label: 'Job timeline', as: :string,
-                                placeholder: '6', 
-                                 input_html: { maxlength: 3 } %>
-          </li>
+        <%= f.input :title, label: 'Job Title', input_html: { maxlength: 50, id: 'job_title' } %>
+        
+        <% if type == 'example' %>
+          <ul class="list-inline">
+            <li><%= f.input :cost, wrapper: :vertical_input_group do %>
+                      <span class="input-group-addon">$</span>
+                      <%= f.input_field :cost, as: :string, 
+                                      placeholder: '400',
+                                        maxlength: 5,
+                                            class: 'form-control',
+                                               id: 'form_zip_code' %>                  
+                <% end %>
+            </li>
 
-          <li><%= f.input :duration_unit, selected: 'hours',
-                                             label: 'duration unit',
-                                        collection: Example::DURATION_UNITS %>
-          </li>
-        </ul>
-      <% end %>
+                
+            <li><%= f.input :duration, label: 'Job timeline', as: :string,
+                                  placeholder: '6', 
+                                   input_html: { maxlength: 3 } %>
+            </li>
 
-      <% if type == 'job' %>
-        <%= f.input :bidding_period, as: :string, 
-                                  label: 'End Bidding (optional)', 
-                            placeholder: 'Enter a valid date',
-                             input_html: { class: 'datepicker' } %>
-      <% end %>
-      
-      
-      <%= f.input :description, as: :text,
-                             label: '',
-                       placeholder: 'Enter a brief description of this job',
-                        input_html: { id: 'job_description', rows: '7', 
-                                 maxlength: 2000 },
-                        label_html: { id: 'description_feedback' }  %>
+            <li><%= f.input :duration_unit, selected: 'hours',
+                                               label: 'duration unit',
+                                          collection: Example::DURATION_UNITS %>
+            </li>
+          </ul>
+        <% end %>
+
+        <% if type == 'job' %>
+          <%= f.input :bidding_period, as: :string, 
+                                    label: 'End Bidding (optional)', 
+                              placeholder: 'Enter a valid date',
+                               input_html: { class: 'datepicker' } %>
+        <% end %>
+        
+        
+        <%= f.input :description, as: :text,
+                               label: '',
+                         placeholder: 'Enter a brief description of this job',
+                          input_html: { id: 'job_description', rows: '7', 
+                                   maxlength: 2000 },
+                          label_html: { id: 'description_feedback' }  %>
 
 
-    <div class="form-inputs col-xs-12">
-      <%= render 'layouts/category_select', f: f %>
-    </div>
-             
-    </div>
-    <div class="row">
       <div class="form-inputs col-xs-12">
-        <h4 class="text-center hidden text-danger" id="category_warning">
-          Please pick 1-4 categories
-        </h4>
-      </div> 
-        <%= f.button :submit, "Post this #{ job.class.name.downcase }", class: 'user_submit' %>
-    </div>     
-  <% end %>
-</div>
+        <%= render 'layouts/category_select', f: f %>
+      </div>
+               
+      </div>
+      <div class="row">
+        <div class="form-inputs col-xs-12">
+          <h4 class="text-center hidden text-danger" id="category_warning">
+            Please pick 1-4 categories
+          </h4>
+        </div> 
+          <%= f.button :submit, "Post this #{ job.class.name.downcase }", class: 'user_submit' %>
+      </div>     
+    <% end %>
+  </div>
 </div>
