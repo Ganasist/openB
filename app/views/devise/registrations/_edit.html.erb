@@ -31,12 +31,22 @@
                                             resource.phone.phony_formatted(normalize: :US, 
                                                                               format: :international,
                                                                               spaces: '-') : '' } %>
-          <%= f.input :address, placeholder: 'Enter your address', 
-                                 input_html: { id: 'geocomplete', 
-                                              geo: 'formatted_address' } %>
+          <%= f.input :address, placeholder: "#{ resource.address }", 
+                                     input_html: { class: 'geocomplete',
+                                                 data: { geo: 'formatted_address' } } %>
 
-          <%= f.input :latitude, as: :hidden, input_html: { geo: 'lat'} %>
-          <%= f.input :longitude, as: :hidden, input_html: { geo: 'lng'} %>
+          <%= f.input :latitude, disabled: true, 
+                               input_html: { class: 'latitude', 
+                                              data: { geo: 'lat' } } %>
+          <%= f.input :latitude, as: :hidden, 
+                         input_html: { class: 'latitude', 
+                                        data: { geo: 'lat' } } %>
+          <%= f.input :longitude, disabled: true, 
+                                input_html: { class: 'longitude', 
+                                               data: { geo: 'lng' } } %>
+          <%= f.input :longitude, as: :hidden,
+                          input_html: { class: 'longitude', 
+                                         data: { geo: 'lng' } } %>
 
           <%= f.input :search_radius, as: :string, 
                                    label: 'Search radius (miles)',
