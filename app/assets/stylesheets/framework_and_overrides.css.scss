@@ -492,3 +492,10 @@ div.map_canvas_form, div.map_canvas {
   height: 400px;
   margin: 0 auto;
 }
+
+div.map_canvas_form img, div.map_canvas img { 
+  max-width: none;
+}
+div.map_canvas_form label, div.map_canvas label { 
+  width: auto; display:inline; 
+} 

@@ -31,18 +31,7 @@
                                      input_html: { class: 'geocomplete',
                                                  data: { geo: 'formatted_address' } } %>
 
-        <%= f.input :latitude, disabled: true, 
-                             input_html: { class: 'latitude', 
-                                            data: { geo: 'lat' } } %>
-        <%= f.input :latitude, as: :hidden, 
-                       input_html: { class: 'latitude', 
-                                      data: { geo: 'lat' } } %>
-        <%= f.input :longitude, disabled: true, 
-                              input_html: { class: 'longitude', 
-                                             data: { geo: 'lng' } } %>
-        <%= f.input :longitude, as: :hidden,
-                        input_html: { class: 'longitude', 
-                                       data: { geo: 'lng' } } %>
+        <%= render 'layouts/lat_lon_inputs', f: f %>
                              
         <%= f.input :email, required: true %>
         <%= f.input :password, required: true, 

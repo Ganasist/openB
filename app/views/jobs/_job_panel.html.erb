@@ -1,10 +1,5 @@
 <div class="panel panel-default" id="<%= job.id %>">
 
-<% if params[:controller] == "jobs" %>
-  <span class="hidden latitude"><%= job.latitude %></span>
-  <span class="hidden longitude"><%= job.longitude %></span>
-<% end %>
-
   <div class="panel-heading">
     <h3 class="panel-title">
       <p>
@@ -70,11 +65,15 @@
                      item_status: '' } %>
 
       <hr class="visible-xs visible-sm">
+
       <% if params[:controller] == "jobs" %>
+        <span class="hidden latitude"><%= job.latitude %></span>
+        <span class="hidden longitude"><%= job.longitude %></span>
         <br><br>
         <div class="map_canvas"></div>
         <br>
       <% end %>
+      
     </div>
     <%= link_to job, class: 'unstyled-link' do %>
       <div  class="col-xs-12 col-md-6">
