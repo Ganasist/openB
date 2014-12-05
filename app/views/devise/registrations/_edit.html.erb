@@ -24,7 +24,7 @@
       <div class="form-inputs col-md-6 col-sm-6">
           <%= f.input :name %>
           <%= f.input :company_name, placeholder: 'Enter your company name' if contractor_signed_in? %>
-          <%= f.input :email, input_html: { id: 'current_email' } %>
+          <%= f.input :email, input_html: { class: 'current_email' } %>
           <%= f.input :phone, as: :string,
                      placeholder: 'Enter a valid full phone number',
                       input_html: { value: resource.try(:phone) ? 
@@ -44,10 +44,11 @@
                                                 style: 'width:100px' } if contractor_signed_in? %>
 
           <%= f.input :description, as: :text, 
-                                 label: 'Company Description',
+                                 label: '',
                            placeholder: 'Enter brief description about your services',
                             input_html: { rows: '7', 
-                                     maxlength: 500 } if contractor_signed_in? %>
+                                     maxlength: 500 },
+                            label_html: { id: 'description_feedback' } if contractor_signed_in? %>
           
       </div>
 
@@ -61,9 +62,9 @@
                            placeholder: 'Enter new password',
                             input_html: { id: 'new_password', autocomplete: 'off' } %>
           <%= f.input :password_confirmation, label: 'New password confirmation',
-                                         input_html: { autocomplete: 'off' }  %>
+                                         input_html: { id: 'new_password_confirmation', autocomplete: 'off' }  %>
           <%= f.input :current_password, placeholder: 'Enter current password to confirm updates', 
-                                          input_html: { autocomplete: 'off' } %>
+                                          input_html: { id: 'current_password', autocomplete: 'off' } %>
       </div>
 
       <div class="row">

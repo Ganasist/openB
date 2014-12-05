@@ -29,7 +29,7 @@
       <div class="form-inputs">
         <%= f.input :address, placeholder: "#{ resource.address }", 
                                      input_html: { class: 'geocomplete',
-                                                 data: { geo: 'formatted_address' } } %>
+                                                    data: { geo: 'formatted_address' } } %>
 
         <%= render 'layouts/lat_lon_inputs', f: f %>
                              

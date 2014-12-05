@@ -20,8 +20,8 @@
 			
 			<%= f.error_notification %>
 		  <div class="form-inputs">
-		    <%= f.input :email, required: true, autofocus: true %>
-		    <%= f.input :password, required: true %>
+		    <%= f.input :email, required: true, autofocus: true, input_html: { id: 'email_sign_in'} %>
+		    <%= f.input :password, required: true, input_html: { id: 'password_sign_in'} %>
 		    <%= f.input :remember_me, wrapper: :horizontal_boolean,
 		     															 as: :boolean if devise_mapping.rememberable? %>
 		   </div>

@@ -27,7 +27,9 @@
 
         <% end %>
 
-        <%= f.input :title, label: 'Job Title', input_html: { maxlength: 50, id: 'job_title' } %>
+        <%= f.input :title, label: 'Job Title', 
+                       input_html: { maxlength: 50, 
+                                            id: 'job_title' } %>
         
         <% if type == 'example' %>
           <ul class="list-inline">
