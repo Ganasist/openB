@@ -43,6 +43,7 @@ gem 'unicorn'
 gem 'unicorn-rails'
 gem 'faker'
 group :development do
+  gem 'letter_opener', group: :development
   gem 'railroady'
   gem 'quiet_assets'
   gem 'better_errors'
