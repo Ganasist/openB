@@ -10,11 +10,11 @@
     <div class="text-center">
       <% if resource.is_a?(User) %>
         <%= link_to new_contractor_registration_path, class: 'btn btn-sm btn-warning' do %>
-          <%= fa_icon 'wrench', title: 'Contractor' %> Contractor sign-up   
+          <%= fa_icon 'wrench', title: 'Contractor' %> Go to Contractor sign-up   
         <% end %>
       <% else %>
         <%= link_to new_user_registration_path, class: 'btn btn-sm btn-success' do %>
-          <%= fa_icon 'user', title: 'User' %> User sign-up
+          <%= fa_icon 'user', title: 'User' %> Go to User sign-up
         <% end %>
       <% end %>
     </div>
