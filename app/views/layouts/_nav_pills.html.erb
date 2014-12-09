@@ -1,9 +1,11 @@
 <hr class="visible-xs">
 <ul class="nav nav-pills nav-justified">
   <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
-  	<a href="#job" data-toggle="tab">
-  		<%= @contractor ? "Jobs within #{ @contractor.search_radius.to_s } miles" : "Your jobs" %>
-  	</a>
+    <a href="#job" data-toggle="tab">
+      <span data-toggle="tooltip"  data-original-title="Adjust distance in your profile">
+        <%= @contractor ? "Jobs within #{ @contractor.search_radius.to_s } miles" : "Your jobs" %>
+      </span>
+    </a>
   </li>
   <% if @contractor %>
 	  <li class="<%= 'active' if params[:tab] == 'examples' %>">
