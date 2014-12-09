@@ -13,7 +13,6 @@ class Upload < ActiveRecord::Base
 
 	process_in_background :image, processing_image_url: 'ajax-loader.gif'
 
-
 	def status
 		if self.before?
 			'before'
