@@ -2,6 +2,7 @@ require 'sidekiq/web'
 # require 'sidetiq/web'
 
 Rails.application.routes.draw do
+  post '/rate' => 'rater#create', :as => 'rate'
   concern :uploadable do
     resources :uploads, only: [:new, :create, :destroy]
   end
