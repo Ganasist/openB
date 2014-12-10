@@ -1,9 +1,5 @@
 class Job < ActiveRecord::Base
 
-  enum status: { searching: 0, in_progress: 1, completed: 2, canceled: 3 }
-
-  ratyrate_rateable 'cost', 'timeliness', 'professionalism'
-
   include JobValidations
   include PgSearch
   include GlobalConcerns
