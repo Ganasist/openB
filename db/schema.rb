@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141209155703) do
+ActiveRecord::Schema.define(version: 20141209170830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,11 +137,10 @@ ActiveRecord::Schema.define(version: 20141209155703) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "address"
-    t.string   "city"
-    t.string   "state"
     t.date     "bidding_period"
     t.integer  "cost"
     t.text     "categories",     default: [],              array: true
+    t.integer  "status",         default: 0
   end
 
   add_index "jobs", ["address"], name: "index_jobs_on_address", using: :btree
@@ -149,6 +148,10 @@ ActiveRecord::Schema.define(version: 20141209155703) do
   add_index "jobs", ["contractor_id"], name: "index_jobs_on_contractor_id", using: :btree
   add_index "jobs", ["latitude"], name: "index_jobs_on_latitude", using: :btree
   add_index "jobs", ["longitude"], name: "index_jobs_on_longitude", using: :btree
+  add_index "jobs", ["status"], name: "index_statuses_on_canceled", where: "(status = 3)", using: :btree
+  add_index "jobs", ["status"], name: "index_statuses_on_completed", where: "(status = 2)", using: :btree
+  add_index "jobs", ["status"], name: "index_statuses_on_in_progress", where: "(status = 1)", using: :btree
+  add_index "jobs", ["status"], name: "index_statuses_on_searching", where: "(status = 0)", using: :btree
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
 
   create_table "overall_averages", force: true do |t|

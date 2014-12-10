@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   include Devisable
   include GlobalConcerns
 
+  ratyrate_rater
+
 	has_many :jobs
 
   def fullname
