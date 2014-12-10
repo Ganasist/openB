@@ -31,7 +31,7 @@ Rails.application.configure do
 
   # Generate digests for assets URLs.
   config.assets.digest = true
-  config.assets.enabled is set to true
+  config.assets.enabled = true
 
   config.action_controller.asset_host =  "//s3.amazonaws.com/#{ENV['S3_BUCKET']}"
   # config.action_mailer.asset_host = "http://#{ENV['S3_STAGING_BUCKET']}.s3.amazonaws.com"
