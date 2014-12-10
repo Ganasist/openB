@@ -1,7 +1,7 @@
 class Fix < ActiveRecord::Migration
   def change
-  	remove_column :jobs, :city, :string
-  	remove_column :jobs, :state, :string
+  	remove_column :jobs, :city, :string if column_exists?(:jobs, :city)
+  	remove_column :jobs, :state, :string if column_exists?(:jobs, :state)
 
   	add_column :jobs, :status, :integer, default: 0
     add_index :jobs, :status, name: 'index_statuses_on_searching',  where: 'status = 0'
