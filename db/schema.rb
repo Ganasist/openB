@@ -131,7 +131,8 @@ ActiveRecord::Schema.define(version: 20141210121335) do
     t.date     "bidding_period"
     t.integer  "cost"
     t.text     "categories",     default: [],              array: true
-    t.integer  "status",         default: 0
+    t.string   "state"
+    t.string   "city"
   end
 
   add_index "jobs", ["address"], name: "index_jobs_on_address", using: :btree
@@ -139,10 +140,6 @@ ActiveRecord::Schema.define(version: 20141210121335) do
   add_index "jobs", ["contractor_id"], name: "index_jobs_on_contractor_id", using: :btree
   add_index "jobs", ["latitude"], name: "index_jobs_on_latitude", using: :btree
   add_index "jobs", ["longitude"], name: "index_jobs_on_longitude", using: :btree
-  add_index "jobs", ["status"], name: "index_statuses_on_canceled", where: "(status = 3)", using: :btree
-  add_index "jobs", ["status"], name: "index_statuses_on_completed", where: "(status = 2)", using: :btree
-  add_index "jobs", ["status"], name: "index_statuses_on_in_progress", where: "(status = 1)", using: :btree
-  add_index "jobs", ["status"], name: "index_statuses_on_searching", where: "(status = 0)", using: :btree
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
 
   create_table "searches", force: true do |t|
