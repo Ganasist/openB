@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210121335) do
+ActiveRecord::Schema.define(version: 20141210125311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,8 +131,6 @@ ActiveRecord::Schema.define(version: 20141210121335) do
     t.date     "bidding_period"
     t.integer  "cost"
     t.text     "categories",     default: [],              array: true
-    t.string   "state"
-    t.string   "city"
   end
 
   add_index "jobs", ["address"], name: "index_jobs_on_address", using: :btree
