@@ -2,8 +2,8 @@ require 'sidekiq/web'
 # require 'sidetiq/web'
 
 Rails.application.routes.draw do
-  resources :reviews
 
+  post '/rate' => 'rater#create', :as => 'rate'
   concern :uploadable do
     resources :uploads, only: [:new, :create, :destroy]
   end
@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   resources :jobs, concerns: [:uploadable, :commentable],
                    defaults: { uploadable: 'job', commentable: 'job' } do
     resources :bids, only: [:create, :update, :destroy]
+    resources :reviews
   end
   
   resources :examples, concerns: [:uploadable, :commentable],

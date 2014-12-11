@@ -15,6 +15,7 @@ class Contractor < ActiveRecord::Base
 
   has_many :bids
   has_many :jobs, through: :bids
+  has_many :reviews, through: :jobs
 
   has_many :examples, dependent: :destroy
 

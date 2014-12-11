@@ -4,7 +4,10 @@ class User < ActiveRecord::Base
   include Devisable
   include GlobalConcerns
 
+  ratyrate_rater
+
 	has_many :jobs
+  has_many :reviews, through: :jobs
 
   def fullname
     self.name || self.email

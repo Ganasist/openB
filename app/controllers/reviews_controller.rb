@@ -1,27 +1,43 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
+  respond_to :html
 
   def index
+    @job = Job.find(params[:job_id])
     @reviews = Review.all
     respond_with(@reviews)
   end
 
   def show
+    @job = Job.find(params[:job_id])
+    @review = Review.find(params[:id])
     respond_with(@review)
   end
 
   def new
+    @job = Job.find(params[:job_id])
+    @contractors = @job.bids.contractors
     @review = Review.new
     respond_with(@review)
   end
 
   def edit
+    @job = Job.find(params[:job_id])
+    @contractors = @job.bids.contractors.to_a
+    @review = Review.new
+    respond_with(@review)
   end
 
   def create
-    @review = Review.new(review_params)
-    flash[:notice] = 'Review was successfully created.' if @review.save
-    respond_with(@review)
+    @job = Job.find(params[:job_id])
+    @review = @job.reviews.new(review_params)
+    if @review.save
+      flash[:notice] = 'Review was successfully created.'
+      redirect_to job_review_path(@job, @review)
+    else
+      flash[:error] = 'Review could not be created.'
+      render 'new'
+    end
   end
 
   def update

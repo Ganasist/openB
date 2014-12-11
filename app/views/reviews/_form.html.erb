@@ -1,9 +1,9 @@
-<%= simple_form_for(@review) do |f| %>
+<%= simple_form_for [@job, @review] do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
     <%= f.input :description %>
-    <%= f.association :job %>
+    <%= f.association :job, collection: @job.contractors, label: 'Contractor' %>
   </div>
 
   <div class="form-actions">

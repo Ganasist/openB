@@ -10,6 +10,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (4.0.5)
     actionmailer (4.2.0.beta2)
       actionpack (= 4.2.0.beta2)
       actionview (= 4.2.0.beta2)
@@ -261,6 +262,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.3.2)
+    ratyrate (1.2.2.alpha)
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.9.4)
@@ -362,6 +364,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   active_attr
   acts_as_commentable_with_threading
   amoeba
@@ -406,6 +409,7 @@ DEPENDENCIES
   rails (~> 4.2.0.beta2)
   rails_12factor
   rails_layout
+  ratyrate
   rb-fchange
   rb-fsevent
   rb-inotify

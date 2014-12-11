@@ -7,8 +7,13 @@
 
 <p>
   <strong>Job:</strong>
-  <%= @review.job %>
+  <%= @review.job.title %>
 </p>
 
-<%= link_to 'Edit', edit_review_path(@review) %> |
-<%= link_to 'Back', reviews_path %>
+<p>
+  <strong>Contractor:</strong>
+  <%= @review.job.contractors.first.fullname %>
+</p>
+
+<%= link_to 'Edit', edit_job_review_path(@job, @review) %> |
+<%= link_to 'Back', job_reviews_path(@job) %>
