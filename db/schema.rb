@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141211150910) do
+ActiveRecord::Schema.define(version: 20141211174147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20141211150910) do
     t.boolean  "rejected",      default: false
   end
 
+  add_index "bids", ["contractor_id", "job_id"], name: "index_bids_on_contractor_id_and_job_id", unique: true, using: :btree
   add_index "bids", ["contractor_id"], name: "index_bids_on_contractor_id", using: :btree
   add_index "bids", ["job_id"], name: "index_bids_on_job_id", using: :btree
 
@@ -182,6 +183,7 @@ ActiveRecord::Schema.define(version: 20141211150910) do
   end
 
   add_index "rating_caches", ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type", using: :btree
+  add_index "rating_caches", ["cacheable_type", "cacheable_id"], name: "index_rating_caches_on_cacheable_type_and_cacheable_id", unique: true, using: :btree
 
   create_table "reviews", force: true do |t|
     t.text     "description"
@@ -193,7 +195,7 @@ ActiveRecord::Schema.define(version: 20141211150910) do
   end
 
   add_index "reviews", ["contractor_id"], name: "index_reviews_on_contractor_id", using: :btree
-  add_index "reviews", ["job_id"], name: "index_reviews_on_job_id", using: :btree
+  add_index "reviews", ["job_id"], name: "index_reviews_on_job_id", unique: true, using: :btree
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "searches", force: true do |t|
