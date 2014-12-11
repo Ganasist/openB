@@ -13,6 +13,10 @@ class BidsController < ApplicationController
     end
   end
 
+  def edit
+    @bid = current_contractor.bids.where(job_id: params[:job_id])
+  end
+
   def update
     @bid = Bid.find(params[:id])
     if @bid.update(bid_params)

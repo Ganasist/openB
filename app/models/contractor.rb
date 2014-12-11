@@ -8,10 +8,10 @@ class Contractor < ActiveRecord::Base
   after_commit :search_radius_check, on: [:create, :update]
   validates :search_radius, numericality: { only_integer: true,
                                              allow_blank: true,
-                                            greater_than: 0, 
-                                               less_than: 1000, 
+                                            greater_than: 0,
+                                               less_than: 1000,
                                                  message: 'Please choose a distance between 1 - 999 miles.' }
-  
+
 
   has_many :bids
   has_many :jobs, through: :bids
@@ -36,10 +36,10 @@ class Contractor < ActiveRecord::Base
   end
 
   def complete_profile?
-    self.name.present? && 
-    self.company_name.present? && 
-    self.address.present? && 
-    self.description.present? && 
+    self.name.present? &&
+    self.company_name.present? &&
+    self.address.present? &&
+    self.description.present? &&
     self.categories.present?
   end
 

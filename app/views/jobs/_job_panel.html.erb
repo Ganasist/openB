@@ -11,34 +11,33 @@
             <% end %>
           <% else %>
             <%= link_to job, method: :delete,
-                             remote: true, 
+                             remote: true,
                                data: { confirm: 'Are you sure you want to delete this post?' } do %>
               <%= fa_icon 'minus-square 2x', title: 'Delete',
                                              class: 'delete-job-post pull-right' %>
             <% end %>
-          <% end %>            
-          
+          <% end %>
+
           <%= link_to edit_job_path(job) do %>
             <%= fa_icon 'edit 2x', title: 'Edit', class: 'pull-right' %>
           <% end %>
-        
+
         <% elsif contractor_signed_in? %>
           <% if (request.fullpath).include?('/contractors') %>
             <%= link_to job_path(job), class: 'hidden-xs hidden-sm btn btn-primary pull-right' do %>
               View Details
             <% end %>
           <% elsif (request.fullpath).include?('/jobs') %>
-            <%= link_to "Send a comment", new_polymorphic_url([@job, Comment.new]), 
+            <%= link_to "Send a comment", new_polymorphic_url([@job, Comment.new]),
                                               class: 'btn btn-small btn-success pull-right',
-                                              remote: true, 
+                                              remote: true,
                                                data: { toggle: 'modal',
                                                        target: '#commentModal' } %>
           <% end %>
         <% end %>
+        <span class="text-center">Status: <%= job.state.to_s.humanize.titleize %></span>
       </p>
-
       <%= render partial: 'jobs/job_category_panel', locals: { job: job } %>
-       
     </h3>
   </div>
 
@@ -47,18 +46,18 @@
       <div class="col-xs-12 col-sm-12 col-md-12" id="job-<%= job.id %>">
         <%= render 'bids/form', job: job %>
       </div>
-    <% end %>      
+    <% end %>
     <div class="col-xs-12 col-md-6 text-center">
       <% if job.uploads.count > 0 %>
-        <%= render partial: 'layouts/pic', 
-                collection: job.uploads, 
-                        as: :upload, 
+        <%= render partial: 'layouts/pic',
+                collection: job.uploads,
+                        as: :upload,
                     locals: { owner: job.user } %>
       <% end %>
 
-      <%= render partial: 'layouts/pic_upload_button', 
+      <%= render partial: 'layouts/pic_upload_button',
                   locals: { item: job,
-                      item_owner: job.user, 
+                      item_owner: job.user,
                   current_member: current_user || current_contractor,
                item_upload_count: job.uploads.count,
                      item_status: '' } %>
@@ -72,7 +71,7 @@
         <div class="map_canvas"></div>
         <br>
       <% end %>
-      
+
     </div>
     <%= link_to job, class: 'unstyled-link' do %>
       <div  class="col-xs-12 col-md-6">
@@ -81,18 +80,18 @@
             <%= job.title %>
           </strong><br>
 
-          <%= link_to "http://maps.google.com/?q=#{ job.address }", 
-                      class: 'google_links', 
+          <%= link_to "http://maps.google.com/?q=#{ job.address }",
+                      class: 'google_links',
                      target: "_blank" do %>
             <%= fa_icon 'external-link', title: 'View in Google Maps' %>
             View in Google Maps
           <% end %>
         </p>
         <hr>
-        <%= (request.fullpath).include?('jobs') ? 
-                                job.description : 
+        <%= (request.fullpath).include?('jobs') ?
+                                job.description :
                                 truncate(job.description, length: 200) %>
-      </div>                                  
+      </div>
     </div>
     <%= render partial: 'jobs/job_footer_panel', locals: { job: job, owner: job.user } %>
   <% end %>

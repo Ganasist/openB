@@ -3,9 +3,12 @@
   <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
     <a href="#job" data-toggle="tab">
       <span data-toggle="tooltip"  data-original-title="Adjust distance in your profile">
-        <%= @contractor ? "Jobs within #{ @contractor.search_radius.to_s } miles" : "Your jobs" %>
+        <%= @contractor ? "Open jobs within #{ @contractor.search_radius.to_s } miles" : "Your jobs" %>
       </span>
     </a>
+  </li>
+  <li class="<%= 'active' if params[:tab] == 'bids' %>">
+    <a href="#bid" data-toggle="tab">Bids</a>
   </li>
   <% if @contractor %>
 	  <li class="<%= 'active' if params[:tab] == 'examples' %>">
@@ -15,5 +18,5 @@
   <li class="<%= 'active' if params[:tab] == 'comments' %>">
     <a href="#comment" data-toggle="tab">Messages</a>
   </li>
-</ul>    
+</ul>
 <br>

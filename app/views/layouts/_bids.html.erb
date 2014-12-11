@@ -1,0 +1,17 @@
+<div id="paginator-bids-top" class="text-center">
+  <%= render partial: 'layouts/paginator',
+              locals: { context: @bids,
+                 context_string: 'bids' } %>
+</div>
+
+<div id="bids">
+  <%= render partial: 'bids/bid_panel',
+          collection: @bids,
+                  as: :bid %>
+</div>
+
+<div id="paginator-bids-bottom" class="text-center col-xs-12">
+  <%= render partial: 'layouts/paginator',
+              locals: { context: @bids,
+                context_string: 'bids' } %>
+</div>

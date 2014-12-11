@@ -1,16 +1,18 @@
-$('#paginator-jobs-top').html('<%= escape_javascript(paginate @jobs, 
+$('#paginator-jobs-top').html('<%= escape_javascript(paginate @jobs,
 																															 remote: true,
 																															  theme: "twitter-bootstrap-3",
 																													 param_name: "jobs",
 																															 params: { tab: "jobs" }) %>');
 
-$('#paginator-jobs-bottom').html('<%= escape_javascript(paginate @jobs, 
+$('#paginator-jobs-bottom').html('<%= escape_javascript(paginate @jobs,
 																																 remote: true,
 																															 		theme: "twitter-bootstrap-3",
 																														 param_name: "jobs",
 																															   params: { tab: "jobs" }) %>');
 
-$('#jobs').html('<%= escape_javascript(render partial: "jobs/job_panel", collection: @jobs, as: :job) %>');
+$('#jobs').html('<%= escape_javascript(render partial: "jobs/job_panel",
+																					 collection: @jobs,
+																									 as: :job) %>');
 
 $('#paginator-examples-top').html('<%= escape_javascript(paginate @examples, remote: true,
 																					                                     theme: "twitter-bootstrap-3",
@@ -34,8 +36,24 @@ $('#paginator-comments-bottom').html('<%= escape_javascript(paginate @comments, 
 																						                                 param_name: "comments",
 																						                                 		 params: { tab: "comments" }) %>');
 
-$('#comments').html('<%= escape_javascript(render partial: "comments/comment_panel", 
-																			         collection: @comments, 
+$('#comments').html('<%= escape_javascript(render partial: "comments/comment_panel",
+																			         collection: @comments,
 																			                 as: :comment) %>');
+
+
+$('#paginator-bids-top').html('<%= escape_javascript(paginate @bids, remote: true,
+																																			theme: "twitter-bootstrap-3",
+																																 param_name: "bids",
+																																		 params: { tab: "bids" }) %>');
+
+$('#paginator-bids-bottom').html('<%= escape_javascript(paginate @bids, remote: true,
+																																				 theme: "twitter-bootstrap-3",
+																																		param_name: "bids",
+																																				params: { tab: "bids" }) %>');
+
+$('#bids').html('<%= escape_javascript(render partial: "bids/bid_panel",
+																					 collection: @bids,
+																									 as: :bid) %>');
+
 
 $('body').scrollTo('.pagination', { duration: 300 });

@@ -4,7 +4,7 @@
   <% title @contractor.fullname %>
 <% end %>
 
-<%= render partial: 'layouts/comment_modal', 
+<%= render partial: 'layouts/comment_modal',
             locals: { commentable: @contractor } %>
 
 <div class="row">
@@ -21,8 +21,10 @@
       <%= render 'layouts/nav_pills' %>
 
   		<div class="tab-content">
-  		  <%= render partial: 'layouts/job_tab_pane', 
+  		  <%= render partial: 'layouts/job_tab_pane',
                     locals: { no_jobs: 'No nearby job posts in your categories' } %>
+
+        <%= render 'layouts/bid_tab_pane' %>
 
   			<%= render 'layouts/example_tab_pane' %>
 

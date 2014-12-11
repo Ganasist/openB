@@ -1,5 +1,5 @@
 class ContractorsController < ApplicationController
-  before_action :set_contractor, only: [:show, :edit, :update, :destroy]
+  before_action :set_contractor, only: [:edit, :update, :destroy]
   before_action :authenticate_contractor!, except: [:index, :show]
   before_action :block_visitors
 
@@ -11,7 +11,7 @@ class ContractorsController < ApplicationController
       @contractors = @contractors.relevant_categories(category)
                                  .order(updated_at: :desc)
                                  .page(params[:contractors])
-                                 .per(10)                               
+                                 .per(10)
     end
   end
 
@@ -19,6 +19,8 @@ class ContractorsController < ApplicationController
     if (current_contractor == @contractor) && !@contractor.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
+    @contractor = Contractor.includes(:examples, :bids, :comments).find(params[:id])
+
     @examples = @contractor.examples
                            .includes(:uploads)
                            .order(updated_at: :desc)
@@ -28,11 +30,16 @@ class ContractorsController < ApplicationController
                        .order(updated_at: :desc)
                        .page(params[:comments])
 
-    @jobs = Job.order(updated_at: :desc)
-               .page(params[:jobs]).per(2)
+    @jobs = Job.searching
+               .order(updated_at: :desc)
+               .page(params[:jobs])
                .relevant_categories(@contractor.categories)
                .near(@contractor.address, @contractor.search_radius)
                .includes([:user, :uploads])
+
+    @bids = @contractor.bids
+                       .order(updated_at: :desc)
+                       .page(params[:bids]).per(28)
   end
 
   def destroy

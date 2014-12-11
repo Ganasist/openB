@@ -1,6 +1,6 @@
 <div class="panel-footer">
-  <%= "Posted #{ time_ago_in_words(job.updated_at) } ago" %> by 
+  <%= "Posted #{ time_ago_in_words(job.updated_at) } ago" %> by
   <%= link_to "#{ owner.fullname }", owner, class: 'unstyled-link' %>
-  <%= "| Approx. #{ current_contractor.distance_from(job).round(1) } miles away" if (contractor_signed_in? && job.is_a?(Job)) %>
+  <%= "| Approx. #{ current_contractor.distance_from(job).round(1) } miles away" if (contractor_signed_in? && job.is_a?(Job) && job.has_coordinates?) %>
   <%= job_bid_duration(job) if job.is_a?(Job) %>
 </div>

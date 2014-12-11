@@ -7,15 +7,21 @@
   </div>
 
   <div class="authform_large col-lg-6 col-md-6 col-xs-12">
-    <%= simple_form_for job, wrapper: :vertical_form, 
+    <%= simple_form_for job, wrapper: :vertical_form,
                                  html: { multipart: true, class: 'geocoder_form' },
-                     wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
+                     wrapper_mappings: { radio_buttons: :vertical_radio_and_checkboxes,
+                                         check_boxes: :vertical_radio_and_checkboxes,
                                                 file: :horizontal_file_input } do |f| %>
       <%= f.error_notification %>
 
       <div class="form-inputs col-lg-10 col-lg-offset-1">
         <% if type == 'job' %>
-              <%= f.input :address, placeholder: "#{ current_user.address }", 
+              <%= f.input :state, as: :select,
+                               label: 'Job Status',
+                       include_blank: false,
+                          collection: Job.aasm.states_for_select, input_html: { style: 'width:150px' } %>
+
+              <%= f.input :address, placeholder: "#{ current_user.address }",
                                      input_html: { class: 'geocomplete',
                                                  data: { geo: 'formatted_address' } } %>
 
@@ -27,25 +33,25 @@
 
         <% end %>
 
-        <%= f.input :title, label: 'Job Title', 
-                       input_html: { maxlength: 50, 
+        <%= f.input :title, label: 'Job Title',
+                       input_html: { maxlength: 50,
                                             id: 'job_title' } %>
-        
+
         <% if type == 'example' %>
           <ul class="list-inline">
             <li><%= f.input :cost, wrapper: :vertical_input_group do %>
                       <span class="input-group-addon">$</span>
-                      <%= f.input_field :cost, as: :string, 
+                      <%= f.input_field :cost, as: :string,
                                       placeholder: '400',
                                         maxlength: 5,
                                             class: 'form-control',
-                                               id: 'form_zip_code' %>                  
+                                               id: 'form_zip_code' %>
                 <% end %>
             </li>
 
-                
+
             <li><%= f.input :duration, label: 'Job timeline', as: :string,
-                                  placeholder: '6', 
+                                  placeholder: '6',
                                    input_html: { maxlength: 3 } %>
             </li>
 
@@ -57,17 +63,17 @@
         <% end %>
 
         <% if type == 'job' %>
-          <%= f.input :bidding_period, as: :string, 
-                                    label: 'End Bidding (optional)', 
+          <%= f.input :bidding_period, as: :string,
+                                    label: 'End Bidding (optional)',
                               placeholder: 'Enter a valid date',
                                input_html: { class: 'datepicker' } %>
         <% end %>
-        
-        
+
+
         <%= f.input :description, as: :text,
                                label: '',
                          placeholder: 'Enter a brief description of this job',
-                          input_html: { id: 'job_description', rows: '7', 
+                          input_html: { id: 'job_description', rows: '7',
                                    maxlength: 2000 },
                           label_html: { id: 'description_feedback' }  %>
 
@@ -75,16 +81,16 @@
       <div class="form-inputs col-xs-12">
         <%= render 'layouts/category_select', f: f %>
       </div>
-               
+
       </div>
       <div class="row">
         <div class="form-inputs col-xs-12">
           <h4 class="text-center hidden text-danger" id="category_warning">
             Please pick 1-4 categories
           </h4>
-        </div> 
+        </div>
           <%= f.button :submit, "Post this #{ job.class.name.downcase }", class: 'user_submit' %>
-      </div>     
+      </div>
     <% end %>
   </div>
 </div>

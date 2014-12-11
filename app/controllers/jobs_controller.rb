@@ -37,9 +37,9 @@ class JobsController < ApplicationController
       render 'new'
     end
   end
-  
+
   def edit
-    
+
   end
 
   def update
@@ -78,7 +78,7 @@ class JobsController < ApplicationController
     end
 
     def job_params
-      params.require(:job).permit(:address, :longitude, :latitude, :phone, 
+      params.require(:job).permit(:state, :address, :longitude, :latitude, :phone, 
                                   :title, :bidding_period, :description, { categories: [] })
     end
 end

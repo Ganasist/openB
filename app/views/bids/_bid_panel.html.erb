@@ -1,0 +1,12 @@
+<div class="col-lg-3 col-md-4 col-xs-6 thumb">
+  <%= link_to bid.job.title, bid.job %>
+  <br>
+  Updated <%= time_ago_in_words(bid.updated_at) %> ago
+  <br>
+  Bid: $<%= bid.cost %>
+  <br>
+  Accepted: <%= bid.accepted ? "Yes" : "Not yet" %>
+  <br>
+  rejected: <%= bid.rejected ? "Yes" : "No" %>
+  <hr>
+</div>

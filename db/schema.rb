@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141211105815) do
+ActiveRecord::Schema.define(version: 20141211150910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20141211105815) do
     t.integer  "job_id"
     t.integer  "contractor_id"
     t.integer  "cost"
-    t.boolean  "accepted"
+    t.boolean  "accepted",      default: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.boolean  "rejected",      default: false
@@ -186,11 +186,15 @@ ActiveRecord::Schema.define(version: 20141211105815) do
   create_table "reviews", force: true do |t|
     t.text     "description"
     t.integer  "job_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "user_id"
+    t.integer  "contractor_id"
   end
 
+  add_index "reviews", ["contractor_id"], name: "index_reviews_on_contractor_id", using: :btree
   add_index "reviews", ["job_id"], name: "index_reviews_on_job_id", using: :btree
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "searches", force: true do |t|
     t.string   "zip_code"
