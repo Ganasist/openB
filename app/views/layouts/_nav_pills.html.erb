@@ -7,9 +7,11 @@
       </span>
     </a>
   </li>
-  <li class="<%= 'active' if params[:tab] == 'bids' %>">
-    <a href="#bid" data-toggle="tab">Bids</a>
-  </li>
+  <% if contractor_signed_in? && (current_contractor == @contractor) %>
+    <li class="<%= 'active' if params[:tab] == 'bids' %>">
+      <a href="#bid" data-toggle="tab">Bids</a>
+    </li>
+  <% end %>
   <% if @contractor %>
 	  <li class="<%= 'active' if params[:tab] == 'examples' %>">
 	  	<a href="#example" data-toggle="tab">Portfolio</a>

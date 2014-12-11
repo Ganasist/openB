@@ -16,10 +16,12 @@ class ContractorsController < ApplicationController
   end
 
   def show
+
+    @contractor = Contractor.includes(:examples, :bids, :comments).find(params[:id])
+    
     if (current_contractor == @contractor) && !@contractor.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
-    @contractor = Contractor.includes(:examples, :bids, :comments).find(params[:id])
 
     @examples = @contractor.examples
                            .includes(:uploads)
