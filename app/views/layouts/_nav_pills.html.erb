@@ -3,7 +3,7 @@
   <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
     <a href="#job" data-toggle="tab">
       <span data-toggle="tooltip"  data-original-title="Adjust distance in your profile">
-        <%= @contractor ? "Jobs within #{ @contractor.search_radius.to_s } miles" : "Your jobs" %>
+        <%= @contractor ? "Jobs" : "Your jobs" %>
       </span>
     </a>
   </li>

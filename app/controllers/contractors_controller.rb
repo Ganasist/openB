@@ -18,7 +18,7 @@ class ContractorsController < ApplicationController
   def show
 
     @contractor = Contractor.includes(:examples, :bids, :comments).find(params[:id])
-    
+
     if (current_contractor == @contractor) && !@contractor.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
@@ -32,12 +32,12 @@ class ContractorsController < ApplicationController
                        .order(updated_at: :desc)
                        .page(params[:comments])
 
-    @jobs = Job.searching
+    @jobs = Job.near(@contractor, @contractor.search_radius)
+               .relevant_categories(@contractor.categories)
+               .searching
+               .includes([:user, :uploads])
                .order(updated_at: :desc)
                .page(params[:jobs])
-               .relevant_categories(@contractor.categories)
-               .near(@contractor.address, @contractor.search_radius)
-               .includes([:user, :uploads])
 
     @bids = @contractor.bids
                        .order(updated_at: :desc)

@@ -1,12 +1,12 @@
 <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-  <%= link_to bid.job.title, bid.job %>
+  <%= link_to truncate(bid.job.title, length: 25), bid.job %>
   <br>
-  Updated <%= time_ago_in_words(bid.updated_at) %> ago
+  Job status: <%= bid.job.state.humanize.titleize %>
+  <br>
+  Bid status: <%= bid_status(bid) %>
   <br>
   Bid: $<%= bid.cost %>
   <br>
-  Accepted: <%= bid.accepted ? "Yes" : "Not yet" %>
-  <br>
-  Rejected: <%= bid.rejected ? "Yes" : "No" %>
+  Updated <%= time_ago_in_words(bid.updated_at) %> ago
   <hr>
 </div>

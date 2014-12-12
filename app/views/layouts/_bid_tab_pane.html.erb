@@ -1,7 +1,6 @@
-<div class="<%= (params[:tab] == 'bids' || !params[:tab]) ?
-            'tab-pane fade in active' :
-            'tab-pane fade in' %>" id="bid">
-
+<div class="<%= (params[:tab] == 'bids') ?
+               'tab-pane fade in active' :
+               'tab-pane fade in' %>" id="bid">
   <% if @bids.present? %>
     <%= render 'layouts/bids' %>
   <% else %>
