@@ -10,8 +10,8 @@
     <%= simple_form_for job, wrapper: :vertical_form,
                                  html: { multipart: true, class: 'geocoder_form' },
                      wrapper_mappings: { radio_buttons: :vertical_radio_and_checkboxes,
-                                         check_boxes: :vertical_radio_and_checkboxes,
-                                                file: :horizontal_file_input } do |f| %>
+                                           check_boxes: :vertical_radio_and_checkboxes,
+                                                  file: :horizontal_file_input } do |f| %>
       <%= f.error_notification %>
 
       <div class="form-inputs col-lg-10 col-lg-offset-1">

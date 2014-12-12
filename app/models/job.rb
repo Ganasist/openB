@@ -31,7 +31,6 @@ class Job < ActiveRecord::Base
     longitude.present? && latitude.present?
   end
 
-
   # State manager to handle how jobs transition
 
   include AASM
@@ -44,11 +43,15 @@ class Job < ActiveRecord::Base
     state :cancelled
 
     event :activate do
-      transitions from: :searching, to: :in_progress
+      transitions from: :searching, to: :in_progress, after: Proc.new { |this_bid| set_contractor(this_bid) }
     end
 
-    event :complete do
-      transitions from: :in_progress, to: :compelete
+    event :resume_search, after: :reset_contractors do
+      transitions to: :searching
+    end
+
+    event :mark_as_complete do
+      transitions from: :in_progress, to: :complete
     end
 
     event :mark_as_incomplete do
@@ -60,4 +63,28 @@ class Job < ActiveRecord::Base
     end
   end
 
+  def set_contractor(this_bid)
+    reset_contractors
+    bid_reset(this_bid, true, false)
+    self.contractor = this_bid.contractor
+    # Email / Message contractor & user
+  end
+
+  def reset_contractors
+    self.bids.each do |b|
+      bid_reset(b, false, false)
+    end
+    self.contractor_id = nil
+  end
+
+  def remove_contractors
+    self.bids.each do |b|
+      bid_reset(b, false, true)
+    end
+    self.contractor_id = nil
+  end
+
+  def bid_reset(b, accept, reject)
+    b.update_attributes!(accepted: accept, rejected: reject)
+  end
 end

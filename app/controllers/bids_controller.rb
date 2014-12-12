@@ -30,7 +30,7 @@ class BidsController < ApplicationController
   def accept_bid
     @bid = Bid.find(params[:id])
     # if current_user
-    puts @bid
+    @bid.job.activate.(:in_progress, @bid)
     flash[:notice] = "Bid from #{ @bid.contractor.company_name } for $#{ @bid.cost } has been accepted. They are being notified now."
     redirect_to :back
   end
