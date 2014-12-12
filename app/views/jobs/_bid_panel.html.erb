@@ -3,16 +3,29 @@
     <td>Contractor</td>
     <td>Cost</td>
     <td>Updated</td>
+    <td></td>
   </thead>
   <tbody>
 	  <% @bids.each do |bid| %>
 	    <tr>
-			  <td><%= link_to bid.contractor.company_name, 
-			  								bid.contractor, 
+			  <td><%= link_to bid.contractor.company_name,
+			  								bid.contractor,
 			  								class: 'unstyled-link' %></td>
 			  <td>$<%= bid.cost %></td>
 			  <td><%= time_ago_in_words(bid.updated_at)  %> ago</td>
+        <td>
+          <ul class="list-inline">
+            <li><%= link_to ' Accept', accept_bid_path(bid),
+                                       class: 'btn btn-success fa fa-lg fa-check-square-o',
+                                      method: :post,
+                                        data: { confirm: "Accepting this bid will change the job's status to 'In Progress' and reject the other bids for this job" } %></li>
+            <li><%= link_to ' Reject', reject_bid_path(bid),
+                                       class: 'btn btn-danger fa fa-lg fa-times-circle-o',
+                                      method: :post,
+                                      data: { confirm: "Rejecting this bid will remove it from your job" } %></li>
+          </ul>
+        </td>
 		  </tr>
-	  <% end %>          
+	  <% end %>
   </tbody>
 </table>

@@ -16,29 +16,29 @@ Rails.application.routes.draw do
     resources :comments, only: [:new, :create, :edit, :update, :destroy]
   end
 
-	devise_for :users, controllers: { registrations: 'users/registrations', 
+	devise_for :users, controllers: { registrations: 'users/registrations',
                                           sessions: 'sessions' }
 
-	devise_for :contractors, controllers: { registrations: 'contractors/registrations', 
-                                               sessions: 'sessions' }							 
+	devise_for :contractors, controllers: { registrations: 'contractors/registrations',
+                                               sessions: 'sessions' }
 
-  resources :users, only: [:show, :index, :destroy], 
+  resources :users, only: [:show, :index, :destroy],
                 concerns: [:uploadable, :commentable, :commenterable],
-                defaults: { uploadable: 'user', 
+                defaults: { uploadable: 'user',
                            commentable: 'user' }
 
-  resources :contractors, only: [:show, :index], 
+  resources :contractors, only: [:show, :index],
                       concerns: [:uploadable, :commentable, :commenterable],
-                      defaults: { uploadable: 'contractor', 
+                      defaults: { uploadable: 'contractor',
                                  commentable: 'contractor' } do
   end
-  
+
   resources :jobs, concerns: [:uploadable, :commentable],
                    defaults: { uploadable: 'job', commentable: 'job' } do
     resources :bids, only: [:create, :update, :destroy]
     resources :reviews
   end
-  
+
   resources :examples, concerns: [:uploadable, :commentable],
                        defaults: { uploadable: 'example', commentable: 'example' }
 
@@ -46,7 +46,10 @@ Rails.application.routes.draw do
 
   resource :contact, only: [:new, :create]
   resource :search, only: :show
-  
+
+  match 'bids/:id/accept' => 'bids#accept_bid', as: 'accept_bid', via: :post
+  match 'bids/:id/reject' => 'bids#reject_bid', as: 'reject_bid', via: :post
+
 	mount Sidekiq::Web => '/sidekiq'
   root to: 'high_voltage/pages#show', id: 'splash'
 end

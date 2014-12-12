@@ -1,6 +1,6 @@
 class BidsController < ApplicationController
   respond_to :html
-	before_filter :authenticate_contractor!
+	before_filter :authenticate_contractor!, except: [:accept_bid, :reject_bid]
 
 	def create
     @bid = Bid.new(bid_params)
@@ -25,6 +25,20 @@ class BidsController < ApplicationController
     else
       redirect_to :back, alert: "#{ @bid.errors.full_messages.to_sentence }"
     end
+  end
+
+  def accept_bid
+    @bid = Bid.find(params[:id])
+    # if current_user
+    puts @bid
+    flash[:notice] = "Bid from #{ @bid.contractor.company_name } for $#{ @bid.cost } has been accepted. They are being notified now."
+    redirect_to :back
+  end
+
+  def reject_bid
+    @bid = Bid.find(params[:id])
+    flash[:error] = "Bid from #{ @bid.contractor.company_name } for $#{ @bid.cost } has been rejected. They are being notified now."
+    redirect_to :back
   end
 
   def destroy
