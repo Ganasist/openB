@@ -5,6 +5,7 @@ class Job < ActiveRecord::Base
   include GlobalConcerns
 
   belongs_to :user
+  belongs_to :contractor
 
   geocoded_by :address
   validates :address, presence: true
@@ -12,7 +13,6 @@ class Job < ActiveRecord::Base
   has_one :review
 
   has_many :bids, dependent: :destroy
-  has_one :contractor
 
   validates :bidding_period, allow_blank: true,
                                     date: { after: Proc.new { Date.today },

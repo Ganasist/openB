@@ -12,11 +12,10 @@ class Contractor < ActiveRecord::Base
                                                less_than: 1000,
                                                  message: 'Please choose a distance between 1 - 999 miles.' }
 
-
   has_many :bids
-  has_many :jobs, through: :bids
+  has_many :jobs
   has_many :reviews, through: :jobs
-
+  
   has_many :examples, dependent: :destroy
 
   def self.categories
