@@ -64,8 +64,14 @@ class JobsController < ApplicationController
 
   end
 
-  def cancel_search
-
+  def cancel_job
+    @job = Job.find(params[:id])
+    @job.cancel!
+    if @job.contractor_id.nil?
+      redirect_to current_user, notice: "Your job '#{ @job.title }' has been cancelled."
+    else
+      render new_job_review_path(@job), notice: "Please review #{ @job.contractor.company_name }."
+    end
   end
 
   def mark_as_complete

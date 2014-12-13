@@ -43,7 +43,7 @@
             </li>
 
             <li>
-              <%= link_to cancel_search_path(job) do %>
+              <%= link_to cancel_job_path(job), method: :post do %>
                 <%= fa_icon 'minus-square 2x', title: 'Cancel job', class: 'text-danger' %>
               <% end %>
             </li>

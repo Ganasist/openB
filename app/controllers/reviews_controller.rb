@@ -16,7 +16,7 @@ class ReviewsController < ApplicationController
 
   def new
     @job = Job.find(params[:job_id])
-    @contractors = @job.bids.contractors
+    @contractor = @job.contractor
     @review = Review.new
     respond_with(@review)
   end
