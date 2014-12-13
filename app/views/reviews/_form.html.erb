@@ -3,7 +3,11 @@
     <%= f.error_notification %>
 
     <div class="form-inputs">
-      <%= f.input :description %>
+
+      <%= f.input :description, as: :text,
+                             label: 'Comments (optional)',
+                       placeholder: 'Maximum 2000 characters.',
+                        input_html: { rows: '7', maxlength: 2000 } %>
     </div>
 
     <div class="form-actions text-center">
