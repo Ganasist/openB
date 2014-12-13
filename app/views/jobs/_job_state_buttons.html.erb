@@ -1,0 +1,39 @@
+<ul class="list-inline pull-right">
+  <% if !job.searching? %>
+    <% if !job.cancelled? %>
+      <% unless job.complete? %>
+      <li>
+        <%= link_to mark_as_complete_path(job), method: :post do %>
+        <%= fa_icon 'check-square-o 2x', title: 'Mark as complete', class: 'text-success' %>
+        <% end %>
+      </li>
+      <% end %>
+      <% unless job.incomplete? %>
+        <li>
+          <%= link_to mark_as_incomplete_path(job), method: :post do %>
+          <%= fa_icon 'exclamation-triangle 2x', title: 'Mark as incomplete', class: 'text-warning' %>
+          <% end %>
+        </li>
+      <% end %>
+    <% end %>
+    <li>
+      <%= link_to resume_search_path(job), method: :post do %>
+      <%= fa_icon 'history 2x', title: 'Resume bid search' %>
+      <% end %>
+    </li>
+  <% end %>
+  <% unless job.complete? || job.incomplete? %>
+    <li>
+      <%= link_to edit_job_path(job) do %>
+      <%= fa_icon 'edit 2x', title: 'Edit job details' %>
+      <% end %>
+    </li>
+  <% end %>
+  <% unless job.cancelled? %>
+    <li>
+      <%= link_to cancel_job_path(job), method: :post do %>
+      <%= fa_icon 'minus-square-o 2x', title: 'Cancel job', class: 'text-danger' %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

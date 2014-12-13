@@ -4,8 +4,6 @@ class User < ActiveRecord::Base
   include Devisable
   include GlobalConcerns
 
-  ratyrate_rater
-
 	has_many :jobs
   has_many :reviews, through: :jobs
 
@@ -14,7 +12,7 @@ class User < ActiveRecord::Base
   end
 
   def complete_profile?
-    self.name.present? && 
+    self.name.present? &&
     self.address.present? &&
     self.categories.present?
   end

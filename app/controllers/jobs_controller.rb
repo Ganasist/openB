@@ -1,6 +1,7 @@
 class JobsController < ApplicationController
   respond_to :html
-  before_action :set_job, only: [:show, :edit, :update, :destroy]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :resume_search,
+                                 :mark_as_complete, :mark_as_incomplete, :cancel_job]
   before_action :user_check, only: [:edit, :update, :destroy]
   before_action :block_visitors
 
@@ -60,29 +61,41 @@ class JobsController < ApplicationController
     end
   end
 
+  # make sure current_user owns this job....
   def resume_search
-
+    @job.resume_search!
+    redirect_to @job, notice: "Contractor search for '#{ @job.title }' has been resumed. Please check the job's bids."
   end
 
-  def cancel_job
-    # make sure current_user owns this job....
+  # make sure current_user owns this job....
+  def mark_as_complete
+    @job.mark_as_complete!
+    if @job.contractor_id.nil?
+      redirect_to current_user, notice: "Your job '#{ @job.title }' has been marked as complete."
+    else
+      redirect_to new_job_review_path(@job)
+    end
+  end
 
-    @job = Job.find(params[:id])
+  # make sure current_user owns this job....
+  def mark_as_incomplete
+    @job.mark_as_incomplete!
+    if @job.contractor_id.nil?
+      redirect_to current_user, notice: "Your job '#{ @job.title }' has been marked as incomplete."
+    else
+      redirect_to new_job_review_path(@job)
+    end
+  end
+
+  # make sure current_user owns this job....
+  def cancel_job
+    # @job = Job.find(params[:id])
     @job.cancel!
     if @job.contractor_id.nil?
       redirect_to current_user, notice: "Your job '#{ @job.title }' has been cancelled."
     else
-      # redirect_to :back, notice: "They are being notified now."
-      redirect_to new_job_review_path(@job), notice: "Please review #{ @job.contractor.company_name }."
+      redirect_to new_job_review_path(@job)
     end
-  end
-
-  def mark_as_complete
-
-  end
-
-  def mark_as_incomplete
-
   end
 
   private

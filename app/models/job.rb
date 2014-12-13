@@ -50,7 +50,7 @@ class Job < ActiveRecord::Base
       transitions to: :in_progress
     end
 
-    event :resume_search, after_commit: :reset_contractors  do
+    event :resume_search, before: :reset_contractors  do
       transitions to: :searching
     end
 
@@ -62,16 +62,22 @@ class Job < ActiveRecord::Base
       transitions from: :in_progress, to: :incomplete
     end
 
-    event :cancel do
+    event :cancel, before: :cancel_job do
       transitions from: [:searching, :in_progress, :incomplete], to: :cancelled
     end
   end
 
   def set_contractor(this_bid)
-    puts 'HELLO WORLDDDDDD'
     reset_contractors
     self.contractor = this_bid.contractor
     # Email / Message contractor & user
+  end
+
+  def cancel_job
+    self.bids.each do |b|
+      bid_reset(b, false, true)
+    end
+    self.contractor_id = nil
   end
 
   def reset_contractors

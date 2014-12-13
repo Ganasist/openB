@@ -2,70 +2,18 @@
   <div class="panel-heading">
     <h3 class="panel-title">
       <p>
-        <% if current_user == job.user %>
-          <%# if (request.fullpath).include?('/jobs') %>
-            <%#= link_to job, method: :delete,
-                                 data: { confirm: 'Are you sure you want to delete this post?' } do %>
-              <%#= fa_icon 'minus-square 2x', title: 'Delete',
-                                             class: 'delete-job-post pull-right' %>
-            <%# end %>
-          <%# else %>
-            <%#= link_to job, method: :delete,
-                             remote: true,
-                               data: { confirm: 'Are you sure you want to delete this post?' } do %>
-              <%#= fa_icon 'minus-square 2x', title: 'Delete',
-                                             class: 'delete-job-post pull-right' %>
-            <%# end %>
-          <%# end %>
-          <ul class="list-inline pull-right">
-            <% if !job.searching? %>
-              <li>
-                <%= link_to mark_as_complete_path(job), method: :post do %>
-                  <%= fa_icon 'check-square-o 2x', title: 'Mark as complete', class: 'text-success' %>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to mark_as_incomplete_path(job), method: :post do %>
-                  <%= fa_icon 'exclamation-triangle 2x', title: 'Mark as incomplete', class: 'text-warning' %>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to resume_search_path(job), method: :post do %>
-                  <%= fa_icon 'history 2x', title: 'Resume bid search' %>
-                <% end %>
-              </li>
-            <% end %>
-            <li>
-              <%= link_to edit_job_path(job) do %>
-                <%= fa_icon 'edit 2x', title: 'Edit job details' %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to cancel_job_path(job), method: :post do %>
-                <%= fa_icon 'minus-square 2x', title: 'Cancel job', class: 'text-danger' %>
-              <% end %>
-            </li>
-          </ul>
+        <%= render "jobs/job_state_buttons", job: job if current_user == job.user %>
 
-        <% elsif contractor_signed_in? %>
-          <% if (request.fullpath).include?('/contractors') %>
-            <%= link_to job_path(job), class: 'hidden-xs hidden-sm btn btn-primary pull-right' do %>
-              View Details
-            <% end %>
-          <% elsif (request.fullpath).include?('/jobs') %>
-            <%= link_to "Send a comment", new_polymorphic_url([@job, Comment.new]),
-                                              class: 'btn btn-small btn-success pull-right',
-                                              remote: true,
-                                               data: { toggle: 'modal',
-                                                       target: '#commentModal' } %>
-          <% end %>
-        <% end %>
+        <%= render "jobs/contractor_job_buttons", job: job if contractor_signed_in? %>
+
+
         <span class="text-center">
           Status: <%= job.status %>
-          <% if job.in_progress? %>
+          <% if job.contractor %>
             with <%= link_to job.contractor.company_name, job.contractor, class: 'unstyled-link' %>
           <% end %>
         </span>
+
       </p>
       <%= render partial: 'jobs/job_category_panel', locals: { job: job } %>
     </h3>
