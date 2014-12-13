@@ -17,7 +17,8 @@ class JobsController < ApplicationController
   end
 
   def show
-    @bids = @job.bids.order(updated_at: :desc)
+    @bids = @job.bids.where(rejected: false)
+                     .order(updated_at: :desc)
                      .page(params[:bids])
                      .per(5)
   end
@@ -78,7 +79,7 @@ class JobsController < ApplicationController
     end
 
     def job_params
-      params.require(:job).permit(:state, :address, :longitude, :latitude, :phone, 
+      params.require(:job).permit(:state, :address, :longitude, :latitude, :phone,
                                   :title, :bidding_period, :description, { categories: [] })
     end
 end

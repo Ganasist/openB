@@ -29,14 +29,16 @@ class BidsController < ApplicationController
 
   def accept_bid
     @bid = Bid.find(params[:id])
-    # if current_user
-    @bid.job.activate.(:in_progress, @bid)
+    # make sure only job owner can accept / reject bids
+    @bid.accept
+    @bid.job.activate!(@bid)
     flash[:notice] = "Bid from #{ @bid.contractor.company_name } for $#{ @bid.cost } has been accepted. They are being notified now."
     redirect_to :back
   end
 
   def reject_bid
     @bid = Bid.find(params[:id])
+    @bid.reject
     flash[:error] = "Bid from #{ @bid.contractor.company_name } for $#{ @bid.cost } has been rejected. They are being notified now."
     redirect_to :back
   end
