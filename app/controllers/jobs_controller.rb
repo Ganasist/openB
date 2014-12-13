@@ -60,6 +60,22 @@ class JobsController < ApplicationController
     end
   end
 
+  def resume_search
+
+  end
+
+  def cancel_search
+
+  end
+
+  def mark_as_complete
+
+  end
+
+  def mark_as_incomplete
+
+  end
+
   private
 
     def block_visitors

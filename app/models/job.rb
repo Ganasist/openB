@@ -32,7 +32,7 @@ class Job < ActiveRecord::Base
   end
 
   def status
-    state.to_s.humanize.titleize
+    state.to_s.humanize.upcase
   end
 
   # State manager to handle how jobs transition

@@ -1,11 +1,11 @@
 <% title "Job Post" %>
 
 <div class="container">
-  <%= render partial: 'layouts/image_modal', 
-          collection: @job.uploads, 
+  <%= render partial: 'layouts/image_modal',
+          collection: @job.uploads,
                   as: :upload %>
 
-  <%= render partial: 'layouts/comment_modal', 
+  <%= render partial: 'layouts/comment_modal',
               locals: { commentable: @job } %>
 
 
@@ -14,25 +14,31 @@
       <%= render 'job_panel', job: @job %>
     </div>
 
-    <% if @bids.count > 0 && current_user == @job.user %>
-      <hr>
-      <h3 class="text-center lead">Recent bids for this job</h3>
+    <% if @job.searching? %>
+      <% if @bids.count > 0 && current_user == @job.user %>
+        <hr>
+        <h3 class="text-center lead">Recent bids for this job</h3>
 
-      <div id="paginator-bids-top" class="text-center">
-        <%= render partial: 'layouts/paginator', 
-                    locals: { context: @bids, 
-                       context_string: 'bids' } %>
-      </div>
+        <div id="paginator-bids-top" class="text-center">
+          <%= render partial: 'layouts/paginator',
+                      locals: { context: @bids,
+                         context_string: 'bids' } %>
+        </div>
 
-      <div class="col-xs-12" id="bids">
-        <%= render partial: 'bid_panel' %> 
-      </div>
+        <div class="col-xs-12" id="bids">
+          <%= render partial: 'bid_panel' %>
+        </div>
 
-    <% elsif @bids.count == 0 && current_user == @job.user %>
-      <h3 class="text-center lead">There are no bids for this job</h3>
+      <% elsif @bids.count == 0 && current_user == @job.user %>
+        <h3 class="text-center lead">There are no bids for this job</h3>
+      <% end %>
+    <% else %>
+      <h3 class="text-center lead">
+        Job is <%= @job.status %> <%= link_to " with #{ @job.contractor.company_name }", @job.contractor, class: 'unstyled-link' if @job.contractor %>
+      </h3>
     <% end %>
 
     <%= render 'layouts/back_to_profile' %>
-    
+
   </div>
 </div>

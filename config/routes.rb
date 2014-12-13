@@ -49,6 +49,10 @@ Rails.application.routes.draw do
 
   match 'bids/:id/accept' => 'bids#accept_bid', as: 'accept_bid', via: :post
   match 'bids/:id/reject' => 'bids#reject_bid', as: 'reject_bid', via: :post
+  match 'jobs/:id/resume_search' => 'jobs#resume_search', as: 'resume_search', via: :post
+  match 'jobs/:id/cancel_search' => 'jobs#cancel_search', as: 'cancel_search', via: :post
+  match 'jobs/:id/mark_as_complete' => 'jobs#mark_as_complete', as: 'mark_as_complete', via: :post
+  match 'jobs/:id/mark_as_incomplete' => 'jobs#mark_as_incomplete', as: 'mark_as_incomplete', via: :post
 
 	mount Sidekiq::Web => '/sidekiq'
   root to: 'high_voltage/pages#show', id: 'splash'
