@@ -65,12 +65,15 @@ class JobsController < ApplicationController
   end
 
   def cancel_job
+    # make sure current_user owns this job....
+
     @job = Job.find(params[:id])
     @job.cancel!
     if @job.contractor_id.nil?
       redirect_to current_user, notice: "Your job '#{ @job.title }' has been cancelled."
     else
-      render new_job_review_path(@job), notice: "Please review #{ @job.contractor.company_name }."
+      # redirect_to :back, notice: "They are being notified now."
+      redirect_to new_job_review_path(@job), notice: "Please review #{ @job.contractor.company_name }."
     end
   end
 
