@@ -12,8 +12,8 @@ jQuery ->
     $('label#description_feedback').html 'Description' + ' (' + description_remaining + ' characters remaining)' if $('label#description_feedback').html?
 
   descriptions = '#job_description, #contractor_description'
-  addresses = '#user_address, #contractor_address' 
-  emails = '#user_email, #contractor_email' 
+  addresses = '#user_address, #contractor_address'
+  emails = '#user_email, #contractor_email'
   passwords = '#user_password, #contractor_password, #new_password'
   password_confirms = '#user_password_confirmation, #contractor_password_confirmation, #new_password_confirmation'
 
@@ -24,9 +24,9 @@ jQuery ->
   length_check('#user_password, #contractor_password', 8, 128)
   length_check('#user_password_confirmation, #contractor_password_confirmation', 8, 128)
 
-  description_remaining = 2000 - $(descriptions).val().length if $(descriptions).val()?
-  description_label(description_remaining)
-  
+  text_remaining = 2000 - $(descriptions).val().length if $(descriptions).val()?
+  description_label(text_remaining)
+
   $(descriptions).keyup ->
     text_remaining = 2000 - $(descriptions).val().length
     description_label(text_remaining)

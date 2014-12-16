@@ -55,11 +55,11 @@ class Job < ActiveRecord::Base
     end
 
     event :mark_as_complete do
-      transitions from: :in_progress, to: :complete
+      transitions from: [:in_progress, :incomplete], to: :complete
     end
 
     event :mark_as_incomplete do
-      transitions from: :in_progress, to: :incomplete
+      transitions from: [:in_progress, :incomplete, :complete], to: :incomplete
     end
 
     event :cancel, before: :cancel_job do
