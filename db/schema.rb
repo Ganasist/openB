@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141213153244) do
+ActiveRecord::Schema.define(version: 20141216112204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,15 +144,26 @@ ActiveRecord::Schema.define(version: 20141213153244) do
 
   create_table "reviews", force: true do |t|
     t.text     "description"
-    t.integer  "job_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "contractor_id"
+    t.integer  "quality"
+    t.integer  "cost"
+    t.integer  "timeliness"
+    t.integer  "professionalism"
+    t.integer  "recommendation"
+    t.integer  "reviewable_id"
+    t.string   "reviewable_type"
+    t.integer  "reviewerable_id"
+    t.string   "reviewerable_type"
+    t.integer  "user_id"
+    t.integer  "job_id"
   end
 
   add_index "reviews", ["contractor_id"], name: "index_reviews_on_contractor_id", using: :btree
-  add_index "reviews", ["job_id"], name: "index_reviews_on_job_id", unique: true, using: :btree
+  add_index "reviews", ["job_id"], name: "index_reviews_on_job_id", using: :btree
+  add_index "reviews", ["reviewable_id", "reviewable_type"], name: "index_reviews_on_reviewable_id_and_reviewable_type", using: :btree
+  add_index "reviews", ["reviewerable_id", "reviewerable_type"], name: "index_reviews_on_reviewerable_id_and_reviewerable_type", using: :btree
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "searches", force: true do |t|

@@ -14,9 +14,9 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker/core
+//= require bootstrap-slider
 //= require dropzone.min
 //= require_tree .
-
 
 $( document ).ajaxStart(function() {
 	$('div#ajax-modal').modal();

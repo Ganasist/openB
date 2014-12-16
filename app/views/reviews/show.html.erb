@@ -1,19 +1,39 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Description:</strong>
-  <%= @review.description %>
-</p>
-
-<p>
   <strong>Job:</strong>
   <%= @review.job.title %>
 </p>
 
 <p>
   <strong>Contractor:</strong>
-  <%= @review.job.contractors.first.fullname %>
+  <%= @review.job.contractor.fullname %>
 </p>
 
-<%= link_to 'Edit', edit_job_review_path(@job, @review) %> |
-<%= link_to 'Back', job_reviews_path(@job) %>
+<p>
+  <strong>Quality:</strong>
+  <%= @review.quality %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @review.cost %>
+</p>
+
+<p>
+  <strong>Timeliness:</strong>
+  <%= @review.timeliness %>
+</p>
+
+<p>
+  <strong>Professionalism:</strong>
+  <%= @review.professionalism %>
+</p>
+
+<p>
+  <strong>Likelihood to recommend:</strong>
+  <%= @review.recommendation %>
+</p>
+
+<%= link_to 'Edit', edit_job_review_path(@job) %> |
+<%= link_to 'Back', job_path(@job) %>

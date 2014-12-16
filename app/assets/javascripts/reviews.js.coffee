@@ -1,3 +1,13 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+jQuery ->
+  $('div.slider-horizontal').removeAttr('style')
+  options =
+    value: 0
+    min: 0
+    max: 100
+    step: 5
+
+  $('#review_quality').slider(options)
+  $('#review_cost').slider(options)
+  $('#review_timeliness').slider(options)
+  $('#review_professionalism').slider(options)
+  $('#review_recommendation').slider(options)

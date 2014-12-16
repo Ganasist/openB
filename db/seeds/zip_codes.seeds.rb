@@ -1,11 +1,13 @@
-puts 'start zip codes seed now'
+unless Rails.env.staging?
+	puts 'start zip codes seed now'
 
-Search.delete_all
+	Search.delete_all
 
-zips = JSON.parse(File.read(Rails.root.join('valid-zips.json')))
+	zips = JSON.parse(File.read(Rails.root.join('valid-zips.json')))
 
-zips.each do |zip|
-	Search.create!(zip_code: zip)
+	zips.each do |zip|
+		Search.create!(zip_code: zip)
+	end
+
+	puts 'end zip codes seed now'
 end
-
-puts 'end zip codes seed now'

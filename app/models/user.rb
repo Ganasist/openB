@@ -24,4 +24,5 @@ class User < ActiveRecord::Base
   def contractor?
     false
   end
+
 end

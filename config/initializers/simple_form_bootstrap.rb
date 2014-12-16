@@ -4,20 +4,6 @@ SimpleForm.setup do |config|
   config.button_class = 'btn btn-default'
   config.boolean_label_class = nil
 
-  # config.wrappers :bootstrap, tag: 'div', class: 'control-group', error_class: 'error' do |b|
-  #   b.use :html5
-  #   b.use :placeholder
-  #   b.use :label
-  #   b.use :tooltip
-  #   b.use :icon
-
-  #   b.wrapper tag: 'div', class: 'controls' do |append|
-  #     append.use :input
-  #     append.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
-  #     append.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
-  #   end
-  # end
-
   config.wrappers :vertical_input_group, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder

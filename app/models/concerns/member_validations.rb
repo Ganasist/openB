@@ -1,18 +1,19 @@
 # Included in User, Contractor
 module MemberValidations
 	extend ActiveSupport::Concern
-	included do    
+	included do
 		has_many :comments, as: :commenterable, dependent: :destroy
+		has_many :reviews, as: :reviewerable, dependent: :destroy
 
-		validates :categories, presence: true, 
+		validates :categories, presence: true,
 														 length: { minimum: 1,
-														 					 maximum: 4, 
-														 		   		 message: 'Pick between 1-4 categories' }, 
+														 					 maximum: 4,
+														 		   		 message: 'Pick between 1-4 categories' },
 																 if: Proc.new { |o| !o.new_record? }
 
 		geocoded_by :address
 		validates :address, presence: true
-		
+
 		phony_normalize :phone, default_country_code: 'US'
 		validates :phone, phony_plausible: true
 

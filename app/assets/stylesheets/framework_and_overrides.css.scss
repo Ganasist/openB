@@ -116,6 +116,9 @@ section {
   @extend .btn-primary;
   @extend .btn-xs;
 }
+div.slider.slider-horizontal {
+  width: 100%;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 
@@ -440,7 +443,7 @@ h1#good_company {
 @media screen and (min-width: 992px) {
   #macbookair {
     padding-top: 110px;
-  } 
+  }
 }
 
 #marketing_quote {
@@ -497,9 +500,9 @@ div.map_canvas_form, div.map_canvas {
   margin: 0 auto;
 }
 
-div.map_canvas_form img, div.map_canvas img { 
+div.map_canvas_form img, div.map_canvas img {
   max-width: none;
 }
-div.map_canvas_form label, div.map_canvas label { 
-  width: auto; display:inline; 
-} 
+div.map_canvas_form label, div.map_canvas label {
+  width: auto; display:inline;
+}

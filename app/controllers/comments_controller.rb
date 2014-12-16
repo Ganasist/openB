@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :get_commentable, only: [:new, :create]
-  before_action :get_commenterable, only: [:new, :create]
+  before_action :get_commentable, only: [:new, :create, :edit, :update]
+  before_action :get_commenterable, only: [:new, :create, :edit, :update]
 
   def new
     # @comment = Comment.new
@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
     #   format.js
     # end
   end
- 
+
   def create
     @comment = Comment.create(comment_params)
     @comment.commentable = @commentable
@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
     else
       flash[:error] = "#{ @comment.errors.full_messages.to_sentence }"
       render 'new'
-    end  
+    end
   end
 
   def edit
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
     respond_to do |format|
-      if @comment.update(comment_params)      
+      if @comment.update(comment_params)
         format.html { redirect_to @commentable, notice: 'Message updated' }
         format.js
       else
@@ -46,10 +46,6 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
-    # @commentable = @comment.commentable
-    # @member = (@commentable.is_a?(User) || @commentable.is_a?(Contractor)) ? 
-    #            @commentable : 
-    #           (@commentable.try(:user) || @commentable.try(:contractor))
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to (current_user || current_contractor), notice: 'Comment was deleted' }

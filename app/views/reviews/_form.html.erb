@@ -1,8 +1,15 @@
 <div class="row authform">
-  <%= simple_form_for [@job, @review], html: { autocomplete: 'off' } do |f| %>
+  <%= simple_form_for @review, url: :job_review, html: { autocomplete: 'off' } do |f| %>
     <%= f.error_notification %>
 
     <div class="form-inputs">
+
+      <%= f.input :quality, input_html: { id: 'review_quality' } %>
+      <%= f.input :cost, input_html: { id: 'review_cost' } %>
+      <%= f.input :timeliness, input_html: { id: 'review_timeliness' } %>
+      <%= f.input :professionalism, input_html: { id: 'review_professionalism' } %>
+      <%= f.input :recommendation, label: 'How likely are you to recommend this contractor to other people?',
+                              input_html: { id: 'review_recommendation' } %>
 
       <%= f.input :description, as: :text,
                              label: 'Comments (optional)',

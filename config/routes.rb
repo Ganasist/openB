@@ -11,9 +11,17 @@ Rails.application.routes.draw do
     resources :comments, only: [:new, :create, :edit, :update, :destroy]
   end
 
-  concern :commenterable do
-    resources :comments, only: [:new, :create, :edit, :update, :destroy]
+  # concern :commenterable do
+  #   resources :comments, only: [:new, :create, :edit, :update, :destroy]
+  # end
+
+  concern :reviewable do
+    resource :review, only: [:new, :create, :edit, :update, :destroy]
   end
+
+  # concern :reviewerable do
+  #   resource :review, only: [:new, :create, :edit, :update, :destroy]
+  # end
 
 	devise_for :users, controllers: { registrations: 'users/registrations',
                                           sessions: 'sessions' }
@@ -22,20 +30,20 @@ Rails.application.routes.draw do
                                                sessions: 'sessions' }
 
   resources :users, only: [:show, :index, :destroy],
-                concerns: [:uploadable, :commentable, :commenterable],
+                concerns: [:uploadable, :commentable],
                 defaults: { uploadable: 'user',
                            commentable: 'user' }
 
   resources :contractors, only: [:show, :index],
-                      concerns: [:uploadable, :commentable, :commenterable],
+                      concerns: [:uploadable, :commentable],
                       defaults: { uploadable: 'contractor',
                                  commentable: 'contractor' } do
   end
 
-  resources :jobs, concerns: [:uploadable, :commentable],
-                   defaults: { uploadable: 'job', commentable: 'job' } do
+  resources :jobs, concerns: [:uploadable, :commentable, :reviewable],
+                   defaults: { uploadable: 'job', commentable: 'job', reviewable: 'job' } do
     resources :bids, only: [:create, :update, :destroy]
-    resources :reviews
+    resource :review
   end
 
   resources :examples, concerns: [:uploadable, :commentable],

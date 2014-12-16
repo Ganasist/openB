@@ -2,13 +2,15 @@
 module JobValidations
 	extend ActiveSupport::Concern
 	included do
-    
-		validates :categories, presence: true, 
+
+		has_many :reviews, as: :reviewable
+
+		validates :categories, presence: true,
 														 length: { minimum: 1,
-														 					 maximum: 4, 
+														 					 maximum: 4,
 														 		   		 message: 'Pick between 1-4 categories' }
 
-		validates :title, presence: true, 
+		validates :title, presence: true,
 	                      length: { in: 5..50 }
 
     validates :description, presence: true,

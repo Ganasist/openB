@@ -1,6 +1,5 @@
-<h1>Editing Review</h1>
-
+<h3 class="lead text-center">
+  Edit review for: '<%= link_to @job.title, @job, class: 'unstyled-link' %>'<br>
+  Performed by: '<%= link_to @job.contractor.company_name, @job.contractor, class: 'unstyled-link' %>'
+</h3>
 <%= render 'form' %>
-
-<%= link_to 'Show', @review %> |
-<%= link_to 'Back', reviews_path %>
