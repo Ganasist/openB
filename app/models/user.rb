@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   include GlobalConcerns
 
 	has_many :jobs
-  has_many :reviews, through: :jobs
 
   def fullname
     self.name || self.email

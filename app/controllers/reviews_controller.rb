@@ -3,24 +3,23 @@ class ReviewsController < ApplicationController
   # before_action :set_review, only: [:edit, :update, :destroy]
   before_action :get_reviewable, only: [:new, :create, :edit, :update]
   before_action :get_reviewerable, only: [:new, :create, :edit, :update]
-  respond_to :html
+  # respond_to :html
 
   def new
     @review = Review.new
     @contractor = @job.contractor
-    respond_with(@review)
   end
 
   def create
     @review = Review.create(review_params)
-    # @review.reviewable = @reviewable
-    # @review.reviewerable = @reviewerable
+    @review.reviewable = @reviewable
+    @review.reviewerable = @reviewerable
     if @review.save
       flash[:notice] = 'Review was successfully created.'
-      redirect_to job_review_path(@job, @review)
+      redirect_to job_review_path(@job)
     else
-      flash[:error] = 'Review could not be created.'
-      render 'new'
+      # flash[:error] = "#{ @review.errors.full_messages.to_sentence }"
+      render 'new', error: "#{ @review.errors.full_messages.to_sentence }"
     end
   end
 
@@ -37,7 +36,7 @@ class ReviewsController < ApplicationController
     if @review.update(review_params)
       redirect_to job_review_path(@job), notice: 'Review was successfully updated.'
     else
-      render 'edit'
+      render 'edit', error: "#{ @review.errors.full_messages.to_sentence }"
     end
   end
 

@@ -1,13 +1,11 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Job:</strong>
-  <%= @review.job.title %>
+  <%= @review.reviewable.title %>
 </p>
 
 <p>
   <strong>Contractor:</strong>
-  <%= @review.job.contractor.fullname %>
+  <%= @review.reviewable.contractor.fullname %>
 </p>
 
 <p>
@@ -33,6 +31,11 @@
 <p>
   <strong>Likelihood to recommend:</strong>
   <%= @review.recommendation %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @review.description %>
 </p>
 
 <%= link_to 'Edit', edit_job_review_path(@job) %> |

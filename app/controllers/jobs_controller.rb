@@ -72,8 +72,10 @@ class JobsController < ApplicationController
     @job.mark_as_complete!
     if @job.contractor_id.nil?
       redirect_to current_user, notice: "Your job '#{ @job.title }' has been marked as complete."
-    else
+    elsif @job.review.nil?
       redirect_to new_job_review_path(@job)
+    else
+      redirect_to edit_job_review_path(@job)
     end
   end
 
@@ -82,8 +84,10 @@ class JobsController < ApplicationController
     @job.mark_as_incomplete!
     if @job.contractor_id.nil?
       redirect_to current_user, notice: "Your job '#{ @job.title }' has been marked as incomplete."
-    else
+    elsif @job.review.nil?
       redirect_to new_job_review_path(@job)
+    else
+      redirect_to edit_job_review_path(@job)
     end
   end
 
@@ -93,8 +97,10 @@ class JobsController < ApplicationController
     @job.cancel!
     if @job.contractor_id.nil?
       redirect_to current_user, notice: "Your job '#{ @job.title }' has been cancelled."
-    else
+    elsif @job.review.nil?
       redirect_to new_job_review_path(@job)
+    else
+      redirect_to edit_job_review_path(@job)
     end
   end
 

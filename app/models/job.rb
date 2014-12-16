@@ -10,7 +10,7 @@ class Job < ActiveRecord::Base
   geocoded_by :address
   validates :address, presence: true
 
-  has_one :review
+  has_one :review, as: :reviewable
 
   has_many :bids, dependent: :destroy
 

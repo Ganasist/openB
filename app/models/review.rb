@@ -8,14 +8,13 @@ class Review < ActiveRecord::Base
   belongs_to :user
   belongs_to :job
 
-  # validates :reviewerable,
-  #           :reviewable,
-  #           :cost,
-  #           :timeliness,
-  #           :professionalism,
-  #           :recommendation,
-  #           :contractor_id,
-  #           :description, presence: { message: 'wtd?' }
+  validates :reviewerable,
+            :reviewable,
+            :cost,
+            :timeliness,
+            :professionalism,
+            :recommendation,
+            :description, presence: { message: 'wtd?' }
 
 
 end

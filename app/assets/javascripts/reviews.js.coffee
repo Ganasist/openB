@@ -1,7 +1,7 @@
 jQuery ->
-  $('div.slider-horizontal').removeAttr('style')
+  $('div.slider-horizontal').attr('style', "width:''")
   options =
-    value: 0
+    value: $(this).val() or 0
     min: 0
     max: 100
     step: 5
