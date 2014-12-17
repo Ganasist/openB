@@ -25,6 +25,7 @@
         <%= render 'bids/form', job: job %>
       </div>
     <% end %>
+
     <div class="col-xs-12 col-md-6 text-center">
       <% if job.uploads.count > 0 %>
         <%= render partial: 'layouts/pic',
@@ -49,8 +50,8 @@
         <div class="map_canvas"></div>
         <br>
       <% end %>
-
     </div>
+
     <%= link_to job, class: 'unstyled-link' do %>
       <div  class="col-xs-12 col-md-6">
         <p class="lead text-center">

@@ -1,12 +1,20 @@
-<div class="col-lg-3 col-md-4 col-xs-6 thumb">
-  <%= link_to truncate(bid.job.title, length: 25), bid.job %>
-  <br>
-  Job status: <%= bid.job.state.humanize.titleize %>
-  <br>
-  Bid status: <%= bid_status(bid) %>
-  <br>
-  Bid: $<%= bid.cost %>
-  <br>
-  Updated <%= time_ago_in_words(bid.updated_at) %> ago
-  <hr>
-</div>
+<% if bid.job.present? %>
+  <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+
+      <%= link_to truncate(bid.job.title, length: 25), bid.job %>
+      <br>
+      Job status: <%= bid.job.state.humanize.titleize %>
+      <br>
+      Bid ID: <%= bid.id %>
+      <br>
+      Bid status:
+      <span class="<%= 'bg-success' if bid.status == 'Accepted' %> <%= 'bg-danger' if bid.status == 'Rejected' %>">
+        <%= bid.status %>
+      </span>
+      <br>
+      Bid: $<%= bid.cost %>
+      <br>
+      Updated <%= time_ago_in_words(bid.updated_at) %> ago
+    <hr>
+  </div>
+<% end %>

@@ -13,31 +13,19 @@
 	</div>
 	<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
 		<hr class="visible-xs">
+    <h3 class="lead text-center" id="description">
+      <%= @contractor.try(:description) %>
+    </h3>
+    <%= render 'layouts/nav_pills' %>
+    <div class="tab-content">
     <% if current_contractor == @contractor %>
-  		<h3 class="lead text-center" id="description">
-  			<%= @contractor.try(:description) %>
-  		</h3>
-
-      <%= render 'layouts/nav_pills' %>
-
-  		<div class="tab-content">
-  		  <%= render partial: 'layouts/job_tab_pane',
-                    locals: { no_jobs: 'No nearby job posts in your categories' } %>
-
-        <%= render 'layouts/bid_tab_pane' %>
-
-  			<%= render 'layouts/example_tab_pane' %>
-
-        <%= render 'layouts/comment_tab_pane' %>
-    	</div>
-    <% else %>
-      <% if @examples.present? %>
-        <h2 class="text-center lead">Portfolio</h2>
-        <%= render 'layouts/examples' %>
-      <% else %>
-        <br>
-        <h4 class="text-center">This contractor has no past job examples</h4>
-      <% end %>
+		  <%= render partial: 'layouts/job_tab_pane',
+                  locals: { no_jobs: 'No nearby job posts in your categories' } %>
+      <%= render 'layouts/bid_tab_pane' %>
+      <%= render 'layouts/comment_tab_pane' %>
     <% end %>
+    <%= render 'reviews/review_tab_pane' %>
+    <%= render 'layouts/example_tab_pane' %>
+  </div>
   </div>
 </div>

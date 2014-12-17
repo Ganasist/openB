@@ -1,10 +1,10 @@
 jQuery ->
   $('div.slider-horizontal').attr('style', "width:''") if $('div.slider-horizontal').length
   options =
-    value: $(this).val() or 0
+    value: $(@).val() or 0
     min: 0
-    max: 100
-    step: 5
+    max: 10
+    step: 1
 
   $('#review_quality').slider(options) if $('#review_quality').length
   $('#review_cost').slider(options) if $('#review_cost').length

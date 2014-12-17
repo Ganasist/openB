@@ -37,6 +37,6 @@
         <hr>
     <% end %>
   <% else %>
-    <h4>You can't bid on this job because it is already <%= job.state.to_s.humanize.downcase %></h4>
+    <h4>You can't bid on this job because it is <%= job.state.to_s.humanize.downcase %></h4>
   <% end %>
 </div>

@@ -1,11 +1,12 @@
-$('#paginator-jobs-top').html('<%= escape_javascript(paginate(@jobs, remote: true, 
+$('#paginator-jobs-top').html('<%= escape_javascript(paginate(@jobs, remote: true,
 																																			theme: "twitter-bootstrap-3",
 																		                             param_name: "jobs")) %>');
-$('#paginator-jobs-bottom').html('<%= escape_javascript(paginate(@jobs, remote: true, 
+$('#paginator-jobs-bottom').html('<%= escape_javascript(paginate(@jobs, remote: true,
 																																				 theme: "twitter-bootstrap-3",
 																			                              param_name: "jobs")) %>');
 
 $('#jobs').html('<%= escape_javascript(render partial: "jobs/job_panel", collection: @jobs, as: :job) %>');
+
 
 $('#paginator-comments-top').html('<%= escape_javascript(paginate @comments, remote: true,
 																					                                     theme: "twitter-bootstrap-3",
@@ -17,8 +18,23 @@ $('#paginator-comments-bottom').html('<%= escape_javascript(paginate @comments, 
 																						                                 param_name: "comments",
 																						                                 		 params: { tab: "comments" }) %>');
 
-$('#comments').html('<%= escape_javascript(render partial: "comments/comment_panel", 
-																			         collection: @comments, 
+$('#comments').html('<%= escape_javascript(render partial: "comments/comment_panel",
+																			         collection: @comments,
 																			                 as: :comment) %>');
 
-$('body').scrollTo('.pagination', { duration: 500, offset: -150 });
+
+$('#paginator-reviews-top').html('<%= escape_javascript(paginate @reviews, remote: true,
+																																							theme: "twitter-bootstrap-3",
+																																				 param_name: "reviews",
+																																						 params: { tab: "reviews" }) %>');
+
+$('#paginator-reviews-bottom').html('<%= escape_javascript(paginate @reviews, remote: true,
+																																								 theme: "twitter-bootstrap-3",
+																																						param_name: "reviews",
+																																								params: { tab: "reviews" }) %>');
+
+$('#reviews').html('<%= escape_javascript(render partial: "reviews/review_panel",
+																							 collection: @reviews,
+																							         as: :review) %>');
+
+$('body').scrollTo('.tab-content', { duration: 300 });

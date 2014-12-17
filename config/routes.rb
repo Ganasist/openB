@@ -42,7 +42,7 @@ Rails.application.routes.draw do
 
   resources :jobs, concerns: [:uploadable, :commentable, :reviewable],
                    defaults: { uploadable: 'job', commentable: 'job', reviewable: 'job' } do
-    resources :bids, only: [:create, :update, :destroy]
+    resources :bids, only: [:create, :show, :update, :destroy]
     resource :review
   end
 

@@ -16,7 +16,7 @@
 
       <div class="form-inputs col-lg-10 col-lg-offset-1">
         <% if type == 'job' %>
-              <%= f.input :state, as: :select,
+              <%#= f.input :state, as: :select,
                                label: 'Job Status',
                        include_blank: false,
                           collection: Job.aasm.states_for_select, input_html: { style: 'width:150px' } %>

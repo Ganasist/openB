@@ -77,21 +77,14 @@ class Job < ActiveRecord::Base
     self.bids.each do |b|
       bid_reset(b, false, true)
     end
-    self.contractor_id = nil
+    # self.contractor_id = nil
   end
 
   def reset_contractors
     self.bids.each do |b|
       bid_reset(b, false, false)
     end
-    self.contractor_id = nil
-  end
-
-  def remove_contractors
-    self.bids.each do |b|
-      bid_reset(b, false, true)
-    end
-    self.contractor_id = nil
+    # self.contractor_id = nil
   end
 
   def bid_reset(b, accept, reject)

@@ -34,11 +34,28 @@
       <% end %>
     <% else %>
       <h3 class="text-center lead">
-        Job is <%= @job.status %> <%= link_to " with #{ @job.contractor.company_name }", @job.contractor, class: 'unstyled-link' if @job.contractor %>
+        Job is <%= @job.status %>
+        <%= link_to " with #{ @job.contractor.company_name }", @job.contractor, class: 'unstyled-link' if @job.contractor %>
       </h3>
+      <% if @job.review.present? %>
+        <hr>
+        <div class="lead col-lg-6 col-lg-offset-3 col-xs-12">
+          <div class="text-center">
+            <% if current_user == @job.user %>
+              <strong><%= link_to 'Review', job_review_path(@job), class: 'unstyled-link' %></strong><br>
+            <% else %>
+              <strong>Review</strong><br>
+            <% end %>
+          </div>
+          <%= render "job_review", job: @job %>
+          <br><br>
+          <strong>Comments</strong>
+          <br>
+          <%= @job.review.description %>
+        </div>
+      <% end %>
     <% end %>
 
     <%= render 'layouts/back_to_profile' %>
-
   </div>
 </div>

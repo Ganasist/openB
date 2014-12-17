@@ -1,0 +1,10 @@
+<div class="<%= (params[:tab] == 'reviews') ?
+  'tab-pane fade in active' :
+  'tab-pane fade in' %>" id="review">
+  <% if @reviews.present? %>
+    <%= render 'reviews/reviews' %>
+  <% else %>
+  <br>
+  <h4 class="text-center">No reviews currently on record</h4>
+  <% end %>
+</div>

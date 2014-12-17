@@ -1,14 +1,16 @@
-<div class="<%= (params[:tab] == 'examples') ? 
-                'tab-pane fade in active' : 
+<div class="<%= !(current_contractor == @contractor) || (params[:tab] == 'examples') ?
+                'tab-pane fade in active' :
                 'tab-pane fade in' %>" id="example">
   <h3 class="lead text-center">
-    <%= link_to  'Add an example', new_example_path,  
+    <%= link_to  'Add an example', new_example_path,
                                    class: 'btn btn-lg btn-success' if current_contractor == @contractor %>
   </h3>
   <% if @examples.present? %>
     <%= render 'layouts/examples' %>
 	<% else %>
     <br>
-    <h4 class="text-center">You haven't entered examples of past jobs</h4>
+    <h4 class="text-center"><%= current_contractor == @contractor ?
+                      "You haven't entered examples of past jobs" :
+                       "This contractor has no past job examples" %></h4>
   <% end %>
 </div>

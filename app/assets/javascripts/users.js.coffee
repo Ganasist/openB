@@ -19,7 +19,7 @@ jQuery ->
 
   length_check(descriptions, 10, 2000)
   length_check('#job_title', 5, 50)
-  length_check(addresses, 10, 100)
+  length_check(addresses, 5, 100)
   length_check(emails, 5, 30)
   length_check('#user_password, #contractor_password', 8, 128)
   length_check('#user_password_confirmation, #contractor_password_confirmation', 8, 128)
@@ -36,7 +36,7 @@ jQuery ->
     length_check('#job_title', 5, 50)
 
   $(addresses).keyup ->
-    length_check(addresses, 10, 100)
+    length_check(addresses, 5, 100)
 
   $(emails).keyup ->
     if email_check $(emails).val()

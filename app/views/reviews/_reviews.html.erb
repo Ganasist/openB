@@ -1,0 +1,17 @@
+<div id="paginator-reviews-top" class="text-center">
+  <%= render partial: 'layouts/paginator',
+              locals: { context: @reviews,
+      context_string: 'reviews' } %>
+  </div>
+
+  <div id="reviews">
+    <%= render partial: 'reviews/review_panel',
+            collection: @reviews,
+                    as: :review %>
+  </div>
+
+  <div id="paginator-reviews-bottom" class="text-center col-xs-12">
+    <%= render partial: 'layouts/paginator',
+                locals: { context: @reviews,
+                  context_string: 'reviews' } %>
+  </div>

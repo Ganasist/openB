@@ -1,24 +1,47 @@
 <hr class="visible-xs">
 <ul class="nav nav-pills nav-justified">
-  <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
-    <a href="#job" data-toggle="tab">
-      <span data-toggle="tooltip"  data-original-title="Adjust distance in your profile">
-        <%= @contractor ? "Jobs" : "Your jobs" %>
-      </span>
-    </a>
-  </li>
-  <% if contractor_signed_in? && (current_contractor == @contractor) %>
+  <% if user_signed_in? && current_user == @user %>
+    <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
+      <a href="#job" data-toggle="tab">
+        Your Jobs
+      </a>
+    </li>
+    <li class="<%= 'active' if params[:tab] == 'comments' %>">
+      <a href="#comment" data-toggle="tab">Messages</a>
+    </li>
+  <% end %>
+
+  <% if contractor_signed_in? && current_contractor == @contractor %>
+    <li class="<%= 'active' if !params[:tab] || params[:tab] == 'jobs' %>">
+      <a href="#job" data-toggle="tab">
+        <span data-toggle="tooltip"  data-original-title="Adjust distance in your profile">
+          Jobs
+        </span>
+      </a>
+    </li>
     <li class="<%= 'active' if params[:tab] == 'bids' %>">
       <a href="#bid" data-toggle="tab">Bids</a>
     </li>
+    <li class="<%= 'active' if params[:tab] == 'comments' %>">
+      <a href="#comment" data-toggle="tab">Messages</a>
+    </li>
   <% end %>
+
+
   <% if @contractor %>
-	  <li class="<%= 'active' if params[:tab] == 'examples' %>">
-	  	<a href="#example" data-toggle="tab">Portfolio</a>
-	  </li>
-	 <% end %>
-  <li class="<%= 'active' if params[:tab] == 'comments' %>">
-    <a href="#comment" data-toggle="tab">Messages</a>
+    <li class="<%= 'active' if !(current_contractor == @contractor) || params[:tab] == 'examples' %>">
+      <a href="#example" data-toggle="tab">Portfolio</a>
+    </li>
+  <% end %>
+
+  <% if current_user != @user %>
+    <li class="<%= 'active' if !(current_user == @user) || params[:tab] == 'jobs' %>">
+      <a href="#job" data-toggle="tab">Job Posts</a>
+    </li>
+  <% end %>
+
+  <li class="<%= 'active' if params[:tab] == 'reviews' %>">
+    <a href="#review" data-toggle="tab">Reviews</a>
   </li>
 </ul>
 <br>

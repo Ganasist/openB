@@ -20,6 +20,10 @@ class UsersController < ApplicationController
     @jobs = @user.jobs
                  .order(created_at: :desc)
                  .page(params[:jobs])
+
+    @reviews = @user.reviews
+                    .order(created_at: :desc)
+                    .page(params[:reviews])
   end
 
   def destroy

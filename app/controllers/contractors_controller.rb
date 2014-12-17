@@ -42,6 +42,10 @@ class ContractorsController < ApplicationController
     @bids = @contractor.bids
                        .order(updated_at: :desc)
                        .page(params[:bids]).per(28)
+
+    @reviews = @contractor.reviews
+                          .order(updated_at: :desc)
+                          .page(params[:reviews]).per(5)
   end
 
   def destroy

@@ -4,7 +4,7 @@
   <% title @user.fullname %>
 <% end %>
 
-<%= render partial: 'layouts/comment_modal', 
+<%= render partial: 'layouts/comment_modal',
               locals: { commentable: @user } %>
 
 <div class="row">
@@ -13,27 +13,29 @@
 	</div>
 	<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
 		<hr class="visible-xs">
-    <% if current_user == @user %>
-  		<h3 class="lead text-center">
-  			<%= link_to 'Post a New Job', new_job_path, class: 'btn btn-lg btn-success' if current_user == @user %>
-  		</h3>
+    <h3 class="lead text-center">
+      <%= link_to 'Post a New Job', new_job_path, class: 'btn btn-lg btn-success' if current_user == @user %>
+    </h3>
 
-  		<%= render 'layouts/nav_pills' %>
+
+    <%= render 'layouts/nav_pills' %>
+    <% if current_user == @user %>
 
       <div class="tab-content">
-        <%= render partial: 'layouts/job_tab_pane', 
+        <%= render partial: 'layouts/job_tab_pane',
                     locals: { no_jobs: 'You have not posted any jobs' } %>
 
         <%= render 'layouts/comment_tab_pane' %>
+
+        <%= render 'reviews/review_tab_pane' %>
       </div>
     <% else %>
-      <% if @jobs.present? %>
-        <h2 class="text-center lead">Job posts</h2>
-        <%= render 'layouts/jobs' %>
-      <% else %>
-        <br>
-        <h4 class="text-center">This user hasn't posted any jobs</h4>
-      <% end %>
+    <div class="tab-content">
+      <%= render partial: 'layouts/job_tab_pane',
+                  locals: { no_jobs: 'You have not posted any jobs' } %>
+
+      <%= render 'reviews/review_tab_pane' %>
+    </div>
     <% end %>
-	</div>	
+	</div>
 </div>
