@@ -5,7 +5,7 @@
 <% end %>
 
 <%= render partial: 'layouts/comment_modal',
-              locals: { commentable: @user } %>
+            locals: { commentable: @user } %>
 
 <div class="row">
 	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -16,26 +16,18 @@
     <h3 class="lead text-center">
       <%= link_to 'Post a New Job', new_job_path, class: 'btn btn-lg btn-success' if current_user == @user %>
     </h3>
-
-
     <%= render 'layouts/nav_pills' %>
-    <% if current_user == @user %>
-
-      <div class="tab-content">
+    <div class="tab-content">
+      <% if current_user == @user %>
         <%= render partial: 'layouts/job_tab_pane',
                     locals: { no_jobs: 'You have not posted any jobs' } %>
-
         <%= render 'layouts/comment_tab_pane' %>
-
         <%= render 'reviews/review_tab_pane' %>
-      </div>
-    <% else %>
-    <div class="tab-content">
-      <%= render partial: 'layouts/job_tab_pane',
-                  locals: { no_jobs: 'You have not posted any jobs' } %>
-
-      <%= render 'reviews/review_tab_pane' %>
+      <% else %>
+        <%= render partial: 'layouts/job_tab_pane',
+                    locals: { no_jobs: 'You have not posted any jobs' } %>
+        <%= render 'reviews/review_tab_pane' %>
+      <% end %>
     </div>
-    <% end %>
 	</div>
 </div>

@@ -1,0 +1,19 @@
+<h4 class="text-center">
+  Review History: <%= pluralize(member.reviews.count, 'job') %>
+</h4>
+<h4 class="lead">
+<strong>Quality:</strong>
+<%= member.average_quality %>/10
+<br>
+<strong>Cost:</strong>
+<%= member.average_cost %>/10
+<br>
+<strong>Timeliness:</strong>
+<%= member.average_timeliness %>/10
+<br>
+<strong>Professionalism:</strong>
+<%= member.average_professionalism %>/10
+<br>
+<strong>Recommendability:</strong>
+<%= member.average_recommendation %>/10
+</h4>

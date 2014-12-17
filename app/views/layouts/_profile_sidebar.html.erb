@@ -3,17 +3,17 @@
 		<%= render partial: 'layouts/pic', collection: member.uploads, as: :upload, locals: { owner: member } %>
 	</span>
 	<div class="text-center">
-		<%= link_to 'Send a message', new_polymorphic_url([member, Comment.new]), 
+		<%= link_to 'Send a message', new_polymorphic_url([member, Comment.new]),
 																	class: 'btn btn-small btn-success',
-																 remote: true, 
+																 remote: true,
 																   data: { toggle: 'modal',
 															  					 target: '#commentModal' } if member != (current_user || current_contractor) %>
 
 		<%= render partial: 'layouts/pic_upload_button', locals: { item: member,
-	                                                       item_owner: member, 
+	                                                       item_owner: member,
 	                                                   current_member: current_user || current_contractor,
 	                                                item_upload_count: member.uploads.count,
-	                                                      item_status: '' } if member == (current_user || current_contractor) %>                       
+	                                                      item_status: '' } if member == (current_user || current_contractor) %>
 	</div>
 	<br>
 	<%= @incomplete_profile_message.html_safe if @incomplete_profile_message.present? %>
@@ -39,6 +39,12 @@
 	  <% end %>
 	</address>
 	<hr>
+		<% if member.reviews.present? %>
+			<%= render partial: 'layouts/member_reviews', locals: { member: member } %>
+		<% else %>
+			<h3 class="text-center lead">No reviews on this member</h3>
+		<% end %>
+	<hr>
 	<% if member.categories.size > 0 %>
 		<h4 class="text-center">
 			<%= member.contractor? ? 'Services Offered' : 'Services Needed' %>
@@ -51,5 +57,5 @@
           </li>
         </h2>
       </ul>
-    <% end %>			
+    <% end %>
 	<% end %>

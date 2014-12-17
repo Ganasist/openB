@@ -27,14 +27,13 @@
     </li>
   <% end %>
 
-
   <% if @contractor %>
     <li class="<%= 'active' if !(current_contractor == @contractor) || params[:tab] == 'examples' %>">
       <a href="#example" data-toggle="tab">Portfolio</a>
     </li>
   <% end %>
 
-  <% if current_user != @user %>
+  <% if @user && current_user != @user %>
     <li class="<%= 'active' if !(current_user == @user) || params[:tab] == 'jobs' %>">
       <a href="#job" data-toggle="tab">Job Posts</a>
     </li>

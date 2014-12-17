@@ -19,4 +19,28 @@ module MemberValidations
 
 		validates :name, presence: true, if: Proc.new { |o| !o.new_record? }
   end
+
+	def average_quality
+		reviews.average(:quality).round
+	end
+
+
+	def average_cost
+		reviews.average(:cost).round
+	end
+
+
+	def average_timeliness
+		reviews.average(:timeliness).round
+	end
+
+
+	def average_professionalism
+		reviews.average(:professionalism).round
+	end
+
+
+	def average_recommendation
+		reviews.average(:recommendation).round
+	end
 end
