@@ -1,5 +1,5 @@
 <h4 class="text-center">
-  Review History: <%= pluralize(member.reviews.count, 'job') %>
+  Average reviews (<%= pluralize(member.reviews.count, 'job') %> <%= member.user? ? 'posted' : 'performed' %>)
 </h4>
 <h4 class="lead">
 <strong>Quality:</strong>

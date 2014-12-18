@@ -21,26 +21,26 @@ module MemberValidations
   end
 
 	def average_quality
-		reviews.average(:quality).round
+		reviews.average(:quality).round(1)
 	end
 
 
 	def average_cost
-		reviews.average(:cost).round
+		reviews.average(:cost).round(1)
 	end
 
 
 	def average_timeliness
-		reviews.average(:timeliness).round
+		reviews.average(:timeliness).round(1)
 	end
 
 
 	def average_professionalism
-		reviews.average(:professionalism).round
+		reviews.average(:professionalism).round(1)
 	end
 
 
 	def average_recommendation
-		reviews.average(:recommendation).round
+		reviews.average(:recommendation).round(1)
 	end
 end
