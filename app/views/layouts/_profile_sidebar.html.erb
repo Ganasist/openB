@@ -1,6 +1,9 @@
 <% @cats = member.categories %>
 	<span class="text-center">
-		<%= render partial: 'layouts/pic', collection: member.uploads, as: :upload, locals: { owner: member } %>
+		<%= render partial: 'layouts/pic',
+						collection: member.uploads,
+										as: :upload,
+								locals: { owner: member } %>
 	</span>
 	<div class="text-center">
 		<%= link_to 'Send a message', new_polymorphic_url([member, Comment.new]),
@@ -9,11 +12,12 @@
 																   data: { toggle: 'modal',
 															  					 target: '#commentModal' } if member != (current_user || current_contractor) %>
 
-		<%= render partial: 'layouts/pic_upload_button', locals: { item: member,
-	                                                       item_owner: member,
-	                                                   current_member: current_user || current_contractor,
-	                                                item_upload_count: member.uploads.count,
-	                                                      item_status: '' } if member == (current_user || current_contractor) %>
+		<%= render partial: 'layouts/pic_upload_button',
+								locals: { item: member,
+                    item_owner: member,
+                current_member: current_user || current_contractor,
+             item_upload_count: member.uploads.count,
+                   item_status: '' } if member == (current_user || current_contractor) %>
 	</div>
 	<br>
 	<%= @incomplete_profile_message.html_safe if @incomplete_profile_message.present? %>
