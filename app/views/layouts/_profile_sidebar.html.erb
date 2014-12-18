@@ -17,33 +17,13 @@
 	</div>
 	<br>
 	<%= @incomplete_profile_message.html_safe if @incomplete_profile_message.present? %>
-	<address class="lead">
-		<% if member.try(:company_name) %>
-		  <div class="text-center">
-		  	<strong><%= member.company_name %></strong>
-		  </div><br>
-	  <% end %>
-	  <% if member.name.present? %>
-		  <%= member.name %><br>
-	  <% end %>
-	  <% if member.address.present? %>
-			  <%= member.address if member == current_user %><br>
-		  <% end %>
-	  <% if member.is_a?(Contractor) %>
-		  <% if member.address.present? %>
-			  <%= member.address %><br>
-		  <% end %>
-		  <% if member.phone.present? %>
-			  <%= member.phone.phony_formatted(normalize: :US, format: :international, spaces: '-') %><br>
-		  <% end %>
-	  <% end %>
-	</address>
+	<%= render "layouts/member_address", member: member %>
 	<hr>
-		<% if member.reviews.present? %>
-			<%= render partial: 'layouts/member_reviews', locals: { member: member } %>
-		<% else %>
-			<h3 class="text-center lead">No reviews on this member</h3>
-		<% end %>
+	<% if member.reviews.present? %>
+		<%= render partial: 'layouts/member_reviews', locals: { member: member } %>
+	<% else %>
+		<h3 class="text-center lead">No reviews on this member</h3>
+	<% end %>
 	<hr>
 	<% if member.categories.size > 0 %>
 		<h4 class="text-center">

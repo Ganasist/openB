@@ -2,10 +2,10 @@
 
 <div class="container">
   <div class="row">
-    <h1 class="text-center lead">Contactors: <%= params[:search] %></h1>
+    <h1 class="text-center lead">Contractors: <%= params[:search] %></h1>
     <div id="paginator-contractors-top" class="text-center">
-      <%= render partial: 'layouts/paginator', 
-                  locals: { context: @contractors, 
+      <%= render partial: 'layouts/paginator',
+                  locals: { context: @contractors,
                      context_string: 'contractors' } %>
     </div>
 
@@ -14,11 +14,9 @@
     </div>
 
     <div id="paginator-contractors-bottom" class="text-center">
-      <%= render partial: 'layouts/paginator', 
-                  locals: { context: @contractors, 
+      <%= render partial: 'layouts/paginator',
+                  locals: { context: @contractors,
                      context_string: 'contractors' } %>
     </div>
   </div>
 </div>
-
-

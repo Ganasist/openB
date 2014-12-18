@@ -1,0 +1,18 @@
+<address class="lead">
+  <% if member.try(:company_name) %>
+    <div class="text-center">
+      <strong><%= member.company_name %></strong>
+    </div><br>
+  <% end %>
+
+  <%= member.fullname %><br>
+  
+  <% if member.is_a?(Contractor) %>
+    <% if member.address.present? %>
+      <%= member.address %><br>
+    <% end %>
+    <% if member.phone.present? %>
+      <%= member.phone.phony_formatted(normalize: :US, format: :international, spaces: '-') %><br>
+    <% end %>
+  <% end %>
+</address>
