@@ -1,19 +1,19 @@
 <h4 class="text-center">
-  Average reviews (<%= pluralize(member.reviews.count, 'job') %> <%= member.user? ? 'posted' : 'performed' %>)
+  Average reviews <%= member.user? ? 'given' : 'received' %> (<%= pluralize(member.reviews.count, 'job') %>)  
 </h4>
 <h4 class="lead">
-<strong>Quality:</strong>
-<%= member.average_quality %>/10
-<br>
-<strong>Cost:</strong>
-<%= member.average_cost %>/10
-<br>
-<strong>Timeliness:</strong>
-<%= member.average_timeliness %>/10
-<br>
-<strong>Professionalism:</strong>
-<%= member.average_professionalism %>/10
-<br>
-<strong>Recommendability:</strong>
-<%= member.average_recommendation %>/10
+  <strong>Quality:</strong>
+  <%= member.review_average(:quality) %>/10
+  <br>
+  <strong>Cost:</strong>
+  <%= member.review_average(:cost) %>/10
+  <br>
+  <strong>Timeliness:</strong>
+  <%= member.review_average(:timeliness) %>/10
+  <br>
+  <strong>Professionalism:</strong>
+  <%= member.review_average(:professionalism) %>/10
+  <br>
+  <strong>Recommendability:</strong>
+  <%= member.review_average(:recommendation) %>/10
 </h4>
