@@ -16,15 +16,9 @@ class Review < ActiveRecord::Base
             :timeliness,
             :professionalism,
             :recommendability, presence: { message: 'Please provide a rating for each criteria' },
-                         numericality: { only_integer: true,
-                             greater_than_or_equal_to: 0,
-                                less_than_or_equal_to: 10,
-                                              message: 'Ratings must between 0 and 10' }
+                           numericality: { only_integer: true,
+                                                message: 'Ratings must be between 0 and 10' },
+                              inclusion: { in: 0..10,
+                                      message: 'Ratings must be between 0 and 10' }
 
-  private
-    def adjust_ratings
-      pluck(:quality, :cost, :timeliness).each do |t|
-        puts t
-      end
-    end
 end
