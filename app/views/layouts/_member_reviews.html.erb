@@ -1,6 +1,6 @@
 <h4 class="text-center">
   Average reviews <%= member.user? ? 'given' : 'received' %>
-                 (<%= pluralize(member.reviews.count, 'job') %>)  
+                 (<%= pluralize(member.reviews.count, 'job') %>)
 </h4>
 <h4 class="lead">
   <strong>Quality:</strong>
@@ -16,5 +16,5 @@
   <%= member.review_average(:professionalism) %>/10
   <br>
   <strong>Recommendability:</strong>
-  <%= member.review_average(:recommendation) %>/10
+  <%= member.review_average(:recommendability) %>/10
 </h4>

@@ -9,12 +9,22 @@ class Review < ActiveRecord::Base
   belongs_to :job
 
   validates :reviewerable,
-            :reviewable,
+            :reviewable, presence: { message: 'is missing a reviewer and / or a reviewed item'}
+
+  validates :quality,
             :cost,
             :timeliness,
             :professionalism,
-            :recommendation,
-            :description, presence: { message: 'wtd?' }
+            :recommendability, presence: { message: 'Please provide a rating for each criteria' },
+                         numericality: { only_integer: true,
+                             greater_than_or_equal_to: 0,
+                                less_than_or_equal_to: 10,
+                                              message: 'Ratings must between 0 and 10' }
 
-
+  private
+    def adjust_ratings
+      pluck(:quality, :cost, :timeliness).each do |t|
+        puts t
+      end
+    end
 end

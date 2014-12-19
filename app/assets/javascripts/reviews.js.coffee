@@ -10,4 +10,4 @@ jQuery ->
   $('#review_cost').slider(options) if $('#review_cost').length
   $('#review_timeliness').slider(options) if $('#review_timeliness').length
   $('#review_professionalism').slider(options) if $('#review_professionalism').length
-  $('#review_recommendation').slider(options) if $('#review_recommendation').length
+  $('#review_recommendability').slider(options) if $('#review_recommendability').length
