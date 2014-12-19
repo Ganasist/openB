@@ -15103,7 +15103,6 @@ return jQuery;
     };
     checkbox_check = function() {
       var _ref;
-      console.log('running checkbox_check');
       if (_ref = $("input.check_boxes:checked").length, __indexOf.call([0, 1, 2, 3], _ref) >= 0) {
         $("input.check_boxes:not(:checked)").attr('disabled', false).parent().fadeTo(100, 1);
       } else {
@@ -15126,45 +15125,51 @@ return jQuery;
 (function() {
   $(function() {
     var setFormLocation, setPanelLocation;
-    setFormLocation = !!$('.latitude').val() ? [$('.latitude').val(), $('.longitude').val()] : "";
-    $("input.geocomplete").geocomplete({
-      details: "form.geocoder_form",
-      detailsAttribute: "data-geo",
-      blur: true,
-      location: setFormLocation,
-      map: "div.map_canvas_form",
-      componentRestrictions: {
-        country: "US"
-      },
-      mapOptions: {
-        backgroundColor: 'white'
-      },
-      markerOptions: {
-        draggable: true,
-        title: 'Your location'
-      }
-    }).bind("geocode:result", function(event, result) {
-      console.log(event);
-      return console.log(result);
-    }).bind("geocode:dragged", function(event, latLng) {
-      console.log(event);
-      console.log(latLng);
-      return $("input.geocomplete").geocomplete("find", latLng.lat() + "," + latLng.lng());
-    }).bind("geocode:error", function(event, status) {
-      return console.log(event);
-    });
-    console.log(status);
-    setPanelLocation = !!$('.latitude').html() ? [$('.latitude').html(), $('.longitude').html()] : "";
-    return $("div.map_canvas").geocomplete({
-      location: setPanelLocation,
-      map: "div.map_canvas",
-      mapOptions: {
-        backgroundColor: 'white'
-      },
-      markerOptions: {
-        title: 'Your location'
-      }
-    });
+    if ($('.latitude').length) {
+      setFormLocation = !!$('.latitude').val() ? [$('.latitude').val(), $('.longitude').val()] : "";
+      setPanelLocation = !!$('.latitude').html() ? [$('.latitude').html(), $('.longitude').html()] : "";
+    }
+    if ($("input.geocomplete").length) {
+      $("input.geocomplete").geocomplete({
+        details: "form.geocoder_form",
+        detailsAttribute: "data-geo",
+        blur: true,
+        location: setFormLocation,
+        map: "div.map_canvas_form",
+        componentRestrictions: {
+          country: "US"
+        },
+        mapOptions: {
+          backgroundColor: 'white'
+        },
+        markerOptions: {
+          draggable: true,
+          title: 'Your location'
+        }
+      }).bind("geocode:result", function(event, result) {
+        console.log(event);
+        return console.log(result);
+      }).bind("geocode:dragged", function(event, latLng) {
+        console.log(event);
+        console.log(latLng);
+        return $("input.geocomplete").geocomplete("find", latLng.lat() + "," + latLng.lng());
+      }).bind("geocode:error", function(event, status) {
+        return console.log(event);
+      });
+      console.log(status);
+    }
+    if ($("div.map_canvas").length) {
+      return $("div.map_canvas").geocomplete({
+        location: setPanelLocation,
+        map: "div.map_canvas",
+        mapOptions: {
+          backgroundColor: 'white'
+        },
+        markerOptions: {
+          title: 'Your location'
+        }
+      });
+    }
   });
 
 }).call(this);
@@ -15204,18 +15209,30 @@ return jQuery;
 (function() {
   jQuery(function() {
     var options;
-    $('div.slider-horizontal').attr('style', "width:''");
+    if ($('div.slider-horizontal').length) {
+      $('div.slider-horizontal').attr('style', "width:''");
+    }
     options = {
       value: $(this).val() || 0,
       min: 0,
-      max: 100,
-      step: 5
+      max: 10,
+      step: 1
     };
-    $('#review_quality').slider(options);
-    $('#review_cost').slider(options);
-    $('#review_timeliness').slider(options);
-    $('#review_professionalism').slider(options);
-    return $('#review_recommendation').slider(options);
+    if ($('#review_quality').length) {
+      $('#review_quality').slider(options);
+    }
+    if ($('#review_cost').length) {
+      $('#review_cost').slider(options);
+    }
+    if ($('#review_timeliness').length) {
+      $('#review_timeliness').slider(options);
+    }
+    if ($('#review_professionalism').length) {
+      $('#review_professionalism').slider(options);
+    }
+    if ($('#review_recommendation').length) {
+      return $('#review_recommendation').slider(options);
+    }
   });
 
 }).call(this);
@@ -15278,7 +15295,7 @@ return jQuery;
   var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   jQuery(function() {
-    var addresses, description_label, description_remaining, descriptions, email_check, emails, length_check, password_confirms, passwords;
+    var addresses, description_label, descriptions, email_check, emails, length_check, password_confirms, passwords, text_remaining;
     length_check = function(target, min, max) {
       var _i, _j, _ref, _ref1, _results, _results1;
       if (($(target).val() != null) && ($(target).val() != null)) {
@@ -15315,16 +15332,15 @@ return jQuery;
     password_confirms = '#user_password_confirmation, #contractor_password_confirmation, #new_password_confirmation';
     length_check(descriptions, 10, 2000);
     length_check('#job_title', 5, 50);
-    length_check(addresses, 10, 100);
+    length_check(addresses, 5, 100);
     length_check(emails, 5, 30);
     length_check('#user_password, #contractor_password', 8, 128);
     length_check('#user_password_confirmation, #contractor_password_confirmation', 8, 128);
     if ($(descriptions).val() != null) {
-      description_remaining = 2000 - $(descriptions).val().length;
+      text_remaining = 2000 - $(descriptions).val().length;
     }
-    description_label(description_remaining);
+    description_label(text_remaining);
     $(descriptions).keyup(function() {
-      var text_remaining;
       text_remaining = 2000 - $(descriptions).val().length;
       description_label(text_remaining);
       return length_check(descriptions, 10, 2000);
@@ -15333,7 +15349,7 @@ return jQuery;
       return length_check('#job_title', 5, 50);
     });
     $(addresses).keyup(function() {
-      return length_check(addresses, 10, 100);
+      return length_check(addresses, 5, 100);
     });
     $(emails).keyup(function() {
       if (email_check($(emails).val())) {
