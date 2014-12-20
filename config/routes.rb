@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   concern :commentable do
-    resources :comments, only: [:new, :create, :edit, :update, :destroy]
+    resources :comments, only: [:destroy]
   end
 
   # concern :commenterable do
