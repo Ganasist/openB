@@ -1,0 +1,11 @@
+The job entitled <%= @job.title %> has been updated by <%= @job.user.fullname %>.
+
+Categories: <%= @job.categories.to_sentence %>
+
+Location: <%= @job.address %>
+
+Description: <%= @job.description %>
+
+===============================================
+
+OPENBID © <%= Time.now.year %>

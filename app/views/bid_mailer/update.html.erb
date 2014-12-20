@@ -3,11 +3,11 @@
 <head>
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
-<body>
-  <h4>
-    <%= @contractor.company_name %> updated their bid to $<%= @bid.cost %> for '<%= @job.title %>'.
-  </h4>
-  <%= render "bid_create_update" %>
-  <%= render partial: '/bid_mailer/footer.html.erb' %>
-</body>
+  <body>
+    <h4>
+      <%= @contractor.company_name %> updated their bid to $<%= @bid.cost %> for '<%= @job.title %>'.
+    </h4>
+    <%= render 'bid_create_update' %>
+    <%= render '/bid_mailer/footer.html.erb' %>
+  </body>
 </html>

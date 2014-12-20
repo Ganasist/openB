@@ -12,13 +12,10 @@ class UsersController < ApplicationController
     if (current_user == @user) && !current_user.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
-
     @comments = @user.comments
-    
     @jobs = @user.jobs
                  .order(created_at: :desc)
                  .page(params[:jobs])
-
     @reviews = @user.reviews
                     .order(created_at: :desc)
                     .page(params[:reviews])

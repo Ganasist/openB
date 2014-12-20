@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+  <body>
+    <h4>
+      A job entitled <%= @job.title %> has been posted by <%= @job.user.fullname %>.
+    </h4>
+
+    <p>
+      <strong>Categories:</strong> <%= @job.categories.to_sentence %>
+    </p>
+
+    <p>
+      <strong>Location:</strong> <%= @job.address %>
+    </p>
+
+    <p>
+      <strong>
+        Description:
+      </strong>
+      <br>
+      <%= @job.description %>
+    </p>
+
+    <%= render 'job_create_update' %>
+
+    <%= render '/bid_mailer/footer.html.erb' %>
+  </body>
+</html>

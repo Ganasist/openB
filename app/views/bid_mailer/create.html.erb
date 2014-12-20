@@ -8,8 +8,8 @@
       <%= @contractor.company_name %> bid $<%= @bid.cost %> on '<%= @job.title %>'.
     </h4>
 
-    <%= render "bid_create_update" %>
+    <%= render 'bid_create_update' %>
 
-    <%= render partial: '/bid_mailer/footer.html.erb' %>
+    <%= render '/bid_mailer/footer.html.erb' %>
   </body>
 </html>

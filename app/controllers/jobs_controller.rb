@@ -33,6 +33,7 @@ class JobsController < ApplicationController
     @job = Job.new(job_params)
     @job.user = current_user
     if @job.save
+      JobMailer.delay(retry: false).create(@job)
       flash[:notice] = 'Job was successfully created.'
       redirect_to @job
     else
@@ -46,8 +47,8 @@ class JobsController < ApplicationController
 
   def update
     if @job.update(job_params)
-      flash[:notice] = 'Job was successfully updated.'
-      respond_with(@job)
+      JobMailer.delay(retry: false).update(@job)
+      redirect_to @job, notice: 'Job was successfully updated.'
     else
       render 'edit'
     end

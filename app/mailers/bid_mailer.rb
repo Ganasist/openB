@@ -1,5 +1,5 @@
 class BidMailer < ActionMailer::Base
-  default from: 'no-reply@openbid.com'
+  default from: 'noreply@openbid.com'
   before_action :set_logo
 
   def create(bid)

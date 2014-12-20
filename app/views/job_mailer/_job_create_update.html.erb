@@ -1,0 +1,6 @@
+<p>
+  If you wish to bid on this job please
+  <%= link_to 'log into', 'http://www.openbid.contractors/users/sign_in', target: '_blank' %>
+  your account. If you have specific questions contact this user directly:
+  <%= mail_to @user.email, @user.fullname %>.
+</p>
