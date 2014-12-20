@@ -43,7 +43,10 @@ class ReviewsController < ApplicationController
   def destroy
     @review = @job.review
     @review.destroy
-    respond_with(@review)
+    respond_to do |format|
+      # format.html { redirect_to current_user, notice: "'Review for #{ @job.title }' was successfully deleted" }
+      format.js
+    end
   end
 
   private

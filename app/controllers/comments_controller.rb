@@ -11,9 +11,10 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.create(comment_params)
+    @comment = Comment.new(comment_params)
     @comment.commentable = @commentable
     @comment.commenterable = @commenterable
+    puts @commenterable
     if @comment.save
       flash[:notice] = 'Message sent.'
       redirect_to @commentable
@@ -25,10 +26,10 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = Comment.find(params[:id])
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    # respond_to do |format|
+    #   format.html
+    #   format.js
+    # end
   end
 
   def update

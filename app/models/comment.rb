@@ -41,4 +41,5 @@ class Comment < ActiveRecord::Base
   def self.find_commentable(commentable_str, commentable_id)
     self.where(commentable: commentable_str, commentable_id: commentable_id)
   end
+
 end

@@ -1,4 +1,4 @@
-<div class="panel panel-default" id="<%= review.id %>">
+<div class="panel panel-default" id="review-<%= review.id %>">
   <div class="panel-heading">
     <h3 class="panel-title">
       <span class="text-center">
@@ -7,18 +7,24 @@
           with <%= link_to review.reviewable.contractor.company_name, review.reviewable.contractor, class: 'unstyled-link' %>
         <% end %>
       </span>
-      <p>
-        <% if current_user == review.user %>
-          <%= link_to polymorphic_url([review.reviewable, review]), method: :delete,
-                                                                      remote: true,
-                                                                        data: { confirm: 'Are you sure you want to delete this review?' } do %>
-            <%= fa_icon 'minus-square lg', title: 'Delete', class: 'delete-comment-post pull-right' %>
-          <% end %>
-          <%= link_to edit_polymorphic_url([review.reviewable, review]) do %>
-            <%= fa_icon 'edit lg', title: 'Edit', class: 'pull-right' %>
-          <% end %>
+        <% if current_user == review.reviewerable %>
+          <ul class="list-inline pull-right">
+            <li>
+              <%= link_to edit_job_review_path(review.reviewable) do %>
+                  <%= fa_icon 'edit lg 2x', title: 'Edit',
+                                            class: 'pull-right' %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to job_review_path(review.reviewable), method: :delete,
+                                                                        remote: true,
+                                                                          data: { confirm: 'Are you sure you want to delete this review?' } do %>
+                <%= fa_icon 'minus-square-o lg 2x', title: 'Delete',
+                                                    class: 'delete-comment-post pull-right' %>
+              <% end %>
+            </li>
+          </ul>
         <% end %>
-      </p>
     </h3>
   </div>
   <div class="panel-body">

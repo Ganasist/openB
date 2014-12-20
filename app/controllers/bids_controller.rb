@@ -7,7 +7,8 @@ class BidsController < ApplicationController
     @bid.contractor = current_contractor
     @bid.job = Job.find(params[:job_id])
     if @bid.save
-      redirect_to :back, notice: "Your bid for '#{ @bid.job.title }' has been created"
+			# Email job owner
+      redirect_to :back, notice: "Your bid for '#{ @bid.job.title }' has been created. #{ @bid.job.user.fullname } is being notified now."
     else
       redirect_to :back, alert: "#{ @bid.errors.full_messages.to_sentence }"
     end
@@ -20,32 +21,35 @@ class BidsController < ApplicationController
   def update
     @bid = Bid.find(params[:id])
     if @bid.update(bid_params)
-      flash[:notice] = 'Bid was successfully updated.'
-      redirect_to :back, notice: "Your bid for '#{ @bid.job.title }' has been updated"
+			# Email job owner
+      redirect_to :back, notice: "Your bid for '#{ @bid.job.title }' has been updated. #{ @bid.job.user.fullname } is being notified now."
     else
       redirect_to :back, alert: "#{ @bid.errors.full_messages.to_sentence }"
     end
   end
 
   def accept_bid
+		# make sure only job owner can accept / reject bids
     @bid = Bid.find(params[:id])
-    # make sure only job owner can accept / reject bids
     @bid.accept
     @bid.job.activate!(@bid)
-    redirect_to :back, notice: "Bid from #{ @bid.contractor.company_name } for $#{ @bid.cost } has been accepted. They are being notified now."
+		# Email job owner & bid contractor. Email losing bids?
+    redirect_to :back, notice: "Bid from #{ @bid.contractor.company_name } for $#{ @bid.cost } has been accepted. #{ @bid.contractor.company_name } is being notified now."
   end
 
   def reject_bid
+		# make sure only job owner can accept / reject bids
     @bid = Bid.find(params[:id])
     @bid.reject
-    redirect_to :back, error: "Bid from #{ @bid.contractor.company_name } for $#{ @bid.cost } has been rejected. They are being notified now."
+		# bid contractor
+    redirect_to :back, error: "Bid from #{ @bid.contractor.company_name } for $#{ @bid.cost } has been rejected. #{ @bid.contractor.company_name } is being notified now."
   end
 
   def destroy
     @bid = Bid.find(params[:id])
     @job = @bid.job
     @bid.destroy
-    redirect_to current_contractor, notice: "Your bid for '#{ @job.title }' has been removed"
+    redirect_to current_contractor, notice: "Your bid for '#{ @job.title }' has been removed."
   end
 
   private

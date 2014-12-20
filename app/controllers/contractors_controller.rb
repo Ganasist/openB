@@ -16,7 +16,6 @@ class ContractorsController < ApplicationController
   end
 
   def show
-
     @contractor = Contractor.includes(:examples, :bids, :comments).find(params[:id])
 
     if (current_contractor == @contractor) && !@contractor.complete_profile?
@@ -28,9 +27,14 @@ class ContractorsController < ApplicationController
                            .order(updated_at: :desc)
                            .page(params[:examples])
 
-    @comments = Comment.where(commentable_type: 'Contractor', commentable_id: @contractor.id)
-                       .order(updated_at: :desc)
-                       .page(params[:comments])
+
+    @test = @contractor.comments
+    # @test = Comment.where(commentable_type: 'Contractor', commentable_id: @contractor.id)
+    #
+    # @test << @member_comments
+
+    @comments = @test.order(updated_at: :desc).page(params[:comments])
+
 
     @jobs = Job.near(@contractor, @contractor.search_radius)
                .relevant_categories(@contractor.categories)

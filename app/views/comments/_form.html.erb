@@ -1,17 +1,16 @@
 <div class="row authform_large">
-	<%= simple_form_for [@commentable, Comment.new], html: { autocomplete: 'off' } do |f|  %>
-
+	<%= simple_form_for @comment || Comment.new, html: { autocomplete: 'off' } do |f|  %>
     <%= f.error_notification %>
-
 	  <div class="list-inline">
 	  	<%= f.input :subject %>
-	  	<%= f.input :body, as: :text, 
-                      label: 'Comment', 
+	  	<%= f.input :body, as: :text,
+                      label: 'Comment',
                 placeholder: 'Enter a brief comment',
                  input_html: { rows: '7', maxlength: 2000 } %>
-
-	    <%= f.button :submit, 'Send message', class: 'user_submit' %>
 	  </div>
+		<div class="text-center">
+			<%= f.button :submit, 'Send message', class: 'btn btn-lg btn-success' %>
+		</div>
 	<% end %>
 	<br>
 

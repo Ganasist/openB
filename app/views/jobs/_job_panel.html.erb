@@ -1,4 +1,4 @@
-<div class="panel panel-default" id="<%= job.id %>">
+<div class="panel panel-default" id="job-<%= job.id %>">
   <div class="panel-heading">
     <h3 class="panel-title">
       <p>
@@ -6,11 +6,10 @@
 
         <%= render "jobs/contractor_job_buttons", job: job if contractor_signed_in? %>
 
-
         <span class="text-center">
           Status: <%= job.status %>
           <% if job.contractor %>
-          with <%= link_to job.contractor.company_name, job.contractor, class: 'unstyled-link' %>
+            with <%= link_to job.contractor.company_name, job.contractor, class: 'unstyled-link' %>
           <% end %>
         </span>
 

@@ -2,7 +2,9 @@
 module MemberValidations
 	extend ActiveSupport::Concern
 	included do
+
 		has_many :comments, as: :commenterable, dependent: :destroy
+
 		has_many :reviews, as: :reviewerable, dependent: :destroy
 
 		validates :categories, presence: true,
