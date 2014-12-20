@@ -13,11 +13,8 @@ class UsersController < ApplicationController
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
 
-    # @user_comments = @user.comments
-    @received_comments = Comment.where(commenterable_type: 'User', commenterable_id: @user.id)
-    # @user_comments << @received_comments
-    @comments = @received_comments.order(updated_at: :desc).page(params[:comments])
-
+    @comments = @user.comments
+    
     @jobs = @user.jobs
                  .order(created_at: :desc)
                  .page(params[:jobs])

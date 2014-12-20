@@ -6,12 +6,6 @@
 								locals: { owner: member } %>
 	</span>
 	<div class="text-center">
-		<%= link_to 'Send a message', new_polymorphic_url([member, Comment.new]),
-																	class: 'btn btn-small btn-success',
-																 remote: true,
-																   data: { toggle: 'modal',
-															  					 target: '#commentModal' } if member != (current_user || current_contractor) %>
-
 		<%= render partial: 'layouts/pic_upload_button',
 								locals: { item: member,
                     item_owner: member,

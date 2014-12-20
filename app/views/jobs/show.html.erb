@@ -5,10 +5,6 @@
           collection: @job.uploads,
                   as: :upload %>
 
-  <%= render partial: 'layouts/comment_modal',
-              locals: { commentable: @job } %>
-
-
   <div class="row">
     <div class="col-xs-12">
       <%= render 'job_panel', job: @job %>
@@ -37,7 +33,7 @@
         Job is <%= @job.status %>
         <%= link_to " with #{ @job.contractor.company_name }", @job.contractor, class: 'unstyled-link' if @job.contractor %>
       </h3>
-      <% if @job.review.present? %>
+      <% if @job.review.present? && !@job.in_progress? %>
         <hr>
         <div class="lead col-lg-6 col-lg-offset-3 col-xs-12">
           <div class="text-center">

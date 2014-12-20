@@ -2,10 +2,4 @@
   <%= link_to job_path(job), class: 'hidden-xs hidden-sm btn btn-primary pull-right' do %>
     View Details
   <% end %>
-<% elsif (request.fullpath).include?('/jobs') %>
-  <%= link_to "Send a comment", new_polymorphic_url([@job, Comment.new]),
-  class: 'btn btn-small btn-success pull-right',
-    remote: true,
-    data: { toggle: 'modal',
-      target: '#commentModal' } %>
 <% end %>

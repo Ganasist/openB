@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h4>
+      We're sorry, but your bid of $<%= @bid.cost %> for '<%= @job.title %>' was rejected.
+    </h4>
+
+    <p>
+      Consider revising your bid or checking other jobs posted in your area.
+    </p>
+
+    <%= render partial: '/bid_mailer/footer.html.erb' %>
+  </body>
+</html>

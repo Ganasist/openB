@@ -1,0 +1,10 @@
+<%= @contractor.company_name %> bid $<%= @bid.cost %> on '<%= @job.title %>'
+
+If you wish to accept this bid please
+<%= link_to 'log into', 'http://www.openbid.contractors/users/sign_in', target: '_blank' %>
+your account. If you have questions contact this contractor directly:
+<%= mail_to @contractor.email, @contractor.company_name %>.
+
+===============================================
+
+OPENBID © <%= Time.now.year %>

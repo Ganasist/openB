@@ -7,7 +7,7 @@ class BidsController < ApplicationController
     @bid.contractor = current_contractor
     @bid.job = Job.find(params[:job_id])
     if @bid.save
-			# Email job owner
+			BidMailer.delay(retry: false).create(@bid)
       redirect_to :back, notice: "Your bid for '#{ @bid.job.title }' has been created. #{ @bid.job.user.fullname } is being notified now."
     else
       redirect_to :back, alert: "#{ @bid.errors.full_messages.to_sentence }"
@@ -20,8 +20,9 @@ class BidsController < ApplicationController
 
   def update
     @bid = Bid.find(params[:id])
+		@bid.rejected = false
     if @bid.update(bid_params)
-			# Email job owner
+			BidMailer.delay(retry: false).update(@bid)
       redirect_to :back, notice: "Your bid for '#{ @bid.job.title }' has been updated. #{ @bid.job.user.fullname } is being notified now."
     else
       redirect_to :back, alert: "#{ @bid.errors.full_messages.to_sentence }"
@@ -33,6 +34,7 @@ class BidsController < ApplicationController
     @bid = Bid.find(params[:id])
     @bid.accept
     @bid.job.activate!(@bid)
+		BidMailer.delay(retry: false).accept(@bid)
 		# Email job owner & bid contractor. Email losing bids?
     redirect_to :back, notice: "Bid from #{ @bid.contractor.company_name } for $#{ @bid.cost } has been accepted. #{ @bid.contractor.company_name } is being notified now."
   end
@@ -42,6 +44,7 @@ class BidsController < ApplicationController
     @bid = Bid.find(params[:id])
     @bid.reject
 		# bid contractor
+		BidMailer.delay(retry: false).reject(@bid)
     redirect_to :back, error: "Bid from #{ @bid.contractor.company_name } for $#{ @bid.cost } has been rejected. #{ @bid.contractor.company_name } is being notified now."
   end
 

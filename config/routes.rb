@@ -11,10 +11,6 @@ Rails.application.routes.draw do
     resources :comments, only: [:destroy]
   end
 
-  # concern :commenterable do
-  #   resources :comments, only: [:new, :create, :edit, :update, :destroy]
-  # end
-
   concern :reviewable do
     resource :review, only: [:new, :create, :edit, :update, :destroy]
   end
