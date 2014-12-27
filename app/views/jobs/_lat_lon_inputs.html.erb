@@ -1,0 +1,25 @@
+<% @longitude = job.persisted? ? job.longitude : current_user.longitude %>
+<% @latitude = job.persisted? ? job.latitude : current_user.latitude %>
+
+<ul class="list-inline">
+  <li>
+    <%= f.input :latitude, disabled: true,
+                         input_html: { value: @latitude,
+                                       class: 'latitude',
+                                        data: { geo: 'lat' } } %>
+    <%= f.input :latitude, as: :hidden,
+                   input_html: { value: @latitude,
+                                 class: 'latitude',
+                                  data: { geo: 'lat' } } %>
+  </li>
+  <li>
+    <%= f.input :longitude, disabled: true,
+                          input_html: { value: @longitude,
+                                        class: 'longitude',
+                                         data: { geo: 'lng' } } %>
+    <%= f.input :longitude, as: :hidden,
+                    input_html: { value: @longitude,
+                                  class: 'longitude',
+                                   data: { geo: 'lng' } } %>
+  </li>
+</ul>

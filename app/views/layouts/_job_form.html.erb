@@ -16,16 +16,12 @@
 
       <div class="form-inputs col-lg-10 col-lg-offset-1">
         <% if type == 'job' %>
-              <%#= f.input :state, as: :select,
-                               label: 'Job Status',
-                       include_blank: false,
-                          collection: Job.aasm.states_for_select, input_html: { style: 'width:150px' } %>
-
               <%= f.input :address, placeholder: "#{ current_user.address }",
                                      input_html: { class: 'geocomplete',
-                                                 data: { geo: 'formatted_address' } } %>
+                                                    data: { geo: 'formatted_address' } } %>
 
-              <%= render 'layouts/lat_lon_inputs', f: f %>
+              <%= render partial: 'lat_lon_inputs', locals: { f: f,
+                                                            job: job } %>
 
               <%= f.input :phone, as: :string,
                                label: 'Phone (optional)',
@@ -39,25 +35,28 @@
 
         <% if type == 'example' %>
           <ul class="list-inline">
-            <li><%= f.input :cost, wrapper: :vertical_input_group do %>
-                      <span class="input-group-addon">$</span>
-                      <%= f.input_field :cost, as: :string,
-                                      placeholder: '400',
-                                        maxlength: 5,
-                                            class: 'form-control',
-                                               id: 'form_zip_code' %>
-                <% end %>
+            <li>
+              <%= f.input :cost, wrapper: :vertical_input_group do %>
+                <span class="input-group-addon">$</span>
+                <%= f.input_field :cost, as: :string,
+                                placeholder: '400',
+                                  maxlength: 5,
+                                      class: 'form-control',
+                                         id: 'form_zip_code' %>
+              <% end %>
             </li>
 
-
-            <li><%= f.input :duration, label: 'Job timeline', as: :string,
-                                  placeholder: '6',
-                                   input_html: { maxlength: 3 } %>
+            <li>
+              <%= f.input :duration, label: 'Job timeline',
+                                        as: :string,
+                               placeholder: '6',
+                                input_html: { maxlength: 3 } %>
             </li>
 
-            <li><%= f.input :duration_unit, selected: 'hours',
-                                               label: 'duration unit',
-                                          collection: Example::DURATION_UNITS %>
+            <li>
+              <%= f.input :duration_unit, selected: 'hours',
+                                             label: 'duration unit',
+                                        collection: Example::DURATION_UNITS %>
             </li>
           </ul>
         <% end %>
