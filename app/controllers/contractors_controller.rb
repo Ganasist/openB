@@ -26,12 +26,18 @@ class ContractorsController < ApplicationController
                            .order(updated_at: :desc)
                            .page(params[:examples])
     @comments = @contractor.comments.page(params[:comments])
-    @jobs = Job.near(@contractor, @contractor.search_radius)
+
+    @job_feed = Job.near(@contractor, @contractor.search_radius)
                .relevant_categories(@contractor.categories)
                .searching
                .includes([:user, :uploads])
                .order(updated_at: :desc)
-               .page(params[:jobs])
+
+    @current_jobs = Job.where(contractor: @contractor).order(updated_at: :desc)
+
+    @jobs = Kaminari.paginate_array(@current_jobs + @job_feed).page(params[:jobs])
+
+
     @bids = @contractor.bids
                        .order(updated_at: :desc)
                        .page(params[:bids]).per(28)

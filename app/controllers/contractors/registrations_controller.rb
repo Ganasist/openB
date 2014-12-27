@@ -1,6 +1,13 @@
 class Contractors::RegistrationsController < RegistrationsController
   before_filter :configure_account_update_params, only: :update
 
+  def create
+    super
+    if @contractor.persisted?
+      WelcomeMailer.contractor_welcome(@contractor).deliver_later
+    end
+  end
+
   def update
     @contractor = Contractor.find(current_contractor.id)
 
@@ -37,14 +44,14 @@ class Contractors::RegistrationsController < RegistrationsController
     def configure_account_update_params
       devise_parameter_sanitizer.for(:account_update) { |a| a.permit(:name, :email,
                                                                      :phone,
-                                                                     :address, 
+                                                                     :address,
                                                                      { categories: [] },
                                                                      :longitude,
                                                                      :latitude,
                                                                      :search_radius,
                                                                      :company_name,
-                                                                     :password, 
-                                                                     :current_password, 
+                                                                     :password,
+                                                                     :current_password,
                                                                      :password_confirmation,
                                                                      :description) }
     end

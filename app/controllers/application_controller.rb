@@ -6,13 +6,17 @@ class ApplicationController < ActionController::Base
 
 	protected
 
+    def current_member
+      current_user || current_contractor
+    end
+
     def after_sign_out_path_for(resource)
       root_path
     end
 
 		def configure_permitted_parameters
-		  devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, 
-		  																												:password, 
+		  devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email,
+		  																												:password,
 		  																												:remember_me) }
 		end
 end

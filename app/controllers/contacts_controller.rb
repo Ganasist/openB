@@ -8,8 +8,8 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(params[:contact])
     if @contact.valid?
-      ContactMailer.delay(retry: false).contact_email(@contact.email, @contact.comment)
-      redirect_to root_path, notice: 'Your message has been sent. Thank you for your feedback.'
+      ContactMailer.contact_email(@contact.email, @contact.comment).deliver_later
+      redirect_to current_member || root_path, notice: 'Your message has been sent. Thank you for your feedback.'
     else
       render 'new'
     end

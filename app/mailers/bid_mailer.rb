@@ -1,6 +1,4 @@
-class BidMailer < ActionMailer::Base
-  default from: 'noreply@openbid.com'
-  before_action :set_logo
+class BidMailer < ApplicationMailer
 
   def create(bid)
     @bid = bid
@@ -37,9 +35,5 @@ class BidMailer < ActionMailer::Base
     mail(to: [@user.email, @contractor.email],
     subject: "Your bid of $#{ @bid.cost } for '#{ @job.title }' was rejected.")
   end
-
-  private
-    def set_logo
-      attachments.inline['logo.png'] = File.read("#{ Rails.root.to_s + '/app/assets/images/logo.png' }")
-    end
+  
 end

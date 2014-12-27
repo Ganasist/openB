@@ -7,7 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
     else
       build_resource(sign_up_params)
       clean_up_passwords(resource)
-      flash.now[:alert] = 'There was an error with the recaptcha code below. Please re-enter the code.'     
+      flash.now[:alert] = 'There was an error with the recaptcha code below. Please re-enter the code.'
       flash.delete :recaptcha_error
       render :new
     end
@@ -21,7 +21,7 @@ class RegistrationsController < Devise::RegistrationsController
 		def after_sign_up_path_for(resource)
 			if resource.sign_in_count == 1
 				flash[:notice] = 'Welcome to OpenBid! Please complete your profile.'
-				edit_registration_path(resource) 
+				edit_registration_path(resource)
 			else
 				after_sign_in_path(resource)
 			end
@@ -32,11 +32,12 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     def configure_account_create_params
-      devise_parameter_sanitizer.for(:sign_up) { |a| a.permit(:address,
+      devise_parameter_sanitizer.for(:sign_up) { |a| a.permit(:name, :company_name,
+                                                              :address,
                                                               :longitude,
                                                               :latitude,
                                                               :email,
-                                                              :password, 
+                                                              :password,
                                                               :password_confirmation) }
     end
 end

@@ -1,6 +1,13 @@
 class Users::RegistrationsController < RegistrationsController
   before_filter :configure_account_update_params, only: :update
 
+  def create
+    super
+    if @user.persisted?
+      WelcomeMailer.user_welcome(@user).deliver_later
+    end
+  end
+
   def update
     @user = User.find(current_user.id)
 
@@ -37,12 +44,12 @@ class Users::RegistrationsController < RegistrationsController
 
     def configure_account_update_params
       devise_parameter_sanitizer.for(:account_update) { |a| a.permit(:name, :email,
-                                                                     :address, 
+                                                                     :address,
                                                                      :longitude,
                                                                      :latitude,
                                                                      { categories: [] },
-                                                                     :password, 
-                                                                     :current_password, 
+                                                                     :password,
+                                                                     :current_password,
                                                                      :password_confirmation, :phone) }
     end
 end

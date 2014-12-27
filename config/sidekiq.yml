@@ -1,7 +1,7 @@
 :verbose: true
 :queues:
   - [default]
-  - [mailer]
+  - [mailers]
   - [paperclip]
 development:
   :concurrency: 10

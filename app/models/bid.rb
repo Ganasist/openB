@@ -19,14 +19,7 @@ class Bid < ActiveRecord::Base
   end
 
   def accept
-    job.bids.each do |b|
-      if b.accepted?
-        b.update!(accepted: false)
-        # send message?
-      end
-    end
-
-    update!(accepted: true)
+    update!(rejected: false, accepted: true)
     # send message
   end
 

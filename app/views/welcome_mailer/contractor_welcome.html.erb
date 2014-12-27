@@ -5,11 +5,13 @@
   </head>
   <body>
     <h4>
-      We're sorry, but your bid of $<%= @bid.cost %> for '<%= @job.title %>' was rejected.
+      Thank you for signing up on OPENBID!
     </h4>
 
     <p>
-      Consider revising your bid or checking other jobs posted in your area.
+      Your company (<%= @contractor.company_name %>) is now listed in our live
+      directory. You will receive email notifications
+      in real time concerning your bids and jobs.
     </p>
 
     <%= render '/welcome_mailer/footer.html.erb' %>
