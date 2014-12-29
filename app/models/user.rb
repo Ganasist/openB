@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
 	has_many :jobs
 
+  validates :name, presence: true
+
   def fullname
     self.name || self.email
   end

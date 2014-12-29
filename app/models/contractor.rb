@@ -18,6 +18,8 @@ class Contractor < ActiveRecord::Base
 
   has_many :examples, dependent: :destroy
 
+  validates :company_name, presence: true
+
   def self.categories
     ['Bathrooms', 'Driveways', 'Decks/patios', 'Electrical', 'Fencing', 'Flooring', 'Heating and Cooling',
      'Home','Security', 'Interior Design', 'Kitchens', 'Landscaping', 'Moving', 'New Construction',
