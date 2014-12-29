@@ -22,7 +22,11 @@ module MemberValidations
 		validates :name, presence: true, if: Proc.new { |o| !o.new_record? }
   end
 
-	def review_average(param)
+	def review_average_each(param)
 		reviews.average(param).round(1)
+	end
+
+	def review_average_total
+		reviews.sum(:quality, :cost, :timeliness, :professionalism, :recommendation)
 	end
 end

@@ -15,10 +15,10 @@ class Review < ActiveRecord::Base
             :cost,
             :timeliness,
             :professionalism,
-            :recommendability, presence: { message: 'Please provide a rating for each criteria' },
-                           numericality: { only_integer: true,
-                                                message: 'Ratings must be between 0 and 10' },
-                              inclusion: { in: 0..10,
-                                      message: 'Ratings must be between 0 and 10' }
+            :recommendation, presence: { message: 'Please provide a rating for each criteria' },
+                         numericality: { only_integer: true,
+                                              message: 'Ratings must be between 0 and 10' },
+                            inclusion: { in: 0..10,
+                                    message: 'Ratings must be between 0 and 10' }
 
 end
