@@ -21,4 +21,8 @@ class Review < ActiveRecord::Base
                             inclusion: { in: 0..10,
                                     message: 'Ratings must be between 0 and 10' }
 
+  def self.categories
+    %i(quality cost timeliness professionalism recommendation)
+  end
+
 end

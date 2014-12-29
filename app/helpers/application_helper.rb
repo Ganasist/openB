@@ -14,9 +14,9 @@ module ApplicationHelper
 		when 2..3.99
 			'label label-warning'
 		when 4..5.99
-			'label label-default'
-		when 6..7.99
 			'label label-primary'
+		when 6..7.99
+			'label label-info'
 		when 8..10
 			'label label-success'
 		else

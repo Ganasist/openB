@@ -28,7 +28,7 @@ module MemberValidations
 
 	def review_average_total
 		test = 0
-		%i(quality cost timeliness professionalism recommendation).each do |param|
+		Review.categories.each do |param|
 			test += review_average_single(param)
 		end
 		return (test / 5).round(1)
