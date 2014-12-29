@@ -21,7 +21,7 @@ class Contractor < ActiveRecord::Base
   validates :company_name, presence: true
 
   def self.categories
-    ['Bathrooms', 'Driveways', 'Decks/patios', 'Electrical', 'Fencing', 'Flooring', 'Heating and Cooling',
+    ['Art', 'Bathrooms', 'Custom Furniture', 'Driveways', 'Decks / Patios', 'Electrical', 'Fencing', 'Flooring', 'Heating and Cooling',
      'Home','Security', 'Interior Design', 'Kitchens', 'Landscaping', 'Moving', 'New Construction',
     	'Painting', 'Pest Control', 'Pools', 'Plumbing', 'Remodel', 'Roofing', 'Siding',
     	'Stone and Gravel', 'Windows and Doors']
