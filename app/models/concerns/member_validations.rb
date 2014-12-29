@@ -31,6 +31,6 @@ module MemberValidations
 		Review.categories.each do |param|
 			test += review_average_single(param)
 		end
-		return (test / 5).round(1)
+		return (test / Review.categories.length).round(1)
 	end
 end

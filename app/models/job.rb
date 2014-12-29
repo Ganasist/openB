@@ -45,7 +45,6 @@ class Job < ActiveRecord::Base
     state :searching, initial: true
     state :in_progress
     state :complete
-    state :incomplete
     state :cancelled
 
     event :activate, before: :set_contractor do
@@ -57,15 +56,11 @@ class Job < ActiveRecord::Base
     end
 
     event :mark_as_complete do
-      transitions from: [:in_progress, :incomplete], to: :complete
-    end
-
-    event :mark_as_incomplete do
-      transitions from: [:in_progress, :complete], to: :incomplete
+      transitions from: [:in_progress], to: :complete
     end
 
     event :cancel, before: :cancel_job do
-      transitions from: [:searching, :in_progress, :incomplete], to: :cancelled
+      transitions from: [:searching, :in_progress], to: :cancelled
     end
   end
 

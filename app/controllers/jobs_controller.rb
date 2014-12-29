@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
   respond_to :html
   before_action :set_job, only: [:show, :edit, :update, :destroy, :resume_search,
-                                 :mark_as_complete, :mark_as_incomplete, :cancel_job]
+                                 :mark_as_complete, :cancel_job]
   before_action :user_check, only: [:edit, :update, :destroy]
   before_action :block_visitors
 
@@ -73,18 +73,6 @@ class JobsController < ApplicationController
     @job.mark_as_complete!
     if @job.contractor_id.nil?
       redirect_to current_user, notice: "Your job '#{ @job.title }' has been marked as complete."
-    elsif @job.review.nil?
-      redirect_to new_job_review_path(@job)
-    else
-      redirect_to edit_job_review_path(@job)
-    end
-  end
-
-  # make sure current_user owns this job....
-  def mark_as_incomplete
-    @job.mark_as_incomplete!
-    if @job.contractor_id.nil?
-      redirect_to current_user, notice: "Your job '#{ @job.title }' has been marked as incomplete."
     elsif @job.review.nil?
       redirect_to new_job_review_path(@job)
     else

@@ -9,14 +9,6 @@
         <% end %>
       </li>
       <% end %>
-      <% unless job.incomplete? %>
-        <li>
-          <%= link_to mark_as_incomplete_path(job), title: 'Mark as incomplete',
-                                                   method: :post do %>
-            <%= fa_icon 'exclamation-triangle 2x', class: 'text-warning' %>
-          <% end %>
-        </li>
-      <% end %>
     <% end %>
     <li>
       <%= link_to resume_search_path(job), title: 'Resume bid search',
@@ -25,7 +17,7 @@
       <% end %>
     </li>
   <% end %>
-  <% unless job.complete? || job.incomplete? %>
+  <% unless job.complete? %>
     <li>
       <%= link_to edit_job_path(job), title: 'Edit job details' do %>
         <%= fa_icon 'edit 2x' %>

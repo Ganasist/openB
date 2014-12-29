@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   match 'jobs/:id/resume_search' => 'jobs#resume_search', as: 'resume_search', via: :post
   match 'jobs/:id/cancel_job' => 'jobs#cancel_job', as: 'cancel_job', via: :post
   match 'jobs/:id/mark_as_complete' => 'jobs#mark_as_complete', as: 'mark_as_complete', via: :post
-  match 'jobs/:id/mark_as_incomplete' => 'jobs#mark_as_incomplete', as: 'mark_as_incomplete', via: :post
+  # match 'jobs/:id/mark_as_incomplete' => 'jobs#mark_as_incomplete', as: 'mark_as_incomplete', via: :post
 
 	mount Sidekiq::Web => '/sidekiq'
   root to: 'high_voltage/pages#show', id: 'splash'

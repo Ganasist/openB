@@ -1,7 +1,7 @@
 <h4 class="text-center">
-  Average reviews <%= member.user? ? 'given:' : 'received:' %>
-                  <span class="<%= review_badge(member) %>"><%= member.review_average_total %></span> for
-                 <%= pluralize(member.reviews.count, 'job') %>
+  Average review <%= member.user? ? 'given' : 'received' %>
+  for <%= pluralize(member.reviews.count, 'job') %>:
+  <span class="<%= review_badge(member) %>"><%= member.review_average_total %></span>
 </h4>
 <!-- <h4 class="lead">
   <strong>Quality:</strong>
