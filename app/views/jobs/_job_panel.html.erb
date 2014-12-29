@@ -7,7 +7,7 @@
         <%= render "jobs/contractor_job_buttons", job: job if contractor_signed_in? %>
 
         <span class="text-center">
-          Status: <%= job.status %>
+          Status: <%= job.status %> <%= "(#{ pluralize(job.bids.count, 'bid') })" if job.searching? %>
           <% if job.contractor %>
             with <%= link_to job.contractor.company_name, job.contractor, class: 'unstyled-link' %>
           <% end %>

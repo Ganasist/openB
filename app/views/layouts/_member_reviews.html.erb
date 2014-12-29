@@ -1,20 +1,21 @@
 <h4 class="text-center">
-  Average reviews <%= member.user? ? 'given' : 'received' %>
-                 (<%= pluralize(member.reviews.count, 'job') %>)
+  Average reviews <%= member.user? ? 'given:' : 'received:' %>
+                  <span class="<%= review_badge(member) %>"><%= member.review_average_total %></span> for
+                 <%= pluralize(member.reviews.count, 'job') %>
 </h4>
-<h4 class="lead">
+<!-- <h4 class="lead">
   <strong>Quality:</strong>
-  <%= member.review_average_each(:quality) %>/10
+  <%= member.review_average_single(:quality) %>/10
   <br>
   <strong>Cost:</strong>
-  <%= member.review_average_each(:cost) %>/10
+  <%= member.review_average_single(:cost) %>/10
   <br>
   <strong>Timeliness:</strong>
-  <%= member.review_average_each(:timeliness) %>/10
+  <%= member.review_average_single(:timeliness) %>/10
   <br>
   <strong>Professionalism:</strong>
-  <%= member.review_average_each(:professionalism) %>/10
+  <%= member.review_average_single(:professionalism) %>/10
   <br>
   <strong>Recommendation:</strong>
-  <%= member.review_average_each(:recommendation) %>/10
-</h4>
+  <%= member.review_average_single(:recommendation) %>/10
+</h4> -->
