@@ -12,6 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require underscore
+//= require json2
+//= require judge
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker/core
 //= require bootstrap-slider

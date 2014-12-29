@@ -58,5 +58,6 @@ Rails.application.routes.draw do
   # match 'jobs/:id/mark_as_incomplete' => 'jobs#mark_as_incomplete', as: 'mark_as_incomplete', via: :post
 
 	mount Sidekiq::Web => '/sidekiq'
+  mount Judge::Engine => '/judge'
   root to: 'high_voltage/pages#show', id: 'splash'
 end
