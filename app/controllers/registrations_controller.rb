@@ -1,6 +1,10 @@
 class RegistrationsController < Devise::RegistrationsController
   before_filter :configure_account_create_params, only: :create
 
+  def edit
+    @upload = current_member.upload || current_member.build_upload
+  end
+
   def create
     if verify_recaptcha
       super

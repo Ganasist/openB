@@ -2,19 +2,19 @@
 <% @cats = Contractor.categories %>
 
 <div class="row">
-  <div class="col-lg-6 col-md-6 col-xs-12">
+  <div class="col-lg-6 col-sm-6 col-xs-12">
     <div class="map_canvas_form"></div>
     <br>
   </div>
 
   <div class="authform_large col-lg-6 col-md-6 col-xs-12">
-    <%= simple_form_for resource, as: resource_name, 
+    <%= simple_form_for resource, as: resource_name,
                                  url: registration_path(resource),
-                             wrapper: :vertical_form, 
+                             wrapper: :vertical_form,
                                 html: { multipart: true, class: 'geocoder_form' },
                     wrapper_mappings: { check_boxes: :vertical_radio_and_checkboxes,
                                                file: :horizontal_file_input } do |f| %>
-      
+
       <h3>Profile</h3>
       <%= f.error_notification %>
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -22,34 +22,52 @@
       <% end %>
 
       <div class="form-inputs col-md-6 col-sm-6">
-          <%= f.input :name %>
-          <%= f.input :company_name, placeholder: 'Enter your company name' if contractor_signed_in? %>
-          <%= f.input :email, input_html: { class: 'current_email' } %>
-          <%= f.input :phone, as: :string,
-                     placeholder: 'Enter a valid full phone number',
-                      input_html: { value: resource.try(:phone) ? 
-                                            resource.phone.phony_formatted(normalize: :US, 
-                                                                              format: :international,
-                                                                              spaces: '-') : '' } %>
-          <%= f.input :address, placeholder: "#{ resource.address }", 
-                                     input_html: { class: 'geocomplete',
-                                                 data: { geo: 'formatted_address' } } %>
+        <%= f.simple_fields_for :upload do |i| %>
+            <% if resource.upload.image? %>
+              <%= image_tag(resource.upload.image.url(:medium), class: 'img-rounded').html_safe %>
+              <br>
+              <%= i.input :_destroy, as: :boolean,
+                                  label: false,
+                           inline_label: 'Remove picture',
+                           wrapper_html: { class: 'text-center' } %>
+            <% end %>
 
-          <%= render 'layouts/lat_lon_inputs', f: f %>
+            <%= i.file_field :image %>
+            <h4>or</h4>
+            <%= i.input :image_remote_url, label: 'Enter an image URL' %>
 
-          <%= f.input :search_radius, as: :string, 
-                                   label: 'Search radius (miles)',
-                                    hint: 'Job posts within this distance will show up in your feed.', 
-                              input_html: { maxlength: 3, 
-                                                style: 'width:100px' } if contractor_signed_in? %>
+            <%#= render "upload_fields", i: i %>
+          <br>
+        <% end %>
 
-          <%= f.input :description, as: :text, 
-                                 label: '',
-                           placeholder: 'Enter brief description about your services',
-                            input_html: { rows: '7', 
-                                     maxlength: 500 },
-                            label_html: { id: 'description_feedback' } if contractor_signed_in? %>
-          
+        <%= f.input :name %>
+        <%= f.input :company_name, placeholder: 'Enter your company name' if contractor_signed_in? %>
+        <%= f.input :email, input_html: { class: 'current_email' } %>
+        <%= f.input :phone, as: :string,
+                   placeholder: 'Enter a valid full phone number',
+                    input_html: { value: resource.try(:phone) ?
+                                          resource.phone.phony_formatted(normalize: :US,
+                                                                            format: :international,
+                                                                            spaces: '-') : '' } %>
+        <%= f.input :address, placeholder: "#{ resource.address }",
+                                   input_html: { class: 'geocomplete',
+                                               data: { geo: 'formatted_address' } } %>
+
+        <%= render 'layouts/lat_lon_inputs', f: f %>
+
+        <%= f.input :search_radius, as: :string,
+                                 label: 'Search radius (miles)',
+                                  hint: 'Job posts within this distance will show up in your feed.',
+                            input_html: { maxlength: 3,
+                                              style: 'width:100px' } if contractor_signed_in? %>
+
+        <%= f.input :description, as: :text,
+                               label: '',
+                         placeholder: 'Enter brief description about your services',
+                          input_html: { rows: '7',
+                                   maxlength: 500 },
+                          label_html: { id: 'description_feedback' } if contractor_signed_in? %>
+
       </div>
 
       <div class="form-inputs col-md-6 col-sm-6 col-xs-12">
@@ -57,13 +75,13 @@
       </div>
 
       <div class="form-inputs col-md-6 col-sm-6 col-xs-12">
-          <%= f.input :password, label: 'New Password (optional)', 
-                          autocomplete: 'off', 
+          <%= f.input :password, label: 'New Password (optional)',
+                          autocomplete: 'off',
                            placeholder: 'Enter new password',
                             input_html: { id: 'new_password', autocomplete: 'off' } %>
           <%= f.input :password_confirmation, label: 'New password confirmation',
                                          input_html: { id: 'new_password_confirmation', autocomplete: 'off' }  %>
-          <%= f.input :current_password, placeholder: 'Enter current password to confirm updates', 
+          <%= f.input :current_password, placeholder: 'Enter current password to confirm updates',
                                           input_html: { id: 'current_password', autocomplete: 'off' } %>
       </div>
 
@@ -74,7 +92,7 @@
           </h4>
         </div>
           <%= f.button :submit, 'Update Profile', class: 'user_submit' %>
-      </div>   
+      </div>
       <% end %>
   </div>
 

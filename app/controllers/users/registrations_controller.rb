@@ -30,9 +30,7 @@ class Users::RegistrationsController < RegistrationsController
     end
   end
 
-
   protected
-
     # check if we need password to update user data
     # ie if password or email was changed
     # extend this as needed
@@ -50,6 +48,11 @@ class Users::RegistrationsController < RegistrationsController
                                                                      { categories: [] },
                                                                      :password,
                                                                      :current_password,
-                                                                     :password_confirmation, :phone) }
+                                                                     :password_confirmation,
+                                                                     :phone,
+                                                                     upload_attributes: [:id,
+                                                                                         :image,
+                                                                                         :_destroy,
+                                                                                         :image_remote_url]) }
     end
 end

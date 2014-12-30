@@ -1,26 +1,29 @@
 <% @cats = member.categories %>
+	<% if member.upload.present? %>
+		<span id="image-<%= member.upload.id %>">
+			<%= image_tag member.upload.image.url(:medium),
+			class: 'img-rounded img-responsive' %>
+
+			<%= link_to upload_path(member.upload),
+											method: :delete, remote: true do %>
+				<br>
+				<%= fa_icon 'minus-square lg', title: 'Delete',
+																			 class: 'member_pic_delete delete-job-post pull-right' %>
+			<% end if (current_user || current_contractor) == member.upload.uploadable %>
+
+		</span>
+	<% end %>
 	<span class="text-center">
-		<%= render partial: 'layouts/pic',
-						collection: member.uploads,
-										as: :upload,
-								locals: { owner: member } %>
+		<%= @incomplete_profile_message.html_safe if @incomplete_profile_message.present? %>
+		<%= render "layouts/member_address", member: member %>
 	</span>
-	<div class="text-center">
-		<%= render partial: 'layouts/pic_upload_button',
-								locals: { item: member,
-                    item_owner: member,
-                current_member: current_user || current_contractor,
-             item_upload_count: member.uploads.count,
-                   item_status: '' } if member == (current_user || current_contractor) %>
-	</div>
-	<br>
-	<%= @incomplete_profile_message.html_safe if @incomplete_profile_message.present? %>
-	<%= render "layouts/member_address", member: member %>
 	<hr>
 	<% if member.reviews.present? %>
 		<%= render partial: 'layouts/member_reviews', locals: { member: member } %>
 	<% else %>
-		<h3 class="text-center lead">No reviews on this member</h3>
+		<h3 class="text-center lead">
+			No reviews <%= member.is_a?(User) ? 'by this member' : 'on this contractor' %>
+		</h3>
 	<% end %>
 	<hr>
 	<% if member.categories.size > 0 %>

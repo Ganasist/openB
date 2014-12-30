@@ -7,7 +7,6 @@ module GlobalConcerns
 
     has_many :comments, as: :commentable
 
-    has_many :uploads, as: :uploadable, dependent: :destroy
     before_validation :remove_blank_categories
   end
 

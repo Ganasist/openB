@@ -1,5 +1,5 @@
 <div class="panel panel-default" id="<%= example.id %>">
-  
+
   <div class="panel-heading">
     <h3 class="panel-title">
       <p>
@@ -10,15 +10,15 @@
                                            class: 'delete-job-post pull-right' %>
           <% end %>
           <%= link_to edit_example_path(example) do %>
-            <%= fa_icon 'edit 2x', 
-                        title: 'Edit', 
+            <%= fa_icon 'edit 2x',
+                        title: 'Edit',
                         class: 'pull-right' %>
           <% end %>
         <% end %>
       </p>
-      
+
       <%= render partial: 'jobs/job_category_panel', locals: { job: example } %>
-       
+
 
     </h3>
   </div>
@@ -27,24 +27,17 @@
     <div class="col-xs-12 col-md-3 text-center">
       <p class="lead">Before</p>
       <% if example.before_uploads.count > 0 %>
-        <%= render partial: 'layouts/pic', 
-                collection: example.before_uploads, 
-                        as: :upload, 
+        <%= render partial: 'layouts/pic',
+                collection: example.before_uploads,
+                        as: :upload,
                     locals: { owner: example.contractor } %>
       <% end %>
-
-      <%= render partial: 'layouts/pic_upload_button', 
-                  locals: { item: example, 
-                      item_owner: example.contractor, 
-                  current_member: current_user || current_contractor,
-               item_upload_count: example.before_uploads.count,
-                     item_status: 'before' } %>
 
       <!-- <hr class="visible-xs visible-sm"> -->
     </div>
     <div  class="col-xs-12 col-md-6">
     <hr class="visible-xs visible-sm">
-      <%= link_to example_path(example), 
+      <%= link_to example_path(example),
                   class: 'unstyled-link' do %>
         <p class="lead text-center">
           <strong>
@@ -52,28 +45,21 @@
           </strong>
         </p>
         <!-- <hr> -->
-        <%= (request.fullpath).include?('examples') ? 
-                                example.description : 
+        <%= (request.fullpath).include?('examples') ?
+                                example.description :
                                 truncate(example.description, length: 200) %>
-      <% end %> 
+      <% end %>
 
      <hr class="visible-xs visible-sm">
     </div>
     <div class="col-xs-12 col-md-3 text-center">
       <p class="text-center lead">After</p>
         <% if example.after_uploads.count > 0 %>
-          <%= render partial: 'layouts/pic', 
-                  collection: example.after_uploads, 
-                          as: :upload, 
+          <%= render partial: 'layouts/pic',
+                  collection: example.after_uploads,
+                          as: :upload,
                       locals: { owner: example.contractor } %>
         <% end %>
-
-        <%= render partial: 'layouts/pic_upload_button', 
-                    locals: { item: example, 
-                        item_owner: example.contractor, 
-                    current_member: current_user || current_contractor,
-                 item_upload_count: example.after_uploads.count,
-                       item_status: 'after' } %>
 
       <hr class="visible-xs visible-sm">
     </div>

@@ -33,13 +33,6 @@
                     locals: { owner: job.user } %>
       <% end %>
 
-      <%= render partial: 'layouts/pic_upload_button',
-                  locals: { item: job,
-                      item_owner: job.user,
-                  current_member: current_user || current_contractor,
-               item_upload_count: job.uploads.count,
-                     item_status: '' } %>
-
       <hr class="visible-xs visible-sm">
 
       <% if params[:controller] == "jobs" %>

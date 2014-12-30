@@ -1,5 +1,5 @@
 unless Rails.env.staging?
-	puts 'start zip codes seed now'
+	puts 'start zip codes seed'
 
 	Search.delete_all
 
@@ -9,5 +9,5 @@ unless Rails.env.staging?
 		Search.create!(zip_code: zip)
 	end
 
-	puts 'end zip codes seed now'
+	puts 'end zip codes seed'
 end

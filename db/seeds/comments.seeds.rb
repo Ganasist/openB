@@ -1,9 +1,9 @@
 
-puts 'start comments seed now'
+puts 'start comments seed'
 
 Comment.delete_all
 
-500.times do |u|
+100.times do |u|
 	commentable = %w(Job User Contractor Example).sample.constantize.all.sample
 	commenterable = %w(User Contractor).sample.constantize.all.sample
 	Comment.create!(subject: Faker::Name.title,
@@ -14,4 +14,4 @@ Comment.delete_all
 										 commenterable_type: commenterable.class)
 end
 
-puts 'end comments seed now'
+puts 'end comments seed'

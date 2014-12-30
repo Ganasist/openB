@@ -53,6 +53,9 @@ class Contractors::RegistrationsController < RegistrationsController
                                                                      :password,
                                                                      :current_password,
                                                                      :password_confirmation,
-                                                                     :description) }
+                                                                     :description, upload_attributes: [:id,
+                                                                                                       :image,
+                                                                                                       :_destroy,
+                                                                                                       :image_remote_url]) }
     end
 end
