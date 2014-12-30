@@ -26,7 +26,7 @@ class JobsController < ApplicationController
 
   def new
     @job = Job.new
-    respond_with(@job)
+    @job.uploads.build
   end
 
   def create

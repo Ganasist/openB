@@ -15,6 +15,20 @@
       <%= f.error_notification %>
 
       <div class="form-inputs col-lg-10 col-lg-offset-1">
+        <%= f.simple_fields_for :uploads do |i| %>
+          <% if job.uploads %>
+          <%= image_tag(job.uploads.image.url(:medium), class: 'img-rounded').html_safe %>
+          <br>
+          <%= i.input :_destroy, as: :boolean,
+          label: false,
+          inline_label: 'Remove picture',
+          wrapper_html: { class: 'text-center' } %>
+          <% end %>
+          <%= i.file_field :image %>
+          <h4>or</h4>
+          <%= i.input :image_remote_url, label: 'Enter an image URL' %>
+          <br>
+        <% end %>
         <% if type == 'job' %>
               <%= f.input :address, placeholder: "#{ current_user.address }",
                                      input_html: { class: 'geocomplete',

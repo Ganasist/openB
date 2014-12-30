@@ -4,7 +4,7 @@ class Upload < ActiveRecord::Base
 
   has_attached_file :image, styles: { thumb: '100x100>',
 																  	 medium: '300x300>',
-  																 original: '800x800>' }, default_url: ''
+  																 original: '800x800>' }
 
   validates_attachment :image, size: { in: 0..3.megabytes,
   																message: 'Picture must be less than 3 megabytes' }

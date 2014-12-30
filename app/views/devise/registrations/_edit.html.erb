@@ -31,12 +31,9 @@
                            inline_label: 'Remove picture',
                            wrapper_html: { class: 'text-center' } %>
             <% end %>
-
             <%= i.file_field :image %>
             <h4>or</h4>
             <%= i.input :image_remote_url, label: 'Enter an image URL' %>
-
-            <%#= render "upload_fields", i: i %>
           <br>
         <% end %>
 
