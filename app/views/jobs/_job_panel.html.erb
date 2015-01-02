@@ -31,7 +31,7 @@
                 collection: job.uploads,
                         as: :upload,
                     locals: { owner: job.user } %>
-      <% else %>
+      <% elsif job.searching? %>
         <h1>
           <%= link_to 'UPLOAD JOB PICS', new_job_upload_path(job), class: 'unstyled-link' %>
         </h1>
