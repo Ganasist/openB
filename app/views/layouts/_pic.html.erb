@@ -4,7 +4,7 @@
 												 class: 'img-rounded img-responsive',
 												  data: { toggle: 'modal',
 												  				target: "#myModal-#{ upload.id }" } %>
-    <%= link_to polymorphic_url([upload.uploadable, upload]),
+    <%= link_to upload_path(upload),
     						method: :delete,
     						remote: true do %>
     	<br>
@@ -12,7 +12,5 @@
       						title: 'Delete',
       						class: 'member_pic_delete delete-job-post pull-right' %>
 	  <% end if (current_user || current_contractor) == owner %>
-
-		<hr>
 	</span>
 <% end %>

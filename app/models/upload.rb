@@ -14,9 +14,7 @@ class Upload < ActiveRecord::Base
 
 	process_in_background :image, processing_image_url: 'ajax-loader.gif'
 
-	attr_accessor :delete_image
 	attr_reader :image_remote_url
-	before_validation { image.clear if delete_image == '1' }
 
 	def image_remote_url=(url_value)
 		if url_value.present?

@@ -26,11 +26,12 @@ class JobsController < ApplicationController
 
   def new
     @job = Job.new
-    @job.uploads.build
+    # @job.uploads.build
   end
 
   def create
     @job = Job.new(job_params)
+    # @job.uploads.build
     @job.user = current_user
     if @job.save
       JobMailer.create(@job).deliver_later
@@ -42,7 +43,7 @@ class JobsController < ApplicationController
   end
 
   def edit
-
+    @job.uploads.build
   end
 
   def update
@@ -113,6 +114,7 @@ class JobsController < ApplicationController
 
     def job_params
       params.require(:job).permit(:state, :address, :longitude, :latitude, :phone,
-                                  :title, :bidding_period, :description, { categories: [] })
+                                  :title, :bidding_period, :description, { categories: [] },
+                                  uploads_attributes: [:id, :image, :_destroy, :image_remote_url])
     end
 end

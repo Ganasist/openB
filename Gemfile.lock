@@ -233,6 +233,10 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rack-tracker (0.3.0)
+      activesupport (>= 3.0)
+      rack (>= 1.4.0)
+      tilt (~> 1.4.1)
     railroady (1.2.0)
     rails (4.2.0.beta2)
       actionmailer (= 4.2.0.beta2)
@@ -411,6 +415,7 @@ DEPENDENCIES
   pg_search
   phony_rails
   quiet_assets
+  rack-tracker
   railroady
   rails (~> 4.2.0.beta2)
   rails_12factor

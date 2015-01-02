@@ -1,6 +1,6 @@
 <tr>
 	<td class="text-center">
-	 	<% if context.uploads.exists? %>
+	 	<% if context.uploads.present? %>
 			<%= link_to image_tag(context.uploads.first.image(:thumb), class: 'img-rounded img-responsive'), context %><br>
 		<% end %>
 		<%= context.is_a?(Job) ? (link_to context.title, context) : (link_to context.fullname, context)  %> <br>
