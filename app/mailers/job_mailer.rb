@@ -1,5 +1,5 @@
-class JobMailer < ActionMailer::Base
-  
+class JobMailer < ApplicationMailer
+
   def create(job)
     @job = job
     @user = job.user

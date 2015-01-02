@@ -25,14 +25,11 @@ class JobsController < ApplicationController
   end
 
   def new
-    @job = Job.new
-    # @job.uploads.build
+    @job = current_user.jobs.build
   end
 
   def create
-    @job = Job.new(job_params)
-    # @job.uploads.build
-    @job.user = current_user
+    @job = current_user.jobs.new(job_params)
     if @job.save
       JobMailer.create(@job).deliver_later
       flash[:notice] = 'Job was successfully created.'
@@ -43,7 +40,7 @@ class JobsController < ApplicationController
   end
 
   def edit
-    @job.uploads.build
+
   end
 
   def update
@@ -83,7 +80,6 @@ class JobsController < ApplicationController
 
   # make sure current_user owns this job....
   def cancel_job
-    # @job = Job.find(params[:id])
     @job.cancel!
     if @job.contractor_id.nil?
       redirect_to current_user, notice: "Your job '#{ @job.title }' has been cancelled."
@@ -114,7 +110,6 @@ class JobsController < ApplicationController
 
     def job_params
       params.require(:job).permit(:state, :address, :longitude, :latitude, :phone,
-                                  :title, :bidding_period, :description, { categories: [] },
-                                  uploads_attributes: [:id, :image, :_destroy, :image_remote_url])
+                                  :title, :bidding_period, :description, { categories: [] })
     end
 end

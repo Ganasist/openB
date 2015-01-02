@@ -11,5 +11,4 @@ class WelcomeMailer < ApplicationMailer
     mail(to: @user.email,
     subject: 'OPENBID Registration Confirmation')
   end
-
 end

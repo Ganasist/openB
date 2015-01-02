@@ -1,4 +1,5 @@
 class UploadsController < ApplicationController
+  before_action :get_uploadable, except: :destroy
 
   def new
   	@upload = @uploadable.uploads.build
@@ -26,6 +27,10 @@ class UploadsController < ApplicationController
   end
 
   private
+    def get_uploadable
+      @uploadable = params[:uploadable].classify.constantize.find(uploadable_id)
+    end
+
     def uploadable_id
       params[(params[:uploadable].singularize + "_id").to_sym]
     end
