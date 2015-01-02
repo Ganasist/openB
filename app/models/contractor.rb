@@ -45,7 +45,7 @@ class Contractor < ActiveRecord::Base
   end
 
   def fullname
-    self.company_name || self.name || self.email
+    self.name || self.email
   end
 
   def user?
