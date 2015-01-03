@@ -5,15 +5,15 @@
 	    <h2>FIND CONTRACTORS FOR YOUR <u>TOUGHEST</u> <span class="green">PROJECTS</span></h2>
 	    <ul class="list-inline">
 	    	<li>
-          <%= link_to new_user_registration_path, class: 'btn btn-success btn-lg', 
+          <%= link_to new_user_registration_path, class: 'btn btn-success btn-lg',
                                                      id: 'user_sign_up' do %>
             <%= fa_icon 'wrench', title: 'User' %> Post a job
           <% end %>
         </li>
 			  <li>
-          <%= link_to page_path('how'), class: 'btn btn-info btn-lg', 
+          <%= link_to page_path('how'), class: 'btn btn-info btn-lg',
                                                          id: 'learn_more' do %>
-           <%= fa_icon 'info', title: 'Info' %> Learn More                            
+           <%= fa_icon 'info', title: 'Info' %> Learn More
           <% end %>
         </li>
 	    </ul>
@@ -34,23 +34,23 @@
     <div class="col-lg-4">
       <%= image_tag 'Landscaping.png', class: 'img-responsive' %>
       <h4 class="lead">Landscaping</h4>
-      <h5 class="splash_green">456 Bids</h5>
+      <!-- <h5 class="splash_green">456 Bids</h5> -->
     </div>
 
     <div class="col-lg-4">
       <%= image_tag 'Remodel.png', class: 'img-responsive' %>
       <h4 class="lead">Remodel</h4>
-      <h5 class="splash_green">185 Bids</h5>
+      <!-- <h5 class="splash_green">185 Bids</h5> -->
     </div>
 
     <div class="col-lg-4">
       <%= image_tag 'Roofing.png', class: 'img-responsive' %>
       <h4 class="lead">Roofing</h4>
-      <h5 class="splash_green">347 Bids</h5>
+      <!-- <h5 class="splash_green">347 Bids</h5> -->
     </div>
 
     <div class="col-lg-4 col-lg-offset-4">
-      <%= link_to 'VIEW ALL CATEGORIES', page_path('categories'), 
+      <%= link_to 'VIEW ALL CATEGORIES', page_path('categories'),
                                          class: 'btn btn-success btn-lg',
                                             id: 'view_all_categories'  %>
     </div>
@@ -66,8 +66,8 @@
     <div class="col-md-3"><%= image_tag 'ipadmini.jpg', class: 'img-responsive', id: 'ipadmini' %></div>
     <br>
     <div class="col-xs-12">
-      <%= link_to 'SIGN-UP', new_user_registration_path, 
+      <%= link_to 'SIGN-UP', new_user_registration_path,
                                          class: 'btn btn-success btn-lg',
                                             id: 'view_all_categories'  %>
-    </div>  
+    </div>
 </div>

@@ -5,7 +5,9 @@ class Contractor < ActiveRecord::Base
   include GlobalConcerns
   include PgSearch
 
-  after_commit :search_radius_check, on: [:create, :update]
+  after_commit :search_radius_check, on: [:create, :update],
+                                     if: Proc.new { |c| c.search_radius.blank? }
+
   validates :search_radius, numericality: { only_integer: true,
                                              allow_blank: true,
                                             greater_than: 0,
@@ -33,15 +35,15 @@ class Contractor < ActiveRecord::Base
   end
 
   def search_radius_check
-    self.search_radius = 50 if self.search_radius.blank?
+    update_columns(search_radius: 50)
   end
 
   def complete_profile?
-    self.name.present? &&
-    self.company_name.present? &&
-    self.address.present? &&
-    self.description.present? &&
-    self.categories.present?
+    name.present? &&
+    company_name.present? &&
+    address.present? &&
+    description.present? &&
+    categories.present?
   end
 
   def fullname

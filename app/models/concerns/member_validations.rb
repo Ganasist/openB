@@ -18,8 +18,6 @@ module MemberValidations
 
 		phony_normalize :phone, default_country_code: 'US'
 		validates :phone, phony_plausible: true
-
-		validates :name, presence: true, if: Proc.new { |o| !o.new_record? }
   end
 
 	def review_average_single(param)
