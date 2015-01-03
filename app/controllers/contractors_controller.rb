@@ -16,16 +16,19 @@ class ContractorsController < ApplicationController
   end
 
   def show
-    @contractor = Contractor.includes(:examples, :bids, :comments).find(params[:id])
+    @contractor = Contractor.includes(:examples, :bids)
+                            .find(params[:id])
 
     if (current_contractor == @contractor) && !@contractor.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
+
     @examples = @contractor.examples
                            .includes(:uploads)
                            .order(updated_at: :desc)
                            .page(params[:examples])
-    @comments = @contractor.comments.page(params[:comments])
+
+    # @comments = @contractor.comments.page(params[:comments])
 
     @job_feed = Job.near(@contractor, @contractor.search_radius)
                .relevant_categories(@contractor.categories)
@@ -33,14 +36,17 @@ class ContractorsController < ApplicationController
                .includes([:user, :uploads])
                .order(updated_at: :desc)
 
-    @current_jobs = Job.where(contractor: @contractor).order(updated_at: :desc)
+    @current_jobs = Job.where(contractor: @contractor)
+                       .order(updated_at: :desc)
 
-    @jobs = Kaminari.paginate_array(@current_jobs + @job_feed).page(params[:jobs])
-
+    @jobs = Kaminari.paginate_array(@current_jobs + @job_feed)
+                    .page(params[:jobs])
 
     @bids = @contractor.bids
+                       .includes(:job)
                        .order(updated_at: :desc)
                        .page(params[:bids]).per(28)
+
     @reviews = @contractor.reviews
                           .order(updated_at: :desc)
                           .page(params[:reviews]).per(5)
