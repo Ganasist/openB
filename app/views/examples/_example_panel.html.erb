@@ -1,5 +1,4 @@
-<div class="panel panel-default" id="<%= example.id %>">
-
+<div class="panel panel-default" id="example-<%= example.id %>">
   <div class="panel-heading">
     <h3 class="panel-title">
       <p>
@@ -16,10 +15,7 @@
           <% end %>
         <% end %>
       </p>
-
       <%= render partial: 'jobs/job_category_panel', locals: { job: example } %>
-
-
     </h3>
   </div>
 
@@ -31,12 +27,18 @@
                 collection: example.before_uploads,
                         as: :upload,
                     locals: { owner: example.contractor } %>
+      <% else %>
+        <%= render partial: 'layouts/pic_upload_button',
+                    locals: { item: example,
+                        item_owner: example.contractor,
+                    current_member: current_user || current_contractor,
+                      item_status: 'before' } %>
       <% end %>
 
       <!-- <hr class="visible-xs visible-sm"> -->
     </div>
     <div  class="col-xs-12 col-md-6">
-    <hr class="visible-xs visible-sm">
+      <hr class="visible-xs visible-sm">
       <%= link_to example_path(example),
                   class: 'unstyled-link' do %>
         <p class="lead text-center">
@@ -54,12 +56,18 @@
     </div>
     <div class="col-xs-12 col-md-3 text-center">
       <p class="text-center lead">After</p>
-        <% if example.after_uploads.count > 0 %>
-          <%= render partial: 'layouts/pic',
-                  collection: example.after_uploads,
-                          as: :upload,
-                      locals: { owner: example.contractor } %>
-        <% end %>
+      <% if example.after_uploads.count > 0 %>
+        <%= render partial: 'layouts/pic',
+                collection: example.after_uploads,
+                        as: :upload,
+                    locals: { owner: example.contractor } %>
+      <% else %>
+        <%= render partial: 'layouts/pic_upload_button',
+                    locals: { item: example,
+                        item_owner: example.contractor,
+                    current_member: current_user || current_contractor,
+                       item_status: 'after' } %>
+      <% end %>
 
       <hr class="visible-xs visible-sm">
     </div>

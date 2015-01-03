@@ -1,0 +1,9 @@
+<%# if item_upload_count >= 3 && item_owner == current_member %>
+  <%#= link_to 'Upload a pic', new_polymorphic_url([item, Upload], status: item_status),
+                id: "#{ item.class.name + "-" + item.id.to_s }-upload-pic-button",
+                class: "btn btn btn-danger disabled #{ item_status }" if current_member == item_owner %>
+<%# else %>
+  <%= link_to 'Upload a pic', new_polymorphic_url([item, Upload], status: item_status),
+                            id: "#{ item.class.name + "-" + item.id.to_s  }-upload-pic-button",
+                         class: "btn btn btn-success #{ item_status }" if current_member == item_owner %>
+<%# end %>

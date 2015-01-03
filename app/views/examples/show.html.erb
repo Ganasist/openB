@@ -1,15 +1,12 @@
 <div class="container">
-  <%= render partial: 'layouts/image_modal', 
-          collection: @example.uploads, 
+  <%= render partial: 'layouts/image_modal',
+          collection: @example.uploads,
                   as: :upload %>
 
   <div class="row">
     <div class="col-xs-12">
-      <%= render 'example_panel', 
-                  example: @example %>
+      <%= render 'example_panel', example: @example %>
     </div>
-    
     <%= render 'layouts/back_to_profile' %>
-    
   </div>
 </div>
