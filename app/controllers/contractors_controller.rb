@@ -16,7 +16,7 @@ class ContractorsController < ApplicationController
   end
 
   def show
-    @contractor = Contractor.includes(:examples, :bids)
+    @contractor = Contractor.includes(examples: :uploads, bids: :job)
                             .find(params[:id])
 
     if (current_contractor == @contractor) && !@contractor.complete_profile?
@@ -24,7 +24,6 @@ class ContractorsController < ApplicationController
     end
 
     @examples = @contractor.examples
-                           .includes(:uploads)
                            .order(updated_at: :desc)
                            .page(params[:examples])
 
@@ -43,7 +42,6 @@ class ContractorsController < ApplicationController
                     .page(params[:jobs])
 
     @bids = @contractor.bids
-                       .includes(:job)
                        .order(updated_at: :desc)
                        .page(params[:bids]).per(28)
 

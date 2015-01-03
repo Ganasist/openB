@@ -4,7 +4,12 @@
 												 class: 'img-rounded img-responsive',
 												  data: { toggle: 'modal',
 												  				target: "#myModal-#{ upload.id }" } %>
-    <%= link_to upload_path(upload),
+
+		<% unless (current_user || current_contractor) == owner %>
+			<br>
+		<% end %>
+
+		<%= link_to upload_path(upload),
     						method: :delete,
     						remote: true do %>
     	<br>

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:edit, :update, :destroy]
   before_filter :authenticate_user!, only: :destroy
   # before_filter :user_privacy, except: :index
   before_filter :admin_only, except: :show
@@ -9,13 +9,16 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.includes(:upload, :reviews, jobs: [:uploads, :bids]).find(params[:id])                
+
     if (current_user == @user) && !current_user.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
-    @comments = @user.comments.page(params[:comments])
+    # @comments = @user.comments.page(params[:comments])
     @jobs = @user.jobs
                  .order(created_at: :desc)
                  .page(params[:jobs])
+
     @reviews = @user.reviews
                     .order(created_at: :desc)
                     .page(params[:reviews])
