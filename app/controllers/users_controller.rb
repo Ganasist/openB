@@ -2,15 +2,14 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :destroy]
   before_filter :authenticate_user!, only: :destroy
   # before_filter :user_privacy, except: :index
-  before_filter :admin_only, except: :show
+  # before_filter :admin_only, except: :show
 
   def index
-    @users = User.all
+    redirect_to root_path
   end
 
   def show
-    @user = User.includes(:upload, :reviews, jobs: [:uploads, :bids]).find(params[:id])                
-
+    @user = User.includes(:upload, :reviews, jobs: [:uploads, :bids]).find(params[:id])
     if (current_user == @user) && !current_user.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
@@ -41,11 +40,11 @@ class UsersController < ApplicationController
       end
     end
 
-    def admin_only
-      unless current_user.admin?
-        redirect_to :back, :alert => "Access denied."
-      end
-    end
+    # def admin_only
+    #   unless current_user.admin?
+    #     redirect_to :back, :alert => "Access denied."
+    #   end
+    # end
 
     def secure_params
       params.require(:user).permit(:role)

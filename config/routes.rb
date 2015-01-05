@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   # end
 
 	devise_for :users, controllers: { registrations: 'users/registrations',
-                                          sessions: 'sessions' }
+                                         sessions: 'sessions' }
 
 	devise_for :contractors, controllers: { registrations: 'contractors/registrations',
                                                sessions: 'sessions' }
@@ -39,13 +39,16 @@ Rails.application.routes.draw do
   end
 
   resources :jobs, concerns: [:uploadable, :commentable, :reviewable],
-                   defaults: { uploadable: 'job', commentable: 'job', reviewable: 'job' } do
+                   defaults: { uploadable: 'job',
+                              commentable: 'job',
+                               reviewable: 'job' } do
     resources :bids, only: [:create, :show, :update, :destroy]
     resource :review
   end
 
   resources :examples, concerns: [:uploadable, :commentable],
-                       defaults: { uploadable: 'example', commentable: 'example' }
+                       defaults: { uploadable: 'example',
+                                  commentable: 'example' }
 
   resources :bids, only: :destroy
 
@@ -57,7 +60,6 @@ Rails.application.routes.draw do
   match 'jobs/:id/resume_search' => 'jobs#resume_search', as: 'resume_search', via: :post
   match 'jobs/:id/cancel_job' => 'jobs#cancel_job', as: 'cancel_job', via: :post
   match 'jobs/:id/mark_as_complete' => 'jobs#mark_as_complete', as: 'mark_as_complete', via: :post
-  # match 'jobs/:id/mark_as_incomplete' => 'jobs#mark_as_incomplete', as: 'mark_as_incomplete', via: :post
 
 	mount Sidekiq::Web => '/sidekiq'
   root to: 'high_voltage/pages#show', id: 'splash'

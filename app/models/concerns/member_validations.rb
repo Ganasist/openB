@@ -2,11 +2,18 @@
 module MemberValidations
 	extend ActiveSupport::Concern
 	included do
-		has_one :upload, as: :uploadable, dependent: :destroy
-		accepts_nested_attributes_for :upload, reject_if: :all_blank, allow_destroy: true
+		acts_as_messageable
 
-		has_many :comments, as: :commenterable, dependent: :destroy
-		has_many :reviews, as: :reviewerable, dependent: :destroy
+		has_one :upload, as: :uploadable,
+							dependent: :destroy
+		accepts_nested_attributes_for :upload, reject_if: :all_blank,
+																			 allow_destroy: true
+
+		has_many :comments, as: :commenterable,
+								 dependent: :destroy
+		has_many :reviews, as: :reviewerable,
+								dependent: :destroy
+
 		validates :categories, presence: true,
 														 length: { minimum: 1,
 														 					 maximum: 4,
@@ -19,6 +26,14 @@ module MemberValidations
 		phony_normalize :phone, default_country_code: 'US'
 		validates :phone, phony_plausible: true
   end
+
+	def mailboxer_email(object)
+		return self.email
+	end
+
+	def mailboxer_name
+		self.fullname
+	end
 
 	def review_average_single(param)
 		reviews.average(param).round(1)

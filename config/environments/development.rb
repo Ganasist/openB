@@ -29,6 +29,8 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  config.log_level = :debug
+
   config.action_mailer.smtp_settings = {
     address: 'localhost',
     port: 1025,
