@@ -6,7 +6,7 @@ $(document).ready ->
   # grab our upload form by its id
   $("#new_upload").dropzone
 
-    # restrict image size to a maximum 3MB and number of files to 3
+    # restrict image size to a maximum 3MB and number of files to 4
     maxFilesize: 3
     maxFiles: 4
 
@@ -35,20 +35,18 @@ $(document).ready ->
 
     #when the remove button is clicked
     removedfile: (file) ->
-      # grab the current path withou the trailing '/new'
-      url = window.location.pathname.split( 'new' )[0]
-
       # grab the id of the uploaded file we set earlier
       id = $(file.previewTemplate).find(".dz-remove").attr("id")
 
       if id != undefined
+        console.log('Is not undefined')
         $(file.previewElement).removeClass("dz-success").addClass("dz-error")
         $(file.previewElement).fadeOut(1000)
 
         # make a DELETE ajax request to delete the file
         $.ajax
           type: "POST"
-          url: url + id
+          url: "/uploads/" + id
           dataType: "json"
           data: { "_method":"delete" }
           success: (data) ->

@@ -9,17 +9,28 @@ Rails.application.routes.draw do
 
   resources :uploads, only: :destroy
 
-  concern :commentable do
-    resources :comments, only: [:destroy]
-  end
+  # concern :messageable do
+    resources :messages do
+      member do
+        post :new
+      end
+    end
+    resources :conversations do
+      member do
+        post :reply
+        post :trash
+        post :untrash
+      end
+      collection do
+        get :trashbin
+        post :empty_trash
+      end
+    end
+  # end
 
   concern :reviewable do
     resource :review, only: [:new, :create, :edit, :update, :destroy]
   end
-
-  # concern :reviewerable do
-  #   resource :review, only: [:new, :create, :edit, :update, :destroy]
-  # end
 
 	devise_for :users, controllers: { registrations: 'users/registrations',
                                          sessions: 'sessions' }
@@ -28,27 +39,23 @@ Rails.application.routes.draw do
                                                sessions: 'sessions' }
 
   resources :users, only: [:show, :index, :destroy],
-                concerns: [:uploadable, :commentable],
-                defaults: { uploadable: 'user',
-                           commentable: 'user' }
+                concerns: [:uploadable],
+                defaults: { uploadable: 'user' }
 
   resources :contractors, only: [:show, :index],
-                      concerns: [:uploadable, :commentable],
-                      defaults: { uploadable: 'contractor',
-                                 commentable: 'contractor' } do
+                      concerns: [:uploadable],
+                      defaults: { uploadable: 'contractor' } do
   end
 
-  resources :jobs, concerns: [:uploadable, :commentable, :reviewable],
+  resources :jobs, concerns: [:uploadable, :reviewable],
                    defaults: { uploadable: 'job',
-                              commentable: 'job',
                                reviewable: 'job' } do
     resources :bids, only: [:create, :show, :update, :destroy]
     resource :review
   end
 
-  resources :examples, concerns: [:uploadable, :commentable],
-                       defaults: { uploadable: 'example',
-                                  commentable: 'example' }
+  resources :examples, concerns: [:uploadable],
+                       defaults: { uploadable: 'example' }
 
   resources :bids, only: :destroy
 

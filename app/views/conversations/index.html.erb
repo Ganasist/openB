@@ -1,0 +1,46 @@
+<table class="table table-hover">
+  <thead>
+    <th width="20%">
+      Received
+    </th>
+    <th width="20%">
+      Sender
+    </th>
+    <th width="40%">
+      Subject
+    </th>
+    <th width="20%">
+      Actions
+    </th>
+  </thead>
+  <tbody>
+    <% @conversations.each do |conversation| %>
+      <tr>
+        <td>
+          <%= conversation.updated_at.strftime("%a %_m/%-d/%y %I:%M %p") %>
+        </td>
+        <td>
+          <% conversation.participants.each do |participant| %>
+            <% if participant != current_user %>
+            <%= link_to participant.fullname, participant, class: "unstyled-link" %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to conversation.subject, reply_conversation_path(conversation.id) %>
+        </td>
+        <td>
+          trash method?
+          <%#= link_to 'Move to Trash', { controller: 'conversations',
+                                             action: 'trash',
+                                                 id: conversation.id }, title: 'Move to Trash',
+                                                                       method: 'post' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+  <%# if participant != current_user %>
+    <%#= participant.name, participant %>
+  <%# end %>

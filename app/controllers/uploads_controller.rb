@@ -8,7 +8,7 @@ class UploadsController < ApplicationController
   def create
   	@upload = @uploadable.uploads.build(upload_params)
   	if @upload.save
-  	  render json: { message: "success", fileID: @upload.id }, status: 200
+  	  render json: { message: 'success', fileID: @upload.id }, status: 200
   	else
   	  #  you need to send an error header, otherwise Dropzone
       #  will not interpret the response as an error:

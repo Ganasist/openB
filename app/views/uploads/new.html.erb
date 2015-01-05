@@ -1,22 +1,22 @@
-<% title "Picture Upload" %>
+<% title 'Picture Upload' %>
 
 <div class="container">
 	<div class="row">
 		<%= simple_form_for [@uploadable, @upload], html: { multipart: true, class: 'dropzone' } do |f|  %>
-		  <% if params[:status] == "before" %>
+		  <% if params[:status] == 'before' %>
 		  	<%= f.input :before, as: :hidden, input_html: { value: true } %>
-		  <% elsif params[:status] == "after" %>
+		  <% elsif params[:status] == 'after' %>
 		  	<%= f.input :after, as: :hidden, input_html: { value: true } %>
 	  	<% end %>
 
 		  <div class="fallback">
-		  	<% if params[:status] == "before" %>
+		  	<% if params[:status] == 'before' %>
 			  	<%= f.input :before, as: :hidden, input_html: { value: true } %>
-			  <% elsif params[:status] == "after" %>
+			  <% elsif params[:status] == 'after' %>
 			  	<%= f.input :after, as: :hidden, input_html: { value: true } %>
 		  	<% end %>
 		    <%= f.file_field :image %><br>
-		    <%= f.submit "Upload" %>
+		    <%= f.submit 'Upload' %>
 		  </div>
 		<% end %>
 		<br>
