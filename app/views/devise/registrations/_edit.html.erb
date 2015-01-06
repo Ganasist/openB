@@ -68,7 +68,9 @@
       </div>
 
       <div class="form-inputs col-md-6 col-sm-6 col-xs-12">
-        <%= render 'layouts/category_select', f: f %>
+        <%= render partial: 'layouts/category_select',
+                    locals: { f: f,
+                      statement: 'Select your categories of interest' } %>
       </div>
 
       <div class="form-inputs col-md-6 col-sm-6 col-xs-12">

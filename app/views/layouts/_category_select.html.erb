@@ -1,4 +1,6 @@
-<p class="lead text-center">Select categories of interest</p>
+<p class="lead text-center">
+  <%= statement %>
+</p>
 <% @cats.in_groups_of((@cats.size/2.0).ceil, false).each do |cats| %>
   <ul class="list-unstyled col-xs-6">
     <li>
@@ -6,5 +8,5 @@
                             label: false,
                        collection: cats %>
     </li>
-  </ul> 
+  </ul>
 <% end %>

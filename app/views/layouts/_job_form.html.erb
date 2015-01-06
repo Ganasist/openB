@@ -78,7 +78,9 @@
 
 
       <div class="form-inputs col-xs-12">
-        <%= render 'layouts/category_select', f: f %>
+        <%= render partial: 'layouts/category_select',
+                    locals: { f: f,
+                      statement: 'Select categories for this job post' } %>
       </div>
 
       </div>
