@@ -2,6 +2,8 @@
 module MemberValidations
 	extend ActiveSupport::Concern
 	included do
+		acts_as_messageable
+
 		has_one :upload, as: :uploadable,
 							dependent: :destroy
 		accepts_nested_attributes_for :upload, reject_if: :all_blank,
