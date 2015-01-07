@@ -11,6 +11,12 @@ Sidekiq.configure_server do |config|
   					 namespace: "openbid_#{ Rails.env }" }
   config.poll_interval = 5
 
+  database_url = ENV['DATABASE_URL']
+  if database_url
+    ENV['DATABASE_URL'] = "#{ database_url }?pool=#{ ENV['DB_POOL'] }"
+    ActiveRecord::Base.establish_connection
+  end
+
   config.on(:startup) do
     puts 'Worker starting up!'
   end
