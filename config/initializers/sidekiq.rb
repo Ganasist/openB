@@ -7,7 +7,7 @@ end
 
 Sidekiq.configure_server do |config|
   config.redis = { url: ENV['REDISTOGO_URL'],
-  								size: 10,
+  								size: 8,
   					 namespace: "openbid_#{ Rails.env }" }
   config.poll_interval = 5
 
@@ -24,6 +24,6 @@ end
 
 Sidekiq.configure_client do |config|
   config.redis = { url: ENV['REDISTOGO_URL'],
-  								size: 2,
+  								size: 1,
   					 namespace: "openbid_#{ Rails.env }" }
 end
