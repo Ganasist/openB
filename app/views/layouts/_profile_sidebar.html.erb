@@ -9,14 +9,22 @@
 				<br>
 				<%= fa_icon 'minus-square lg', title: 'Delete',
 																			 class: 'member_pic_delete delete-job-post pull-right' %>
-			<% end if (current_user || current_contractor) == member.upload.uploadable %>
-
+			<% end if current_member == member.upload.uploadable %>
 		</span>
 	<% end %>
-	<span class="text-center">
-		<%= @incomplete_profile_message.html_safe if @incomplete_profile_message.present? %>
-		<%= render "layouts/member_address", member: member %>
-	</span>
+
+	<% if current_member == member %>
+		<span class="text-center">
+			<%= @incomplete_profile_message.html_safe if @incomplete_profile_message.present? %>
+			<%= render 'layouts/member_address', member: member %>
+		</span>
+	<% end %>
+
+
+	<%#= render 'layouts/message_modal', member: member %>
+
+	<%= button_tag 'TEST', class: 'btn btn-primary', data: { toggle: 'modal', target: '#messageModal' } %>
+
 	<hr>
 	<% if member.reviews.present? %>
 		<%= render partial: 'layouts/member_reviews', locals: { member: member } %>

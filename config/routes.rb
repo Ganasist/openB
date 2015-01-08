@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
   resources :uploads, only: :destroy
 
-  resources :messages
+  concern :messageable do
+    resources :messages
+  end
 
   concern :reviewable do
     resource :review, only: [:new, :create, :edit, :update, :destroy]
@@ -22,12 +24,12 @@ Rails.application.routes.draw do
                                                sessions: 'sessions' }
 
   resources :users, only: [:show, :index, :destroy],
-                concerns: [:uploadable],
-                defaults: { uploadable: 'user' }
+                concerns: [:uploadable, :messageable],
+                defaults: { uploadable: 'user', messageable: 'user' }
 
   resources :contractors, only: [:show, :index],
-                      concerns: [:uploadable],
-                      defaults: { uploadable: 'contractor' } do
+                      concerns: [:uploadable, :messageable],
+                      defaults: { uploadable: 'contractor', messageable: 'contractor' } do
   end
 
   resources :jobs, concerns: [:uploadable, :reviewable],
@@ -50,6 +52,9 @@ Rails.application.routes.draw do
   match 'jobs/:id/resume_search' => 'jobs#resume_search', as: 'resume_search', via: :post
   match 'jobs/:id/cancel_job' => 'jobs#cancel_job', as: 'cancel_job', via: :post
   match 'jobs/:id/mark_as_complete' => 'jobs#mark_as_complete', as: 'mark_as_complete', via: :post
+
+
+  # match 'messages/:id/reply' => 'messages#reply', as: 'reply', via: :post
 
 	mount Sidekiq::Web => '/sidekiq'
   root to: 'high_voltage/pages#show', id: 'splash'

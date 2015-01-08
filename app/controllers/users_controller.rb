@@ -9,6 +9,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    @message = Message.new
+    
     @user = User.includes(:upload, :reviews, jobs: [:uploads, :bids]).find(params[:id])
     if (current_user == @user) && !current_user.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')

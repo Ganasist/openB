@@ -2,7 +2,7 @@
 module MemberValidations
 	extend ActiveSupport::Concern
 	included do
-		acts_as_messageable
+		acts_as_messageable class_name: 'Message'
 
 		has_one :upload, as: :uploadable,
 							dependent: :destroy

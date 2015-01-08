@@ -1,0 +1,18 @@
+<%#= render partial: 'layouts/message_modal', collection: @messages, as: :message %>
+
+<div class="container">
+  <div class="col-lg-6 col-lg-offset-3">
+  <%#= image_tag @messages.first.sent_messageable.upload.image.url(:thumb),
+  class: 'img-rounded img-responsive' if @messages.first.sent_messageable.upload %>
+  <% @messages.each do |m| %>
+    <%#= link_to 'Reply', new_message_reply_path(m), class: 'btn btn-success' %>
+      <h1><%= m.id %></h1>
+      <h3 class="lead"><%= m.topic %></h3>
+      <p><%= m.body %></p>
+
+      <%= render 'reply_form', message: m %>
+
+      <hr>
+  <% end %>
+  </div>
+</div>

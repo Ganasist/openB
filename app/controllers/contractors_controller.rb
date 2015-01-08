@@ -16,12 +16,16 @@ class ContractorsController < ApplicationController
   end
 
   def show
+    @message = Message.new
+
     @contractor = Contractor.includes(examples: :uploads, bids: :job)
                             .find(params[:id])
 
     if (current_contractor == @contractor) && !@contractor.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
+
+    @message = Message.new
 
     @examples = @contractor.examples
                            .order(updated_at: :desc)

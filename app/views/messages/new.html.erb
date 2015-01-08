@@ -1,18 +1,6 @@
-<div class="row text-center">
-  <h2 class="text-center text-lead">Send Message to <%= recipient.fullname if recipient %></h2>
-  <div class="authform_large col-lg-6 col-md-6 col-xs-12">
-    <%= simple_form_for @message, url: messages_path, method: :post, wrapper: :vertical_form do |f| %>
-
-      <%= f.error_notification %>
-
-      <div class="form-inputs">
-        <%= f.input :received_messageable, as: :hidden  %>
-        <%= f.input :topic, input_html: { maxlength: 50 } %>
-        <%= f.input :body, input_html: { maxlength: 2000 } %>
-      </div>
-      <div class="row">
-        <%= f.button :submit, "Send message", class: 'user_submit' %>
-      </div>
-    <% end %>
+<div class="row text-center  col-lg-6 col-lg-offset-3 col-md-6 col-xs-12">
+  <h2 class="text-center text-lead">Send a message to <%= @user.fullname %></h2>
+  <div class="authform">
+    <%= render 'form' %>
   </div>
 </div>
