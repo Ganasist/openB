@@ -5,6 +5,6 @@ class AddUniquenessIndexes < ActiveRecord::Migration
 
     add_index :bids, [:contractor_id, :job_id], unique: true
 
-    add_index :rating_caches, [:cacheable_type, :cacheable_id], unique: true
+    add_index :rating_caches, [:cacheable_type, :cacheable_id], unique: true, if table_exists?(:rating_caches)
   end
 end
