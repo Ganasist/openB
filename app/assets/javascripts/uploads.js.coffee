@@ -21,6 +21,10 @@ $(document).ready ->
     # show remove links on each image upload
     addRemoveLinks: true
 
+    error: (e, XMLHttpRequest, xhr) ->
+      console.log(XMLHttpRequest)
+      console.log(xhr)
+
     # if the upload was successful
     success: (file, response) ->
       console.log(response.fileID)
