@@ -5,8 +5,6 @@ module GlobalConcerns
     scope :relevant_categories, -> (categories){ where('categories && ARRAY[?]', categories) }
     scope :relevant_categories_count, -> (categories){ where('categories && ARRAY[?]', categories).count }
 
-    has_many :comments, as: :commentable
-
     before_validation :remove_blank_categories
   end
 

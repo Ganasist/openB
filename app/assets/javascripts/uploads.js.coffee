@@ -26,8 +26,9 @@ $(document).ready ->
       console.log(XMLHttpRequest)
       console.log(xhr)
 
-    complete: (file, XMLHttpRequest, xhr) ->
+    complete: (file) ->
       console.log('Upload complete')
+
     # if the upload was successful
     success: (file, response) ->
       console.log(response.fileID)

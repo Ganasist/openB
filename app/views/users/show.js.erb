@@ -8,21 +8,6 @@ $('#paginator-jobs-bottom').html('<%= escape_javascript(paginate(@jobs, remote: 
 $('#jobs').html('<%= escape_javascript(render partial: "jobs/job_panel", collection: @jobs, as: :job) %>');
 
 
-$('#paginator-comments-top').html('<%= escape_javascript(paginate @comments, remote: true,
-																					                                     theme: "twitter-bootstrap-3",
-																					                                param_name: "comments",
-																					                                		params: { tab: "comments" }) %>');
-
-$('#paginator-comments-bottom').html('<%= escape_javascript(paginate @comments, remote: true,
-																						                                      theme: "twitter-bootstrap-3",
-																						                                 param_name: "comments",
-																						                                 		 params: { tab: "comments" }) %>');
-
-$('#comments').html('<%= escape_javascript(render partial: "comments/comment_panel",
-																			         collection: @comments,
-																			                 as: :comment) %>');
-
-
 $('#paginator-reviews-top').html('<%= escape_javascript(paginate @reviews, remote: true,
 																																							theme: "twitter-bootstrap-3",
 																																				 param_name: "reviews",

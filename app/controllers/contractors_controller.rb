@@ -27,8 +27,6 @@ class ContractorsController < ApplicationController
                            .order(updated_at: :desc)
                            .page(params[:examples])
 
-    # @comments = @contractor.comments.page(params[:comments])
-
     @job_feed = Job.near(@contractor, @contractor.search_radius)
                .relevant_categories(@contractor.categories)
                .searching

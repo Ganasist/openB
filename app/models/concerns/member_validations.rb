@@ -9,9 +9,6 @@ module MemberValidations
 		accepts_nested_attributes_for :upload, reject_if: :all_blank,
 																			 allow_destroy: true
 
-		has_many :comments, as: :commenterable,
-								 dependent: :destroy
-								
 		has_many :reviews, as: :reviewerable,
 								dependent: :destroy
 

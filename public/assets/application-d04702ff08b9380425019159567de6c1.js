@@ -15250,6 +15250,14 @@ return jQuery;
       acceptedFiles: "image/png,image/jpg,image/jpeg",
       parallelUploads: 4,
       addRemoveLinks: true,
+      error: function(file, XMLHttpRequest, xhr) {
+        console.log('An error has occured:');
+        console.log(XMLHttpRequest);
+        return console.log(xhr);
+      },
+      complete: function(file) {
+        return console.log('Upload complete');
+      },
       success: function(file, response) {
         console.log(response.fileID);
         $(file.previewTemplate).find(".dz-remove").attr("id", response.fileID);

@@ -6,9 +6,6 @@
         Your Jobs
       </a>
     </li>
-    <li class="<%= 'active' if params[:tab] == 'comments' %>">
-      <a href="#comment" data-toggle="tab">Messages</a>
-    </li>
   <% end %>
 
   <% if contractor_signed_in? && current_contractor == @contractor %>
@@ -18,12 +15,6 @@
           Jobs
         </span>
       </a>
-    </li>
-    <li class="<%= 'active' if params[:tab] == 'bids' %>">
-      <a href="#bid" data-toggle="tab">Bids</a>
-    </li>
-    <li class="<%= 'active' if params[:tab] == 'comments' %>">
-      <a href="#comment" data-toggle="tab">Messages</a>
     </li>
   <% end %>
 
@@ -38,6 +29,10 @@
       <a href="#job" data-toggle="tab">Job Posts</a>
     </li>
   <% end %>
+
+  <li class="<%= 'active' if params[:tab] == 'bids' %>">
+    <a href="#bid" data-toggle="tab">Bids</a>
+  </li>
 
   <li class="<%= 'active' if params[:tab] == 'reviews' %>">
     <a href="#review" data-toggle="tab">Reviews</a>

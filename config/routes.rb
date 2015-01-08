@@ -10,17 +10,6 @@ Rails.application.routes.draw do
   resources :uploads, only: :destroy
 
   resources :messages
-  # resources :conversations do
-  #   member do
-  #     post :reply
-  #     post :trash
-  #     post :untrash
-  #   end
-  #   collection do
-  #     get :trashbin
-  #     post :empty_trash
-  #   end
-  # end
 
   concern :reviewable do
     resource :review, only: [:new, :create, :edit, :update, :destroy]

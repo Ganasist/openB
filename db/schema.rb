@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150107120431) do
+ActiveRecord::Schema.define(version: 20150108112059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,23 +29,6 @@ ActiveRecord::Schema.define(version: 20150107120431) do
   add_index "bids", ["contractor_id", "job_id"], name: "index_bids_on_contractor_id_and_job_id", unique: true, using: :btree
   add_index "bids", ["contractor_id"], name: "index_bids_on_contractor_id", using: :btree
   add_index "bids", ["job_id"], name: "index_bids_on_job_id", using: :btree
-
-  create_table "comments", force: true do |t|
-    t.integer  "commentable_id"
-    t.string   "commentable_type"
-    t.text     "body"
-    t.string   "subject"
-    t.integer  "parent_id"
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "commenterable_id"
-    t.string   "commenterable_type"
-  end
-
-  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
-  add_index "comments", ["commenterable_id", "commenterable_type"], name: "index_comments_on_commenterable_id_and_commenterable_type", using: :btree
 
   create_table "contractors", force: true do |t|
     t.string   "email",                  limit: 255, default: "", null: false
