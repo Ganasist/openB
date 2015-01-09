@@ -1,8 +1,6 @@
 <% if user_signed_in? || contractor_signed_in? %>
   <li><%= render 'searches/zip_search_form' %></li>
   <li><%= link_to 'Categories', page_path('categories'), class: 'nav_link'  %></li>
-
-  <li><%= link_to 'Messages', new_user_message_path(@user), class: 'nav_link' %><li>
 <% end %>
 
 <% if user_signed_in? %>

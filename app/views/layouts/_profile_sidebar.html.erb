@@ -1,16 +1,25 @@
 <% @cats = member.categories %>
 	<% if member.upload.present? %>
-		<span id="image-<%= member.upload.id %>">
-			<%= image_tag member.upload.image.url(:medium),
-			class: 'img-rounded img-responsive' %>
+		<% if member.upload.image_processing? %>
+			<div class="text-center">
+				<h3>Image is processing...</h3>
+				<p>
+					Refresh page in a few seconds.
+				</p>
+			</div>
+		<% else %>
+			<span id="image-<%= member.upload.id %>">
+				<%= image_tag member.upload.image.url(:medium),
+				class: 'img-rounded img-responsive' %>
 
-			<%= link_to upload_path(member.upload),
-											method: :delete, remote: true do %>
-				<br>
-				<%= fa_icon 'minus-square lg', title: 'Delete',
-																			 class: 'member_pic_delete delete-job-post pull-right' %>
-			<% end if current_member == member.upload.uploadable %>
-		</span>
+				<%= link_to upload_path(member.upload),
+												method: :delete, remote: true do %>
+					<br>
+					<%= fa_icon 'minus-square lg', title: 'Delete',
+																				 class: 'member_pic_delete delete-job-post pull-right' %>
+				<% end if current_member == member.upload.uploadable %>
+			</span>
+		<% end %>
 	<% end %>
 
 	<% if current_member == member %>
@@ -19,12 +28,6 @@
 			<%= render 'layouts/member_address', member: member %>
 		</span>
 	<% end %>
-
-
-	<%#= render 'layouts/message_modal', member: member %>
-
-	<%= button_tag 'TEST', class: 'btn btn-primary', data: { toggle: 'modal', target: '#messageModal' } %>
-
 	<hr>
 	<% if member.reviews.present? %>
 		<%= render partial: 'layouts/member_reviews', locals: { member: member } %>
