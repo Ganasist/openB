@@ -7,22 +7,24 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
+    <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link rel="stylesheet" href="css/bootstrap-image-gallery.min.css">
   </head>
   <body>
     <div id="wrap">
       <header>
         <%= render 'layouts/navigation' %>
       </header>
+
       <div class="container">
-        
-        <div class="modal" 
-           style="display:none" 
-           id="ajax-modal" 
-           data-keyboard="false" 
+        <div class="modal"
+           style="display:none"
+           id="ajax-modal"
+           data-keyboard="false"
            data-backdrop="false"
-           tabindex="-1" 
-           role="dialog" 
-           aria-labelledby="mySmallModalLabel" 
+           tabindex="-1"
+           role="dialog"
+           aria-labelledby="mySmallModalLabel"
            aria-hidden="true">
           <div class="modal-dialog modal-sm">
             <div class="modal-content" id="modal_content">
@@ -31,7 +33,7 @@
                 <div id="followingBallsG_2" class="followingBallsG"></div>
                 <div id="followingBallsG_3" class="followingBallsG"></div>
                 <div id="followingBallsG_4" class="followingBallsG"></div>
-              </div> 
+              </div>
             </div>
           </div>
         </div>
@@ -41,10 +43,13 @@
         <%= yield %>
       </div>
     </div>
+
     <%= render 'layouts/footer' %>
     <!-- Javascripts -->
     <%= javascript_include_tag 'application' %>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
     <%= yield :scripts %>
+    <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+    <script src="js/bootstrap-image-gallery.min.js"></script>
   </body>
 </html>

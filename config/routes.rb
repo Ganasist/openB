@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources :contractors, only: [:show, :index],
                       concerns: [:uploadable, :messageable],
                       defaults: { uploadable: 'contractor', messageable: 'contractor' } do
+    resource :gallery, only: :show
   end
 
   resources :jobs, concerns: [:uploadable, :reviewable],

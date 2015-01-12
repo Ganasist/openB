@@ -22,9 +22,12 @@ class ContractorsController < ApplicationController
     if (current_contractor == @contractor) && !@contractor.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
+
     @examples = @contractor.examples
                            .order(updated_at: :desc)
                            .page(params[:examples])
+
+    @gallery_images = @contractor.uploads.where(after: true)
 
     @job_feed = Job.near(@contractor, @contractor.search_radius)
                .relevant_categories(@contractor.categories)

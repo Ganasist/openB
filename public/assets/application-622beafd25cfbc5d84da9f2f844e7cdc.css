@@ -772,11 +772,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding;
   background-clip: padding-box;
   *border-right-width: 2px;
   *border-bottom-width: 2px;
@@ -861,7 +857,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .slider.slider-disabled .slider-handle {
   background-image: -webkit-gradient(linear, left 0%, left 100%, from(#dfdfdf), to(#bebebe));
   background-image: -webkit-linear-gradient(top, #dfdfdf, 0%, #bebebe, 100%);
-  background-image: -moz-linear-gradient(top, #dfdfdf 0%, #bebebe 100%);
+  background-image: -webkit-linear-gradient(top, #dfdfdf 0%, #bebebe 100%);
   background-image: linear-gradient(to bottom, #dfdfdf 0%, #bebebe 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdfdfdf', endColorstr='#ffbebebe', GradientType=0);
@@ -869,7 +865,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .slider.slider-disabled .slider-track {
   background-image: -webkit-gradient(linear, left 0%, left 100%, from(#e5e5e5), to(#e9e9e9));
   background-image: -webkit-linear-gradient(top, #e5e5e5, 0%, #e9e9e9, 100%);
-  background-image: -moz-linear-gradient(top, #e5e5e5 0%, #e9e9e9 100%);
+  background-image: -webkit-linear-gradient(top, #e5e5e5 0%, #e9e9e9 100%);
   background-image: linear-gradient(to bottom, #e5e5e5 0%, #e9e9e9 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe5e5e5', endColorstr='#ffe9e9e9', GradientType=0);
@@ -885,11 +881,10 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   cursor: pointer;
   background-image: -webkit-gradient(linear, left 0%, left 100%, from(#f5f5f5), to(#f9f9f9));
   background-image: -webkit-linear-gradient(top, #f5f5f5, 0%, #f9f9f9, 100%);
-  background-image: -moz-linear-gradient(top, #f5f5f5 0%, #f9f9f9 100%);
+  background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #f9f9f9 100%);
   background-image: linear-gradient(to bottom, #f5f5f5 0%, #f9f9f9 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#fff9f9f9', GradientType=0);
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 }
@@ -897,14 +892,11 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   position: absolute;
   background-image: -webkit-gradient(linear, left 0%, left 100%, from(#f9f9f9), to(#f5f5f5));
   background-image: -webkit-linear-gradient(top, #f9f9f9, 0%, #f5f5f5, 100%);
-  background-image: -moz-linear-gradient(top, #f9f9f9 0%, #f5f5f5 100%);
+  background-image: -webkit-linear-gradient(top, #f9f9f9 0%, #f5f5f5 100%);
   background-image: linear-gradient(to bottom, #f9f9f9 0%, #f5f5f5 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff9f9f9', endColorstr='#fff5f5f5', GradientType=0);
-  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
   border-radius: 4px;
 }
@@ -914,11 +906,10 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   height: 20px;
   background-image: -webkit-gradient(linear, left 0%, left 100%, from(#149bdf), to(#0480be));
   background-image: -webkit-linear-gradient(top, #149bdf, 0%, #0480be, 100%);
-  background-image: -moz-linear-gradient(top, #149bdf 0%, #0480be 100%);
+  background-image: -webkit-linear-gradient(top, #149bdf 0%, #0480be 100%);
   background-image: linear-gradient(to bottom, #149bdf 0%, #0480be 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff149bdf', endColorstr='#ff0480be', GradientType=0);
-  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
   opacity: 0.8;
   border: 0px solid transparent;
@@ -1070,7 +1061,8 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 :root .fa-rotate-270,
 :root .fa-flip-horizontal,
 :root .fa-flip-vertical {
-  filter: none;
+  -webkit-filter: none;
+          filter: none;
 }
 .fa-stack {
   position: relative;
@@ -2611,8 +2603,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .dropzone *,
 .dropzone-previews,
 .dropzone-previews * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 .dropzone {
@@ -2634,7 +2624,8 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .dropzone .dz-message {
   opacity: 1;
   -ms-filter: none;
-  filter: none;
+  -webkit-filter: none;
+          filter: none;
 }
 .dropzone.dz-drag-hover {
   border-color: rgba(0,0,0,0.15);
@@ -2764,7 +2755,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .dropzone {
   border: 1px solid rgba(0,0,0,0.03);
   min-height: 360px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   background: rgba(0,0,0,0.03);
   padding: 23px;
@@ -2772,11 +2762,9 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .dropzone .dz-default.dz-message {
   opacity: 1;
   -ms-filter: none;
-  filter: none;
+  -webkit-filter: none;
+          filter: none;
   -webkit-transition: opacity 0.3s ease-in-out;
-  -moz-transition: opacity 0.3s ease-in-out;
-  -o-transition: opacity 0.3s ease-in-out;
-  -ms-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
   background-image: url("spritemap.png");
   background-repeat: no-repeat;
@@ -2792,8 +2780,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 @media all and (-webkit-min-device-pixel-ratio:1.5),(min--moz-device-pixel-ratio:1.5),(-o-min-device-pixel-ratio:1.5/1),(min-device-pixel-ratio:1.5),(min-resolution:138dpi),(min-resolution:1.5dppx) {
   .dropzone .dz-default.dz-message {
     background-image: url("spritemap@2x.png");
-    -webkit-background-size: 428px 406px;
-    -moz-background-size: 428px 406px;
     background-size: 428px 406px;
   }
 }
@@ -2820,7 +2806,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 }
 .dropzone .dz-preview,
 .dropzone-previews .dz-preview {
-  -webkit-box-shadow: 1px 1px 4px rgba(0,0,0,0.16);
   box-shadow: 1px 1px 4px rgba(0,0,0,0.16);
   font-size: 14px;
 }
@@ -2835,13 +2820,15 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .dropzone-previews .dz-preview.dz-success .dz-success-mark {
   opacity: 1;
   -ms-filter: none;
-  filter: none;
+  -webkit-filter: none;
+          filter: none;
 }
 .dropzone .dz-preview.dz-error .dz-error-mark,
 .dropzone-previews .dz-preview.dz-error .dz-error-mark {
   opacity: 1;
   -ms-filter: none;
-  filter: none;
+  -webkit-filter: none;
+          filter: none;
 }
 .dropzone .dz-preview.dz-error .dz-progress .dz-upload,
 .dropzone-previews .dz-preview.dz-error .dz-progress .dz-upload {
@@ -2856,9 +2843,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
   -webkit-transition: opacity 0.4s ease-in-out;
-  -moz-transition: opacity 0.4s ease-in-out;
-  -o-transition: opacity 0.4s ease-in-out;
-  -ms-transition: opacity 0.4s ease-in-out;
   transition: opacity 0.4s ease-in-out;
   background-image: url("spritemap.png");
   background-repeat: no-repeat;
@@ -2869,8 +2853,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   .dropzone .dz-preview .dz-success-mark,
   .dropzone-previews .dz-preview .dz-success-mark {
     background-image: url("spritemap@2x.png");
-    -webkit-background-size: 428px 406px;
-    -moz-background-size: 428px 406px;
     background-size: 428px 406px;
   }
 }
@@ -2891,16 +2873,10 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .dropzone .dz-preview .dz-progress .dz-upload,
 .dropzone-previews .dz-preview .dz-progress .dz-upload {
   -webkit-animation: loading 0.4s linear infinite;
-  -moz-animation: loading 0.4s linear infinite;
-  -o-animation: loading 0.4s linear infinite;
   -ms-animation: loading 0.4s linear infinite;
   animation: loading 0.4s linear infinite;
   -webkit-transition: width 0.3s ease-in-out;
-  -moz-transition: width 0.3s ease-in-out;
-  -o-transition: width 0.3s ease-in-out;
-  -ms-transition: width 0.3s ease-in-out;
   transition: width 0.3s ease-in-out;
-  -webkit-border-radius: 2px;
   border-radius: 2px;
   position: absolute;
   top: 0;
@@ -2915,8 +2891,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   .dropzone .dz-preview .dz-progress .dz-upload,
   .dropzone-previews .dz-preview .dz-progress .dz-upload {
     background-image: url("spritemap@2x.png");
-    -webkit-background-size: 428px 406px;
-    -moz-background-size: 428px 406px;
     background-size: 428px 406px;
   }
 }
@@ -2927,9 +2901,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
   -webkit-transition: opacity 0.4s ease-in-out;
-  -moz-transition: opacity 0.4s ease-in-out;
-  -o-transition: opacity 0.4s ease-in-out;
-  -ms-transition: opacity 0.4s ease-in-out;
   transition: opacity 0.4s ease-in-out;
 }
 .dropzone .dz-preview .dz-error-message,
@@ -2939,25 +2910,19 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
   -webkit-transition: opacity 0.3s ease-in-out;
-  -moz-transition: opacity 0.3s ease-in-out;
-  -o-transition: opacity 0.3s ease-in-out;
-  -ms-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
 }
 .dropzone .dz-preview:hover.dz-error .dz-error-message,
 .dropzone-previews .dz-preview:hover.dz-error .dz-error-message {
   opacity: 1;
   -ms-filter: none;
-  filter: none;
+  -webkit-filter: none;
+          filter: none;
 }
 .dropzone a.dz-remove,
 .dropzone-previews a.dz-remove {
   background-image: -webkit-linear-gradient(top, #fafafa, #eee);
-  background-image: -moz-linear-gradient(top, #fafafa, #eee);
-  background-image: -o-linear-gradient(top, #fafafa, #eee);
-  background-image: -ms-linear-gradient(top, #fafafa, #eee);
   background-image: linear-gradient(to bottom, #fafafa, #eee);
-  -webkit-border-radius: 2px;
   border-radius: 2px;
   border: 1px solid #eee;
   text-decoration: none;
@@ -2971,23 +2936,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .dropzone-previews a.dz-remove:hover {
   color: #666;
 }
-@-moz-keyframes loading {
-  from {
-    background-position: 0 -400px;
-  }
-  to {
-    background-position: -7px -400px;
-  }
-}
 @-webkit-keyframes loading {
-  from {
-    background-position: 0 -400px;
-  }
-  to {
-    background-position: -7px -400px;
-  }
-}
-@-o-keyframes loading {
   from {
     background-position: 0 -400px;
   }
@@ -3039,10 +2988,14 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   -o-animation-iteration-count: infinite;
   -o-animation-direction: linear;
   border-radius: 10px;
-  animation-name: bounce_followingBallsG;
-  animation-duration: 1.3s;
-  animation-iteration-count: infinite;
-  animation-direction: linear;
+  -webkit-animation-name: bounce_followingBallsG;
+          animation-name: bounce_followingBallsG;
+  -webkit-animation-duration: 1.3s;
+          animation-duration: 1.3s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-direction: linear;
+          animation-direction: linear;
 }
 
 /* line 41, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/ajax_spinner.css.scss */
@@ -3067,49 +3020,29 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 
 /* line 57, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/ajax_spinner.css.scss */
 #followingBallsG_1 {
-  animation-delay: 0s;
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
 }
 
 /* line 61, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/ajax_spinner.css.scss */
 #followingBallsG_2 {
-  -moz-animation-delay: 0.13s;
   -webkit-animation-delay: 0.13s;
   -ms-animation-delay: 0.13s;
-  -o-animation-delay: 0.13s;
   animation-delay: 0.13s;
 }
 
 /* line 69, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/ajax_spinner.css.scss */
 #followingBallsG_3 {
-  -moz-animation-delay: 0.26s;
   -webkit-animation-delay: 0.26s;
   -ms-animation-delay: 0.26s;
-  -o-animation-delay: 0.26s;
   animation-delay: 0.26s;
 }
 
 /* line 77, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/ajax_spinner.css.scss */
 #followingBallsG_4 {
-  -moz-animation-delay: 0.39s;
   -webkit-animation-delay: 0.39s;
   -ms-animation-delay: 0.39s;
-  -o-animation-delay: 0.39s;
   animation-delay: 0.39s;
-}
-
-@-moz-keyframes bounce_followingBallsG {
-  0% {
-    left: 0px;
-    background-color: #3db952;
-  }
-  50% {
-    left: 236px;
-    background-color: #FFFFFF;
-  }
-  100% {
-    left: 0px;
-    background-color: #3db952;
-  }
 }
 @-webkit-keyframes bounce_followingBallsG {
   0% {
@@ -3126,20 +3059,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   }
 }
 @-ms-keyframes bounce_followingBallsG {
-  0% {
-    left: 0px;
-    background-color: #3db952;
-  }
-  50% {
-    left: 236px;
-    background-color: #FFFFFF;
-  }
-  100% {
-    left: 0px;
-    background-color: #3db952;
-  }
-}
-@-o-keyframes bounce_followingBallsG {
   0% {
     left: 0px;
     background-color: #3db952;
@@ -3298,7 +3217,6 @@ figure {
 
 /* line 209, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_normalize.scss */
 hr {
-  -moz-box-sizing: content-box;
   box-sizing: content-box;
   height: 0;
 }
@@ -3382,8 +3300,6 @@ input[type="number"]::-webkit-outer-spin-button {
 /* line 355, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_normalize.scss */
 input[type="search"] {
   -webkit-appearance: textfield;
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
 
@@ -4561,16 +4477,12 @@ th {
 
 /* line 11, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_scaffolding.scss */
 * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 /* line 14, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_scaffolding.scss */
 *:before,
 *:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -4647,7 +4559,6 @@ img {
   border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   display: inline-block;
   width: 100% \9;
@@ -6618,8 +6529,6 @@ label {
 
 /* line 47, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_forms.scss */
 input[type="search"] {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -6679,17 +6588,14 @@ output {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 /* line 53, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_forms.scss */
 .form-control:focus {
   border-color: #66afe9;
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 /* line 102, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_vendor-prefixes.scss */
@@ -7122,13 +7028,11 @@ select[multiple].input-lg,
 /* line 17, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_forms.scss */
 .has-success .form-control {
   border-color: #3c763d;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 /* line 20, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_forms.scss */
 .has-success .form-control:focus {
   border-color: #2b542c;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
 }
 /* line 27, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_forms.scss */
@@ -7154,13 +7058,11 @@ select[multiple].input-lg,
 /* line 17, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_forms.scss */
 .has-warning .form-control {
   border-color: #8a6d3b;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 /* line 20, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_forms.scss */
 .has-warning .form-control:focus {
   border-color: #66512c;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
 }
 /* line 27, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_forms.scss */
@@ -7186,13 +7088,11 @@ select[multiple].input-lg,
 /* line 17, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_forms.scss */
 .has-error .form-control {
   border-color: #a94442;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 /* line 20, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_forms.scss */
 .has-error .form-control:focus {
   border-color: #843534;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
 }
 /* line 27, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_forms.scss */
@@ -7371,7 +7271,6 @@ select[multiple].input-lg,
 .btn:active, .submit:active, .user_submit:active, .contractor_submit:active, .authform .button:active, .authform_small .button:active, .authform_large .button:active, .button-xs:active, .btn.active, .active.submit, .active.user_submit, .active.contractor_submit, .authform .active.button, .authform_small .active.button, .authform_large .active.button, .active.button-xs {
   outline: 0;
   background-image: none;
-  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 /* line 43, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_buttons.scss */
@@ -7380,7 +7279,6 @@ select[multiple].input-lg,
   pointer-events: none;
   opacity: 0.65;
   filter: alpha(opacity=65);
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 
@@ -7556,7 +7454,6 @@ select[multiple].input-lg,
 /* line 91, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_buttons.scss */
 .btn-link, .btn-link:active, .btn-link[disabled], fieldset[disabled] .btn-link {
   background-color: transparent;
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 /* line 98, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_buttons.scss */
@@ -7621,7 +7518,6 @@ input[type="button"].btn-block {
 .fade {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
-  -o-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
 }
 /* line 13, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_component-animations.scss */
@@ -7654,7 +7550,6 @@ tbody.collapse.in {
   height: 0;
   overflow: hidden;
   -webkit-transition: height 0.35s ease;
-  -o-transition: height 0.35s ease;
   transition: height 0.35s ease;
 }
 
@@ -7698,7 +7593,6 @@ tbody.collapse.in {
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
 }
@@ -8015,12 +7909,10 @@ tbody.collapse.in {
 
 /* line 119, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_button-groups.scss */
 .btn-group.open .dropdown-toggle {
-  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 /* line 123, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_button-groups.scss */
 .btn-group.open .dropdown-toggle.btn-link {
-  -webkit-box-shadow: none;
   box-shadow: none;
 }
 
@@ -8861,7 +8753,6 @@ main > .navbar-collapse,
   padding: 10px 15px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   margin-top: 8px;
   margin-bottom: 8px;
@@ -8881,7 +8772,6 @@ main > .navbar-collapse,
     margin-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    -webkit-box-shadow: none;
     box-shadow: none;
   }
   /* line 335, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_navbar.scss */
@@ -9520,7 +9410,6 @@ a.badge:hover, a.badge:focus {
   border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 /* line 17, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_thumbnails.scss */
@@ -9670,7 +9559,6 @@ a.thumbnail.active {
   margin-bottom: 20px;
   background-color: #f5f5f5;
   border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
@@ -9684,10 +9572,8 @@ a.thumbnail.active {
   color: #fff;
   text-align: center;
   background-color: #428bca;
-  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
-  -o-transition: width 0.6s ease;
   transition: width 0.6s ease;
 }
 
@@ -9695,7 +9581,6 @@ a.thumbnail.active {
 .progress-striped .progress-bar,
 .progress-bar-striped {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px;
 }
@@ -9704,7 +9589,6 @@ a.thumbnail.active {
 .progress.active .progress-bar,
 .progress-bar.active {
   -webkit-animation: progress-bar-stripes 2s linear infinite;
-  -o-animation: progress-bar-stripes 2s linear infinite;
   animation: progress-bar-stripes 2s linear infinite;
 }
 
@@ -9728,7 +9612,6 @@ a.thumbnail.active {
 /* line 7, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_progress-bar.scss */
 .progress-striped .progress-bar-success {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 
@@ -9739,7 +9622,6 @@ a.thumbnail.active {
 /* line 7, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_progress-bar.scss */
 .progress-striped .progress-bar-info {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 
@@ -9750,7 +9632,6 @@ a.thumbnail.active {
 /* line 7, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_progress-bar.scss */
 .progress-striped .progress-bar-warning {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 
@@ -9761,7 +9642,6 @@ a.thumbnail.active {
 /* line 7, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/mixins/_progress-bar.scss */
 .progress-striped .progress-bar-danger {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 
@@ -10015,7 +9895,6 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
   background-color: #fff;
   border: 1px solid transparent;
   border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
@@ -10445,7 +10324,6 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
   background-color: #f5f5f5;
   border: 1px solid #e3e3e3;
   border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 /* line 15, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_wells.scss */
@@ -10518,8 +10396,6 @@ button.close {
   -webkit-transform: translate3d(0, -25%, 0);
   transform: translate3d(0, -25%, 0);
   -webkit-transition: -webkit-transform 0.3s ease-out;
-  -moz-transition: -moz-transform 0.3s ease-out;
-  -o-transition: -o-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
 }
 /* line 36, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_modals.scss */
@@ -10548,7 +10424,6 @@ button.close {
   border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
-  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   background-clip: padding-box;
   outline: 0;
@@ -10646,7 +10521,6 @@ button.close {
 
   /* line 140, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_modals.scss */
   .modal-content {
-    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   }
 
@@ -10794,7 +10668,6 @@ button.close {
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   white-space: normal;
 }
@@ -10938,7 +10811,6 @@ button.close {
   display: none;
   position: relative;
   -webkit-transition: 0.6s ease-in-out left;
-  -o-transition: 0.6s ease-in-out left;
   transition: 0.6s ease-in-out left;
 }
 /* line 22, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_carousel.scss */
@@ -11006,7 +10878,6 @@ button.close {
 /* line 84, /Users/johntrichereau/.rvm/gems/ruby-2.1.3@openbid/gems/bootstrap-sass-3.2.0.2/assets/stylesheets/bootstrap/_carousel.scss */
 .carousel-control.left {
   background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
@@ -11016,7 +10887,6 @@ button.close {
   left: auto;
   right: 0;
   background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
@@ -11836,8 +11706,6 @@ div.marketing {
   padding: 40px;
   background-image: -webkit-gradient(linear, 100% 50%, 0 50%, color-stop(0%, #fff), color-stop(50%, rgba(255, 255, 255, 0)), color-stop(100%, #fff)), -webkit-gradient(linear, 50% 0, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.025)), color-stop(100%, rgba(241, 243, 245, 0)));
   background-image: -webkit-linear-gradient(right, #fff, rgba(255, 255, 255, 0) 50%, #fff), -webkit-linear-gradient(rgba(0, 0, 0, 0.025), rgba(241, 243, 245, 0));
-  background-image: -moz-linear-gradient(right, #fff, rgba(255, 255, 255, 0) 50%, #fff), -moz-linear-gradient(rgba(0, 0, 0, 0.025), rgba(241, 243, 245, 0));
-  background-image: -o-linear-gradient(right, #fff, rgba(255, 255, 255, 0) 50%, #fff), -o-linear-gradient(rgba(0, 0, 0, 0.025), rgba(241, 243, 245, 0));
   background-image: linear-gradient(right, #fff, rgba(255, 255, 255, 0) 50%, #fff), linear-gradient(rgba(0, 0, 0, 0.025), rgba(241, 243, 245, 0));
   background-repeat: no-repeat;
   background-position: top center;
@@ -11935,7 +11803,6 @@ h1#good_company {
     border-color: #ddd;
     border-width: 1px;
     border-radius: 4px 4px 0 0;
-    -webkit-box-shadow: none;
     box-shadow: none;
   }
 }

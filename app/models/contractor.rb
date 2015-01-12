@@ -19,6 +19,7 @@ class Contractor < ActiveRecord::Base
   has_many :reviews, through: :jobs
 
   has_many :examples, dependent: :destroy
+  has_many :uploads, through: :examples
 
   validates :company_name, presence: true
 
@@ -47,7 +48,7 @@ class Contractor < ActiveRecord::Base
   end
 
   def fullname
-    self.name || self.email
+    self.company_name || self.name || self.email
   end
 
   def user?

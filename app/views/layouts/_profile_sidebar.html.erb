@@ -22,12 +22,12 @@
 		<% end %>
 	<% end %>
 
-	<% if current_member == member %>
 		<span class="text-center">
-			<%= @incomplete_profile_message.html_safe if @incomplete_profile_message.present? %>
+			<% if current_member == member %>
+				<%= @incomplete_profile_message.html_safe if @incomplete_profile_message.present? %>
+			<% end %>
 			<%= render 'layouts/member_address', member: member %>
 		</span>
-	<% end %>
 	<hr>
 	<% if member.reviews.present? %>
 		<%= render partial: 'layouts/member_reviews', locals: { member: member } %>
@@ -37,6 +37,18 @@
 		</h3>
 	<% end %>
 	<hr>
+		<% if member.is_a?(Contractor) %>
+			<div class="text-center">
+				<% if @gallery_images.count > 0 %>
+					<%= link_to contractor_gallery_path(member), class: 'btn btn-success' do %>
+						<%= fa_icon 'paint-brush lg' %> Gallery
+					<% end %>
+				<% else %>
+					<%= member.fullname %> has no gallery yet
+				<% end %>
+			</div>
+			<hr>
+		<% end %>
 	<% if member.categories.size > 0 %>
 		<h4 class="text-center">
 			<%= member.contractor? ? 'Services Offered' : 'Services Needed' %>
