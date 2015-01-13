@@ -15154,9 +15154,10 @@ return jQuery;
         console.log(latLng);
         return $("input.geocomplete").geocomplete("find", latLng.lat() + "," + latLng.lng());
       }).bind("geocode:error", function(event, status) {
-        return console.log(event);
+        alert('There was an error retrieving your address. Please try again');
+        console.log(event);
+        return console.log(status);
       });
-      console.log(status);
     }
     if ($("div.map_canvas").length) {
       return $("div.map_canvas").geocomplete({

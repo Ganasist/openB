@@ -25,7 +25,8 @@ $ ->
 			console.log latLng
 			$("input.geocomplete").geocomplete "find", latLng.lat() + "," + latLng.lng()
 		.bind "geocode:error", (event, status) ->
-	  	console.log event
+			alert 'There was an error retrieving your address. Please try again'
+			console.log event
 			console.log status
 
 	if $("div.map_canvas").length
