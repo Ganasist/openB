@@ -8,6 +8,6 @@ class SessionsController < Devise::SessionsController
     # end
 
     def after_sign_in_path_for(resource)
-      current_user || current_contractor
+      current_member
     end
 end

@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 	devise_for :contractors, controllers: { registrations: 'contractors/registrations',
                                                sessions: 'sessions' }
 
-  resources :users, only: [:show, :index, :destroy],
+  resources :users, only: [:show],
                 concerns: [:uploadable, :messageable],
                 defaults: { uploadable: 'user', messageable: 'user' }
 
@@ -54,9 +54,8 @@ Rails.application.routes.draw do
   match 'jobs/:id/cancel_job' => 'jobs#cancel_job', as: 'cancel_job', via: :post
   match 'jobs/:id/mark_as_complete' => 'jobs#mark_as_complete', as: 'mark_as_complete', via: :post
 
-
   # match 'messages/:id/reply' => 'messages#reply', as: 'reply', via: :post
-
 	mount Sidekiq::Web => '/sidekiq'
+  match ':status', to: 'errors#show', constraints: {status: /\d{3}/ }, via: :all
   root to: 'high_voltage/pages#show', id: 'splash'
 end

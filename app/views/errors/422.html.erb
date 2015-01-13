@@ -1,0 +1,8 @@
+<div class="text-center">
+  <h1>Change Rejected</h1>
+  <% if @exception %>
+  <h3><%= @exception.message %></h3>
+  <% else %>
+  <h3>Maybe you tried to change something you didn't have access to.</h3>
+  <% end %>
+</div>

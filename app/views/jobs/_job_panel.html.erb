@@ -2,10 +2,8 @@
   <div class="panel-heading">
     <h3 class="panel-title">
       <p>
-        <%= render "jobs/job_state_buttons", job: job if current_user == job.user %>
-
-        <%= render "jobs/contractor_job_buttons", job: job if contractor_signed_in? %>
-
+        <%= render 'jobs/job_state_buttons', job: job if current_user == job.user %>
+        <%= render 'jobs/contractor_job_buttons', job: job if contractor_signed_in? %>
         <span class="text-center">
           Status: <%= job.status %> <%= "(#{ pluralize(job.bids.count, 'bid') })" if job.searching? %>
           <% if job.contractor %>

@@ -447,6 +447,11 @@ h1#good_company {
   }
 }
 
+
+div#flash_alert, div#flash_notice {
+  text-align: center;
+}
+
 #marketing_quote {
   color: $gray-light;
 }

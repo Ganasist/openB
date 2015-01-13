@@ -1,0 +1,8 @@
+<div class="text-center">
+  <h1>Forbidden</h1>
+  <% if @exception %>
+  <h3><%= @exception.message %></h3>
+  <% else %>
+  <h3>You are not authorized to perform that action.</h3>
+  <% end %>
+</div>

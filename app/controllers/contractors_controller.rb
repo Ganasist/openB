@@ -1,8 +1,4 @@
 class ContractorsController < ApplicationController
-  before_action :set_contractor, only: [:edit, :update, :destroy]
-  before_action :authenticate_contractor!, except: [:index, :show]
-  before_action :block_visitors
-
   def index
     @contractors = Contractor.all.order(updated_at: :desc)
                                  .page(params[:contractors])
@@ -50,20 +46,7 @@ class ContractorsController < ApplicationController
                           .page(params[:reviews]).per(5)
   end
 
-  def destroy
-    contractor = Contractor.find(params[:id])
-    contractor.destroy
-    redirect_to contractors_path, notice: 'contractor deleted.'
-  end
-
   private
-
-    def block_visitors
-      unless user_signed_in? || contractor_signed_in?
-        redirect_to root_path, alert: 'Sign up or sign in to access Contractor profiles'
-      end
-    end
-
     def set_contractor
       @contractor = Contractor.find(params[:id])
     end

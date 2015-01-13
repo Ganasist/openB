@@ -4,10 +4,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   helper_method :current_member
+  helper_method :member_signed_in?
 
 	protected
     def current_member
       current_user || current_contractor
+    end
+
+    def member_signed_in?
+      user_signed_in? || contractor_signed_in?
     end
 
     def after_sign_out_path_for(resource)

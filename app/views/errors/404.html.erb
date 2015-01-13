@@ -1,0 +1,8 @@
+<div class="text-center">
+  <h1>Not Found</h1>
+  <% if @exception %>
+    <h3><%= @exception.message %></h3>
+  <% else %>
+    <h3>The page you are looking for doesn't exist.</h3>
+  <% end %>
+</div>
