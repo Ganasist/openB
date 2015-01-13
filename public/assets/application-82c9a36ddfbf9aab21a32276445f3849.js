@@ -15123,6 +15123,10 @@ return jQuery;
 
 }).call(this);
 (function() {
+
+
+}).call(this);
+(function() {
   $(function() {
     var setFormLocation, setPanelLocation;
     if ($('.latitude').length) {
