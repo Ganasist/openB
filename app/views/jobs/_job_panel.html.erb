@@ -1,19 +1,19 @@
 <div class="panel panel-default" id="job-<%= job.id %>">
   <div class="panel-heading">
-    <h3 class="panel-title">
-      <p>
-        <%= render 'jobs/job_state_buttons', job: job if current_user == job.user %>
-        <%= render 'jobs/contractor_job_buttons', job: job if contractor_signed_in? %>
-        <span class="text-center">
-          Status: <%= job.status %> <%= "(#{ pluralize(job.bids.count, 'bid') })" if job.searching? %>
-          <% if job.contractor %>
-            with <%= link_to job.contractor.company_name, job.contractor, class: 'unstyled-link' %>
-          <% end %>
-        </span>
-
-      </p>
+    <%= link_to job, class: 'unstyled-link' do %>
+      <h1 class="panel-title text-center">
+        <%= job.title %>
+      </h1>
+      <% end %>
+    <h4>
+      <%= render 'jobs/job_state_buttons', job: job if current_user == job.user %>
+      <%= render 'jobs/contractor_job_buttons', job: job if contractor_signed_in? %>
+      Status: <%= job.status %> <%= "(#{ pluralize(job.bids.count, 'bid') })" if job.searching? %>
+      <% if job.contractor %>
+      with <%= link_to job.contractor.company_name, job.contractor, class: 'unstyled-link' %>
+      <% end %>
       <%= render partial: 'jobs/job_category_panel', locals: { job: job } %>
-    </h3>
+    </h4>
   </div>
 
   <div class="panel-body">
@@ -22,49 +22,51 @@
         <%= render 'bids/form', job: job %>
       </div>
     <% end %>
-
-    <div class="col-xs-12 col-md-6 text-center">
+    <div class="col-xs-12 text-center">
       <% if job.uploads.count > 0 %>
-        <%= render partial: 'layouts/pic',
-                collection: job.uploads,
-                        as: :upload,
-                    locals: { owner: job.user } %>
+        <div class="links text-center">
+          <ul class="list-inline">
+            <%= render partial: 'galleries/gallery_list',
+                    collection: job.uploads,
+                            as: :image,
+                        locals: { owner: job.user } %>
+          </ul>
+          <hr>
+        </div>
+        <%= render 'layouts/gallery_lightbox' %>
       <% elsif !job.cancelled? && job.user == current_user %>
-        <h2>
-          <%= link_to 'UPLOAD PICS', new_job_upload_path(job), class: 'unstyled-link' %>
-        </h2>
+        <h4>
+          <%= link_to 'Upload pics', new_job_upload_path(job), class: 'unstyled-link' %>
+        </h4>
+        <hr>
       <% end %>
-      <hr class="visible-xs visible-sm">
+    </div>
 
-      <% if params[:controller] == "jobs" %>
+    <% if params[:controller] == 'jobs' %>
+      <div class="col-xs-12 col-md-4 text-center">
+        <!-- <hr class="visible-xs visible-sm"> -->
         <span class="hidden latitude"><%= job.latitude %></span>
         <span class="hidden longitude"><%= job.longitude %></span>
         <br><br>
         <div class="map_canvas"></div>
         <br>
-      <% end %>
-    </div>
-
-    <%= link_to job, class: 'unstyled-link' do %>
-      <div  class="col-xs-12 col-md-6">
-        <p class="lead text-center">
-          <strong>
-            <%= job.title %>
-          </strong><br>
-
-          <%= link_to "http://maps.google.com/?q=#{ job.address }",
-                      class: 'google_links',
-                     target: "_blank" do %>
+        <%= link_to "http://maps.google.com/?q=#{ job.address }",
+            class: 'google_links',
+          target: "_blank" do %>
             <%= fa_icon 'external-link', title: 'View in Google Maps' %>
             View in Google Maps
-          <% end %>
-        </p>
-        <hr>
-        <%= (request.fullpath).include?('jobs') ?
+        <% end %>
+      </div>
+    <% end %>
+
+      <div  class="col-xs-12 <%= params[:controller] == 'jobs' ? 'col-md-8' : '' %>">
+        <h5>
+
+          <%= (request.fullpath).include?('jobs') ?
                                 job.description :
                                 truncate(job.description, length: 200) %>
+                              </h5>
       </div>
     </div>
     <%= render partial: 'jobs/job_footer_panel', locals: { job: job, owner: job.user } %>
-  <% end %>
 </div>

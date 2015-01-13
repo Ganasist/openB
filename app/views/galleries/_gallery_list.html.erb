@@ -1,0 +1,17 @@
+<li id="image-<%= image.id %>">
+  <% if image.image_processing? %>
+    <%= render 'layouts/image_processing' %>
+  <% else %>
+    <%= link_to image.image.url(:original),
+                title: "#{image.image_file_name}",
+                data: { gallery: '' } do %>
+      <%= image_tag(image.image(:thumb), class: 'img-responsive')  %>
+    <% end %>
+    <%= link_to 'Delete',
+        image,
+        method: :delete,
+        remote: true,
+         class: 'unstyled-link' if current_member == owner %>
+  <% end %>
+</li>
+<%= render 'layouts/gallery_lightbox' %>

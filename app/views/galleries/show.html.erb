@@ -7,29 +7,15 @@
       <hr>
       <div class="links text-center">
         <ul class="list-inline">
-          <% @images.each do |image| %>
-            <li id="image-<%= image.id %>">
-              <% if image.image_processing? %>
-                <%= render 'layouts/image_processing' %>
-              <% else %>
-                <%= link_to image.image.url(:original),
-                            title: "#{image.image_file_name}",
-                             data: { gallery: '' } do %>
-                  <%= image_tag(image.image(:thumb), class: 'img-responsive')  %>
-                <% end %>
-                <%= link_to 'Delete',
-                            image,
-                            method: :delete,
-                            remote: true,
-                             class: 'unstyled-link' if current_member == @contractor %>
-              <% end %>
-            </li>
-          <% end %>
+          <%= render partial: 'galleries/gallery_list',
+                  collection: @images,
+                          as: :image,
+                      locals: { owner: @contractor } %>
         </ul>
       </div>
+      <%= render 'layouts/gallery_lightbox' %>
     <% else %>
       No gallery for this contractor
     <% end %>
   </div>
 </div>
-<%= render 'layouts/gallery_lightbox' %>
