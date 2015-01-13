@@ -8,15 +8,19 @@
       <div class="links text-center">
         <ul class="list-inline">
           <% @images.each do |image| %>
-            <li>
-              <%= link_to image.image.url(:original), title: "#{image.image_file_name}", data: { gallery: '' } do %>
-                <%= image_tag(image.image(:thumb), class: 'img-responsive')  %>
+            <li id="image-<%= image.id %>">
+              <% if image.image_processing? %>
+                <%= render 'layouts/image_processing' %>
+              <% else %>
+                <%= link_to image.image.url(:original), title: "#{image.image_file_name}", data: { gallery: '' } do %>
+                  <%= image_tag(image.image(:thumb), class: 'img-responsive')  %>
+                <% end %>
+                <%= link_to 'Delete', image, method: :delete, remote: true %>
               <% end %>
             </li>
           <% end %>
         </ul>
       </div>
-
     <% else %>
       No gallery for this contractor
     <% end %>

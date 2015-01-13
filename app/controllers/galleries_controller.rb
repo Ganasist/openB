@@ -6,10 +6,6 @@ class GalleriesController < ApplicationController
     @images = @contractor.uploads.where(after: true).shuffle
   end
 
-  def destroy
-    # enter javascript friendly code
-  end
-
   private
 
     def set_contractor

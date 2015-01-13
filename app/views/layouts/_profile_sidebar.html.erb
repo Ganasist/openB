@@ -1,14 +1,9 @@
 <% @cats = member.categories %>
 	<% if member.upload.present? %>
 		<% if member.upload.image_processing? %>
-			<div class="text-center">
-				<h3>Image is processing...</h3>
-				<p>
-					Refresh page in a few seconds.
-				</p>
-			</div>
+			<%= render 'layouts/image_processing' %>
 		<% else %>
-			<span id="image-<%= member.upload.id %>">
+			<div id="image-<%= member.upload.id %>">
 				<%= image_tag member.upload.image.url(:medium),
 				class: 'img-rounded img-responsive' %>
 
@@ -18,7 +13,7 @@
 					<%= fa_icon 'minus-square lg', title: 'Delete',
 																				 class: 'member_pic_delete delete-job-post pull-right' %>
 				<% end if current_member == member.upload.uploadable %>
-			</span>
+			</div>
 		<% end %>
 	<% end %>
 

@@ -14,29 +14,8 @@
       <header>
         <%= render 'layouts/navigation' %>
       </header>
-
       <div class="container">
-        <div class="modal"
-           style="display:none"
-           id="ajax-modal"
-           data-keyboard="false"
-           data-backdrop="false"
-           tabindex="-1"
-           role="dialog"
-           aria-labelledby="mySmallModalLabel"
-           aria-hidden="true">
-          <div class="modal-dialog modal-sm">
-            <div class="modal-content" id="modal_content">
-              <div id="followingBallsG">
-                <div id="followingBallsG_1" class="followingBallsG"></div>
-                <div id="followingBallsG_2" class="followingBallsG"></div>
-                <div id="followingBallsG_3" class="followingBallsG"></div>
-                <div id="followingBallsG_4" class="followingBallsG"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        <%= render 'layouts/ajax_modal' %>
         <%= render 'layouts/messages' %>
         <%#= bootstrap_flash %>
         <%= yield %>
