@@ -5,30 +5,33 @@
       <li>
         <%= link_to mark_as_complete_path(job), title: 'Mark as complete',
                                                method: :post do %>
-          <%= fa_icon 'check-square-o 2x', class: 'text-success' %>
+          <%= fa_icon 'check-square-o lg', class: 'text-success' %>
         <% end %>
       </li>
       <% end %>
     <% end %>
+
     <li>
       <%= link_to resume_search_path(job), title: 'Resume bid search',
                                           method: :post do %>
-        <%= fa_icon 'history 2x' %>
+        <%= fa_icon 'history lg' %>
       <% end %>
     </li>
   <% end %>
+
   <% unless job.complete? %>
     <li>
       <%= link_to edit_job_path(job), title: 'Edit job details' do %>
-        <%= fa_icon 'edit 2x' %>
+        <%= fa_icon 'edit lg' %>
       <% end %>
     </li>
   <% end %>
+  
   <% unless job.cancelled? %>
     <li>
       <%= link_to cancel_job_path(job), title: 'Cancel job',
                                        method: :post do %>
-      <%= fa_icon 'minus-square-o 2x', class: 'text-danger' %>
+        <%= fa_icon 'minus-square-o lg', class: 'text-danger' %>
       <% end %>
     </li>
   <% end %>
