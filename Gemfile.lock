@@ -50,8 +50,6 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
-    amoeba (2.0.0)
-      activerecord (>= 3.0)
     arel (6.0.0.beta1)
     autoprefixer-rails (4.0.2.2)
       execjs
@@ -373,7 +371,6 @@ PLATFORMS
 DEPENDENCIES
   aasm
   active_attr
-  amoeba
   autoprefixer-rails
   aws-sdk
   better_errors
