@@ -2,9 +2,16 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  namespace :api, path: '/', constraints: { subdomain: 'api' }, defaults: { format: :json } do
-    resources :contractors, only: [:index, :show]
-    resources :users, only: :show
+  unless Rails.env.staging?
+    namespace :api, path: '/', constraints: { subdomain: 'api' }, defaults: { format: :json } do
+      resources :contractors, only: [:index, :show]
+      resources :users, only: :show
+    end
+  else
+    namespace :api, path: '/', constraints: { subdomain: 'api.staging' }, defaults: { format: :json } do
+      resources :contractors, only: [:index, :show]
+      resources :users, only: :show
+    end
   end
 
   concern :uploadable do
