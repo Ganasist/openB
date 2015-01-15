@@ -12,38 +12,28 @@ class ContractorsController < ApplicationController
   end
 
   def show
-    @contractor = Contractor.includes(examples: :uploads, bids: :job)
-                            .find(params[:id])
+    @contractor = Contractor.find(params[:id])
 
     if (current_contractor == @contractor) && !@contractor.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
 
-    @examples = @contractor.examples
-                           .order(updated_at: :desc)
-                           .page(params[:examples])
+    @examples = @contractor.examples.order(updated_at: :desc).page(params[:examples])
 
-    @gallery_images = @contractor.uploads.where(after: true)
+    @gallery_images_count = @contractor.uploads.where(after: true).count
 
     @job_feed = Job.near(@contractor, @contractor.search_radius)
-               .relevant_categories(@contractor.categories)
-               .searching
-               .includes([:user, :uploads])
-               .order(updated_at: :desc)
+                   .relevant_categories(@contractor.categories)
+                   .searching
+                   .order(updated_at: :desc)
 
-    @current_jobs = Job.where(contractor: @contractor)
-                       .order(updated_at: :desc)
+    @current_jobs = Job.where(contractor: @contractor).order(updated_at: :desc)
 
-    @jobs = Kaminari.paginate_array(@current_jobs + @job_feed)
-                    .page(params[:jobs])
+    @jobs = Kaminari.paginate_array(@current_jobs + @job_feed).page(params[:jobs])
 
-    @bids = @contractor.bids
-                       .order(updated_at: :desc)
-                       .page(params[:bids]).per(28)
+    @bids = @contractor.bids.includes(:job).order(updated_at: :desc).page(params[:bids]).per(28)
 
-    @reviews = @contractor.reviews
-                          .order(updated_at: :desc)
-                          .page(params[:reviews]).per(5)
+    @reviews = @contractor.reviews.order(updated_at: :desc).page(params[:reviews]).per(5)
   end
 
   private

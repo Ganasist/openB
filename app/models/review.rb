@@ -1,6 +1,4 @@
 class Review < ActiveRecord::Base
-  # acts_as_nested_set scope: [:reviewable_id, :reviewable_type]
-
   belongs_to :reviewable, polymorphic: true
   belongs_to :reviewerable, polymorphic: true
 
@@ -24,5 +22,4 @@ class Review < ActiveRecord::Base
   def self.categories
     %i(quality cost timeliness professionalism recommendation)
   end
-
 end

@@ -18,7 +18,6 @@ class ReviewsController < ApplicationController
       flash[:notice] = 'Review was successfully created.'
       redirect_to job_review_path(@job)
     else
-      # flash[:error] = "#{ @review.errors.full_messages.to_sentence }"
       render 'new', error: "#{ @review.errors.full_messages.to_sentence }"
     end
   end

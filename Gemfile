@@ -5,7 +5,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'jbuilder', '~> 2.0'
+# gem 'jbuilder', '~> 2.0'
+gem 'rabl'
+gem 'oj'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'bootstrap-sass'
@@ -63,6 +65,7 @@ group :development do
   gem 'rb-inotify', :require=>false
 end
 group :development, :test do
+  gem 'bullet'
   gem 'derailed_benchmarks'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
