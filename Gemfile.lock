@@ -269,7 +269,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.3.2)
-    ratyrate (1.2.2.alpha)
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.9.4)
@@ -421,7 +420,6 @@ DEPENDENCIES
   rails (~> 4.2.0.beta2)
   rails_12factor
   rails_layout
-  ratyrate
   rb-fchange
   rb-fsevent
   rb-inotify
