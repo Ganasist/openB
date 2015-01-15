@@ -6,6 +6,6 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets do |config|
-	# config.paths << "#{ Rails.root }/vendor/assets"
+	config.paths << "#{ Rails.root }/vendor/assets"
   config.precompile += %w( spritemap.png spritemap@2x.png   )
 end
