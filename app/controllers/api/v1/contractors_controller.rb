@@ -23,11 +23,11 @@ class API::V1::ContractorsController < ApplicationController
 
     @gallery_images = @contractor.uploads.where(after: true)
 
-    @job_feed = Job.near(@contractor, @contractor.search_radius)
+    @job_feed = Job.includes(:uploads).near(@contractor, @contractor.search_radius)
                    .relevant_categories(@contractor.categories)
                    .searching.order(updated_at: :desc)
 
-    @current_jobs = Job.where(contractor: @contractor).order(updated_at: :desc)
+    @current_jobs = Job.includes(:uploads).where(contractor: @contractor).order(updated_at: :desc)
 
     @jobs = Kaminari.paginate_array(@current_jobs + @job_feed).page(params[:jobs])
 

@@ -14,13 +14,13 @@ class API::V1::UsersController < ApplicationController
 
   def show
 
-    @user = User.includes(:upload, :reviews).find(params[:id])
+    @user = User.includes(:upload).find(params[:id])
 
     if (current_user == @user) && !@user.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
 
-    @jobs = @user.jobs.includes(:contractor).order(created_at: :desc).page(params[:jobs])
+    @jobs = @user.jobs.includes(:uploads).order(created_at: :desc).page(params[:jobs])
 
     @reviews = @user.reviews.order(updated_at: :desc).page(params[:reviews]).per(5)
 

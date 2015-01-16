@@ -6,6 +6,7 @@ json.user do
   json.address        @user.address
   json.fullname       @user.fullname
   json.categories     @user.categories
+  json.upload         @user.upload
 end
 
 json.bids @bids do |bid|

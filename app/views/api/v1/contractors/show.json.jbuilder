@@ -8,6 +8,7 @@ json.contractor do
   json.description    @contractor.description
   json.categories     @contractor.categories
   json.search_radius  @contractor.search_radius
+  json.upload         @contractor.upload
 end
 
 json.bids @bids do |bid|
@@ -33,6 +34,7 @@ json.jobs @jobs do |job|
   json.created_at     job.created_at
   json.updated_at     job.updated_at
   json.title          job.title
+  json.uploads        job.uploads
 end
 
 json.reviews @reviews do |review|
