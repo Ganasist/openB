@@ -6,7 +6,14 @@ json.user do
   json.address        @user.address
   json.fullname       @user.fullname
   json.categories     @user.categories
-  json.upload         @user.upload
+  json.upload do
+    next if @user.upload.blank?
+    json.id        @user.upload.id
+    json.filename  @user.upload.image_file_name
+    json.before    @user.upload.before
+    json.after     @user.upload.after
+    json.image_url @user.upload.image.url
+  end
 end
 
 json.bids @bids do |bid|

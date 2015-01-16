@@ -8,7 +8,14 @@ json.contractor do
   json.description    @contractor.description
   json.categories     @contractor.categories
   json.search_radius  @contractor.search_radius
-  json.upload         @contractor.upload
+  json.upload do
+    next if @contractor.upload.nil?
+    json.id        @contractor.upload.id
+    json.filename  @contractor.upload.image_file_name
+    json.before    @contractor.upload.before
+    json.after     @contractor.upload.after
+    json.image_url @contractor.upload.image.url
+  end
 end
 
 json.bids @bids do |bid|
@@ -27,6 +34,14 @@ json.examples @examples do |example|
   json.created_at     example.created_at
   json.updated_at     example.updated_at
   json.title          example.title
+  json.uploads example.uploads do |upload|
+    next if upload.nil?
+    json.id        upload.id
+    json.filename  upload.image_file_name
+    json.before    upload.before
+    json.after     upload.after
+    json.image_url upload.image.url
+  end
 end
 
 json.jobs @jobs do |job|
@@ -34,7 +49,14 @@ json.jobs @jobs do |job|
   json.created_at     job.created_at
   json.updated_at     job.updated_at
   json.title          job.title
-  json.uploads        job.uploads
+  json.uploads job.uploads do |upload|
+    next if upload.nil?
+    json.id        upload.id
+    json.filename  upload.image_file_name
+    json.before    upload.before
+    json.after     upload.after
+    json.image_url upload.image.url
+  end
 end
 
 json.reviews @reviews do |review|
