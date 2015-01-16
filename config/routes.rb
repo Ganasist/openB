@@ -5,14 +5,18 @@ Rails.application.routes.draw do
   if Rails.env.staging?
     namespace :api, path: '/', constraints: { subdomain: 'api.staging' }, defaults: { format: :json } do
       namespace :v1 do
-        resources :contractors, only: [:index, :show]
+        resources :contractors, only: [:index, :show] do
+          resource :gallery, only: :show
+        end
         resources :users, only: :show
       end
     end
   else
     namespace :api, path: '/', constraints: { subdomain: 'api' }, defaults: { format: :json } do
       namespace :v1 do
-        resources :contractors, only: [:index, :show]
+        resources :contractors, only: [:index, :show] do
+          resource :gallery, only: :show
+        end
         resources :users, only: :show
       end
     end
