@@ -2,17 +2,13 @@ class UsersController < ApplicationController
   before_filter :user_privacy
 
   def show
-    @user = User.includes(:upload, :reviews, jobs: [:uploads, :bids]).find(params[:id])
+    @user = User.includes(:upload, :reviews).find(params[:id])
     if (current_user == @user) && !current_user.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
-    @jobs = @user.jobs
-                 .order(created_at: :desc)
-                 .page(params[:jobs])
+    @jobs = @user.jobs.includes(:contractor).order(created_at: :desc).page(params[:jobs])
 
-    @reviews = @user.reviews
-                    .order(created_at: :desc)
-                    .page(params[:reviews])
+    @reviews = @user.reviews.order(created_at: :desc).page(params[:reviews]).per(5)
   end
 
   private
