@@ -24,6 +24,11 @@ json.jobs @jobs do |job|
   json.created_at     job.created_at
   json.updated_at     job.updated_at
   json.title          job.title
+
+  json.images job.uploads do |upload|
+    json.id         upload.id
+    json.image_url  upload.image.url
+  end
 end
 
 json.reviews @reviews do |review|
