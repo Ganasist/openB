@@ -12,10 +12,6 @@ class UsersController < ApplicationController
   end
 
   private
-    def set_user
-      @user = User.find(params[:id])
-    end
-
     def user_privacy
       unless member_signed_in?
         redirect_to new_user_registration_path, alert: 'You need to sign up or sign in to see that page.'

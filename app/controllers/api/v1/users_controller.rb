@@ -8,12 +8,11 @@ class API::V1::UsersController < ApplicationController
                      .page(params[:users])
                      .per(10)
     end
-    
+
     render :index
   end
 
   def show
-
     @user = User.includes(:upload).find(params[:id])
 
     if (current_user == @user) && !@user.complete_profile?

@@ -6,11 +6,11 @@ class JobsController < ApplicationController
   before_action :block_visitors
 
   def index
-    @jobs = Job.all.order(updated_at: :desc)
+    @jobs = Job.all.includes(:user).order(updated_at: :desc)
                    .page(params[:jobs])
                    .per(10)
     if category = params[:search]
-      @jobs = Job.relevant_categories(category)
+      @jobs = Job.relevant_categories(category).includes(:user)
                  .order(updated_at: :desc)
                  .page(params[:jobs])
                  .per(10)

@@ -35,9 +35,4 @@ class ContractorsController < ApplicationController
 
     @reviews = @contractor.reviews.order(updated_at: :desc).page(params[:reviews]).per(5)
   end
-
-  private
-    def set_contractor
-      @contractor = Contractor.find(params[:id])
-    end
 end

@@ -19,7 +19,7 @@ class API::V1::ContractorsController < ApplicationController
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
 
-    @examples = @contractor.examples.order(updated_at: :desc).page(params[:examples])
+    @examples = @contractor.examples.includes(:uploads).order(updated_at: :desc).page(params[:examples])
 
     @gallery_images = @contractor.uploads.where(after: true)
 
@@ -36,6 +36,5 @@ class API::V1::ContractorsController < ApplicationController
     @reviews = @contractor.reviews.order(updated_at: :desc).page(params[:reviews]).per(5)
 
     render :show
-    # render json: [contractor, examples, gallery_images, jobs, bids, reviews], result: 200
   end
 end

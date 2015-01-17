@@ -1,5 +1,6 @@
 json.jobs @jobs do |job|
   json.id             job.id
+  json.user_id        job.user_id
   json.created_at     job.created_at
   json.updated_at     job.updated_at
   json.title          job.title

@@ -2,31 +2,9 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  if Rails.env.staging?
-    namespace :api, path: '/', constraints: { subdomain: 'api.staging' }, defaults: { format: :json } do
-      namespace :v1 do
-        resources :contractors, only: [:index, :show] do
-          resource :gallery, only: :show
-        end
-        resources :users, only: :show
-      end
-    end
-  else
-    namespace :api, path: '/', constraints: { subdomain: 'api' }, defaults: { format: :json } do
-      namespace :v1 do
-        resources :contractors, only: [:index, :show] do
-          resource :gallery, only: :show
-        end
-        resources :users, only: :show
-      end
-    end
-  end
-
   concern :uploadable do
     resources :uploads, only: [:new, :create]
   end
-
-  resources :uploads, only: :destroy
 
   concern :messageable do
     resources :messages
@@ -34,6 +12,37 @@ Rails.application.routes.draw do
 
   concern :reviewable do
     resource :review, only: [:new, :create, :edit, :update, :destroy]
+  end
+
+  def api_endpoints
+    resources :contractors, only: [:index, :show] do
+      resource :gallery, only: :show
+    end
+
+    resources :users, only: [:show],
+    concerns: [:uploadable, :messageable],
+    defaults: { uploadable: 'user', messageable: 'user' }
+
+    resources :jobs, concerns: [:uploadable, :reviewable],
+    defaults: { uploadable: 'job',
+      reviewable: 'job' } do
+        resources :bids, only: [:create, :show, :update, :destroy]
+        resource :review
+      end
+    end
+
+  if Rails.env.staging?
+    namespace :api, path: '/', constraints: { subdomain: 'api.staging' }, defaults: { format: :json } do
+      namespace :v1 do
+        api_endpoints
+      end
+    end
+  else
+    namespace :api, path: '/', constraints: { subdomain: 'api' }, defaults: { format: :json } do
+      namespace :v1 do
+        api_endpoints
+      end
+    end
   end
 
 	devise_for :users, controllers: { registrations: 'users/registrations',
@@ -61,6 +70,8 @@ Rails.application.routes.draw do
 
   resources :examples, concerns: [:uploadable],
                        defaults: { uploadable: 'example' }
+
+  resources :uploads, only: :destroy
 
   resources :bids, only: :destroy
 
