@@ -1,46 +1,7 @@
-json.user do
-  json.id             @user.id
-  json.created_at     @user.created_at
-  json.updated_at     @user.updated_at
-  json.email          @user.email
-  json.address        @user.address
-  json.fullname       @user.fullname
-  json.categories     @user.categories
-  json.upload do
-    next if @user.upload.blank?
-    json.id        @user.upload.id
-    json.filename  @user.upload.image_file_name
-    json.before    @user.upload.before
-    json.after     @user.upload.after
-    json.image_url @user.upload.image.url
-  end
-end
+json.user @user
 
-json.bids @bids do |bid|
-  json.id             bid.id
-  json.created_at     bid.created_at
-  json.updated_at     bid.updated_at
-  json.job_id         bid.job_id
-  json.contractor_id  bid.contractor_id
-  json.accepted       bid.accepted
-  json.rejected       bid.rejected
-  json.cost           bid.cost
-end
+json.partial! 'api/v1/uploads/member_upload', member: @user
 
-json.jobs @jobs do |job|
-  json.id             job.id
-  json.created_at     job.created_at
-  json.updated_at     job.updated_at
-  json.title          job.title
+json.partial! partial: 'api/v1/jobs/job', collection: @jobs
 
-  json.images job.uploads do |upload|
-    json.id         upload.id
-    json.image_url  upload.image.url
-  end
-end
-
-json.reviews @reviews do |review|
-  json.id             review.id
-  json.created_at     review.created_at
-  json.updated_at     review.updated_at
-end
+json.reviews @reviews if @reviews

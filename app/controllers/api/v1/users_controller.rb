@@ -8,7 +8,7 @@ class API::V1::UsersController < ApplicationController
                      .page(params[:users])
                      .per(10)
     end
-
+    
     render :index
   end
 
@@ -20,7 +20,7 @@ class API::V1::UsersController < ApplicationController
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
 
-    @jobs = @user.jobs.includes(:uploads).order(created_at: :desc).page(params[:jobs])
+    @jobs = @user.jobs.includes(:uploads, :bids).order(created_at: :desc).page(params[:jobs])
 
     @reviews = @user.reviews.order(updated_at: :desc).page(params[:reviews]).per(5)
 
