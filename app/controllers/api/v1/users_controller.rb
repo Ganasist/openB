@@ -1,4 +1,4 @@
-class API::V1::UsersController < ApplicationController
+class API::V1::UsersController < API::ApiController
   def index
     @users = User.all.order(updated_at: :desc).page(params[:users]).per(10)
 

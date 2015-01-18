@@ -1,4 +1,4 @@
-class API::V1::JobsController < ApplicationController
+class API::V1::JobsController < ApiController
   before_action :set_job, only: [:show, :edit, :update, :destroy,
                                  :resume_search, :mark_as_complete, :cancel_job]
     before_action :user_check, only: [:edit, :update, :destroy]
