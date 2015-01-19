@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'no-reply@openbid.contractors'
+  default from: 'noreply@openbid.contractors'
   before_action :set_logo
 
   private

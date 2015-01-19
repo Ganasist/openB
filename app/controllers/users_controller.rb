@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     end
     @jobs = @user.jobs.includes(:contractor, :uploads).order(created_at: :desc).page(params[:jobs])
 
+    @bids = @user.bids.includes(:job).order(updated_at: :desc).page(params[:bids]).per(28)
     @reviews = @user.reviews.order(created_at: :desc).page(params[:reviews]).per(5)
   end
 

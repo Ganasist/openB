@@ -19,8 +19,7 @@ class Bid < ActiveRecord::Base
   end
 
   def accept
-    update!(rejected: false, accepted: true)
-    # send message
+    update_columns(rejected: false, accepted: true)
   end
 
   def reject

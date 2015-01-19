@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   include GlobalConcerns
 
 	has_many :jobs
+  has_many :bids, through: :jobs
 
   validates :name, presence: true
 

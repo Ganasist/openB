@@ -1,4 +1,4 @@
-class API::V1::ContractorsController < ApiController
+class API::V1::ContractorsController < API::ApiController
   def index
     @contractors = Contractor.all.order(updated_at: :desc).page(params[:contractors]).per(10)
 

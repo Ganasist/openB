@@ -67,7 +67,7 @@ class Job < ActiveRecord::Base
   def set_contractor(this_bid)
     reset_contractors
     self.contractor = this_bid.contractor
-    # Email / Message contractor & user
+    this_bid.update_columns(rejected: false, accepted: true)
   end
 
   def cancel_job

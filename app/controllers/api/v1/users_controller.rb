@@ -23,6 +23,8 @@ class API::V1::UsersController < API::ApiController
 
     @reviews = @user.reviews.order(updated_at: :desc).page(params[:reviews]).per(5)
 
+    @bids = @user.bids.order(updated_at: :desc).page(params[:bids]).per(28)
+
     render :show
   end
 end

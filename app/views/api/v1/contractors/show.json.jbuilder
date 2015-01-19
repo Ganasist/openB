@@ -2,7 +2,9 @@ json.contractor @contractor
 
 json.partial! 'api/v1/uploads/member_upload', member: @contractor
 
-json.partial! partial: 'api/v1/jobs/job', collection: @jobs
+json.partial! partial: 'api/v1/jobs/job', collection: @jobs if @jobs
+
+json.partial! partial: 'api/v1/bids/bids', collection: @bids if @bids
 
 json.examples @examples do |example|
   json.id             example.id

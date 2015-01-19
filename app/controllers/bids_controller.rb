@@ -32,8 +32,8 @@ class BidsController < ApplicationController
   def accept_bid
 		# make sure only job owner can accept / reject bids
     @bid = Bid.find(params[:id])
-    @bid.accept
-    @bid.job.activate!(@bid)
+		@bid.job.activate!(@bid)
+    # @bid.accept
 		BidMailer.accept(@bid).deliver_later
 		# Email job owner & bid contractor. Email losing bids?
     redirect_to :back, notice: "Bid from #{ @bid.contractor.company_name } for $#{ @bid.cost } has been accepted. #{ @bid.contractor.company_name } is being notified now."

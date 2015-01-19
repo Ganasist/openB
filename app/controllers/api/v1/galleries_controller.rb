@@ -1,4 +1,4 @@
-class API::V1::GalleriesController < ApiController
+class API::V1::GalleriesController < API::ApiController
   before_filter :set_contractor
   before_filter :contractor_check, only: :destroy
 

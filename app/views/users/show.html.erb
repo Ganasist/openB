@@ -18,6 +18,7 @@
       <% if current_user == @user %>
         <%= render partial: 'layouts/job_tab_pane',
                     locals: { no_jobs: 'You have not posted any jobs' } %>
+        <%= render 'layouts/bid_tab_pane' %>
         <%= render 'reviews/review_tab_pane' %>
       <% else %>
         <%= render partial: 'layouts/job_tab_pane',

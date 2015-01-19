@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   end
 
   def api_endpoints
+    devise_for :users, controllers: { registrations: 'api/v1/users/registrations',
+                                           sessions: 'api/sessions' }
+
     resources :contractors, only: [:index, :show] do
       resource :gallery, only: :show
     end
