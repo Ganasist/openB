@@ -1,4 +1,4 @@
-class API::V1::ContractorsController < API::ApiController
+class API::V1::ContractorsController < API::V1::VersionController
   def index
     @contractors = Contractor.all.order(updated_at: :desc).page(params[:contractors]).per(10)
 
@@ -15,9 +15,9 @@ class API::V1::ContractorsController < API::ApiController
   def show
     @contractor = Contractor.find(params[:id])
 
-    if (current_contractor == @contractor) && !@contractor.complete_profile?
-      @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
-    end
+    # if (current_contractor == @contractor) && !@contractor.complete_profile?
+    #   @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
+    # end
 
     @examples = @contractor.examples.includes(:uploads).order(updated_at: :desc).page(params[:examples])
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150115100632) do
+ActiveRecord::Schema.define(version: 20150119115100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,9 +67,11 @@ ActiveRecord::Schema.define(version: 20150115100632) do
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "search_radius"
+    t.string   "authentication_token"
   end
 
   add_index "contractors", ["address"], name: "index_contractors_on_address", using: :btree
+  add_index "contractors", ["authentication_token"], name: "index_contractors_on_authentication_token", using: :btree
   add_index "contractors", ["categories"], name: "index_contractors_on_categories", using: :gin
   add_index "contractors", ["confirmation_token"], name: "index_contractors_on_confirmation_token", unique: true, using: :btree
   add_index "contractors", ["email"], name: "index_contractors_on_email", unique: true, using: :btree
@@ -198,9 +200,11 @@ ActiveRecord::Schema.define(version: 20150115100632) do
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "authentication_token"
   end
 
   add_index "users", ["address"], name: "index_users_on_address", using: :btree
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
   add_index "users", ["categories"], name: "index_users_on_categories", using: :gin
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

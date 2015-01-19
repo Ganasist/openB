@@ -2,10 +2,11 @@
 module MemberValidations
 	extend ActiveSupport::Concern
 	included do
+		before_save :ensure_authentication_token
 
 		has_one :upload, as: :uploadable,
 							dependent: :destroy
-							
+
 		accepts_nested_attributes_for :upload, reject_if: :all_blank,
 																			 allow_destroy: true
 
@@ -24,6 +25,12 @@ module MemberValidations
 		phony_normalize :phone, default_country_code: 'US'
 		validates :phone, phony_plausible: true
   end
+
+	def ensure_authentication_token
+		if authentication_token.blank?
+			self.authentication_token = generate_authentication_token
+		end
+	end
 
 	def mailboxer_email(object)
 		return self.email
@@ -44,4 +51,12 @@ module MemberValidations
 		end
 		return (test / Review.categories.length).round(1)
 	end
+
+	private
+		def generate_authentication_token
+			loop do
+				token = Devise.friendly_token
+				break token unless User.where(authentication_token: token).first
+			end
+		end
 end

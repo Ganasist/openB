@@ -1,4 +1,4 @@
-class API::V1::Users::RegistrationsController < API::ApiController
+class API::V1::Users::RegistrationsController < API::BaseController
 
   def create
     puts 'hello?'
