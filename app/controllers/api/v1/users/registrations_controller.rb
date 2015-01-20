@@ -1,4 +1,4 @@
-class API::V1::Users::RegistrationsController < API::BaseController
+class API::V1::Users::RegistrationsController < Devise::RegistrationsController
 
   # def create
   #   puts 'hello?'

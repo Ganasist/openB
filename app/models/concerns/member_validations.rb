@@ -4,8 +4,6 @@ module MemberValidations
 	included do
 		before_save :ensure_authentication_token
 
-		acts_as_token_authenticatable
-
 		has_one :upload, as: :uploadable,
 							dependent: :destroy
 

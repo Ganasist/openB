@@ -1,4 +1,13 @@
-class API::V1::SessionsController < API::BaseController
+class API::V1::SessionsController < Devise::SessionsController
+  skip_before_action :verify_authenticity_token
+  skip_before_action :protect_from_forgery
+  protect_from_forgery with: :null_session
+
+  def new
+    puts 'new session'
+    render json: { user: 'tests' }
+  end
+
   # POST /resource/sign_in
   # Resets the authentication token each time! Won't allow you to login on two devices
   # at the same time (so does logout).
@@ -34,4 +43,25 @@ class API::V1::SessionsController < API::BaseController
       }
     end
   end
+
+  before_action :authenticate
+
+  private
+    def authenticate
+      puts 'authenticating'
+      authenticate_token || render_unauthorized
+    end
+
+    def authenticate_token
+      authenticate_with_http_token do |token, options|
+        @current_user = User.find_by(authentication_token: token)
+        puts @current_user
+        self.headers['WWW-Authenticate'] = 'Token realm="Session"'
+      end
+    end
+
+    def render_unauthorized
+      self.headers['WWW-Authenticate'] = 'Token realm="Base"'
+      render json: 'Bad Credentials', status: 401
+    end
 end
