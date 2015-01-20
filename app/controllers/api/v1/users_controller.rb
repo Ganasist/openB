@@ -16,7 +16,7 @@ class API::V1::UsersController < API::V1::VersionController
     @user = User.includes(:upload).find(params[:id])
 
     # if (current_user == @user) && !@user.complete_profile?
-    #   @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
+    #   @incomplete_profile_message = render json: 'Your profile is still incomplete. Please fill it out.'
     # end
 
     @jobs = @user.jobs.includes(:uploads, :bids).order(created_at: :desc).page(params[:jobs])

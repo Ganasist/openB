@@ -2,7 +2,7 @@ class API::V1::JobsController < API::BaseController
   before_action :set_job, only: [:show, :edit, :update, :destroy,
                                  :resume_search, :mark_as_complete, :cancel_job]
 
-  before_action :authenticate, only: [:new, :show]
+  before_action :authenticate, only: [:show, :new, :create]
 
   def index
     @jobs = Job.all.includes(:uploads, :bids).order(updated_at: :desc)
@@ -25,13 +25,12 @@ class API::V1::JobsController < API::BaseController
   end
 
   def new
-    puts @user.fullname
-    @job = @user.jobs.build
+    @job = @member.jobs.build
     render :new
   end
 
   def create
-    @job = current_user.jobs.new(job_params)
+    @job = @member.jobs.new(job_params)
     if @job.save
       JobMailer.create(@job).deliver_later
       flash[:notice] = 'Job was successfully created.'
@@ -93,7 +92,6 @@ class API::V1::JobsController < API::BaseController
   end
 
   private
-
     def authenticate
       puts 'authenticating'
       authenticate_token || render_unauthorized
@@ -101,7 +99,7 @@ class API::V1::JobsController < API::BaseController
 
     def authenticate_token
       member_email  = request.headers['Email'].presence
-      @member       = member_email && User.find_by(email: request.headers['Email'])
+      @member       = member_email && (User.find_by(email: request.headers['Email']) || Contractor.find_by(email: request.headers['Email']))
 
       authenticate_with_http_token do |token, options|
         if @member && Devise.secure_compare(@member.authentication_token, token)
