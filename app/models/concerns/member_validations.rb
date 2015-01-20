@@ -4,6 +4,8 @@ module MemberValidations
 	included do
 		before_save :ensure_authentication_token
 
+		acts_as_token_authenticatable
+
 		has_one :upload, as: :uploadable,
 							dependent: :destroy
 
@@ -32,14 +34,6 @@ module MemberValidations
 		end
 	end
 
-	def mailboxer_email(object)
-		return self.email
-	end
-
-	def mailboxer_name
-		self.fullname
-	end
-
 	def review_average_single(param)
 		reviews.average(param).round(1)
 	end
@@ -56,7 +50,7 @@ module MemberValidations
 		def generate_authentication_token
 			loop do
 				token = Devise.friendly_token
-				break token unless User.where(authentication_token: token).first
+				break token unless self.class.exists?(authentication_token: token)
 			end
 		end
 end

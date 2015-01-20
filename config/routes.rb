@@ -15,20 +15,18 @@ Rails.application.routes.draw do
   end
 
   def api_endpoints
-    devise_for :users, controllers: { registrations: 'api/v1/users/registrations',
-                                           sessions: 'api/sessions' }
+    devise_for :users
+    devise_for :contractors
 
     resources :contractors, only: [:index, :show] do
       resource :gallery, only: :show
     end
 
-    resources :users, only: [:show],
-    concerns: [:uploadable, :messageable],
-    defaults: { uploadable: 'user', messageable: 'user' }
+    resources :users, only: [:show], concerns: [:uploadable, :messageable], defaults: { uploadable: 'user', messageable: 'user' }
 
     resources :jobs, concerns: [:uploadable, :reviewable],
-    defaults: { uploadable: 'job',
-      reviewable: 'job' } do
+                     defaults: { uploadable: 'job',
+                   reviewable: 'job' } do
         resources :bids, only: [:create, :show, :update, :destroy]
         resource :review
       end
