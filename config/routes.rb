@@ -27,10 +27,16 @@ Rails.application.routes.draw do
     resources :jobs, concerns: [:uploadable, :reviewable],
                      defaults: { uploadable: 'job',
                    reviewable: 'job' } do
-        resources :bids, only: [:create, :show, :update, :destroy]
-        resource :review
-      end
+      resources :bids, only: [:create, :show, :update, :destroy]
+      resource :review
     end
+
+    match 'bids/:id/accept' => 'bids#accept_bid', as: 'accept_bid', via: :post
+    match 'bids/:id/reject' => 'bids#reject_bid', as: 'reject_bid', via: :post
+    match 'jobs/:id/resume_search' => 'jobs#resume_search', as: 'resume_search', via: :post
+    match 'jobs/:id/cancel_job' => 'jobs#cancel_job', as: 'cancel_job', via: :post
+    match 'jobs/:id/mark_as_complete' => 'jobs#mark_as_complete', as: 'mark_as_complete', via: :post
+  end
 
   if Rails.env.staging?
     namespace :api, path: '/', constraints: { subdomain: 'api.staging' }, defaults: { format: :json } do

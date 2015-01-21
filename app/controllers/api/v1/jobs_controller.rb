@@ -1,8 +1,12 @@
 class API::V1::JobsController < API::BaseController
+  before_action :authenticate
+
   before_action :set_job, only: [:show, :edit, :update, :destroy,
                                  :resume_search, :mark_as_complete, :cancel_job]
 
-  before_action :authenticate, only: [:show, :new, :create]
+  before_action :ensure_permission, only: [:edit, :update, :destroy, :resume_search,
+                                           :mark_as_complete, :cancel_job]
+
 
   def index
     @jobs = Job.all.includes(:uploads, :bids).order(updated_at: :desc)
@@ -40,7 +44,7 @@ class API::V1::JobsController < API::BaseController
   end
 
   def edit
-
+    render :edit
   end
 
   def update
@@ -54,27 +58,24 @@ class API::V1::JobsController < API::BaseController
 
   def destroy
     @job.destroy
-    respond_to do |format|
-      format.html { redirect_to current_user, notice: "'#{ @job.title }' was successfully deleted" }
-      format.js
-    end
+    render json: {}, status: 204
   end
 
   # make sure current_user owns this job....
   def resume_search
     @job.resume_search!
-    redirect_to @job, notice: "Contractor search for '#{ @job.title }' has been resumed. Please check the job's bids."
+    render json: :show
   end
 
   # make sure current_user owns this job....
   def mark_as_complete
     @job.mark_as_complete!
     if @job.contractor_id.nil?
-      redirect_to current_user, notice: "Your job '#{ @job.title }' has been marked as complete."
+      redirect_to user_path(@member, format: :json), status: 202
     elsif @job.review.nil?
-      redirect_to new_job_review_path(@job)
+      redirect_to new_api_v1_job_review(@job, format: :json)
     else
-      redirect_to edit_job_review_path(@job)
+      redirect_to edit_api_v1_job_review(@job, format: :json)
     end
   end
 
@@ -82,11 +83,11 @@ class API::V1::JobsController < API::BaseController
   def cancel_job
     @job.cancel!
     if @job.contractor_id.nil?
-      redirect_to current_user, notice: "Your job '#{ @job.title }' has been cancelled."
+      render user_path(@member, format: :json), status: 202
     elsif @job.review.nil?
-      redirect_to new_job_review_path(@job)
+      render new_api_v1_job_review(@job, format: :json)
     else
-      redirect_to edit_job_review_path(@job)
+      render edit_api_v1_job_review(@job, format: :json)
     end
   end
 
@@ -114,6 +115,14 @@ class API::V1::JobsController < API::BaseController
 
     def set_job
       @job = Job.find(params[:id])
+    end
+
+    def ensure_permission
+      if @member == @job.user
+        return
+      else
+        render json: "You don't have access.", status: 403
+      end
     end
 
     def job_params
