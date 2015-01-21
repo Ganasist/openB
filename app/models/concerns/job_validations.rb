@@ -4,6 +4,7 @@ module JobValidations
 	included do
 		has_many :uploads, as: :uploadable,
 								dependent: :destroy
+
 		accepts_nested_attributes_for :uploads, reject_if: :all_blank,
 																				allow_destroy: true
 
@@ -17,6 +18,7 @@ module JobValidations
 
     validates :description, presence: true,
 	                            length: { in: 5..2000 }
-
   end
+
+
 end

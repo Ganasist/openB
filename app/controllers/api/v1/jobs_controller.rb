@@ -33,7 +33,7 @@ class API::V1::JobsController < API::BaseController
     @job = @member.jobs.new(job_params)
     if @job.save
       JobMailer.create(@job).deliver_later
-      render :show, status: 200
+      render :show, status: 201
     else
       render json: @job.errors, status: 422
     end
@@ -46,9 +46,9 @@ class API::V1::JobsController < API::BaseController
   def update
     if @job.update(job_params)
       JobMailer.update(@job).deliver_later
-      redirect_to @job, notice: 'Job was successfully updated.'
+      render :show, status: 202
     else
-      render 'edit'
+      render json: @job.errors, status: 422
     end
   end
 
