@@ -4,6 +4,8 @@ module MemberValidations
 	included do
 		before_save :ensure_authentication_token
 
+		acts_as_messageable
+
 		has_one :upload, as: :uploadable,
 							dependent: :destroy
 
@@ -25,6 +27,14 @@ module MemberValidations
 		phony_normalize :phone, default_country_code: 'US'
 		validates :phone, phony_plausible: true
   end
+
+	def name
+		self.fullname
+	end
+
+	def mailboxer_email(object)
+		self.email
+	end
 
 	def ensure_authentication_token
 		if authentication_token.blank?

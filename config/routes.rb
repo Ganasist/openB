@@ -76,6 +76,9 @@ Rails.application.routes.draw do
 
   resources :bids, only: :destroy
 
+  resources :messages
+  resources :conversations
+
   resource :contact, only: [:new, :create]
   resource :search, only: :show
 

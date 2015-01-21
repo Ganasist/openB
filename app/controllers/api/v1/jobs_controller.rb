@@ -30,6 +30,7 @@ class API::V1::JobsController < API::BaseController
   end
 
   def create
+    raise params.inspect
     @job = @member.jobs.new(job_params)
     if @job.save
       JobMailer.create(@job).deliver_later
