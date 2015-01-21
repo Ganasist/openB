@@ -1,6 +1,7 @@
 class ConversationsController < ApplicationController
   # before_filter :authenticate_user!
   helper_method :mailbox, :conversation
+  before_filter :authenticate_member
 
   def index
     current_member.mailbox.conversations
@@ -31,6 +32,12 @@ class ConversationsController < ApplicationController
   end
 
   private
+    def authenticate_member
+      unless member_signed_in?
+        redirect_to new_user_registration_path, notice: 'You have to sign up or sign in to access that page.'
+      end
+    end
+
     def mailbox
       @mailbox ||= current_member.mailbox
     end
