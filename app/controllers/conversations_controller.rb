@@ -2,6 +2,10 @@ class ConversationsController < ApplicationController
   # before_filter :authenticate_user!
   helper_method :mailbox, :conversation
 
+  def index
+    current_member.mailbox.conversations
+  end
+
   def create
     recipient_emails = conversation_params(:recipients).split(',')
     recipients = User.where(email: recipient_emails).all

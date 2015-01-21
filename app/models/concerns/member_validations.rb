@@ -28,7 +28,7 @@ module MemberValidations
 		validates :phone, phony_plausible: true
   end
 
-	def name
+	def mailboxer_name
 		self.fullname
 	end
 
