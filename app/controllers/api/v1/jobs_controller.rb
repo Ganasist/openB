@@ -33,10 +33,9 @@ class API::V1::JobsController < API::BaseController
     @job = @member.jobs.new(job_params)
     if @job.save
       JobMailer.create(@job).deliver_later
-      flash[:notice] = 'Job was successfully created.'
-      redirect_to @job
+      render :show, status: 200
     else
-      render 'new'
+      render json: @job.errors, status: 422
     end
   end
 
