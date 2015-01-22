@@ -33,6 +33,9 @@ Rails.application.routes.draw do
       resource :review
     end
 
+    resources :examples, concerns: [:uploadable],
+                         defaults: { uploadable: 'example' }
+
     match 'bids/:id/accept' => 'bids#accept_bid', as: 'accept_bid', via: :post
     match 'bids/:id/reject' => 'bids#reject_bid', as: 'reject_bid', via: :post
     match 'jobs/:id/resume_search' => 'jobs#resume_search', as: 'resume_search', via: :post

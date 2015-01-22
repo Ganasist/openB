@@ -2,16 +2,16 @@ class ExamplesController < ApplicationController
 	before_action :set_example, only: [:show, :edit, :update, :destroy]
 
   def show
-    
+
   end
 
 	def new
-		@example = Example.new	
+		@example = Example.new
 	end
 
 	def create
     @contractor = current_contractor
-    @example = @contractor.examples.create(example_params)
+    @example = @contractor.examples.build(example_params)
     if @example.save
       flash[:notice] = 'Example was successfully created.'
       redirect_to example_path(@example)
@@ -47,7 +47,7 @@ class ExamplesController < ApplicationController
   	end
 
   	def example_params
-  		params.require(:example).permit(:address, :longitude, :latitude, :title, :description, 
+  		params.require(:example).permit(:address, :longitude, :latitude, :title, :description,
                                       :duration, :duration_unit, :cost, { categories: [] })
   	end
 end
