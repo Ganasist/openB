@@ -1,0 +1,39 @@
+<div class="<%= (params[:tab] == 'contractor_feed') ?
+                'tab-pane fade in active' :
+                'tab-pane fade in' %>" id="contractor_feed">
+  <% unless @contractor_feed.blank? %>
+    <table class="table table-hover">
+      <% @contractor_feed.each do |contractor| %>
+        <th></th>
+        <th>Company Name</th>
+        <th>Categories</th>
+        <th>Description</th>
+        <th>Rating</th>
+        <tr>
+          <td>
+            <% if contractor.upload.present? %>
+              <%= link_to image_tag(contractor.upload.image(:thumb), class: 'img-rounded img-responsive'), contractor %><br>
+            <% end %>
+          </td>
+          <td><%= link_to contractor.fullname, contractor, class: 'unstyled-link' %></td>
+          <td><%= contractor.categories.to_sentence %></td>
+          <td><%= contractor.description %></td>
+          <td>
+            <% if contractor.reviews.present? %>
+              <span class="<%= review_badge(contractor) %>">
+                <%= contractor.review_average_total %>
+              </span>
+            <% else %>
+              No reviews on this contractor
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  <% else %>
+    <br>
+    <h4 class="text-center">
+      There are no contractors within <%= current_user.search_radius %> miles in your categories.
+    </h4>
+  <% end %>
+</div>

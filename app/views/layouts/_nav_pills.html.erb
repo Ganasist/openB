@@ -6,6 +6,11 @@
         Your Jobs
       </a>
     </li>
+    <li class="<%= 'active' if params[:tab] == 'contractor_feed' %>">
+      <a href="#contractor_feed" data-toggle="tab">
+        Nearby Contractors
+      </a>
+    </li>
   <% end %>
 
   <% if contractor_signed_in? && current_contractor == @contractor %>

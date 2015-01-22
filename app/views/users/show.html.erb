@@ -19,6 +19,7 @@
         <%= render partial: 'layouts/job_tab_pane',
                     locals: { no_jobs: 'You have not posted any jobs' } %>
         <%= render 'layouts/bid_tab_pane' %>
+        <%= render 'layouts/contractor_feed', locals: @contractor_feed %>
         <%= render 'reviews/review_tab_pane' %>
       <% else %>
         <%= render partial: 'layouts/job_tab_pane',

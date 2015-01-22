@@ -3,19 +3,3 @@
   for <%= pluralize(member.reviews.count, 'job') %>:
   <span class="<%= review_badge(member) %>"><%= member.review_average_total %></span>
 </h4>
-<!-- <h4 class="lead">
-  <strong>Quality:</strong>
-  <%= member.review_average_single(:quality) %>/10
-  <br>
-  <strong>Cost:</strong>
-  <%= member.review_average_single(:cost) %>/10
-  <br>
-  <strong>Timeliness:</strong>
-  <%= member.review_average_single(:timeliness) %>/10
-  <br>
-  <strong>Professionalism:</strong>
-  <%= member.review_average_single(:professionalism) %>/10
-  <br>
-  <strong>Recommendation:</strong>
-  <%= member.review_average_single(:recommendation) %>/10
-</h4> -->
