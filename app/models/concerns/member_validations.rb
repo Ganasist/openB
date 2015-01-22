@@ -4,6 +4,9 @@ module MemberValidations
 	included do
 		before_save :ensure_authentication_token
 
+		after_commit :search_radius_check, on: [:create, :update],
+																			 if: Proc.new { |c| c.search_radius.blank? }
+
 		has_one :upload, as: :uploadable,
 							dependent: :destroy
 
@@ -30,6 +33,10 @@ module MemberValidations
 		if authentication_token.blank?
 			self.authentication_token = generate_authentication_token
 		end
+	end
+
+	def search_radius_check
+		update_columns(search_radius: 50)
 	end
 
 	def review_average_single(param)

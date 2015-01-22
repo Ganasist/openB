@@ -52,11 +52,13 @@
 
         <%= render 'layouts/lat_lon_inputs', f: f %>
 
+
+        <% @feed_hint = contractor_signed_in? ? "Job posts" : "Contractors" %>
         <%= f.input :search_radius, as: :string,
                                  label: 'Search radius (miles)',
-                                  hint: 'Job posts within this distance will show up in your feed.',
+                                  hint: "#{ @feed_hint } within this distance will show up in your feed.",
                             input_html: { maxlength: 3,
-                                              style: 'width:100px' } if contractor_signed_in? %>
+                                              style: 'width:100px' } %>
 
         <%= f.input :description, as: :text,
                                label: '',

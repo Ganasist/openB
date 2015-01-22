@@ -25,8 +25,8 @@ class API::V1::ContractorsController < API::V1::VersionController
     @gallery_images = @contractor.uploads.where(after: true)
 
     @job_feed = Job.includes(:uploads).near(@contractor, @contractor.search_radius)
-                   .relevant_categories(@contractor.categories)
-                   .searching.order(updated_at: :desc)
+                                      .relevant_categories(@contractor.categories)
+                                      .searching.order(updated_at: :desc)
 
     @current_jobs = Job.includes(:uploads).where(contractor: @contractor).order(updated_at: :desc)
 

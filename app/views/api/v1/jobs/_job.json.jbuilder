@@ -11,7 +11,7 @@ json.jobs @jobs do |job|
     json.filename  upload.image_file_name
     json.before    upload.before
     json.after     upload.after
-    json.image_url upload.image.url
+    json.image     upload.image.url
   end
 
   json.bids job.bids if job.bids

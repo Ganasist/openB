@@ -1,5 +1,7 @@
 json.user @user
 
+json.contractor_feed @contractor_feed
+
 json.partial! 'api/v1/uploads/member_upload', member: @user
 
 json.partial! partial: 'api/v1/jobs/job', collection: @jobs if @jobs

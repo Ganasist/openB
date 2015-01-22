@@ -1,8 +1,9 @@
-json.contractor @contractor
+json.contractor  @contractor
 
 json.partial! 'api/v1/uploads/member_upload', member: @contractor
 
-json.partial! partial: 'api/v1/jobs/job', collection: @jobs if @jobs
+json.current_jobs @current_jobs
+json.job_feed @job_feed
 
 json.partial! partial: 'api/v1/bids/bids', collection: @bids if @bids
 
@@ -17,6 +18,6 @@ json.examples @examples do |example|
     json.filename  upload.image_file_name
     json.before    upload.before
     json.after     upload.after
-    json.image_url upload.image.url
+    json.image     upload.image.url
   end
 end
