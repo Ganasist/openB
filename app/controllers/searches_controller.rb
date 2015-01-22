@@ -22,5 +22,4 @@ class SearchesController < ApplicationController
 			end
 		end
 	end
-
 end

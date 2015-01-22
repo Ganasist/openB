@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     devise_for :users
     devise_for :contractors
 
+    resource :search, only: :show
+
     resources :contractors, only: [:index, :show] do
       resource :gallery, only: :show
     end

@@ -17,6 +17,10 @@ module GlobalConcerns
         scoped
       end
     end
+
+		def lat_lon_search(latitude, longitude, distance)
+			near([latitude, longitude], distance).order(:created_at)
+		end
   end
 
   def remove_blank_categories
