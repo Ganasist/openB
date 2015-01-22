@@ -10,9 +10,9 @@ module GlobalConcerns
   end
 
 	module ClassMethods
-    def zip_search(query)
+    def zip_search(query, distance)
       if query.present?
-        near(query, 100).order(:created_at)
+        near(query, distance).order(:created_at)
       else
         scoped
       end

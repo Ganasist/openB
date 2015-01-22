@@ -1,7 +1,9 @@
 class Search < ActiveRecord::Base
 
-	validates :zip_code, presence: true,
-									 numericality: true
+	attr_accessor :distance
+
+	validates :zip_code, numericality: true, presence: true
+	validates :distance, numericality: true
 
   def readonly?
 	  !new_record?

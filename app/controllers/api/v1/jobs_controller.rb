@@ -63,28 +63,28 @@ class API::V1::JobsController < API::BaseController
 
   def resume_search
     @job.resume_search!
-    render json: :show
+    render :show, status: 202
   end
 
   def mark_as_complete
     @job.mark_as_complete!
     if @job.contractor_id.nil?
-      redirect_to user_path(@member, format: :json), status: 202
+      render json: :show, status: 204
     elsif @job.review.nil?
-      redirect_to new_api_v1_job_review(@job, format: :json)
+      redirect_to new_api_v1_job_review(@job, format: :json), status: 204
     else
-      redirect_to edit_api_v1_job_review(@job, format: :json)
+      redirect_to edit_api_v1_job_review(@job, format: :json), status: 204
     end
   end
 
   def cancel_job
     @job.cancel!
     if @job.contractor_id.nil?
-      render user_path(@member, format: :json), status: 202
+      render json: :show, status: 204
     elsif @job.review.nil?
-      render new_api_v1_job_review(@job, format: :json)
+      redirect_to new_api_v1_job_review(@job, format: :json), status: 204
     else
-      render edit_api_v1_job_review(@job, format: :json)
+      redirect_to edit_api_v1_job_review(@job, format: :json), status: 204
     end
   end
 

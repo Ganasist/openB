@@ -1,11 +1,17 @@
 <%= simple_form_for :search, url: '/search',
-                              method: 'get',
-                                html: { autocomplete: 'off',
-                                               class: 'navbar-form',
-                                                role: 'search' } do %>
-  <%= search_field_tag :search, params[:search], type: 'search',
-                                          placeholder: 'Search by ZIP code',
-                                                class: 'form-control text-center',
-                                            maxlength: 5,
-                                            minlength: 5 %>
+                          method: 'get',
+                            html: { autocomplete: 'off',
+                                           class: 'navbar-form',
+                                            role: 'search' } do %>
+  <%= search_field_tag :zip_code, params[:zip_code], type: 'search',
+                                              placeholder: 'ZIP Code',
+                                                    class: 'form-control text-center',
+                                                maxlength: 5,
+                                                minlength: 5 %>
+  <%= text_field_tag :distance, params[:distance], placeholder: 'Distance (miles)',
+                                                         class: 'form-control text-center',
+                                                     maxlength: 3 %>
+  <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+    <%= fa_icon :search %> Search
+  <% end %>
  <% end %>

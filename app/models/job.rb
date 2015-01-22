@@ -52,7 +52,7 @@ class Job < ActiveRecord::Base
     end
 
     event :resume_search, before: :reset_contractors  do
-      transitions to: :searching
+      transitions from: [:in_progress, :complete, :cancelled], to: :searching
     end
 
     event :mark_as_complete do

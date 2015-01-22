@@ -1,23 +1,26 @@
 class SearchesController < ApplicationController
 	def show
 		@search = Search.new
-		@search.zip_code = params[:search]
+		@search.zip_code = params[:zip_code]
+		@search.distance = params[:distance].present? ? params[:distance] : 50
+
 		unless Rails.env.staging?
-			if @search.valid? && Search.exists?(['zip_code = ?', params[:search]])
-				@jobs = Job.zip_search(params[:search])
-				@contractors = Contractor.zip_search(params[:search])
+			if @search.valid? && Search.exists?(['zip_code = ?', params[:zip_code]])
+				@jobs = Job.zip_search(params[:zip_code], @search.distance).includes(:uploads)
+				@contractors = Contractor.zip_search(params[:zip_code], @search.distance).includes(:uploads)
+			elsif !Search.exists?(['zip_code = ?', params[:zip_code]])
+				redirect_to :back, alert: "Zip Code not found. Please try again."
 			else
-				flash[:error] = "Zip code #{ @search.zip_code } wasn't found. Please enter a valid 5-digit US zip code"
-	      redirect_to :back
+	      redirect_to :back, alert: "#{ @search.errors.full_messages.to_sentence }"
 			end
 		else
 			if @search.valid?
-				@jobs = Job.zip_search(params[:search])
-				@contractors = Contractor.zip_search(params[:search])
+				@jobs = Job.zip_search(params[:zip_code]).includes(:uploads)
+				@contractors = Contractor.zip_search(params[:search], @search.distance).includes(:uploads)
 			else
-				flash[:error] = "Zip code #{ @search.zip_code } wasn't found. Please enter a valid 5-digit US zip code"
-	      redirect_to :back
+				redirect_to :back, alert: "Zip code #{ @search.zip_code } wasn't found. Please enter a valid 5-digit US zip code"
 			end
 		end
 	end
+
 end
