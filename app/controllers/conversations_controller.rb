@@ -1,5 +1,4 @@
-class ConversationsController < ApplicationController
-  before_filter :deny_to_visitors
+class ConversationsController < ApplicationController  
   helper_method :mailbox, :conversation
   before_filter :authenticate_member
 
@@ -85,8 +84,4 @@ class ConversationsController < ApplicationController
         end
       end
     end    
-
-    def deny_to_visitors
-      redirect_to root_path unless member_signed_in?
-    end
 end
