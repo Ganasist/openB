@@ -1,0 +1,8 @@
+Reply:
+<%= simple_form_for :message, url: reply_conversation_path(conversation) do |f| %>
+    <%= f.text_area :body, class: 'reply-body' %>
+    <div class="form-actions">
+        <%= f.submit "Send Message", class: 'btn btn-primary' %>
+        <%= submit_tag 'Clear Reply Box', type: :reset, class: 'btn btn-danger' %>
+    </div>
+<% end %>

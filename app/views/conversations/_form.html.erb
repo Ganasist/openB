@@ -1,0 +1,9 @@
+<%= simple_form_for :conversation, url: :conversations do |f| %>
+  <%= f.input :recipients %>
+  <%= f.input :subject %>
+  <%= f.input :body, as: :text %>
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn-primary' %>
+    <%= submit_tag 'Clear Box', type: :reset, class: 'btn btn-danger' %>    
+  </div>
+<% end %>

@@ -522,3 +522,14 @@ div.map_canvas_form img, div.map_canvas img {
 div.map_canvas_form label, div.map_canvas label {
   width: auto; display:inline;
 }
+
+// Message Boxer
+.reply-body{
+  width: 80%;
+  height: 150px;
+}
+
+.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus{
+  color: #fff;
+  background-color: #428bca;
+}

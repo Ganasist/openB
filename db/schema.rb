@@ -31,34 +31,34 @@ ActiveRecord::Schema.define(version: 20150122151421) do
   add_index "bids", ["job_id"], name: "index_bids_on_job_id", using: :btree
 
   create_table "contractors", force: true do |t|
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: ""
-    t.string   "reset_password_token",   limit: 255
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: ""
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.string   "confirmation_token",     limit: 255
+    t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email",      limit: 255
-    t.integer  "failed_attempts",                    default: 0,  null: false
-    t.string   "unlock_token",           limit: 255
+    t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",        default: 0,  null: false
+    t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "invitation_token",       limit: 255
+    t.string   "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
-    t.string   "invited_by_type",        limit: 255
-    t.integer  "invitations_count",                  default: 0
-    t.text     "categories",                         default: [],              array: true
+    t.string   "invited_by_type"
+    t.integer  "invitations_count",      default: 0
+    t.text     "categories",             default: [],              array: true
     t.string   "name"
     t.text     "description"
     t.string   "phone"
@@ -219,37 +219,33 @@ ActiveRecord::Schema.define(version: 20150122151421) do
   add_index "uploads", ["uploadable_id", "uploadable_type"], name: "index_uploads_on_uploadable_id_and_uploadable_type", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: ""
-    t.string   "reset_password_token",   limit: 255
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: ""
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",                   limit: 255
-    t.string   "confirmation_token",     limit: 255
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email",      limit: 255
+    t.string   "name"
     t.integer  "role"
-    t.string   "invitation_token",       limit: 255
+    t.string   "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
-    t.string   "invited_by_type",        limit: 255
-    t.integer  "invitations_count",                  default: 0
-    t.integer  "failed_attempts",                    default: 0,  null: false
-    t.string   "unlock_token",           limit: 255
+    t.string   "invited_by_type"
+    t.integer  "invitations_count",      default: 0
+    t.integer  "failed_attempts",        default: 0,  null: false
+    t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "phone"
-    t.text     "categories",                         default: [],              array: true
+    t.text     "categories",             default: [],              array: true
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
@@ -260,7 +256,6 @@ ActiveRecord::Schema.define(version: 20150122151421) do
   add_index "users", ["address"], name: "index_users_on_address", using: :btree
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
   add_index "users", ["categories"], name: "index_users_on_categories", using: :gin
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
