@@ -11448,7 +11448,7 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
 
 /* line 238, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 .bg {
-  background: url(/assets/jumbotron.jpg) no-repeat center center;
+  background: url(/jumbotron.jpg) no-repeat center center;
   position: absolute;
   width: 100%;
   height: 510px;
@@ -11748,22 +11748,28 @@ div#ajax-modal {
 }
 
 /* line 505, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+div#inbox_main, div#inbox_sidebar {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+/* line 510, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 div#modal_content {
   padding: 20px;
 }
 
-/* line 509, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 514, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 div.map_canvas_form, div.map_canvas {
   height: 400px;
   margin: 0 auto;
 }
 
-/* line 514, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 519, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 div.map_canvas_form img, div.map_canvas img {
   max-width: none;
 }
 
-/* line 517, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+/* line 522, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 div.map_canvas_form label, div.map_canvas label {
   width: auto;
   display: inline;

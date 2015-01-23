@@ -502,6 +502,11 @@ div#ajax-modal {
   background-color:rgba(0,0,0,0.2);
 }
 
+div#inbox_main, div#inbox_sidebar {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 div#modal_content {
   padding: 20px;
 }

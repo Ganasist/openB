@@ -6,6 +6,7 @@ module MemberValidations
 
 		after_commit :search_radius_check, on: [:create, :update],
 																			 if: Proc.new { |c| c.search_radius.blank? }
+		acts_as_messageable
 
 		has_one :upload, as: :uploadable,
 							dependent: :destroy
@@ -28,6 +29,14 @@ module MemberValidations
 		phony_normalize :phone, default_country_code: 'US'
 		validates :phone, phony_plausible: true
   end
+
+	def mailboxer_name
+		self.fullname
+	end
+
+	def mailboxer_email(object)
+		self.email
+	end
 
 	def ensure_authentication_token
 		if authentication_token.blank?
