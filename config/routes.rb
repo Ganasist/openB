@@ -76,8 +76,24 @@ Rails.application.routes.draw do
 
   resources :bids, only: :destroy
 
-  resources :messages
-  resources :conversations
+  resources :messages do
+    member do
+      post :new
+    end
+  end
+  
+  resources :conversations do
+    member do
+      post :reply
+      post :trash
+      post :untrash
+    end
+    collection do
+      get :sentbox
+      get :trashbin
+      post :empty_trash 
+    end
+  end
 
   resource :contact, only: [:new, :create]
   resource :search, only: :show

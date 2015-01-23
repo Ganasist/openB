@@ -23,4 +23,9 @@ module ApplicationHelper
 			'label label-default'
 		end
 	end
+	
+	def message_sender(conversation)
+	  message = Mailboxer::Notification.where(conversation_id: conversation.id).where.not(sender_id: current_member.id, sender_type: current_member.class.name)
+	  message.first.sender.name if message.any?
+	end
 end

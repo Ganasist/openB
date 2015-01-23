@@ -1,0 +1,16 @@
+<div class="col-sm-3 col-md-2 col-lg-2 hidden-xs sidebar" id="inbox_sidebar">
+    <ul class="nav nav-sidebar">
+        <li class=<%= 'active' if %w{/conversations/new}.include?(request.path) %>>
+            <%= link_to 'Start Conversation', :new_conversation %>
+        </li>
+        <li class=<%= 'active' if @page == 'inbox' %>>
+            <%= link_to 'Inbox', conversations_path %>
+        </li>
+        <li class=<%= 'active' if @page == 'sentbox' %>>
+            <%= link_to 'Outbox', sentbox_conversations_path %>
+        </li>
+        <li class=<%= 'active' if @page == 'trashbin' %>>
+            <%= link_to 'Trash', trashbin_conversations_path %>
+        </li>
+    </ul>
+</div>
