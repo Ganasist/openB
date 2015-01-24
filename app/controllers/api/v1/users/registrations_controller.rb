@@ -19,7 +19,7 @@ class API::V1::Users::RegistrationsController < Devise::RegistrationsController
       render json: @user.as_json(auth_token: @user.authentication_token,
                                       email: @user.email),
            status: 201
-      WelcomeMailer.contractor_welcome(@user).deliver_later
+      WelcomeMailer.user_welcome(@user).deliver_later
       return
     else
       warden.custom_failure!
