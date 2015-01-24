@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   end
 
   def api_endpoints
-    devise_for :users
-    devise_for :contractors
+    devise_for :users, controllers: { registrations: 'api/v1/users/registrations' }, skip: :sessions
+    devise_for :contractors, controllers: { registrations: 'api/v1/contractors/registrations' }, skip: :sessions
 
     resource :search, only: :show
 
@@ -24,7 +24,10 @@ Rails.application.routes.draw do
       resource :gallery, only: :show
     end
 
-    resources :users, only: [:show], concerns: [:uploadable, :messageable], defaults: { uploadable: 'user', messageable: 'user' }
+    resources :users, only: [:show],
+                  concerns: [:uploadable, :messageable],
+                  defaults: { uploadable: 'user',
+                             messageable: 'user' }
 
     resources :jobs, concerns: [:uploadable, :reviewable],
                      defaults: { uploadable: 'job',
@@ -92,7 +95,7 @@ Rails.application.routes.draw do
       post :new
     end
   end
-  
+
   resources :conversations do
     member do
       post :reply
@@ -102,7 +105,7 @@ Rails.application.routes.draw do
     collection do
       get :sentbox
       get :trashbin
-      post :empty_trash 
+      post :empty_trash
     end
   end
 
