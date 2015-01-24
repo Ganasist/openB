@@ -12,7 +12,7 @@ class ContractorsController < ApplicationController
   end
 
   def show
-    @contractor = Contractor.find(params[:id])
+    @contractor = Contractor.includes(:upload).find(params[:id])
 
     if (current_contractor == @contractor) && !@contractor.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
@@ -27,12 +27,15 @@ class ContractorsController < ApplicationController
                    .searching
                    .order(updated_at: :desc)
 
-    @current_jobs = Job.where(contractor: @contractor).order(updated_at: :desc)
+    @current_jobs = Job.where(contractor: @contractor).includes(:user, :uploads, :contractor, :review).order(updated_at: :desc)
 
     @jobs = Kaminari.paginate_array(@current_jobs + @job_feed).page(params[:jobs])
 
     @bids = @contractor.bids.includes(:job).order(updated_at: :desc).page(params[:bids]).per(28)
 
-    @reviews = @contractor.reviews.order(updated_at: :desc).page(params[:reviews]).per(5)
+    @reviews = @contractor.reviews
+                          .includes(:reviewable, :reviewerable)
+                          .order(updated_at: :desc)
+                          .page(params[:reviews]).per(5)
   end
 end
