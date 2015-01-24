@@ -2,7 +2,6 @@ class BidMailer < ApplicationMailer
 
   def create(bid)
     set_defaults(bid)
-    puts 'set defaults'
     mail(to: @user.email,
     subject: "#{ @contractor.company_name } bid $#{ @bid.cost } on '#{ @bid.job.title }'")
   end

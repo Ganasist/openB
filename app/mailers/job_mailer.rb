@@ -9,7 +9,8 @@ class JobMailer < ApplicationMailer
 
   def update(job)
     set_defaults(job)
-    mail(to: @user.email, bcc: @emails,
+    mail(to: @user.email,
+        bcc: @emails,
     subject: "Job post '#{ @job.title }' has been updated.")
   end
 
