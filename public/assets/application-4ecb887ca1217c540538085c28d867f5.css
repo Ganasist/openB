@@ -11448,7 +11448,7 @@ div.navbar-collapse.collapse.in, div.navbar-collapse.collapsing {
 
 /* line 238, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
 .bg {
-  background: url(/jumbotron.jpg) no-repeat center center;
+  background: url(/assets/jumbotron.jpg) no-repeat center center;
   position: absolute;
   width: 100%;
   height: 510px;
