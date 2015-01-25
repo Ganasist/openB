@@ -6,6 +6,8 @@ class SearchesController < ApplicationController
 
 		unless Rails.env.staging?
 			if @search.valid? && Search.exists?(['zip_code = ?', params[:zip_code]])
+				puts @search.zip_code
+				puts @search.distance
 				@jobs = Job.zip_search(params[:zip_code], @search.distance).includes(:uploads)
 				@contractors = Contractor.zip_search(params[:zip_code], @search.distance).includes(:uploads)
 			elsif !Search.exists?(['zip_code = ?', params[:zip_code]])
