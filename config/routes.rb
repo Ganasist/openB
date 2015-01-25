@@ -18,7 +18,9 @@ Rails.application.routes.draw do
     devise_for :users, controllers: { registrations: 'api/v1/users/registrations' }, skip: :sessions
     devise_for :contractors, controllers: { registrations: 'api/v1/contractors/registrations' }, skip: :sessions
 
-    resource :search, only: :show
+    concern :reviewable do
+      resource :review, only: [:new, :create, :edit, :update, :destroy]
+    end
 
     resources :contractors, only: [:index, :show] do
       resource :gallery, only: :show
@@ -38,6 +40,8 @@ Rails.application.routes.draw do
 
     resources :examples, concerns: [:uploadable],
                          defaults: { uploadable: 'example' }
+
+    resource :search, only: :show
 
     match 'bids/:id/accept' => 'bids#accept_bid', as: 'accept_bid', via: :post
     match 'bids/:id/reject' => 'bids#reject_bid', as: 'reject_bid', via: :post
