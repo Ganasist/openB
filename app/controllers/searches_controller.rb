@@ -15,7 +15,7 @@ class SearchesController < ApplicationController
 			end
 		else
 			if @search.valid?
-				@jobs = Job.zip_search(params[:zip_code]).includes(:uploads)
+				@jobs = Job.zip_search(params[:zip_code], @search.distance).includes(:uploads)
 				@contractors = Contractor.zip_search(params[:search], @search.distance).includes(:uploads)
 			else
 				redirect_to :back, alert: "Zip code #{ @search.zip_code } wasn't found. Please enter a valid 5-digit US zip code"
