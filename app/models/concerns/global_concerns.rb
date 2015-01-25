@@ -11,11 +11,7 @@ module GlobalConcerns
 
 	module ClassMethods
     def zip_search(query, distance)
-      if query.present?
-        near(query, distance).order(:created_at)
-      else
-        scoped
-      end
+      near(query, distance).order(:created_at)
     end
 
 		def lat_lon_search(latitude, longitude, distance)
