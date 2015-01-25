@@ -2,7 +2,7 @@ class SearchesController < ApplicationController
 	def show
 		@search = Search.new
 		@search.zip_code = params[:zip_code]
-		@search.distance = params[:distance].present? ? params[:distance].to_i : 50
+		@search.distance = params[:distance].present? ? params[:distance] : 50
 
 		unless Rails.env.staging?
 			if @search.valid? && Search.exists?(['zip_code = ?', params[:zip_code]])
