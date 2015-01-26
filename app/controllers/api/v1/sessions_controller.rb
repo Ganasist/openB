@@ -9,10 +9,10 @@ class API::V1::SessionsController < Devise::SessionsController
   def create
     resource = resource_class.new
     member = request.fullpath.split('/')[2].classify.constantize
-    resource = member.find_for_database_authentication( email: params[:user][:email])
+    resource = member.find_for_database_authentication( email: params[:member][:email])
     return invalid_login_attempt unless resource
 
-    if resource.valid_password?(params[:user][:password])
+    if resource.valid_password?(params[:member][:password])
       puts resource
       render json: { success: true, auth_token: resource.authentication_token, email: resource.email }
       return
@@ -22,8 +22,8 @@ class API::V1::SessionsController < Devise::SessionsController
 
   protected
     def ensure_params_exist
-      puts params[:user][:email]
-      return unless params[:user][:email].blank?
+      puts params[:member][:email]
+      return unless params[:member][:email].blank?
       render json: { success: false, message: 'missing Email parameter' }, status: 422
     end
 
