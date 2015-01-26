@@ -26,6 +26,7 @@
 
     <div class="col-xs-6 text-center">
       <% if example.before_uploads.count > 0 %>
+      <h3>Before Pics</h3>
         <div class="links text-center">
           <ul class="list-inline">
             <%= render partial: 'galleries/gallery_list',
@@ -35,7 +36,7 @@
           </ul>
         </div>
         <hr>
-      <% else %>
+      <% elsif current_member == example.contractor %>
         <h4>
           <%= link_to "Upload 'before' pics",
                       new_example_upload_path(example, status: 'before'),
@@ -47,6 +48,7 @@
 
     <div class="col-xs-6 text-center">
       <% if example.after_uploads.count > 0 %>
+        <h3>After Pics</h3>
         <div class="links text-center">
           <ul class="list-inline">
             <%= render partial: 'galleries/gallery_list',

@@ -6,14 +6,14 @@ class UsersController < ApplicationController
     if (current_user == @user) && !current_user.complete_profile?
       @incomplete_profile_message = render_to_string(partial: 'layouts/incomplete_profile_flash')
     end
-    @jobs = @user.jobs.includes(:contractor, :uploads, :review).order(created_at: :desc).page(params[:jobs])
+    @jobs = @user.jobs.includes(:uploads, :contractor).order(created_at: :desc).page(params[:jobs])
 
     @contractor_feed = Contractor.includes(:upload)
                                  .near(@user, @user.search_radius)
                                  .relevant_categories(@user.categories)
                                  .order(updated_at: :desc)
 
-    @bids = @user.bids.includes(:job).order(updated_at: :desc).page(params[:bids]).per(28)
+    @bids = @user.bids.includes( { job: :contractor }).order(updated_at: :desc).page(params[:bids]).per(28)
     @reviews = @user.reviews.order(created_at: :desc).page(params[:reviews]).per(5)
   end
 
