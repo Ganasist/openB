@@ -8,20 +8,20 @@
   <div class="row">
     <% if @job.searching? %>
       <% if @bids.count > 0 && current_user == @job.user %>
-      <h3 class="text-center lead">Recent bids for this job</h3>
+        <h3 class="text-center lead">Recent bids for this job</h3>
 
       <div id="paginator-bids-top" class="text-center">
         <%= render partial: 'layouts/paginator',
-        locals: { context: @bids,
-          context_string: 'bids' } %>
-        </div>
+                    locals: { context: @bids,
+                       context_string: 'bids' } %>
+      </div>
 
         <div class="col-xs-12" id="bids">
           <%= render partial: 'bid_panel' %>
         </div>
 
         <% elsif @bids.count == 0 && current_user == @job.user %>
-        <h3 class="text-center lead">There are no bids for this job</h3>
+          <h3 class="text-center lead">There are no bids for this job</h3>
       <% end %>
     <% end %>
 
