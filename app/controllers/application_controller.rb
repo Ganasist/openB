@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_member
   helper_method :member_signed_in?
 
+  # rescue_from ActiveRecord::RecordNotFound do |exception|
+  #   redirect_to current_member, alert: 'Page not found'
+  # end
+
 	protected
     def current_member
       current_user || current_contractor

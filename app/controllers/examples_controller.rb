@@ -1,5 +1,7 @@
 class ExamplesController < ApplicationController
 	before_action :set_example, only: [:show, :edit, :update, :destroy]
+	before_action :verify_contractor, except: [:new, :create, :show]
+	before_action :verify_new_example, only: [:new, :create]
 
   def show
 
@@ -13,8 +15,7 @@ class ExamplesController < ApplicationController
     @contractor = current_contractor
     @example = @contractor.examples.build(example_params)
     if @example.save
-      flash[:notice] = 'Example was successfully created.'
-      redirect_to example_path(@example)
+      redirect_to @example, notice: 'Example was successfully created'
     else
       render 'new'
     end
@@ -50,4 +51,16 @@ class ExamplesController < ApplicationController
   		params.require(:example).permit(:address, :longitude, :latitude, :title, :description,
                                       :duration, :duration_unit, :cost, { categories: [] })
   	end
+
+		def verify_contractor
+			unless current_contractor == @example.contractor
+				redirect_to current_member, alert: 'Access denied'
+			end
+		end
+
+		def verify_new_example
+			unless contractor_signed_in?
+				redirect_to current_member || root_path, alert: 'Access denied'
+			end
+		end
 end

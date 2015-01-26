@@ -1,9 +1,12 @@
 class JobsController < ApplicationController
-  respond_to :html
-  before_action :set_job, only: [:show, :edit, :update, :destroy, :resume_search,
+  # respond_to :html
+  before_action :set_job, only: [:edit, :update, :destroy, :resume_search,
                                  :mark_as_complete, :cancel_job]
-  before_action :user_check, only: [:edit, :update, :destroy]
-  before_action :block_visitors
+
+  before_action :user_check, only: [:edit, :update, :destroy, :resume_search,
+                                    :mark_as_complete, :cancel_job]
+
+  before_action :new_job_check, only: [:new, :create]
 
   def index
     @jobs = Job.all.includes(:user).order(updated_at: :desc)
@@ -18,6 +21,7 @@ class JobsController < ApplicationController
   end
 
   def show
+    @job = Job.includes(uploads: :uploadable).find(params[:id])
     @bids = @job.bids.where(rejected: false)
                      .order(updated_at: :desc)
                      .page(params[:bids])
@@ -91,16 +95,15 @@ class JobsController < ApplicationController
   end
 
   private
-
-    def block_visitors
-      unless user_signed_in? || contractor_signed_in?
-        redirect_to root_path, alert: 'Sign up or sign in to access open jobs'
+    def user_check
+      unless current_user == @job.user
+        redirect_to current_member || root_path, alert: 'Access denied.'
       end
     end
 
-    def user_check
-      unless current_user == @job.user
-        redirect_to :back, alert: 'Access denied.'
+    def new_job_check
+      unless user_signed_in?
+        redirect_to current_member || root_path, alert: 'Access denied.'
       end
     end
 
