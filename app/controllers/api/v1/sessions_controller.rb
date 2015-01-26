@@ -1,0 +1,35 @@
+class API::V1::SessionsController < Devise::SessionsController
+  prepend_before_filter :require_no_authentication, :only => [:create ]
+  skip_before_filter :verify_authenticity_token
+  # skip_before_filter :authenticate_scope!
+  # include Devise::Controllers::InternalHelpers
+
+  before_filter :ensure_params_exist
+
+  def create
+    resource = resource_class.new
+    member = request.fullpath.split('/')[2].classify.constantize
+    puts member
+    puts request.headers['Email']
+    resource = member.find_for_database_authentication( email: request.headers['Email'])
+    return invalid_login_attempt unless resource
+
+    if resource.valid_password?(request.headers['Password'])
+      puts resource
+      render json: { success: true, auth_token: resource.authentication_token, email: resource.email }
+      return
+    end
+    invalid_login_attempt
+  end
+
+  protected
+    def ensure_params_exist
+      return unless request.headers['Email'].blank?
+      render json: { success: false, message: 'missing Email parameter' }, status: 422
+    end
+
+    def invalid_login_attempt
+      warden.custom_failure!
+      render json: { success: false, message: 'Error with your login or password' }, status: 401
+    end
+end

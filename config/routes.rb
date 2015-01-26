@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   end
 
   def api_endpoints
-    devise_for :users, controllers: { registrations: 'api/v1/users/registrations' }, skip: :sessions
-    devise_for :contractors, controllers: { registrations: 'api/v1/contractors/registrations' }, skip: :sessions
+    devise_for :users, controllers: { registrations: 'api/v1/users/registrations', sessions: 'api/v1/sessions' }
+    devise_for :contractors, controllers: { registrations: 'api/v1/contractors/registrations', sessions: 'api/v1/sessions' }
 
     concern :reviewable do
       resource :review, only: [:new, :create, :edit, :update, :destroy]
