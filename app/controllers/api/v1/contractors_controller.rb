@@ -13,6 +13,10 @@ class API::V1::ContractorsController < API::V1::VersionController
     render :index
   end
 
+  def categories
+    render json: Contractor.categories, status: 200
+  end
+
   def show
     @contractor = Contractor.find(params[:id])
 
