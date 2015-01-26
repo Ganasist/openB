@@ -1,5 +1,4 @@
 class BidsController < ApplicationController
-  # respond_to :html
 	before_filter :authenticate_contractor!, except: [:accept_bid, :reject_bid]
 
 	def create
