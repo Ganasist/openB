@@ -39,7 +39,7 @@ gem 'going_postal'
 gem 'phony_rails'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
-gem 'paperclip', '~> 4.1'
+gem 'paperclip', '~> 4.1', github: 'thoughtbot/paperclip'
 gem 'aws-sdk'
 gem 'paperclip-aws'
 gem 'delayed_paperclip'

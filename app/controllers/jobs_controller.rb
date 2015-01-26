@@ -13,6 +13,7 @@ class JobsController < ApplicationController
                    .per(10)
     if category = params[:search]
       @jobs = Job.relevant_categories(category).includes(:user)
+                 .searching
                  .order(updated_at: :desc)
                  .page(params[:jobs])
                  .per(10)

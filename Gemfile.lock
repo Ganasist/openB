@@ -7,6 +7,16 @@ GIT
       actionpack (~> 4.0)
       activemodel (~> 4.0)
 
+GIT
+  remote: git://github.com/thoughtbot/paperclip.git
+  revision: c46b40b973a66eb8ac454c1d22e5df15da66d7c3
+  specs:
+    paperclip (4.2.1)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.5)
+      mime-types
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -95,7 +105,7 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.3)
+    cocaine (0.5.5)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coffee-rails (4.0.1)
@@ -212,11 +222,6 @@ GEM
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
-    paperclip (4.1.1)
-      activemodel (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      cocaine (~> 0.5.3)
-      mime-types
     paperclip-aws (1.6.8)
       aws-sdk (>= 1.2.0)
       paperclip (>= 2.5.0)
@@ -420,7 +425,7 @@ DEPENDENCIES
   mailboxer
   multi_json
   newrelic_rpm
-  paperclip (~> 4.1)
+  paperclip (~> 4.1)!
   paperclip-aws
   pg
   pg_search

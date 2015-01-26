@@ -2,6 +2,7 @@ class BidMailer < ApplicationMailer
 
   def create(bid)
     set_defaults(bid)
+    attachments["test"] = bid.pdf.read if bid.pdf
     mail(to: @user.email,
     subject: "#{ @contractor.company_name } bid $#{ @bid.cost } on '#{ @bid.job.title }'")
   end

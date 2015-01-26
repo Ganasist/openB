@@ -1,5 +1,8 @@
 class BidsController < ApplicationController
-	before_filter :authenticate_contractor!, except: [:accept_bid, :reject_bid]
+	before_filter :set_bid, only: [:update, :accept_bid, :reject_bid, :destroy]
+	before_filter :authorize_contractor, except: [:create, :accept_bid, :reject_bid]
+	before_filter :authorize_create_bid, only: :create
+	before_filter :authorize_user, only: [:accept_bid, :reject_bid]
 
 	def create
     @bid = Bid.new(bid_params)
@@ -7,6 +10,7 @@ class BidsController < ApplicationController
     @bid.job = Job.find(params[:job_id])
     if @bid.save
 			BidMailer.create(@bid).deliver_later
+			puts @bid.pdf
       redirect_to :back, notice: "Your bid for '#{ @bid.job.title }' has been created. #{ @bid.job.user.fullname } is being notified now."
     else
       redirect_to :back, alert: "#{ @bid.errors.full_messages.to_sentence }"
@@ -18,7 +22,6 @@ class BidsController < ApplicationController
   end
 
   def update
-    @bid = Bid.find(params[:id])
 		@bid.rejected = false
     if @bid.update(bid_params)
 			BidMailer.update(@bid).deliver_later
@@ -29,8 +32,6 @@ class BidsController < ApplicationController
   end
 
   def accept_bid
-		# make sure only job owner can accept / reject bids
-    @bid = Bid.find(params[:id])
 		@bid.job.activate!(@bid)
     # @bid.accept
 		BidMailer.accept(@bid).deliver_later
@@ -39,8 +40,6 @@ class BidsController < ApplicationController
   end
 
   def reject_bid
-		# make sure only job owner can accept / reject bids
-    @bid = Bid.find(params[:id])
     @bid.reject
 		# bid contractor
 		BidMailer.reject(@bid).deliver_later
@@ -48,18 +47,35 @@ class BidsController < ApplicationController
   end
 
   def destroy
-    @bid = Bid.find(params[:id])
     @job = @bid.job
     @bid.destroy
     redirect_to current_contractor, notice: "Your bid for '#{ @job.title }' has been removed."
   end
 
   private
-    def set_bid
-      @bid = Bid.find(params[:id])
-    end
+		def set_bid
+			@bid = Bid.find(params[:id])
+		end
+
+		def authorize_contractor
+			unless current_contractor == @bid.contractor
+				redirect_to current_member || root_path, alert: 'Access denied'
+			end
+		end
+
+		def authorize_create_bid
+			unless contractor_signed_in?
+				redirect_to current_member || root_path, alert: 'Access denied'
+			end
+		end
+
+		def authorize_user
+			unless current_user == @bid.job.user
+				redirect_to current_member || root_path, alert: 'Access denied'
+			end
+		end
 
     def bid_params
-      params.require(:bid).permit(:cost)
+      params.require(:bid).permit(:cost, :pdf)
     end
 end

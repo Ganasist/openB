@@ -2,6 +2,7 @@
   <thead class="lead">
     <td>Contractor</td>
     <td>Cost</td>
+    <td>Attachments</td>
     <td>Updated</td>
     <td></td>
   </thead>
@@ -12,6 +13,7 @@
 			  								bid.contractor,
 			  								class: 'unstyled-link' %></td>
 			  <td>$<%= bid.cost %></td>
+        <td><%= link_to "#{ bid.pdf_file_name }", bid.pdf.url, class: 'unstyled-link', target: '_blank' %></td>
 			  <td><%= time_ago_in_words(bid.updated_at)  %> ago</td>
         <td>
           <ul class="list-inline">

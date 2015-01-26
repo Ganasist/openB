@@ -3,36 +3,54 @@
 <div class="col-xs-12 text-center">
   <% if job.searching? %>
     <%= simple_form_for [job, @bid], wrapper: :inline_form,
-                                           html: { class: 'form-inline',
-                                            autocomplete: 'off' } do |f| %>
+                                         html: { multipart: true,
+                                                     class: 'form-inline',
+                                              autocomplete: 'off' } do |f| %>
 
       <%= f.error_notification %>
         <ul class="list-inline">
           <li>
-          <div class="form-group">
-            <span class="input-group">
-              <%= f.input :cost, label: false,
-                               wrapper: :horizontal_input_group do %>
-                <span class="input-group-addon">$</span>
-                <%= f.input_field :cost, maxlength: 5,
-                                       class: 'form-control',
-                                                id: 'form_zip_code' %>
-              <% end %>
-            </span>
+            <div class="form-group">
+              <span class="input-group">
+                <%= f.input :cost, label: false,
+                                 wrapper: :horizontal_input_group do %>
+                  <span class="input-group-addon">$</span>
+                  <%= f.input_field :cost, maxlength: 5,
+                                         class: 'form-control',
+                                                  id: 'form_zip_code' %>
+                <% end %>
+              </span>
             </div>
           </li>
           <li>
             <%= f.button :submit, bid_button_text(@bid), class: bid_button_color(@bid) %>
           </li>
-          <li>
-            <% if @bid.persisted? %>
+
+          <% if @bid.persisted? %>
+            <li>
+              <%= link_to 'Bid attachment', @bid.pdf.url, class: 'unstyled-link', target: '_blank' %>
+            </li>
+            <li>
               <%= link_to @bid, method: :delete,
                                   data: { confirm: 'Are you sure you want to delete this bid?' } do %>
                 <%= fa_icon 'minus-square lg', title: 'Delete this bid',
-                                               class: 'delete-job-post pull-right' %>
+                                               class: 'delete-job-post pull-right',
+                                                data: { toggle: 'tooltip',
+                                                         title: 'Delete this bid' } %>
               <% end %>
-            <% end %>
-          </li>
+            </li>
+          <% end %>
+          <% unless @bid.persisted? %>
+            <li>
+              <div class="form-group">
+                <span class="input-group">
+                  <%= f.file_field :pdf, accept: '.pdf,application/pdf',
+                                           data: { toggle: 'tooltip',
+                                                    title: 'Attach a PDF to your bid (optional)' } %>
+                </span>
+              </div>
+            </li>
+          <% end %>
         </ul>
         <hr>
     <% end %>
