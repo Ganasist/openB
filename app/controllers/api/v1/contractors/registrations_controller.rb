@@ -5,7 +5,6 @@ class API::V1::Contractors::RegistrationsController < Devise::RegistrationsContr
   skip_before_filter :authenticate_scope!
   before_filter :contractor_params, only: [:create, :update]
 
-
   def new
     @contractor = Contractor.new
     render :new
@@ -33,6 +32,7 @@ class API::V1::Contractors::RegistrationsController < Devise::RegistrationsContr
 
   def update
     successfully_updated = if needs_password?(@contractor, params)
+      @contractor.reset_authentication_token
       @contractor.update_with_password(contractor_params)
     else
       # remove the virtual current_password attribute

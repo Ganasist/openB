@@ -5,7 +5,6 @@ class API::V1::Users::RegistrationsController < Devise::RegistrationsController
   skip_before_filter :authenticate_scope!
   before_filter :user_params, only: [:create, :update]
 
-
   def new
     @user = User.new
     render :new
@@ -34,6 +33,7 @@ class API::V1::Users::RegistrationsController < Devise::RegistrationsController
 
   def update
     successfully_updated = if needs_password?(@user, params)
+      @user.reset_authentication_token
       @user.update_with_password(user_params)
     else
       # remove the virtual current_password attribute
@@ -73,7 +73,6 @@ class API::V1::Users::RegistrationsController < Devise::RegistrationsController
 
       authenticate_with_http_token do |token, options|
         if @user && Devise.secure_compare(@user.authentication_token, token)
-          puts "#{ @user.fullname } authenticated"
           return @user
         end
       end
