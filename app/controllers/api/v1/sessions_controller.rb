@@ -9,8 +9,6 @@ class API::V1::SessionsController < Devise::SessionsController
   def create
     resource = resource_class.new
     member = request.fullpath.split('/')[2].classify.constantize
-    puts member
-    puts request.headers['Email']
     resource = member.find_for_database_authentication( email: request.headers['Email'])
     return invalid_login_attempt unless resource
 
