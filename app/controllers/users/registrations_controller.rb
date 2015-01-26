@@ -12,6 +12,7 @@ class Users::RegistrationsController < RegistrationsController
     @user = User.find(current_user.id)
 
     successfully_updated = if needs_password?(@user, params)
+      @user.reset_authentication_token
       @user.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))
     else
       # remove the virtual current_password attribute
@@ -21,10 +22,9 @@ class Users::RegistrationsController < RegistrationsController
     end
 
     if successfully_updated
-      set_flash_message :notice, :updated
       # Sign in the user bypassing validation in case their password changed
-      sign_in @user, :bypass => true
-      redirect_to after_update_path_for(@user)
+      sign_in @user, bypass: true
+      redirect_to root_path, notice: 'Your credentials and iOS token have been reset.'
     else
       render 'edit'
     end
@@ -47,6 +47,7 @@ class Users::RegistrationsController < RegistrationsController
                                                                      :password,
                                                                      :current_password,
                                                                      :password_confirmation,
+                                                                     :search_radius,
                                                                      :phone,
                                                                      upload_attributes: [:id,
                                                                                          :image,

@@ -12,6 +12,7 @@ class Contractors::RegistrationsController < RegistrationsController
     @contractor = Contractor.find(current_contractor.id)
 
     successfully_updated = if needs_password?(@contractor, params)
+      @contractor.reset_authentication_token
       @contractor.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))
     else
       # remove the virtual current_password attribute
@@ -21,10 +22,9 @@ class Contractors::RegistrationsController < RegistrationsController
     end
 
     if successfully_updated
-      set_flash_message :notice, :updated
       # Sign in the user bypassing validation in case their password changed
       sign_in @contractor, bypass: true
-      redirect_to after_update_path_for(@contractor)
+      redirect_to root_path, notice: 'Your credentials and iOS token have been reset.'
     else
       render 'edit'
     end

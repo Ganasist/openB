@@ -44,6 +44,10 @@ module MemberValidations
 		end
 	end
 
+	def reset_authentication_token
+		self.authentication_token = generate_authentication_token
+	end
+
 	def search_radius_check
 		update_columns(search_radius: 50)
 	end
