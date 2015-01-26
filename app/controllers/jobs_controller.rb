@@ -1,5 +1,4 @@
 class JobsController < ApplicationController
-  # respond_to :html
   before_action :set_job, only: [:edit, :update, :destroy, :resume_search,
                                  :mark_as_complete, :cancel_job]
 
@@ -64,13 +63,11 @@ class JobsController < ApplicationController
     end
   end
 
-  # make sure current_user owns this job....
   def resume_search
     @job.resume_search!
     redirect_to @job, notice: "Contractor search for '#{ @job.title }' has been resumed. Please check the job's bids."
   end
 
-  # make sure current_user owns this job....
   def mark_as_complete
     @job.mark_as_complete!
     if @job.contractor_id.nil?
@@ -82,7 +79,6 @@ class JobsController < ApplicationController
     end
   end
 
-  # make sure current_user owns this job....
   def cancel_job
     @job.cancel!
     if @job.contractor_id.nil?

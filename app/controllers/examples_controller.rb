@@ -54,7 +54,7 @@ class ExamplesController < ApplicationController
 
 		def verify_contractor
 			unless current_contractor == @example.contractor
-				redirect_to current_member, alert: 'Access denied'
+				redirect_to current_member || root_path, alert: 'Access denied'
 			end
 		end
 
