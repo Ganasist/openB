@@ -4,3 +4,7 @@
   your account. If you have specific questions contact this contractor directly:
   <%= mail_to @contractor.email, @contractor.company_name %>.
 </p>
+
+<% if @bid.pdf.present? %>
+  <p><%= link_to 'Bid attachment', @bid.pdf.url, class: 'unstyled-link', target: '_blank' %></p>
+<% end %>

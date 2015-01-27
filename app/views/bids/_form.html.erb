@@ -28,7 +28,7 @@
 
           <% if @bid.persisted? %>
             <li>
-              <%= link_to 'Bid attachment', @bid.pdf.url, class: 'unstyled-link', target: '_blank' %>
+              <%= link_to 'Bid attachment', @bid.pdf.url, class: 'unstyled-link', target: '_blank' if @bid.pdf.present? %>
             </li>
             <li>
               <%= link_to @bid, method: :delete,
