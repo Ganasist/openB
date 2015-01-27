@@ -1,24 +1,22 @@
 class ConversationsController < ApplicationController  
   helper_method :mailbox, :conversation
   before_filter :authenticate_member
+  before_filter :unread_count
 
   def index   
     @conversations ||= current_member.mailbox.inbox.all
-    @page = "inbox"
-    @count = current_member.mailbox.receipts.where(is_read: false).count
+    @page = "inbox"    
   end
   
   def sentbox
     @conversations ||= current_member.mailbox.sentbox.all
-    @page = "sentbox"
-    @count = current_member.mailbox.receipts.where(is_read: false).count
+    @page = "sentbox"    
     render :index
   end
   
   def trashbin     
     @conversations ||= current_member.mailbox.trash.all
-    @page = "trashbin"
-    @count = current_member.mailbox.receipts.where(is_read: false).count
+    @page = "trashbin"    
     render :index   
   end
   
@@ -71,6 +69,10 @@ class ConversationsController < ApplicationController
       unless member_signed_in?
         redirect_to new_user_registration_path, notice: 'You have to sign up or sign in to access that page.'
       end
+    end
+    
+    def unread_count
+      @count = current_member.mailbox.receipts.where(is_read: false).count
     end
 
     def mailbox
