@@ -4,7 +4,7 @@
             <%= link_to 'Start Conversation', :new_conversation %>
         </li>
         <li class=<%= 'active' if @page == 'inbox' %>>
-            <%= link_to 'Inbox', conversations_path %>
+            <%= link_to "Inbox  #{@count if @count != 0}", conversations_path %>
         </li>
         <li class=<%= 'active' if @page == 'sentbox' %>>
             <%= link_to 'Outbox', sentbox_conversations_path %>

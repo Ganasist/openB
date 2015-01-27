@@ -5,17 +5,20 @@ class ConversationsController < ApplicationController
   def index   
     @conversations ||= current_member.mailbox.inbox.all
     @page = "inbox"
+    @count = current_member.mailbox.receipts.where(is_read: false).count
   end
   
   def sentbox
     @conversations ||= current_member.mailbox.sentbox.all
     @page = "sentbox"
+    @count = current_member.mailbox.receipts.where(is_read: false).count
     render :index
   end
   
   def trashbin     
     @conversations ||= current_member.mailbox.trash.all
     @page = "trashbin"
+    @count = current_member.mailbox.receipts.where(is_read: false).count
     render :index   
   end
 
@@ -28,6 +31,10 @@ class ConversationsController < ApplicationController
     end
     conversation = current_member.send_message(recipients, *conversation_params(:body, :subject)).conversation
     redirect_to conversation_path(conversation)
+  end
+  
+  def show
+    conversation.mark_as_read(current_member)
   end  
 
   def reply
