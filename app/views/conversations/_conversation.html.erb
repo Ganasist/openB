@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            <%= content_tag_for(:tr, conversation) do |conversation| %>
+            <%= content_tag_for(:tr, @conversations) do |conversation| %>
                 <td><%= conversation.id %></td>
                 <td><%= conversation.updated_at.strftime("%a, %m/%e/%Y %I:%M %p") %></td>
                 <td><%= message_sender(conversation) %></td>

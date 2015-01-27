@@ -21,6 +21,13 @@ class ConversationsController < ApplicationController
     @count = current_member.mailbox.receipts.where(is_read: false).count
     render :index   
   end
+  
+  def new
+    if params[:user].present?
+      user = User.find(params[:user])
+      @recipient_emails = [user.email]
+    end
+  end
 
   def create        
     recipient_emails = conversation_params(:recipients).split(',')    
