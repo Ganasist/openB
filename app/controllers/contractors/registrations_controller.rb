@@ -11,20 +11,28 @@ class Contractors::RegistrationsController < RegistrationsController
   def update
     @contractor = Contractor.find(current_contractor.id)
 
+    if params[:contractor][:password].blank? && params[:contractor][:password_confirmation].blank?
+      params[:contractor].delete(:password)
+      params[:contractor].delete(:password_confirmation)
+    end
+
     successfully_updated = if needs_password?(@contractor, params)
       @contractor.reset_authentication_token
-      @contractor.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))
+      if @contractor.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))
+        flash[:notice] = 'Your credentials and iOS token have been reset. Please sign-in again if needed.'
+        sign_in_and_redirect(@contractor)
+      end
     else
       # remove the virtual current_password attribute
       # update_without_password doesn't know how to ignore it
       params[:contractor].delete(:current_password)
-      @contractor.update_without_password(devise_parameter_sanitizer.sanitize(:account_update))
+      if @contractor.update_without_password(devise_parameter_sanitizer.sanitize(:account_update))
+        redirect_to @contractor
+      end
     end
 
     if successfully_updated
-      # Sign in the user bypassing validation in case their password changed
-      sign_in @contractor, bypass: true
-      redirect_to root_path, notice: 'Your credentials and iOS token have been reset.'
+      return
     else
       render 'edit'
     end
