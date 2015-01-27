@@ -2,7 +2,7 @@
   <% if image.image_processing? %>
     <%= render 'layouts/image_processing' %>
   <% else %>
-    <%= link_to image.image.url(:original),
+    <%= link_to image.image.url,
                 title: "#{image.image_file_name}",
                 data: { gallery: '' } do %>
       <%= image_tag(image.image(:thumb), class: 'img-responsive')  %>

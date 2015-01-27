@@ -11,20 +11,27 @@ class Users::RegistrationsController < RegistrationsController
   def update
     @user = User.find(current_user.id)
 
+    if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+
     successfully_updated = if needs_password?(@user, params)
       @user.reset_authentication_token
       @user.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))
+      # sign_in @user, bypass: true
+      redirect_to root_path, notice: 'Your credentials and iOS token have been reset.'
     else
       # remove the virtual current_password attribute
       # update_without_password doesn't know how to ignore it
       params[:user].delete(:current_password)
       @user.update_without_password(devise_parameter_sanitizer.sanitize(:account_update))
+      sign_in :user, @user, :bypass => true
+      respond_with @user, location: after_update_path_for(@user)
     end
 
     if successfully_updated
-      # Sign in the user bypassing validation in case their password changed
-      sign_in @user, bypass: true
-      redirect_to root_path, notice: 'Your credentials and iOS token have been reset.'
+      return
     else
       render 'edit'
     end
