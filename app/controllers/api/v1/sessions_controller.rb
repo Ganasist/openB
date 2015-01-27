@@ -22,7 +22,7 @@ class API::V1::SessionsController < Devise::SessionsController
 
   protected
     def ensure_params_exist
-      puts params[:member][:email]
+      puts params[:member]
       return unless params[:member][:email].blank?
       render json: { success: false, message: 'missing Email parameter' }, status: 422
     end
