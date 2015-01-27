@@ -1,7 +1,6 @@
 class ConversationsController < ApplicationController  
   helper_method :mailbox, :conversation
-  before_filter :authenticate_member
-  before_filter :unread_count
+  before_filter :authenticate_member  
 
   def index   
     @conversations ||= current_member.mailbox.inbox.all
@@ -72,10 +71,6 @@ class ConversationsController < ApplicationController
       unless member_signed_in?
         redirect_to new_user_registration_path, notice: 'You have to sign up or sign in to access that page.'
       end
-    end
-    
-    def unread_count
-      @count = current_member.mailbox.receipts.where(is_read: false).count
     end
 
     def mailbox
