@@ -27,6 +27,9 @@
             <li><%= link_to ' Reject', reject_bid_path(bid),
                                        class: 'btn btn-danger fa fa-lg fa-times-circle-o',
                                       method: :post %></li>
+            <li>
+                <%= link_to 'Send Message', new_conversation_path(:contractor => bid.contractor), class: 'btn btn-primary' %>            
+            </li>
           </ul>
         </td>
 		  </tr>

@@ -24,6 +24,9 @@ class ConversationsController < ApplicationController
     if params[:user].present?
       user = User.find(params[:user])
       @recipient_emails = [user.email]
+    elsif params[:contractor].present?
+      contractor = Contractor.find(params[:contractor])
+      @recipient_emails = [contractor.email]
     end
   end
 
