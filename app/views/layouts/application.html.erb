@@ -23,9 +23,9 @@
     </div>
     <%= render 'layouts/footer' %>
     <!-- Javascripts -->
-    <%= javascript_include_tag 'application' %>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
     <%= yield :scripts %>
+    <%= javascript_include_tag 'application' %>
     <script src="https://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
   </body>
 </html>
