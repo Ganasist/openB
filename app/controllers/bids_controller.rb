@@ -10,7 +10,6 @@ class BidsController < ApplicationController
     @bid.job = Job.find(params[:job_id])
     if @bid.save
 			BidMailer.create(@bid).deliver_later
-			puts @bid.pdf
       redirect_to :back, notice: "Your bid for '#{ @bid.job.title }' has been created. #{ @bid.job.user.fullname } is being notified now."
     else
       redirect_to :back, alert: "#{ @bid.errors.full_messages.to_sentence }"
