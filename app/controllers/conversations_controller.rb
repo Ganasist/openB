@@ -1,22 +1,32 @@
 class ConversationsController < ApplicationController  
   helper_method :mailbox, :conversation
-  before_filter :authenticate_member
+  before_filter :authenticate_member  
 
   def index   
     @conversations ||= current_member.mailbox.inbox.all
-    @page = "inbox"
+    @page = "inbox"    
   end
   
   def sentbox
     @conversations ||= current_member.mailbox.sentbox.all
-    @page = "sentbox"
+    @page = "sentbox"    
     render :index
   end
   
   def trashbin     
     @conversations ||= current_member.mailbox.trash.all
-    @page = "trashbin"
+    @page = "trashbin"    
     render :index   
+  end
+  
+  def new
+    if params[:user].present?
+      user = User.find(params[:user])
+      @recipient_emails = [user.email]
+    elsif params[:contractor].present?
+      contractor = Contractor.find(params[:contractor])
+      @recipient_emails = [contractor.email]
+    end
   end
 
   def create        
@@ -28,6 +38,10 @@ class ConversationsController < ApplicationController
     end
     conversation = current_member.send_message(recipients, *conversation_params(:body, :subject)).conversation
     redirect_to conversation_path(conversation)
+  end
+  
+  def show
+    conversation.mark_as_read(current_member)
   end  
 
   def reply

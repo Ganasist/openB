@@ -25,6 +25,10 @@
           <li>
             <%= f.button :submit, bid_button_text(@bid), class: bid_button_color(@bid) %>
           </li>
+          
+          <li>
+            <%= link_to 'Send Question', new_conversation_path(:user => job.user), class: bid_button_color(@bid) %>            
+          </li>
 
           <% if @bid.persisted? %>
             <li>

@@ -18,19 +18,17 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
-            <%= content_tag_for(:tr, conversation) do |conversation| %>
+        <tbody>            
+            <% @conversations.each do |conversation| %>
+            <tr class=<%= "#{'unread' if conversation.is_unread?(current_member)}" %>>                
                 <td><%= conversation.id %></td>
                 <td><%= conversation.updated_at.strftime("%a, %m/%e/%Y %I:%M %p") %></td>
                 <td><%= message_sender(conversation) %></td>
                 <td><%= link_to conversation.subject, conversation_path(conversation) %></td>                
                 <td>
-                <% if conversation.is_completely_trashed?(current_member) %>
-                  <%= link_to 'Untrash', untrash_conversation_path(conversation), method: :post %>
-                <% else %>
-                  <%= link_to 'Move to trash', trash_conversation_path(conversation), method: :post %>
-                <% end %>
+                <%= conversation.is_completely_trashed?(current_member) ? link_to('Untrash', untrash_conversation_path(conversation), method: :post) : link_to('Move to trash', trash_conversation_path(conversation), method: :post) %>                 
                 </td>
+            </tr>
             <% end %>
         </tbody>
     </table>

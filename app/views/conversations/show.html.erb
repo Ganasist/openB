@@ -3,7 +3,7 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 main" id="inbox_main">
         <h1><%= conversation.subject %></h1>
         <ul>
-          <%= content_tag_for(:li, conversation.receipts_for(current_member)) do |receipt| %>
+          <%= content_tag_for(:li, conversation.receipts_for(current_member).order('created_at')) do |receipt| %>
             <% message = receipt.message %>    
             <p><%= message.sender.name %></p>
             <p><%= message.body %></p>

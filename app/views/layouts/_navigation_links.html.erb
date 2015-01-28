@@ -1,7 +1,7 @@
 <% if member_signed_in? %>
   <li><%= render 'searches/zip_search_form' %></li>
   <li><%= link_to 'Categories', page_path('categories'), class: 'nav_link'  %></li>
-  <li><%= link_to 'Inbox', conversations_path, class: 'nav-link'%></li>
+  <li><%= link_to "Inbox  #{'(' + current_member.mailbox.receipts.where(is_read: false).count.to_s + ')' if current_member.mailbox.receipts.where(is_read: false).count != 0}", conversations_path, class: 'nav-link'%></li>
 <% end %>
 
 <% if user_signed_in? %>
