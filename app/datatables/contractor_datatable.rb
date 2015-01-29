@@ -24,8 +24,7 @@ class ContractorDatatable < AjaxDatatablesRails::Base
         link_to(record.company_name, record, class: 'unstyled-link'),
         record.categories,
         record.description,
-        record.address,
-        record.review_average_total
+        record.address
       ]
     end
   end

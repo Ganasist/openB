@@ -57,11 +57,11 @@ module MemberValidations
 	end
 
 	def review_average_total
-		test = 0
+		reviews = 0
 		Review.categories.each do |param|
-			test += review_average_single(param)
+			reviews += review_average_single(param)
 		end
-		return (test / Review.categories.length).round(1)
+		return (reviews / Review.categories.length).round(1)
 	end
 
 	private
