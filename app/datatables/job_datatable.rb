@@ -20,8 +20,7 @@ class JobDatatable < AjaxDatatablesRails::Base
           [
             link_to(record.title, record, class: 'unstyled-link'),
             record.categories,
-            record.description,
-            record.address
+            record.description
           ]
         end
       end
