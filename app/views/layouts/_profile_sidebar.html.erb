@@ -16,6 +16,10 @@
 			</div>
 		<% end %>
 	<% end %>
+	
+	<div class="text-center">
+	    <%= link_to 'Send Message', new_conversation_path(:contractor => @contractor), class: 'btn btn-primary' %>
+	</div>
 
 		<span class="text-center">
 			<% if current_member == member %>

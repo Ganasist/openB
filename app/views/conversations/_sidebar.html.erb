@@ -1,8 +1,5 @@
 <div class="col-sm-3 col-md-2 col-lg-2 hidden-xs sidebar" id="inbox_sidebar">
-    <ul class="nav nav-sidebar">
-        <li class=<%= 'active' if %w{/conversations/new}.include?(request.path) %>>
-            <%= link_to 'New Message', :new_conversation %>
-        </li>
+    <ul class="nav nav-sidebar">        
         <li class=<%= 'active' if @page == 'inbox' %>>
             <%= link_to "Inbox  #{@count if @count != 0}", conversations_path %>
         </li>

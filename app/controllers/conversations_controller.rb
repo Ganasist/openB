@@ -22,19 +22,21 @@ class ConversationsController < ApplicationController
   def new
     if params[:user].present?
       user = User.find(params[:user])
-      @recipient_emails = [user.email]
+      @recipient_ids = [user.id]
+      @recipient_names = [user.name]
     elsif params[:contractor].present?
       contractor = Contractor.find(params[:contractor])
-      @recipient_emails = [contractor.email]
+      @recipient_ids = [contractor.id]
+      @recipient_names = [contractor.name]
     end
   end
 
   def create        
-    recipient_emails = conversation_params(:recipients).split(',')    
+    recipient_ids = conversation_params(:recipient_ids).split(',')    
     if current_member.user?
-      recipients = Contractor.where(email: recipient_emails).all
+      recipients = Contractor.where(id: recipient_ids).all
     else
-      recipients = User.where(email: recipient_emails).all
+      recipients = User.where(id: recipient_ids).all
     end
     conversation = current_member.send_message(recipients, *conversation_params(:body, :subject)).conversation
     redirect_to conversation_path(conversation)
