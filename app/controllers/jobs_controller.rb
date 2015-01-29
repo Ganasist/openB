@@ -8,17 +8,6 @@ class JobsController < ApplicationController
   before_action :new_job_check, only: [:new, :create]
 
   def index
-    # @jobs = Job.all.includes(:user).order(updated_at: :desc)
-    #                .page(params[:jobs])
-    #                .per(10)
-    # if category = params[:search]
-    #   @jobs = Job.relevant_categories(category).includes(:user)
-    #              .searching
-    #              .order(updated_at: :desc)
-    #              .page(params[:jobs])
-    #              .per(10)
-    # end
-
     respond_to do |format|
       format.html
       format.json { render json: JobDatatable.new(view_context) }

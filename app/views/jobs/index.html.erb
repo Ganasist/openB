@@ -2,14 +2,19 @@
 
 <div class="container">
   <div class="row col-md-10 col-md-offset-1 col-sm-12">
-    <h1 class="text-center lead">Open Jobs: <%= params[:search] %></h1>
-    <!-- <br> -->
-
-
+    <span  class="text-center">
+      <h1 class="lead">Open Jobs: <%= params[:search] %></h1>
+      <p >Browse <%= link_to 'Contractors', contractors_path, class: 'unstyled-link' %></p>
+    </span>
     <div id="job_index">
-      <%= render 'job_index' %>
+      <table id="jobs-table" data-source="<%= jobs_path(format: :json) %>" class="display responsive no-wrap table table-hover table-striped">
+        <thead class="lead">
+          <td>Title</td>
+          <td>Categories</td>
+          <td>Description</td>
+          <td>Address</td>
+        </thead>
+      </table>
     </div>
-
-
   </div>
 </div>
