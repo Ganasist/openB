@@ -1,5 +1,6 @@
 <%= simple_form_for :conversation, url: :conversations do |f| %>
-  <%= f.input :recipients, label: "Send To", :input_html => { :value => @recipient_emails } %>
+  <%= f.input :recipient_ids, :as => :hidden, :input_html => { :value => @recipient_ids } %>
+  <%= f.input :recipient_names, label: "Send To", :input_html => { :value => @recipient_names } %>
   <%= f.input :subject %>
   <%= f.input :body, as: :text %>
   <div class="form-actions">
