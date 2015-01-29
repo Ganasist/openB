@@ -1,13 +1,8 @@
 class ContractorsController < ApplicationController
   def index
-    @contractors = Contractor.all.order(updated_at: :desc)
-                                 .page(params[:contractors])
-                                 .per(10)
-    if category = params[:search]
-      @contractors = @contractors.relevant_categories(category)
-                                 .order(updated_at: :desc)
-                                 .page(params[:contractors])
-                                 .per(10)
+    respond_to do |format|
+      format.html
+      format.json { render json: ContractorDatatable.new(view_context) }
     end
   end
 

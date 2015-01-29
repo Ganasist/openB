@@ -1,22 +1,10 @@
 <% title "#{ params[:search].singularize } Contractors" if params[:search] %>
 
 <div class="container">
-  <div class="row">
+  <div class="row col-md-10 col-md-offset-1 col-sm-12">
     <h1 class="text-center lead">Contractors: <%= params[:search] %></h1>
-    <div id="paginator-contractors-top" class="text-center">
-      <%= render partial: 'layouts/paginator',
-                  locals: { context: @contractors,
-                     context_string: 'contractors' } %>
-    </div>
-
     <div id="contractor_index">
       <%= render 'contractor_index' %>
-    </div>
-
-    <div id="paginator-contractors-bottom" class="text-center">
-      <%= render partial: 'layouts/paginator',
-                  locals: { context: @contractors,
-                     context_string: 'contractors' } %>
     </div>
   </div>
 </div>

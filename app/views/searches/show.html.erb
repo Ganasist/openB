@@ -2,28 +2,38 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-6 col-xs-12 text-center">
       <% if @contractors.length > 0 %>
-        <h3 class="text-center">Contractors within <%= @search.distance %> miles of ZIP <%= params[:zip_code] %></h3>
+        <h3>
+          <%= link_to 'Contractors', contractors_path, class: 'unstyled-link' %>
+          within <%= @search.distance %> miles of ZIP <%= params[:zip_code] %>
+        </h3>
         <table class="table">
           <tbody>
             <%= render partial: 'zip_search', collection: @contractors, as: :context %>
           </tbody>
         </table>
       <% else %>
-        <h4 class="text-center">No contractors found within <%= @search.distance %> miles of ZIP <%= params[:zip_code] %></h4>
+        <h4>
+          No contractors found within <%= @search.distance %> miles of ZIP <%= params[:zip_code] %>
+        </h4>
       <% end %>
     </div>
     <div class="col-md-6 col-xs-12">
     <% if @jobs.length > 0 %>
-      <h3 class="text-center">Open Jobs within <%= @search.distance %> miles of ZIP <%= params[:zip_code] %></h3>
+      <h3>
+        <%= link_to 'Open Jobs', jobs_path, class: 'unstyled-link' %> within
+        <%= @search.distance %> miles of ZIP <%= params[:zip_code] %>
+      </h3>
       <table class="table">
         <tbody>
           <%= render partial: 'zip_search', collection: @jobs, as: :context %>
         </tbody>
       </table>
       <% else %>
-        <h4 class="text-center">No open jobs found within <%= @search.distance %> miles of ZIP <%= params[:zip_code] %></h4>
+        <h4>
+          No open jobs found within <%= @search.distance %> miles of ZIP <%= params[:zip_code] %>
+        </h4>
       <% end %>
     </div>
   </div>

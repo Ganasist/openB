@@ -1,19 +1,15 @@
 <% title "#{ params[:search].singularize } Jobs" if params[:search] %>
 
 <div class="container">
-  <div class="row">
+  <div class="row col-md-10 col-md-offset-1 col-sm-12">
     <h1 class="text-center lead">Open Jobs: <%= params[:search] %></h1>
     <!-- <br> -->
-    <div id="paginator-jobs-top" class="text-center">
-      <%= render partial: 'layouts/paginator', locals: { context: @jobs, context_string: 'jobs' } %>
-    </div>
+
 
     <div id="job_index">
       <%= render 'job_index' %>
     </div>
 
-    <div id="paginator-jobs-bottom" class="text-center">
-      <%= render partial: 'layouts/paginator', locals: { context: @jobs, context_string: 'jobs' } %>
-    </div>
+
   </div>
 </div>

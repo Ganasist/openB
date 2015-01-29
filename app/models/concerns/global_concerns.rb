@@ -10,11 +10,11 @@ module GlobalConcerns
   end
 
 	module ClassMethods
-    def zip_search(query, distance)
+    def zip_search(query, distance = 50)
       near(query, distance).order(:created_at)
     end
 
-		def lat_lon_search(latitude, longitude, distance)
+		def lat_lon_search(latitude, longitude, distance = 50)
 			near([latitude, longitude], distance).order(:created_at)
 		end
   end
