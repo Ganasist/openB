@@ -1,19 +1,19 @@
 class ContractorDatatable < AjaxDatatablesRails::Base
   include AjaxDatatablesRails::Extensions::Kaminari
-  def_delegators :@view, :link_to, :params, :request
+  def_delegators :@view, :link_to
 
   def sortable_columns
-    @sortable_columns ||= ['contractors.company_name',
-                           'contractors.categories',
-                           'contractors.description',
-                           'contractors.address']
+    @sortable_columns ||= [ 'contractors.company_name',
+                            'contractors.categories',
+                            'contractors.address'
+                          ]
   end
 
   def searchable_columns
-    @searchable_columns ||= ['contractors.company_name',
-                             'contractors.categories',
-                             'contractors.address',
-                             'contractors.categories']
+    @searchable_columns ||= [ 'contractors.company_name',
+                              'contractors.categories',
+                              'contractors.address'
+                            ]
   end
 
   private
@@ -24,8 +24,7 @@ class ContractorDatatable < AjaxDatatablesRails::Base
         link_to(record.company_name, record, class: 'unstyled-link'),
         record.categories,
         record.description,
-        record.address,
-        record.updated_at
+        record.address
       ]
     end
   end
