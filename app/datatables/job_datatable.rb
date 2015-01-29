@@ -5,14 +5,12 @@ class JobDatatable < AjaxDatatablesRails::Base
   def sortable_columns
     @sortable_columns ||= ['jobs.title',
                            'jobs.categories',
-                           'jobs.description',
-                           'jobs.address']
+                           'jobs.description']
     end
 
     def searchable_columns
       @searchable_columns ||= ['jobs.title',
-                               'jobs.categories',
-                               'jobs.address']
+                               'jobs.categories']
       end
 
       private
