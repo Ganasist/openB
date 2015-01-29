@@ -3,32 +3,24 @@ $('#all_categories').DataTable({
   paging: false
 });
 
+var options = {
+                columns: [
+                  { "width": "20%" },
+                  { "width": "20%" },
+                  { "width": "45%" },
+                  { "width": "15%" }
+                ],
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                pagingType: "full_numbers"
+              }
 
-$('#contractors-table').dataTable({
-  columns: [
-    { "width": "20%" },
-    { "width": "20%" },
-    { "width": "45%" },
-    { "width": "15%" }
-    ],
-  responsive: true,
-  processing: true,
-  serverSide: true,
-  ajax: $('#contractors-table').data('source'),
-  pagingType: "full_numbers"
-});
+$('#contractors-table').dataTable(
+  options
+ );
 
 
-$('#jobs-table').dataTable({
-  columns: [
-{ "width": "20%" },
-{ "width": "20%" },
-{ "width": "45%" },
-{ "width": "15%" }
-],
-responsive: true,
-processing: true,
-serverSide: true,
-ajax: $('#contractors-table').data('source'),
-pagingType: "full_numbers"
-});
+$('#jobs-table').dataTable(
+  options
+);
