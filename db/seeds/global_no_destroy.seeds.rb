@@ -37,7 +37,7 @@ puts 'start Global No Destroy seed'
     )
     example.save!
   end
-  puts "End of global loop #{ u }"
+  puts "END OF GLOBAL LOOP #{ u }"
 end
 
 puts 'end Global No Destroy seed'

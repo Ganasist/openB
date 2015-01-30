@@ -22,7 +22,7 @@ Bid.delete_all
     end
     break
   end
-  puts "End of bid loop #{ b }"
+  puts "END OF BID LOOP #{ b }"
 end
 
 puts 'end bids seed'
