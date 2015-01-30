@@ -43,6 +43,14 @@ Rails.application.routes.draw do
 
     resource :search, only: :show
 
+    devise_scope :user do
+      match 'users/token_reset' => 'sessions#token_reset', via: :post
+    end
+
+    devise_scope :contractor do
+      match 'contractors/token_reset' => 'sessions#token_reset', via: :post
+    end
+
     match 'categories' => 'contractors#categories', as: 'contractor_categories', via: :get
     match 'bids/:id/accept' => 'bids#accept_bid', as: 'accept_bid', via: :post
     match 'bids/:id/reject' => 'bids#reject_bid', as: 'reject_bid', via: :post
