@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   def api_endpoints
     devise_for :users, controllers: { registrations: 'api/v1/users/registrations',
                                            sessions: 'api/v1/sessions' }
-                                           
+
     devise_for :contractors, controllers: { registrations: 'api/v1/contractors/registrations',
                                                  sessions: 'api/v1/sessions' }
 
@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     resources :examples, concerns: [:uploadable],
                          defaults: { uploadable: 'example' }
 
-    resource :search, only: :show
+    resource :search, only: :show, via: :post
 
     devise_scope :user do
       match 'users/token_reset' => 'sessions#token_reset', via: :post
