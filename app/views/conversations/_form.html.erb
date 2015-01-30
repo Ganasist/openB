@@ -8,3 +8,13 @@
     <%= submit_tag 'Clear Box', type: :reset, class: 'btn btn-danger' %>    
   </div>
 <% end %>
+
+<script type="text/javascript">
+    $("form.simple_form.conversation").validate({
+        debug: true,
+        rules: {
+            "conversation[subject]": {required: true},
+            "conversation[body]": {required: true}
+        }
+    });
+</script>
