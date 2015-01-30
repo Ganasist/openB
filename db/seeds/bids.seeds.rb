@@ -11,7 +11,7 @@ Bid.delete_all
 #   end
 # end
 
-1000.times do
+1000.times |b| do
   job = Job.all.sample
   loop do
     contractor = Contractor.all.sample
@@ -22,6 +22,7 @@ Bid.delete_all
     end
     break
   end
+  puts "End of bid loop #{ b }"
 end
 
 puts 'end bids seed'
