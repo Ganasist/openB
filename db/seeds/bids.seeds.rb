@@ -11,8 +11,8 @@ Bid.delete_all
 #   end
 # end
 
-1000.times |b| do
-  job = Job.all.sample
+1000.times do |b|
+  job = Job.order("RANDOM()").limit(1)
   loop do
     contractor = Contractor.all.sample
     unless Bid.exists?(job_id: job.id, contractor_id: contractor.id)
