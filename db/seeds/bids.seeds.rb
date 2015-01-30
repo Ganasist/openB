@@ -11,10 +11,12 @@ Bid.delete_all
 #   end
 # end
 
-1000.times do |b|
+index = 0
+
+1000.times do
   job = Job.order("RANDOM()").limit(1)
   loop do
-    contractor = Contractor.all.sample
+    contractor = Contractor.order("RANDOM()").limit(1)
     unless Bid.exists?(job_id: job.id, contractor_id: contractor.id)
       Bid.create!(job_id: job.id,
                   contractor_id: contractor.id,
@@ -22,7 +24,8 @@ Bid.delete_all
     end
     break
   end
-  puts "END OF BID LOOP #{ b }"
+  index += 1
+  puts "Index: #{ index }"
 end
 
 puts 'end bids seed'
