@@ -19,7 +19,7 @@ class JobDatatable < AjaxDatatablesRails::Base
       records.map do |record|
         [
           link_to(record.title, record, class: 'unstyled-link'),
-          record.categories,
+          record.categories.to_sentence,
           record.description
         ]
       end

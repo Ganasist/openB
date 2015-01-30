@@ -22,7 +22,7 @@ class ContractorDatatable < AjaxDatatablesRails::Base
     records.map do |record|
       [
         link_to(record.company_name, record, class: 'unstyled-link'),
-        record.categories,
+        record.categories.to_sentence,
         record.description,
         record.address
       ]
