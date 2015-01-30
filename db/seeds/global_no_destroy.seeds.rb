@@ -1,6 +1,6 @@
 puts 'start Global No Destroy seed'
 
-50.times do |u|
+250.times do |u|
   user = User.create!(email: Faker::Internet.email,
   password: 'loislane',
   password_confirmation: 'loislane',

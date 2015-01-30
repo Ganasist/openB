@@ -11,7 +11,7 @@ Bid.delete_all
 #   end
 # end
 
-500.times do
+1000.times do
   job = Job.all.sample
   loop do
     contractor = Contractor.all.sample
