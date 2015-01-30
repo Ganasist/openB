@@ -18,6 +18,8 @@
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker/core
 //= require bootstrap-slider
+//= require jquery.validate
+//= require jquery.validate.additional-methods
 //= require_tree .
 
 $( document ).ajaxStart(function() {

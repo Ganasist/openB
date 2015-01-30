@@ -537,3 +537,8 @@ div.map_canvas_form label, div.map_canvas label {
 .unread{
   font-weight: bold;
 }
+
+form.conversation label.error, label.error{
+  color: red;
+  font-style: italic;
+}
