@@ -15,6 +15,9 @@
         rules: {
             "conversation[subject]": {required: true},
             "conversation[body]": {required: true}
+        },
+        submitHandler: function(form) {
+            form.submit();
         }
     });
 </script>
