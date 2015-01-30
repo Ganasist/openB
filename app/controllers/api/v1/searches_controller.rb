@@ -16,7 +16,7 @@ class API::V1::SearchesController < API::V1::VersionController
       end
       render :show
     else
-      render json: { message: @search.errors.full_messages.to_sentence }, status: 422
+      render json: { message: "Invalid search: #{ @search.errors.full_messages.to_sentence }" }, status: 422
     end
   end
 end
