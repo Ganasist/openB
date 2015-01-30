@@ -57,11 +57,15 @@ module MemberValidations
 	end
 
 	def review_average_total
-		reviews = 0
-		Review.categories.each do |param|
-			reviews += review_average_single(param)
+		if self.reviews.present?
+			reviews = 0
+			Review.categories.each do |param|
+				reviews += review_average_single(param)
+			end
+			return (reviews / Review.categories.length).round(1)
+		else
+			return "No reviews"
 		end
-		return (reviews / Review.categories.length).round(1)
 	end
 
 	private

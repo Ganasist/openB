@@ -5,10 +5,11 @@ $('#all_categories').DataTable({
 
 $('#contractors-table').dataTable({
   columns: [
-    { "width": "20%" },
-    { "width": "15%" },
-    { "width": "40%" },
-    { "width": "25%" }
+    { width : 15 },
+    { width : 10 },
+    { width : 45 },
+    { width : 15 },
+  { width : 15, orderable: false }
   ],
   responsive: true,
   processing: true,
@@ -24,9 +25,9 @@ $('#contractors-table').dataTable({
 
 $('#jobs-table').dataTable({
   columns: [
-    { "width": "25%" },
-    { "width": "20%" },
-    { "width": "55%" }
+    { width : 25 },
+    { width : 15 },
+    { width : 60 }
   ],
   responsive: true,
   processing: true,

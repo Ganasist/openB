@@ -14,9 +14,9 @@ Bid.delete_all
 index = 0
 
 1000.times do
-  job = Job.order("RANDOM()").limit(1)
+  job = Job.order("RANDOM()").limit(1).first
   loop do
-    contractor = Contractor.order("RANDOM()").limit(1)
+    contractor = Contractor.order("RANDOM()").limit(1).first
     unless Bid.exists?(job_id: job.id, contractor_id: contractor.id)
       Bid.create!(job_id: job.id,
                   contractor_id: contractor.id,

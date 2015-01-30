@@ -5,6 +5,7 @@ class ContractorDatatable < AjaxDatatablesRails::Base
   def sortable_columns
     @sortable_columns ||= [ 'contractors.company_name',
                             'contractors.categories',
+                            'contractors.description',
                             'contractors.address'
                           ]
   end
@@ -12,6 +13,7 @@ class ContractorDatatable < AjaxDatatablesRails::Base
   def searchable_columns
     @searchable_columns ||= [ 'contractors.company_name',
                               'contractors.categories',
+                              'contractors.description',
                               'contractors.address'
                             ]
   end
@@ -24,13 +26,14 @@ class ContractorDatatable < AjaxDatatablesRails::Base
         link_to(record.company_name, record, class: 'unstyled-link'),
         record.categories.to_sentence,
         record.description,
-        record.address
+        record.address,
+        record.review_average_total
       ]
     end
   end
 
   def get_raw_records
-    @contractors = Contractor.all
+    @contractors = Contractor.all.includes(:reviews)
   end
 
   # ==== Insert 'presenter'-like methods below if necessary
