@@ -1,5 +1,4 @@
 class API::V1::SearchesController < API::V1::VersionController
-
   def show
     @search = Search.new
     @search.latitude  = params[:latitude]
@@ -14,5 +13,4 @@ class API::V1::SearchesController < API::V1::VersionController
       render json: { message: 'Invalid or incomplete search parameters' }, status: 422
     end
   end
-
 end
