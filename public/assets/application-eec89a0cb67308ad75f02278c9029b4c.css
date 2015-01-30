@@ -12235,6 +12235,12 @@ div.map_canvas_form label, div.map_canvas label {
 .unread {
   font-weight: bold;
 }
+
+/* line 541, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+form.conversation label.error, label.error {
+  color: red;
+  font-style: italic;
+}
 /* line 1, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/jobs.css.scss */
 a.google_links {
   font-size: 0.8em;
