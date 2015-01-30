@@ -1,5 +1,5 @@
 class API::V1::SearchesController < API::V1::VersionController
-  def show
+  def create
     @search = Search.new
     @search.latitude   = params[:latitude]
     @search.longitude  = params[:longitude]

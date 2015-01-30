@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     resources :examples, concerns: [:uploadable],
                          defaults: { uploadable: 'example' }
 
-    resource :search, only: :show, via: :post
+    resource :search, only: :create
 
     devise_scope :user do
       match 'users/token_reset' => 'sessions#token_reset', via: :post
