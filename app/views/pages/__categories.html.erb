@@ -1,9 +1,9 @@
 <tr>
   <td><%= category %></td>
   <td><%= link_to Contractor.relevant_categories_count(category),
-  								contractors_path(search: category),
+  								contractors_path(scoped: category),
   								class: 'unstyled-link' %></td>
   <td><%= link_to Job.relevant_categories_count(category),
-  								jobs_path(search: category),
+  								jobs_path(scoped: category),
   								class: 'unstyled-link' %></td>
 </tr>

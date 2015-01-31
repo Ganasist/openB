@@ -2,19 +2,11 @@ class ContractorDatatable < AjaxDatatablesRails::Base
   def_delegators :@view, :link_to, :truncate, :image_tag
 
   def sortable_columns
-    @sortable_columns ||= [ 'Contractor.company_name',
-                            'Contractor.categories',
-                            'Contractor.description',
-                            'Contractor.address'
-                          ]
+    @sortable_columns ||= %W(Contractor.company_name Contractor.categories Contractor.description)
   end
 
   def searchable_columns
-    @searchable_columns ||= [ 'Contractor.company_name',
-                              'Contractor.categories',
-                              'Contractor.description',
-                              'Contractor.address'
-                            ]
+    @searchable_columns ||= %W(Contractor.company_name Contractor.categories Contractor.description Contractor.address)
   end
 
   private
@@ -33,7 +25,11 @@ class ContractorDatatable < AjaxDatatablesRails::Base
   end
 
   def get_raw_records
-    @contractors = Contractor.all.includes(:reviews, :upload)
+    if params[:scoped].blank?
+      @contractors = Contractor.all.includes(:reviews, :upload)
+    else
+      @contractors = Contractor.all.relevant_categories(params[:scoped]).includes(:reviews, :upload)
+    end
   end
 
   # ==== Insert 'presenter'-like methods below if necessary

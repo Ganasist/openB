@@ -2,17 +2,12 @@ class JobDatatable < AjaxDatatablesRails::Base
   def_delegators :@view, :link_to, :request, :truncate, :image_tag
 
   def sortable_columns
-    @sortable_columns ||= ['Job.title',
-                           'Job.categories',
-                           'Job.description'
-                           ]
+    @sortable_columns ||= %W(Job.title Job.categories Job.description)
+
     end
 
   def searchable_columns
-    @searchable_columns ||= ['Job.title',
-                             'Job.categories',
-                             'Job.description'
-                             ]
+    @searchable_columns ||= %W(Job.title Job.categories Job.description)
   end
 
   private
@@ -29,7 +24,11 @@ class JobDatatable < AjaxDatatablesRails::Base
     end
 
     def get_raw_records
-      @jobs = Job.all.searching.includes(:uploads)
+      if params[:scoped].blank?
+        @jobs = Job.all.includes(:uploads)
+      else
+        @jobs = Job.all.relevant_categories(params[:scoped]).includes(:uploads)
+      end
     end
 
   # ==== Insert 'presenter'-like methods below if necessary

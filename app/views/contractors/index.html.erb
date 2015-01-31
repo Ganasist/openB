@@ -3,11 +3,11 @@
 <div class="container">
   <div class="row col-md-10 col-md-offset-1 col-sm-12">
     <span  class="text-center">
-      <h1 class="lead">Contractors: <%= params[:search] %></h1>
+      <h1 class="lead">Contractors: <%= params[:scoped] %></h1>
       <p >Browse <%= link_to 'Open Jobs', jobs_path, class: 'unstyled-link' %></p>
     </span>
     <div id="contractor_index">
-      <table id="contractors-table" data-source="<%= contractors_path(format: :json) %>" class="display responsive no-wrap table table-hover table-striped">
+      <table id="contractors-table" data-source="<%= contractors_path(scoped: params[:scoped], format: :json) %>" class="display responsive no-wrap table table-hover table-striped">
         <thead>
           <td>Logo</td>
           <td>Company</td>
