@@ -6,13 +6,13 @@ class API::V1::ReviewsController < API::V1::VersionController
   # respond_to :html
 
   def new
-    @review = Review.new
+    @review = Review.new(reviewable: @job, reviewerable: @job.contractor)
     @contractor = @job.contractor
   end
 
   def create
     @review = Review.create(review_params)
-    @review.reviewable = @reviewable
+    @review.reviewable   = @reviewable
     @review.reviewerable = @reviewerable
     if @review.save
       flash[:notice] = 'Review was successfully created.'

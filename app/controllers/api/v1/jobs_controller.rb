@@ -10,13 +10,13 @@ class API::V1::JobsController < API::BaseController
 
   def index
     @jobs = Job.all.includes(:uploads, :bids).order(updated_at: :desc)
-               .page(params[:jobs])
-               .per(10)
-    if category = params[:search]
+               .page(request.headers['Page']).per(request.headers['Per'])
+
+    if category = request.headers['Category']
       @jobs = Job.relevant_categories(category).includes(:uploads, :bids)
                  .order(updated_at: :desc)
-                 .page(params[:jobs])
-                 .per(10)
+                 .page(request.headers['Page'])
+                 .per(request.headers['Per'])
     end
   end
 
@@ -24,8 +24,8 @@ class API::V1::JobsController < API::BaseController
     # puts @member.fullname
     @bids = @job.bids.where(rejected: false)
                 .order(updated_at: :desc)
-                .page(params[:bids])
-                .per(5)
+                .page(request.headers['Page'])
+                .per(request.headers['Per'])
   end
 
   def new
@@ -34,7 +34,6 @@ class API::V1::JobsController < API::BaseController
   end
 
   def create
-    raise params.inspect
     @job = @member.jobs.new(job_params)
     if @job.save
       JobMailer.create(@job).deliver_later
@@ -70,11 +69,10 @@ class API::V1::JobsController < API::BaseController
   def mark_as_complete
     @job.mark_as_complete!
     if @job.contractor_id.nil?
-      render json: :show, status: 204
-    elsif @job.review.nil?
-      redirect_to new_api_v1_job_review(@job, format: :json), status: 204
+      render :show, status: 202
     else
-      redirect_to edit_api_v1_job_review(@job, format: :json), status: 204
+      @review = Review.new(reviewable: @job, reviewerable: @job.user)
+      render 'api/v1/reviews/new'
     end
   end
 
@@ -82,16 +80,14 @@ class API::V1::JobsController < API::BaseController
     @job.cancel!
     if @job.contractor_id.nil?
       render json: :show, status: 204
-    elsif @job.review.nil?
-      redirect_to new_api_v1_job_review(@job, format: :json), status: 204
     else
-      redirect_to edit_api_v1_job_review(@job, format: :json), status: 204
+      @review = Review.new(reviewable: @job, reviewerable: @job.user)
+      render 'api/v1/reviews/new'
     end
   end
 
   private
     def authenticate
-      puts 'authenticating'
       authenticate_token || render_unauthorized
     end
 
@@ -124,7 +120,7 @@ class API::V1::JobsController < API::BaseController
     end
 
     def job_params
-      params.require(:job).permit(:state, :address, :longitude, :latitude, :phone,
+      params.require(:job).permit(:address, :longitude, :latitude,
                                   :title, :bidding_period, :description, { categories: [] })
     end
   end
