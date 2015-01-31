@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150126162509) do
+ActiveRecord::Schema.define(version: 20150131163316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -182,13 +182,13 @@ ActiveRecord::Schema.define(version: 20150126162509) do
 
   create_table "reviews", force: true do |t|
     t.text     "description"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.integer  "quality",           default: 5, null: false
-    t.integer  "cost",              default: 5, null: false
-    t.integer  "timeliness",        default: 5, null: false
-    t.integer  "professionalism",   default: 5, null: false
-    t.integer  "recommendation",    default: 5, null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "quality",           null: false
+    t.integer  "cost",              null: false
+    t.integer  "timeliness",        null: false
+    t.integer  "professionalism",   null: false
+    t.integer  "recommendation",    null: false
     t.integer  "reviewable_id"
     t.string   "reviewable_type"
     t.integer  "reviewerable_id"
@@ -274,4 +274,7 @@ ActiveRecord::Schema.define(version: 20150126162509) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
+  add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", column: "conversation_id", name: "mb_opt_outs_on_conversations_id"
+  add_foreign_key "mailboxer_notifications", "mailboxer_conversations", column: "conversation_id", name: "notifications_on_conversation_id"
+  add_foreign_key "mailboxer_receipts", "mailboxer_notifications", column: "notification_id", name: "receipts_on_notification_id"
 end

@@ -12,7 +12,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.create(review_params)
-    @review.reviewable = @reviewable
+    @review.reviewable   = @reviewable
     @review.reviewerable = @reviewerable
     if @review.save
       flash[:notice] = 'Review was successfully created.'

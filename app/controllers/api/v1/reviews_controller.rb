@@ -1,13 +1,14 @@
 class API::V1::ReviewsController < API::V1::VersionController
+  before_action :authenticate
   before_action :set_job
-  # before_action :set_review, only: [:edit, :update, :destroy]
   before_action :get_reviewable, only: [:new, :create, :edit, :update]
   before_action :get_reviewerable, only: [:new, :create, :edit, :update]
-  # respond_to :html
+
+  before_action :ensure_permission, except: [:show]
+
 
   def new
-    @review = Review.new(reviewable: @job, reviewerable: @job.contractor)
-    @contractor = @job.contractor
+    @review = Review.new(reviewable: @job, reviewerable: @job.user)
   end
 
   def create
@@ -15,10 +16,9 @@ class API::V1::ReviewsController < API::V1::VersionController
     @review.reviewable   = @reviewable
     @review.reviewerable = @reviewerable
     if @review.save
-      flash[:notice] = 'Review was successfully created.'
-      redirect_to job_review_path(@job)
+      render :show
     else
-      render 'new', error: "#{ @review.errors.full_messages.to_sentence }"
+      render :new, json: { error: "#{ @review.errors.full_messages.to_sentence }" }, status: 422
     end
   end
 
@@ -49,25 +49,51 @@ class API::V1::ReviewsController < API::V1::VersionController
   end
 
   private
+    def authenticate
+      authenticate_token || render_unauthorized
+    end
 
-  def get_reviewerable
-    @reviewerable = current_user || current_contractor
-  end
+    def authenticate_token
+      member_email  = request.headers['Email'].presence
+      @member       = member_email && (User.find_by(email: request.headers['Email']) || Contractor.find_by(email: request.headers['Email']))
 
-  def get_reviewable
-    @reviewable = params[:reviewable].classify.constantize.find(reviewable_id)
-  end
+      authenticate_with_http_token do |token, options|
+        if @member && Devise.secure_compare(@member.authentication_token, token)
+          return @member
+        end
+      end
+    end
 
-  def reviewable_id
-    params[(params[:reviewable].singularize + '_id').to_sym]
-  end
+    def render_unauthorized
+      self.headers['WWW-Authenticate'] = 'Token realm="Jobs"'
+      render json: 'Bad Credentials', status: 401
+    end
 
-  def set_job
-    @job = Job.find(params[:job_id])
-  end
+    def ensure_permission
+      if @member == @job.user
+        return
+      else
+        render json: 'Access denied.', status: 403
+      end
+    end
 
+    def get_reviewerable
+      @reviewerable = @member
+    end
 
-  def review_params
-    params.require(:review).permit(:quality, :cost, :timeliness, :professionalism, :recommendation, :description)
-  end
+    def get_reviewable
+      @reviewable = params[:reviewable].classify.constantize.find(reviewable_id)
+    end
+
+    def reviewable_id
+      params[(params[:reviewable].singularize + '_id').to_sym]
+    end
+
+    def set_job
+      @job = Job.find(params[:job_id])
+    end
+
+    def review_params
+      params.require(:review).permit(:quality, :cost, :timeliness, :professionalism, :recommendation, :description)
+    end
 end

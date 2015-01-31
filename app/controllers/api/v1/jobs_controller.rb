@@ -21,7 +21,6 @@ class API::V1::JobsController < API::BaseController
   end
 
   def show
-    # puts @member.fullname
     @bids = @job.bids.where(rejected: false)
                 .order(updated_at: :desc)
                 .page(request.headers['Page'])
