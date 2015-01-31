@@ -5,11 +5,12 @@ $('#all_categories').DataTable({
 
 $('#contractors-table').dataTable({
   columns: [
+    { width : 10 },
     { width : 15 },
     { width : 10 },
-    { width : 45 },
+    { width : 35 },
     { width : 15 },
-  { width : 15, orderable: false }
+    { width : 15, orderable: false }
   ],
   responsive: true,
   processing: true,
@@ -25,9 +26,10 @@ $('#contractors-table').dataTable({
 
 $('#jobs-table').dataTable({
   columns: [
+    { width : 10 },
     { width : 25 },
     { width : 15 },
-    { width : 60 }
+    { width : 50, orderable: false }
   ],
   responsive: true,
   processing: true,

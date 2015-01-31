@@ -1,20 +1,19 @@
 class ContractorDatatable < AjaxDatatablesRails::Base
-  include AjaxDatatablesRails::Extensions::Kaminari
-  def_delegators :@view, :link_to
+  def_delegators :@view, :link_to, :truncate, :image_tag
 
   def sortable_columns
-    @sortable_columns ||= [ 'contractors.company_name',
-                            'contractors.categories',
-                            'contractors.description',
-                            'contractors.address'
+    @sortable_columns ||= [ 'Contractor.company_name',
+                            'Contractor.categories',
+                            'Contractor.description',
+                            'Contractor.address'
                           ]
   end
 
   def searchable_columns
-    @searchable_columns ||= [ 'contractors.company_name',
-                              'contractors.categories',
-                              'contractors.description',
-                              'contractors.address'
+    @searchable_columns ||= [ 'Contractor.company_name',
+                              'Contractor.categories',
+                              'Contractor.description',
+                              'Contractor.address'
                             ]
   end
 
@@ -23,9 +22,10 @@ class ContractorDatatable < AjaxDatatablesRails::Base
   def data
     records.map do |record|
       [
+        image_link(record),
         link_to(record.company_name, record, class: 'unstyled-link'),
         record.categories.to_sentence,
-        record.description,
+        truncate(record.description, length: 120),
         record.address,
         record.review_average_total
       ]
@@ -33,8 +33,17 @@ class ContractorDatatable < AjaxDatatablesRails::Base
   end
 
   def get_raw_records
-    @contractors = Contractor.all.includes(:reviews)
+    @contractors = Contractor.all.includes(:reviews, :upload)
   end
 
   # ==== Insert 'presenter'-like methods below if necessary
+  def image_link(record)
+    if record.upload.present?
+      link_to record do
+        image_tag record.upload.image.url(:thumb)
+      end
+    else
+      'No Logo'
+    end
+  end
 end
