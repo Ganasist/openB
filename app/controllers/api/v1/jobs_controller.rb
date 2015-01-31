@@ -1,5 +1,5 @@
 class API::V1::JobsController < API::BaseController
-  before_action :authenticate
+  before_action :authenticate, except: [:index, :show]
 
   before_action :set_job, only: [:show, :edit, :update, :destroy,
                                  :resume_search, :mark_as_complete, :cancel_job]
@@ -21,7 +21,7 @@ class API::V1::JobsController < API::BaseController
   end
 
   def show
-    puts @member.fullname
+    # puts @member.fullname
     @bids = @job.bids.where(rejected: false)
                 .order(updated_at: :desc)
                 .page(params[:bids])
@@ -119,7 +119,7 @@ class API::V1::JobsController < API::BaseController
       if @member == @job.user
         return
       else
-        render json: "You don't have access.", status: 403
+        render json: 'Access denied.', status: 403
       end
     end
 

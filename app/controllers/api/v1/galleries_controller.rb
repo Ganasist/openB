@@ -15,7 +15,7 @@ class API::V1::GalleriesController < API::V1::VersionController
 
   def contractor_check
     unless current_member == @contractor
-      redirect_to :back, alert: 'You are not authorised to do that'
+      redirect_to :back, alert: 'Access denied.'
     end
   end
 end

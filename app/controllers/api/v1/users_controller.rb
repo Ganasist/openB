@@ -1,17 +1,17 @@
 class API::V1::UsersController < API::V1::VersionController
 
-  def index
-    @users = User.all.order(updated_at: :desc).page(params[:users]).per(10)
-
-    if category = params[:search]
-      @users = @users.relevant_categories(category)
-                     .order(updated_at: :desc)
-                     .page(params[:users])
-                     .per(10)
-    end
-
-    render :index
-  end
+  # def index
+  #   @users = User.all.order(updated_at: :desc).page(params[:users]).per(10)
+  #
+  #   if category = params[:search]
+  #     @users = @users.relevant_categories(category)
+  #                    .order(updated_at: :desc)
+  #                    .page(params[:users])
+  #                    .per(10)
+  #   end
+  #
+  #   render :index
+  # end
 
   def show
     @user = User.includes(:upload).find(params[:id])
