@@ -1,6 +1,11 @@
 <p class="text-center lead text-danger">
-<%= "Your #{ link_to('Profile', edit_registration_path(current_member), class: 'unstyled-link') } 
-		is incomplete.".html_safe %>
+	<% if current_member.is_a?(User) %>
+		<%= "Your #{ link_to('Profile', edit_user_registration_path, class: 'unstyled-link') }
+				is incomplete.".html_safe %>
+	<% else %>
+	<%= "Your #{ link_to('Profile', edit_contractor_registration_path, class: 'unstyled-link') } 
+			is incomplete.".html_safe %>
+	<% end %>
 <br>
 Please consider improving it!
 </p>
