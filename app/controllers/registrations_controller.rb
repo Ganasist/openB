@@ -22,14 +22,6 @@ class RegistrationsController < Devise::RegistrationsController
   # end
 
 	protected
-		def after_sign_up_path_for(resource)
-			if resource.sign_in_count == 1
-				flash[:notice] = 'Welcome to OpenBid! Please complete your profile.'
-				edit_registration_path(resource)
-			else
-				after_sign_in_path(resource)
-			end
-    end
 
     def after_update_path_for(resource)
       current_user || current_contractor
