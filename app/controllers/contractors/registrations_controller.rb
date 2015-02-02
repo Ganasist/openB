@@ -39,14 +39,14 @@ class Contractors::RegistrationsController < RegistrationsController
   end
 
   protected
-		def after_sign_up_path_for(resource)
-			if resource.sign_in_count == 1
-				flash[:notice] = 'Welcome to OpenBid! Please complete your profile.'
-				edit_contractor_registration_path(resource)
-			else
-				after_sign_in_path(resource)
-			end
+  def after_sign_up_path_for(resource)
+    if resource.sign_in_count == 1
+      flash[:notice] = 'Welcome to OpenBid! Please complete your profile.'
+      edit_contractor_registration_path
+    else
+      after_sign_in_path
     end
+  end
 
     # check if we need password to update user data
     # ie if password or email was changed
