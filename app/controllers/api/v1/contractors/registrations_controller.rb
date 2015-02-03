@@ -22,7 +22,7 @@ class API::V1::Contractors::RegistrationsController < Devise::RegistrationsContr
     else
       warden.custom_failure!
       render json: @contractor.errors,
-      status: 422
+           status: 422
     end
   end
 
@@ -62,7 +62,6 @@ class API::V1::Contractors::RegistrationsController < Devise::RegistrationsContr
     end
 
     def authenticate
-      puts 'authenticating'
       authenticate_token || render_unauthorized
     end
 
@@ -72,7 +71,6 @@ class API::V1::Contractors::RegistrationsController < Devise::RegistrationsContr
 
       authenticate_with_http_token do |token, options|
         if @contractor && Devise.secure_compare(@contractor.authentication_token, token)
-          puts "#{ @contractor.fullname } authenticated"
           return @contractor
         end
       end

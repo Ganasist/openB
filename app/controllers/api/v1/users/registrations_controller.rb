@@ -11,7 +11,6 @@ class API::V1::Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    puts 'User Create'
     @user = User.new(user_params)
 
     if @user.save
