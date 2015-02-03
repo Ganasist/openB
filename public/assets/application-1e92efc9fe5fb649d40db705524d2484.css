@@ -12241,6 +12241,78 @@ form.conversation label.error, label.error {
   color: red;
   font-style: italic;
 }
+
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 768px) {
+  /* line 551, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+  }
+
+  /* line 558, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -33%;
+  }
+
+  /* line 563, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+  .row-offcanvas-left.active {
+    left: 33%;
+  }
+
+  /* line 567, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 33%;
+    margin-left: 10px;
+  }
+}
+/* Sidebar navigation */
+/* line 577, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+.nav-sidebar {
+  margin-right: -15px;
+  margin-bottom: 20px;
+  margin-left: -15px;
+}
+
+/* line 582, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+/* line 586, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+.nav-sidebar > .active > a {
+  color: #fff;
+  background-color: #428bca;
+}
+
+/*
+ * Main content
+ */
+/* line 595, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+.main {
+  padding: 20px;
+  background-color: #fff;
+}
+
+@media (min-width: 768px) {
+  /* line 600, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+/* line 605, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/framework_and_overrides.css.scss */
+.main .page-header {
+  margin-top: 0;
+}
 /* line 1, /Users/johntrichereau/Desktop/Dropbox/web_apps/openbid/app/assets/stylesheets/jobs.css.scss */
 a.google_links {
   font-size: 0.8em;
