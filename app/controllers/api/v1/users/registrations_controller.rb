@@ -63,7 +63,6 @@ class API::V1::Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def authenticate
-      puts 'authenticating'
       authenticate_token || render_unauthorized
     end
 
