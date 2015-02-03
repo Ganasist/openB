@@ -1,8 +1,6 @@
 class API::V1::SessionsController < Devise::SessionsController
   prepend_before_filter :require_no_authentication, :only => [:create, :token_reset ]
   skip_before_filter :verify_authenticity_token
-  # skip_before_filter :authenticate_scope!
-  # include Devise::Controllers::InternalHelpers
 
   before_filter :ensure_params_exist
 
