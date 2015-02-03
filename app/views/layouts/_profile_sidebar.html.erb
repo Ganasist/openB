@@ -18,7 +18,7 @@
 	<% end %>
 	
 	<% if @contractor.present? && @contractor != current_member %>
-	<div class="text-center">
+	<div class="text-center" style="margin-top: 10px;">
 	    <%= link_to 'Send Message', new_conversation_path(:contractor => @contractor), class: 'btn btn-primary' %>
 	</div>
 	<% end %>
