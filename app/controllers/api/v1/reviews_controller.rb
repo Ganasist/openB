@@ -8,6 +8,9 @@ class API::V1::ReviewsController < API::V1::VersionController
 
 
   def new
+    if @job.review
+      @job.review.destroy
+    end
     @review = Review.new(reviewable: @job, reviewerable: @job.user)
   end
 
@@ -33,18 +36,19 @@ class API::V1::ReviewsController < API::V1::VersionController
   def update
     @review = @job.review
     if @review.update(review_params)
-      redirect_to job_review_path(@job), notice: 'Review was successfully updated.'
+      render :show, status: 200
     else
-      render 'edit', error: "#{ @review.errors.full_messages.to_sentence }"
+      render :edit, error: "#{ @review.errors.full_messages.to_sentence }", status: 422
     end
   end
 
   def destroy
     @review = @job.review
-    @review.destroy
-    respond_to do |format|
-      # format.html { redirect_to current_user, notice: "'Review for #{ @job.title }' was successfully deleted" }
-      format.js
+    if @review
+      @review.destroy
+      head :no_content, status: 204
+    else
+      render json: {}, status: 404
     end
   end
 

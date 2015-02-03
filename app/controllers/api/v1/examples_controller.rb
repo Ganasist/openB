@@ -9,6 +9,7 @@ class API::V1::ExamplesController < API::BaseController
 
     def new
       @example = Example.new
+      @example.contractor = @member
       render :new
     end
 
@@ -34,11 +35,22 @@ class API::V1::ExamplesController < API::BaseController
     end
 
     def destroy
-      @job.destroy
-      render json: {}, status: 204
+      if @example
+        @example.destroy
+        head :no_content
+      else
+        render json: {}, status: 404
+      end
     end
 
     private
+      def ensure_permission
+        if @member == @example.contractor
+          return
+        else
+          render json: 'Access denied', status: 403
+        end
+      end
       def authenticate
         authenticate_token || render_unauthorized
       end
@@ -63,17 +75,8 @@ class API::V1::ExamplesController < API::BaseController
         @example = Example.find(params[:id])
       end
 
-      def ensure_permission
-        puts 'Ensuring permission'
-        if @member == @example.contractor
-          return
-        else
-          render json: 'Access denied.', status: 403
-        end
-      end
-
       def example_params
-        params.require(:job).permit(:address, :longitude, :latitude, :title, :description,
+        params.require(:example).permit(:address, :longitude, :latitude, :title, :description,
                                     :duration, :duration_unit, :cost, { categories: [] })
       end
   end
