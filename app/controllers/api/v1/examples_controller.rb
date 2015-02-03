@@ -45,7 +45,7 @@ class API::V1::ExamplesController < API::BaseController
 
       def authenticate_token
         member_email  = request.headers['Email'].presence
-        @member       = member_email && (User.find_by(email: request.headers['Email']) || Contractor.find_by(email: request.headers['Email']))
+        @member       = member_email && Contractor.find_by(email: request.headers['Email'])
 
         authenticate_with_http_token do |token, options|
           if @member && Devise.secure_compare(@member.authentication_token, token)
