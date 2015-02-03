@@ -16,17 +16,19 @@ class API::V1::SearchesController < API::V1::VersionController
           @contractors = @contractors.relevant_categories(@search.categories)
         end
         render :show
-      elsif @search.zip_code.present? && (Search.exists?(['zip_code = ?', @search.zip_code]) && !Rails.env.staging?)
-        @jobs = Job.zip_search(@search.zip_code, @search.distance).includes(:uploads)
-        @contractors = Contractor.zip_search(@search.zip_code, @search.distance).includes(:uploads)
+      elsif !Rails.env.staging?
+        if @search.zip_code.present? && Search.exists?(['zip_code = ?', @search.zip_code])
+          @jobs = Job.zip_search(@search.zip_code, @search.distance).includes(:uploads)
+          @contractors = Contractor.zip_search(@search.zip_code, @search.distance).includes(:uploads)
 
-        if categories = params[:categories]
-          @jobs = @jobs.relevant_categories(@search.categories)
-          @contractors = @contractors.relevant_categories(@search.categories)
+          if categories = params[:categories]
+            @jobs = @jobs.relevant_categories(@search.categories)
+            @contractors = @contractors.relevant_categories(@search.categories)
+          end
+          render :show
+        elsif @search.zip_code.present? && !Search.exists?(['zip_code = ?', @search.zip_code])
+          render json: { message: "Zip code not found."}, status: 402
         end
-        render :show
-      elsif @search.zip_code.present? && !Search.exists?(['zip_code = ?', @search.zip_code])
-        render json: { message: "Zip code not found."}, status: 402
       end
     else
       render json: { message: "Invalid search: #{ @search.errors.full_messages.to_sentence }" }, status: 422
