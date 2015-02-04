@@ -14,8 +14,9 @@ class API::V1::Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user.as_json(auth_token: @user.authentication_token,
-                                      email: @user.email),
+      render json: @user.as_json(id: @user.id,
+                         auth_token: @user.authentication_token,
+                              email: @user.email),
            status: 201
       WelcomeMailer.user_welcome(@user).deliver_later
       return
@@ -85,6 +86,7 @@ class API::V1::Users::RegistrationsController < Devise::RegistrationsController
       params.require(:user).permit(:name, :email, :address,
                                    :longitude, :latitude,
                                    { categories: [] },
+                                   :search_radius,
                                    :password, :current_password,
                                    :password_confirmation, :phone,
                                    upload_attributes: [:id, :image,
