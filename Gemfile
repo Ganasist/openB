@@ -61,17 +61,19 @@ group :development do
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'guard-bundler'
   gem 'guard-rails'
-  gem 'guard-rspec'
   gem 'rails_layout'
   gem 'rb-fchange', :require=>false
-  gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
 end
 group :development, :test do
+  gem 'rb-fsevent', :require=>false
+  gem 'guard-rspec'
   gem 'bullet'
   gem 'derailed_benchmarks'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'parallel_tests'
+  gem 'zeus-parallel_tests'
 end
 group :production, :staging do
   gem 'rails_12factor'
