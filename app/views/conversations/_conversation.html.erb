@@ -4,16 +4,7 @@
             <tr>
                 <th>ID</th>
                 <th>Sent at</th>
-                <th>
-                    <% case @page %>
-                    <% when "inbox" %>
-                    Sender
-                    <% when "sentbox" %>
-                    Receiver
-                    <% when "trashbin" %>
-                    Sender/Receiver
-                    <% end %>
-                </th>
+                <th>Sender</th>
                 <th>Subject</th>
                 <th>Actions</th>
             </tr>
@@ -23,7 +14,9 @@
             <tr class=<%= "#{'unread' if conversation.is_unread?(current_member)}" %>>                
                 <td><%= conversation.id %></td>
                 <td><%= conversation.updated_at.strftime("%a, %m/%e/%Y %I:%M %p") %></td>
-                <td><%= message_sender(conversation) %></td>
+                <td>
+                    <%= message_sender(conversation, @page) %>
+                </td>
                 <td><%= link_to conversation.subject, conversation_path(conversation) %></td>                
                 <td>
                 <%= conversation.is_completely_trashed?(current_member) ? link_to('Untrash', untrash_conversation_path(conversation), method: :post) : link_to('Move to trash', trash_conversation_path(conversation), method: :post) %>                 
