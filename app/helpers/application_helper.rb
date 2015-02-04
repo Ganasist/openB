@@ -24,8 +24,10 @@ module ApplicationHelper
 		end
 	end
 	
-	def message_sender(conversation)
-	  message = Mailboxer::Notification.where(conversation_id: conversation.id).where.not(sender_id: current_member.id, sender_type: current_member.class.name)
-	  message.first.sender.name if message.any?
-	end
+	def message_sender(conversation, type)	  
+	  receipts = conversation.receipts_for(current_member)
+    receipt = receipts.where(mailbox_type: type)
+    message = receipt.first.message
+	  message.sender.name
+	end	
 end
