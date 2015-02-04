@@ -11,7 +11,7 @@ class API::V1::SessionsController < Devise::SessionsController
     return invalid_login_attempt unless resource
 
     if resource.valid_password?(params[:member][:password])
-      render json: { success: true, auth_token: resource.authentication_token, email: resource.email }
+      render json: { success: true, id: resource.id, class: resource.class.name, auth_token: resource.authentication_token, email: resource.email }
       return
     end
     invalid_login_attempt
@@ -25,7 +25,7 @@ class API::V1::SessionsController < Devise::SessionsController
 
     if resource.valid_password?(params[:member][:password])
       resource.reset_authentication_token
-      render json: { success: true, auth_token: resource.authentication_token, email: resource.email }
+      render json: { success: true, id: resource.id, class: resource.class.name, auth_token: resource.authentication_token, email: resource.email }
       return
     end
     invalid_login_attempt
