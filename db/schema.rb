@@ -273,4 +273,4 @@ ActiveRecord::Schema.define(version: 20150131163316) do
   add_index "users", ["longitude"], name: "index_users_on_longitude", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
-end
+
