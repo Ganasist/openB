@@ -14,8 +14,9 @@ class API::V1::Contractors::RegistrationsController < Devise::RegistrationsContr
     @contractor = Contractor.new(contractor_params)
 
     if @contractor.save
-      render json: @contractor.as_json(auth_token: @contractor.authentication_token,
-                                            email: @contractor.email),
+      render json: @contractor.as_json(id: @contractor.id,
+                               auth_token: @contractor.authentication_token,
+                                    email: @contractor.email),
            status: 201
       WelcomeMailer.contractor_welcome(@contractor).deliver_later
       return
