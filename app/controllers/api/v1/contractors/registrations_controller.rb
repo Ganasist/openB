@@ -68,7 +68,8 @@ class API::V1::Contractors::RegistrationsController < Devise::RegistrationsContr
 
     def authenticate_token
       contractor_email  = request.headers['Email'].presence
-      @contractor       = contractor_email && Contractor.find_by(email: request.headers['Email'])
+      @contractor       = contractor_email &&
+                          Contractor.find_by(email: request.headers['Email'])
 
       authenticate_with_http_token do |token, options|
         if @contractor && Devise.secure_compare(@contractor.authentication_token, token)
@@ -89,9 +90,10 @@ class API::V1::Contractors::RegistrationsController < Devise::RegistrationsContr
                                         :search_radius, :company_name,
                                         :password, :current_password,
                                         :password_confirmation,
-                                        :description, upload_attributes: [:id,
-                                                                          :image,
-                                                                          :_destroy,
-                                                                          :image_remote_url])
+                                        :description,
+                                        upload_attributes: [:id,
+                                                            :image,
+                                                            :_destroy,
+                                                            :image_remote_url])
     end
   end

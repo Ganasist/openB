@@ -68,7 +68,8 @@ class API::V1::Users::RegistrationsController < Devise::RegistrationsController
 
     def authenticate_token
       user_email  = request.headers['Email'].presence
-      @user       = user_email && User.find_by(email: request.headers['Email'])
+      @user       = user_email &&
+                    User.find_by(email: request.headers['Email'])
 
       authenticate_with_http_token do |token, options|
         if @user && Devise.secure_compare(@user.authentication_token, token)
