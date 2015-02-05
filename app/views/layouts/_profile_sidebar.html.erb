@@ -16,7 +16,7 @@
 			</div>
 		<% end %>
 	<% end %>
-	
+
 	<% if @contractor.present? && @contractor != current_member %>
 	<div class="text-center" style="margin-top: 10px;">
 	    <%= link_to 'Send Message', new_conversation_path(:contractor => @contractor), class: 'btn btn-primary' %>
@@ -30,7 +30,7 @@
 			<%= render 'layouts/member_address', member: member %>
 		</span>
 	<hr>
-	<% if member.reviews.present? %>
+	<% if member.reviews.count > 0 %>
 		<%= render partial: 'layouts/member_reviews', locals: { member: member } %>
 	<% else %>
 		<h3 class="text-center lead">
