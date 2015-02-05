@@ -17,7 +17,7 @@
       </div>
 
         <div class="col-xs-12" id="bids">
-          <%= render partial: 'bid_panel' %>
+          <%= render partial: 'bid_panel'if @job.bids %>
         </div>
 
         <% elsif @bids.count == 0 && current_user == @job.user %>

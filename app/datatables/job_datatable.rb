@@ -2,7 +2,7 @@ class JobDatatable < AjaxDatatablesRails::Base
   def_delegators :@view, :link_to, :request, :truncate, :image_tag
 
   def sortable_columns
-    @sortable_columns ||= %W(Job.title Job.categories Job.description)
+    @sortable_columns ||= %W(Job.title Job.categories)
 
     end
 

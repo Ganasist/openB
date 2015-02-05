@@ -1,4 +1,4 @@
-<% if bid.job.present? %>
+<% if bid.job.present? && bid.job.contractor.present? %>
   <div class="col-lg-3 col-md-4 col-xs-6 thumb">
       <%= link_to truncate(bid.job.title, length: 25), bid.job, class: 'unstyled-link' %>
       <br>
