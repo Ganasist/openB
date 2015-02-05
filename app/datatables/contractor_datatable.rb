@@ -2,7 +2,7 @@ class ContractorDatatable < AjaxDatatablesRails::Base
   def_delegators :@view, :link_to, :truncate, :image_tag
 
   def sortable_columns
-    @sortable_columns ||= %W(Contractor.company_name Contractor.categories Contractor.description)
+    @sortable_columns ||= %W(Contractor.company_name Contractor.categories)
   end
 
   def searchable_columns

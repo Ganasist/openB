@@ -8,8 +8,8 @@ $('#contractors-table').dataTable({
     { width : 10 },
     { width : 15 },
     { width : 10 },
-    { width : 35 },
-    { width : 15 },
+    { width : 35, orderable: false },
+    { width : 15, orderable: false },
     { width : 15, orderable: false }
   ],
   responsive: true,
