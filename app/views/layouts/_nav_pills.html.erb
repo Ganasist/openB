@@ -21,6 +21,9 @@
         </span>
       </a>
     </li>
+    <li class="<%= 'active' if params[:tab] == 'bids' %>">
+      <a href="#bid" data-toggle="tab">Bids</a>
+    </li>
   <% end %>
 
   <% if @contractor %>
@@ -35,9 +38,7 @@
     </li>
   <% end %>
 
-  <li class="<%= 'active' if params[:tab] == 'bids' %>">
-    <a href="#bid" data-toggle="tab">Bids</a>
-  </li>
+
 
   <li class="<%= 'active' if params[:tab] == 'reviews' %>">
     <a href="#review" data-toggle="tab">Reviews</a>

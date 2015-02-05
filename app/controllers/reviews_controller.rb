@@ -7,13 +7,13 @@ class ReviewsController < ApplicationController
 
   def new
     @review = Review.new
-    @contractor = @job.contractor
   end
 
   def create
     @review = Review.create(review_params)
     @review.reviewable   = @reviewable
     @review.reviewerable = @reviewerable
+    @review.contractor = @reviewable.contractor
     if @review.save
       flash[:notice] = 'Review was successfully created.'
       redirect_to job_review_path(@job)

@@ -2,7 +2,7 @@ class Review < ActiveRecord::Base
   belongs_to :reviewable, polymorphic: true
   belongs_to :reviewerable, polymorphic: true
 
-  # belongs_to :contractor
+  belongs_to :contractor
   belongs_to :user
   belongs_to :job
 
